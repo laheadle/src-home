@@ -101,13 +101,6 @@
 (use-package helm-descbinds
   :init (helm-descbinds-mode))
 
-(use-package emmet-mode
-  :init
-  (progn
-    (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-    (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
-    (setq emmet-move-cursor-between-quotes t))) ;; default nil
-
 (define-prefix-command 'endless/toggle-map)
 ;; The manual recommends C-c for user keys, but C-x t is
 ;; always free, whereas C-c t is used by some modes.
@@ -277,6 +270,13 @@ is already narrowed."
   :init (setq magit-popup-use-prefix-argument nil
               magit-visit-ref-create t)
   :bind (("C-." . magit-status)))
+
+(use-package emmet-mode
+  :init
+  (progn
+    (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+    (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+    (setq emmet-move-cursor-between-quotes t))) ;; default nil
 
 (add-hook 'js-mode-hook (lambda () (abbrev-mode 1)))
 

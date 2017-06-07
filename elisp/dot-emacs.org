@@ -2,7 +2,7 @@
 
 * the only thing in .emacs.d is melpa packages and some state files
 
-* elisp home directory
+* ~src/home/elisp directory
 
 #+BEGIN_SRC emacs-lisp
 (defvar l-elisp-home (file-truename "~/src/home/elisp/"))
@@ -148,7 +148,7 @@
 
 #+END_SRC
 
-* Packages
+* Package Management
 
 #+BEGIN_SRC emacs-lisp
 
@@ -172,7 +172,7 @@
 
 #+END_SRC
 
-* Keys
+* Keybindings
 
 #+begin_src emacs-lisp
 (use-package free-keys)
@@ -263,18 +263,6 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 
 (use-package helm-descbinds
   :init (helm-descbinds-mode))
-
-#+END_SRC
-
-* Emmet
-#+BEGIN_SRC emacs-lisp
-
-(use-package emmet-mode
-  :init
-  (progn
-    (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-    (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
-    (setq emmet-move-cursor-between-quotes t))) ;; default nil
 
 #+END_SRC
 
@@ -490,7 +478,19 @@ is already narrowed."
 
 
 #+END_SRC
-* TODO programming languages
+* TODO languages
+** HTML
+#+BEGIN_SRC emacs-lisp
+
+(use-package emmet-mode
+  :init
+  (progn
+    (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+    (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+    (setq emmet-move-cursor-between-quotes t))) ;; default nil
+
+#+END_SRC
+
 ** Javascript
 
 #+BEGIN_SRC emacs-lisp
