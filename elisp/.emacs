@@ -296,6 +296,23 @@ is already narrowed."
 
           (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))))
 
+(use-package nvm)
+
+(defun do-nvm-use (version)
+  (interactive "sVersion: ")
+  (nvm-use version))
+
+(defun l-show-nvm-installed-versions ()
+  (interactive)
+  (message "%s" (nvm--installed-versions)))
+
+(defun run-node (cwd)
+  (interactive "DDirectory: ")
+  (unless (executable-find "node")
+    (call-interactively 'do-nvm-use))
+  (let ((default-directory cwd))
+        (pop-to-buffer (make-comint (format "node-repl-%s" cwd) "node" nil "--interactive"))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

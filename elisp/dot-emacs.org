@@ -127,27 +127,12 @@
 ** Shells and terminals
 
 #+BEGIN_SRC emacs-lisp
-(if (not (getenv "TERM_PROGRAM"))
-       (setenv "PATH"
-               (shell-command-to-string "source $HOME/.bashrc && printf $PATH")))
-
-;;; Set localized PATH for OS X
-(defun my-add-path (path-element)
-  "Add the specified PATH-ELEMENT to the Emacs PATH."
-  (interactive "DEnter directory to be added to path: ")
-  (if (file-directory-p path-element)
-     (progn
-       (setenv "PATH" (concat (expand-file-name path-element) path-separator (getenv "PATH")))
-       (add-to-list 'exec-path (expand-file-name path-element)))))
-
-(if (fboundp 'my-add-path)
-   (let ((my-paths (list "/usr/local/bin")))
-      (dolist (path-to-add my-paths (getenv "PATH"))
-        (my-add-path path-to-add))))
-
-
+(use-package exec-path-from-shell
+  :config (exec-path-from-shell-initialize))
 #+END_SRC
+** terraform
 
+(use-package terraform-mode)
 * Package Management
 
 #+BEGIN_SRC emacs-lisp
@@ -512,6 +497,27 @@ is already narrowed."
 
           (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))))
 
+
+#+END_SRC
+*** nvm
+#+BEGIN_SRC emacs-lisp
+
+(use-package nvm)
+
+(defun do-nvm-use (version)
+  (interactive "sVersion: ")
+  (nvm-use version))
+
+(defun l-show-nvm-installed-versions ()
+  (interactive)
+  (message "%s" (nvm--installed-versions)))
+
+(defun run-node (cwd)
+  (interactive "DDirectory: ")
+  (unless (executable-find "node")
+    (call-interactively 'do-nvm-use))
+  (let ((default-directory cwd))
+        (pop-to-buffer (make-comint (format "node-repl-%s" cwd) "node" nil "--interactive"))))
 
 #+END_SRC
 

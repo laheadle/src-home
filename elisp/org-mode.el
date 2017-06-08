@@ -1800,35 +1800,6 @@ Late deadlines first, then scheduled, then non-late deadlines"
           '(lambda () (setq fill-column 72))
           'append)
 
-;; flyspell mode for spell checking everywhere
-(add-hook 'org-mode-hook 'turn-on-flyspell 'append)
-
-;; Disable keys in org-mode
-;;    C-c [ 
-;;    C-c ]
-;;    C-c ;
-;;    C-c C-x C-q  cancelling the clock (we never want this)
-(add-hook 'org-mode-hook
-          '(lambda ()
-             ;; Undefine C-c [ and C-c ] since this breaks my
-             ;; org-agenda files when directories are include It
-             ;; expands the files in the directories individually
-             (org-defkey org-mode-map "\C-c[" 'undefined)
-             (org-defkey org-mode-map "\C-c]" 'undefined)
-             (org-defkey org-mode-map "\C-c;" 'undefined)
-             (org-defkey org-mode-map "\C-c\C-x\C-q" 'undefined))
-          'append)
-
-(add-hook 'org-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c M-o") 'bh/mail-subtree))
-          'append)
-
-(defun bh/mail-subtree ()
-  (interactive)
-  (org-mark-subtree)
-  (org-mime-subtree))
-
 (setq org-src-preserve-indentation nil)
 (setq org-edit-src-content-indentation 0)
 

@@ -3682,149 +3682,6 @@ I found this annoying when I used =plantuml= as one of my abbreviations.
 
 I also use skeletons and abbrev-mode for C source files at work.
 This works really well for me.
-*** Example PlantUml Activity Diagram Generation
-:PROPERTIES:
-:CUSTOM_ID: ActivityDiagramExample
-:END:
-[2013-07-20 Sat 03:27]
-
-When creating activity diagrams I can use 'sif' and 'sfor' to add 
-IF and FOR blocks to the diagram with unique numbering automatically
-generated.
-
-Example: Create a new diagram and enter 2 IFs and 2 FOR blocks
-
-Create diagram: "sact RET test RET"
-
-gives 
-
-#+begin_src plantuml :file test-act.png :cache yes :tangle test-act.txt :exports both
-@startuml
-skinparam activity {
-BackgroundColor<<New>> Cyan
-}
-
-title test - 
-note left: test
-(*) --> "test"
---> (*)
-
-@enduml
-#+end_src
-
-#+results[941b135a91506a3806dcb1dcc07c18b23c0cd608]:
-[[file:test-act.png]]
-
-Put cursor on --> (*) and enter "sif RET"
-
-gives
-
-#+begin_src plantuml :file test-act2.png :cache yes :tangle test-act2.txt :exports both
-@startuml
-skinparam activity {
-BackgroundColor<<New>> Cyan
-}
-
-title test - 
-note left: test
-(*) --> "test"
-if "" then
-  -> [condition] ==IF1==
-  --> ==IF1M1==
-  -left-> ==IF1M2==
-else
-end if
---> ==IF1M2==
---> (*)
-
-@enduml
-#+end_src
-
-#+results[0b3365856895b29376087110b72d8cd127d3b4f7]:
-[[file:test-act2.png]]
-
-repeat on --> (*) line
-
-gives
-
-#+begin_src plantuml :file test-act3.png :cache yes :tangle test-act3.txt :exports both
-@startuml
-skinparam activity {
-BackgroundColor<<New>> Cyan
-}
-
-title test - 
-note left: test
-(*) --> "test"
-if "" then
-  -> [condition] ==IF1==
-  --> ==IF1M1==
-  -left-> ==IF1M2==
-else
-end if
---> ==IF1M2==
-if "" then
-  -> [condition] ==IF2==
-  --> ==IF2M1==
-  -left-> ==IF2M2==
-else
-end if
---> ==IF2M2==
---> (*)
-
-@enduml
-#+end_src
-
-#+results[f1e8e6dfcb6cfc183b56196edb5769e53b7ad127]:
-[[file:test-act3.png]]
-
-and add two for loops at the end with "sfor RET line in file RET" and
-"sfor RET address in addressbook RET"
-
-gives
-
-#+begin_src plantuml :file test-act4.png :cache yes :tangle test-act4.txt :exports both
-@startuml
-skinparam activity {
-BackgroundColor<<New>> Cyan
-}
-
-title test - 
-note left: test
-(*) --> "test"
-if "" then
-  -> [condition] ==IF1==
-  --> ==IF1M1==
-  -left-> ==IF1M2==
-else
-end if
---> ==IF1M2==
-if "" then
-  -> [condition] ==IF2==
-  --> ==IF2M1==
-  -left-> ==IF2M2==
-else
-end if
---> ==IF2M2==
---> ==LOOP1==
-note left: Loop1: For each line in file
---> ==ENDLOOP1==
-note left: Loop1: End for each line in file
---> ==LOOP2==
-note left: Loop2: For each address in addressbook
---> ==ENDLOOP2==
-note left: Loop2: End for each address in addressbook
-
---> (*)
-
-@enduml
-#+end_src
-
-#+results[dffc80c1690d0ffc945596218c6264aa99f52ec5]:
-[[file:test-act4.png]]
-
-I use rectangular cut and paste if I need to indent generated blocks.
-
 ** Focus On Current Work
 :PROPERTIES:
 :CUSTOM_ID: FocusOnCurrentWork
@@ -5941,47 +5798,6 @@ creating structured email messages.
           '(lambda () (setq fill-column 72))
           'append)
 #+end_src
-** Using flyspell mode to reduce spelling errors
-:PROPERTIES:
-:CUSTOM_ID: FlySpellModeChecksSpelling
-:END:
-[2012-06-24 Sun 11:17]
-
-=flyspell-mode= is enabled for almost everything to help prevent
-creating documents with spelling errors.
-
-#+header: :tangle yes
-#+begin_src emacs-lisp
-;; flyspell mode for spell checking everywhere
-(add-hook 'org-mode-hook 'turn-on-flyspell 'append)
-
-;; Disable keys in org-mode
-;;    C-c [ 
-;;    C-c ]
-;;    C-c ;
-;;    C-c C-x C-q  cancelling the clock (we never want this)
-(add-hook 'org-mode-hook
-          '(lambda ()
-             ;; Undefine C-c [ and C-c ] since this breaks my
-             ;; org-agenda files when directories are include It
-             ;; expands the files in the directories individually
-             (org-defkey org-mode-map "\C-c[" 'undefined)
-             (org-defkey org-mode-map "\C-c]" 'undefined)
-             (org-defkey org-mode-map "\C-c;" 'undefined)
-             (org-defkey org-mode-map "\C-c\C-x\C-q" 'undefined))
-          'append)
-
-(add-hook 'org-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c M-o") 'bh/mail-subtree))
-          'append)
-
-(defun bh/mail-subtree ()
-  (interactive)
-  (org-mark-subtree)
-  (org-mime-subtree))
-#+end_src
-
 ** Preserving source block indentation
 :PROPERTIES:
 :CUSTOM_ID: PreserveSourceIndentations
@@ -6135,8 +5951,6 @@ in my =~/.emacs.d/plugins= directory, renamed =yasnippet0.5.10= to
             (make-variable-buffer-local 'yas/trigger-key)
             (org-set-local 'yas/trigger-key [tab])
             (define-key yas/keymap [tab] 'yas/next-field-group)
-            ;; flyspell mode for spell checking everywhere
-            (flyspell-mode 1)
             ;; auto-fill mode on
             (auto-fill-mode 1)))
 #+end_src
