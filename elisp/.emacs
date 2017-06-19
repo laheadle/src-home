@@ -46,6 +46,11 @@
   '(define-key org-src-mode-map
      "\C-x\C-s" #'org-edit-src-exit))
 
+(defun l-beginning-of-block ()
+  (interactive)
+  (org-babel-mark-block)
+  (exchange-point-and-mark))
+
 (defvar l-dot-emacs (concat l-elisp-home "dot-emacs.org"))
 
 (defun my/tangle-on-save-emacs-config-org-file ()
