@@ -451,7 +451,7 @@ A prefix arg forces clock in of the default task."
                                     ("STYLE_ALL" . "habit"))))
 
 ;; Agenda log mode items to display (closed and state changes by default)
-(setq org-agenda-log-mode-items (quote (closed state)))
+(setq org-agenda-log-mode-items (quote (closed)))
 
 ; Tags with fast selection keys
 ; Tags with fast selection keys

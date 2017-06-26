@@ -1959,7 +1959,7 @@ generate all of the details required.
 #+header: :tangle yes
 #+begin_src emacs-lisp
 ;; Agenda log mode items to display (closed and state changes by default)
-(setq org-agenda-log-mode-items (quote (closed state)))
+(setq org-agenda-log-mode-items (quote (closed)))
 #+end_src
 
 To generate the report I pull up the agenda for the appropriate time frame
