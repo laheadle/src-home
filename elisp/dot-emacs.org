@@ -37,6 +37,110 @@
 (load-file (concat l-elisp-home l-env ".el"))
 #+END_SRC
 
+* load path
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/extern/org-mode/lisp")
+(setq org-mode-user-lisp-path "~/extern/org-mode/lisp")
+#+END_SRC
+
+* Package Management
+
+#+BEGIN_SRC emacs-lisp
+
+(setq
+ package-enable-at-startup nil
+ package-archives
+ '(("melpa-stable" . "https://stable.melpa.org/packages/")
+   ("melpa" . "https://melpa.org/packages/")))
+
+(require 'package)
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+;(load (expand-file-name "~/packages.el"))
+(use-package bbdb)
+
+#+END_SRC
+
+* Keybindings
+
+#+begin_src emacs-lisp
+(use-package free-keys)
+(use-package bind-key)
+(define-prefix-command 'my-map)
+(bind-key "M-c" 'my-map)
+#+end_src
+* Org
+[2017-06-05 Mon 09:42]
+#+BEGIN_SRC emacs-lisp
+
+(setq org-mode-user-lisp-path "~/extern/org-mode/lisp")
+(setq org-mode-user-contrib-lisp-path "~/extern/org-mode/contrib/lisp")
+#+END_SRC
+
+I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
+#+BEGIN_SRC emacs-lisp
+(load (concat l-elisp-home "org-mode.el"))
+
+(eval-after-load 'org-src
+  '(define-key org-src-mode-map
+     "\C-x\C-s" #'org-edit-src-exit))
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+
+(defun l-beginning-of-block ()
+  (interactive)
+  (org-babel-mark-block)
+  (exchange-point-and-mark))
+
+#+END_SRC
+
+
+** Babel
+*** tangle .emacs on save
+
+#+begin_src emacs-lisp
+
+(defvar l-dot-emacs (concat l-elisp-home "dot-emacs.org"))
+
+(defun my/tangle-on-save-emacs-config-org-file ()
+  (when (string= buffer-file-name l-dot-emacs)
+    (org-babel-tangle)))
+
+(add-hook 'after-save-hook 'my/tangle-on-save-emacs-config-org-file)
+
+#+end_src
+* home
+:PROPERTIES:
+:header-args: :tangle home.el
+:END:
+#+BEGIN_SRC emacs-lisp
+(setq org-user-agenda-files (quote ("~/doc/org/1" "~/doc/org"
+                                    "~/doc/org/2")))
+(setq org-directory "~/doc/org")
+
+(set-register ?d '(file . "/laheadle@drive.stinkless.org:/home/laheadle"))
+(set-register ?r '(file . "/root@drive.stinkless.org:/etc"))
+(defun remote-flash-shell ()
+  (interactive)
+  (let ((od default-directory))
+    (setq default-directory "/laheadle@flash.stinkless.org:/")
+    (unwind-protect
+        (call-interactively 'shell)
+      (setq default-directory od))))
+
+(global-set-key "\C-c\C-f" 'remote-flash-shell)
+
+#+END_SRC
+
 * work
 :PROPERTIES:
 :header-args: :tangle work.el
@@ -134,38 +238,7 @@
 ** terraform
 
 (use-package terraform-mode)
-* Package Management
 
-#+BEGIN_SRC emacs-lisp
-
-(setq
- package-enable-at-startup nil
- package-archives
- '(("melpa-stable" . "https://stable.melpa.org/packages/")
-   ("melpa" . "https://melpa.org/packages/")))
-
-(require 'package)
-(package-initialize)
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(require 'use-package)
-(setq use-package-always-ensure t)
-;(load (expand-file-name "~/packages.el"))
-(use-package bbdb)
-
-#+END_SRC
-
-* Keybindings
-
-#+begin_src emacs-lisp
-(use-package free-keys)
-(use-package bind-key)
-(define-prefix-command 'my-map)
-(bind-key "C-1" 'my-map)
-#+end_src
 * hydra
 
 #+BEGIN_SRC emacs-lisp
@@ -201,50 +274,6 @@ Breadcrumb bookmarks:
   (global-company-mode))
 #+END_SRC
 
-* Org
-[2017-06-05 Mon 09:42]
-#+BEGIN_SRC emacs-lisp
-
-(add-to-list 'load-path "~/extern/org-mode/lisp")
-
-(setq org-mode-user-lisp-path "~/extern/org-mode/lisp")
-(setq org-mode-user-contrib-lisp-path "~/extern/org-mode/contrib/lisp")
-#+END_SRC
-
-I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
-#+BEGIN_SRC emacs-lisp
-(load (concat l-elisp-home "org-mode.el"))
-
-(eval-after-load 'org-src
-  '(define-key org-src-mode-map
-     "\C-x\C-s" #'org-edit-src-exit))
-
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-
-(defun l-beginning-of-block ()
-  (interactive)
-  (org-babel-mark-block)
-  (exchange-point-and-mark))
-
-#+END_SRC
-
-
-** Babel
-*** tangle .emacs on save
-
-#+begin_src emacs-lisp
-
-(defvar l-dot-emacs (concat l-elisp-home "dot-emacs.org"))
-
-(defun my/tangle-on-save-emacs-config-org-file ()
-  (when (string= buffer-file-name l-dot-emacs)
-    (org-babel-tangle)))
-
-(add-hook 'after-save-hook 'my/tangle-on-save-emacs-config-org-file)
-
-#+end_src
 * Helm
 
 #+BEGIN_SRC emacs-lisp

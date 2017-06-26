@@ -13,6 +13,9 @@
 
 (load-file (concat l-elisp-home l-env ".el"))
 
+(add-to-list 'load-path "~/extern/org-mode/lisp")
+(setq org-mode-user-lisp-path "~/extern/org-mode/lisp")
+
 (setq
  package-enable-at-startup nil
  package-archives
@@ -34,7 +37,29 @@
 (use-package free-keys)
 (use-package bind-key)
 (define-prefix-command 'my-map)
-(bind-key "C-1" 'my-map)
+(bind-key "M-c" 'my-map)
+
+(setq org-mode-user-lisp-path "~/extern/org-mode/lisp")
+(setq org-mode-user-contrib-lisp-path "~/extern/org-mode/contrib/lisp")
+
+(load (concat l-elisp-home "org-mode.el"))
+
+(eval-after-load 'org-src
+  '(define-key org-src-mode-map
+     "\C-x\C-s" #'org-edit-src-exit))
+
+(defun l-beginning-of-block ()
+  (interactive)
+  (org-babel-mark-block)
+  (exchange-point-and-mark))
+
+(defvar l-dot-emacs (concat l-elisp-home "dot-emacs.org"))
+
+(defun my/tangle-on-save-emacs-config-org-file ()
+  (when (string= buffer-file-name l-dot-emacs)
+    (org-babel-tangle)))
+
+(add-hook 'after-save-hook 'my/tangle-on-save-emacs-config-org-file)
 
 (use-package hydra)
 
@@ -60,30 +85,6 @@ Breadcrumb bookmarks:
 (use-package company
   :init
   (global-company-mode))
-
-(add-to-list 'load-path "~/extern/org-mode/lisp")
-
-(setq org-mode-user-lisp-path "~/extern/org-mode/lisp")
-(setq org-mode-user-contrib-lisp-path "~/extern/org-mode/contrib/lisp")
-
-(load (concat l-elisp-home "org-mode.el"))
-
-(eval-after-load 'org-src
-  '(define-key org-src-mode-map
-     "\C-x\C-s" #'org-edit-src-exit))
-
-(defun l-beginning-of-block ()
-  (interactive)
-  (org-babel-mark-block)
-  (exchange-point-and-mark))
-
-(defvar l-dot-emacs (concat l-elisp-home "dot-emacs.org"))
-
-(defun my/tangle-on-save-emacs-config-org-file ()
-  (when (string= buffer-file-name l-dot-emacs)
-    (org-babel-tangle)))
-
-(add-hook 'after-save-hook 'my/tangle-on-save-emacs-config-org-file)
 
 (use-package helm
   :diminish helm-mode
