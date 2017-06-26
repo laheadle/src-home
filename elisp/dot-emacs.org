@@ -781,6 +781,12 @@ is already narrowed."
   ("|" sp-split-sexp )) 
 #+END_SRC
 
+** parens
+#+BEGIN_SRC emacs-lisp
+(show-paren-mode 1)
+#+END_SRC
+
+
 * Custom 
 #+BEGIN_SRC emacs-lisp
 (custom-set-variables
