@@ -37,7 +37,7 @@
 (use-package free-keys)
 (use-package bind-key)
 (define-prefix-command 'my-map)
-(bind-key "M-c" 'my-map)
+(bind-key "C-1" 'my-map)
 
 (setq org-mode-user-lisp-path "~/extern/org-mode/lisp")
 (setq org-mode-user-contrib-lisp-path "~/extern/org-mode/contrib/lisp")

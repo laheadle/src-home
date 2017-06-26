@@ -74,7 +74,7 @@
 (use-package free-keys)
 (use-package bind-key)
 (define-prefix-command 'my-map)
-(bind-key "M-c" 'my-map)
+(bind-key "C-1" 'my-map)
 #+end_src
 * Org
 [2017-06-05 Mon 09:42]
