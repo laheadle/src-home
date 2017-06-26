@@ -12,6 +12,9 @@
 
 (load-file (concat l-elisp-home l-env ".el"))
 
+(add-to-list 'load-path "~/extern/org-mode/lisp")
+(setq org-mode-user-lisp-path "~/extern/org-mode/lisp")
+
 (setq
  package-enable-at-startup nil
  package-archives
@@ -34,8 +37,6 @@
 (use-package bind-key)
 (define-prefix-command 'my-map)
 (bind-key "M-c" 'my-map)
-
-(add-to-list 'load-path "~/extern/org-mode/lisp")
 
 (setq org-mode-user-lisp-path "~/extern/org-mode/lisp")
 (setq org-mode-user-contrib-lisp-path "~/extern/org-mode/contrib/lisp")

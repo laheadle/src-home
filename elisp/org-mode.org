@@ -5566,18 +5566,6 @@ current subtree.  I use this for repeating reminder tasks where I need
 to send an email to someone else.  The email contents are already
 contained in the org-mode subtree and all I need to do is =C-c M-o=
 and any minor edits before sending it off.
-** Using org-mime to email
-:PROPERTIES:
-:CUSTOM_ID: OrgMimeMail
-:END:
-
-I'm experimenting with sending mime mail from org.  I've added =C-c M=o= key bindings 
-in the =org-mode-hook= to generate mail from an org-mode subtree.
-
-#+header: :tangle yes
-#+begin_src emacs-lisp
-(require 'org-mime)
-#+end_src
 ** Remove multiple state change log details from the agenda
 :PROPERTIES:
 :CUSTOM_ID: StateChangeDetailsInAgenda

@@ -1740,8 +1740,6 @@ Late deadlines first, then scheduled, then non-late deadlines"
 
 (setq org-link-mailto-program (quote (compose-mail "%a" "%s")))
 
-(require 'org-mime)
-
 (setq org-agenda-skip-additional-timestamps-same-entry t)
 
 (setq org-table-use-standard-references (quote from))

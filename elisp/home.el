@@ -1,5 +1,6 @@
 (setq org-user-agenda-files (quote ("~/doc/org/1" "~/doc/org"
                                                   "~/doc/org/2")))
+(setq org-directory "~/doc/org")
 
 (set-register ?d '(file . "/laheadle@drive.stinkless.org:/home/laheadle"))
 (set-register ?r '(file . "/root@drive.stinkless.org:/etc"))
