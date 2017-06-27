@@ -1,3 +1,8 @@
+(setq org-tag-alist (quote (
+                            ("FLAGGED" . ??)
+                            ("MATT" . ?m)
+                            )))
+
 (defun l-getenv (var)
   (shell-command-to-string (concat ". ~/.bashrc; echo -n $" var)))
 

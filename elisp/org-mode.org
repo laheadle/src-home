@@ -2040,11 +2040,6 @@ be at the farm to make the call.
 #+begin_src emacs-lisp
 ; Tags with fast selection keys
 ; Tags with fast selection keys
-(setq org-tag-alist (quote (
-                            ("FLAGGED" . ??)
-                            
-                            )))
-
 
 ; Not an expert
 (setq org-fast-tag-selection-single-key nil);(quote expert))

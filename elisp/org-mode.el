@@ -455,11 +455,6 @@ A prefix arg forces clock in of the default task."
 
 ; Tags with fast selection keys
 ; Tags with fast selection keys
-(setq org-tag-alist (quote (
-                            ("FLAGGED" . ??)
-                            
-                            )))
-
 
 ; Not an expert
 (setq org-fast-tag-selection-single-key nil);(quote expert))
