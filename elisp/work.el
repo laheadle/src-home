@@ -7,11 +7,6 @@
 (setq org-directory "~/Workspace/docs/org")
 (setq org-default-notes-file "~/Workspace/docs/org/refile.org")
 
-(setq org-tag-alist (quote (
-                            ("FLAGGED" . ??)
-                            
-                            )))
-
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "~/Workspace/docs/org/refile.org")
