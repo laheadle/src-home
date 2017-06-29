@@ -1642,7 +1642,7 @@ Late deadlines first, then scheduled, then non-late deadlines"
 
 (setq require-final-newline t)
 
-(defvar bh/insert-inactive-timestamp t)
+(defvar bh/insert-inactive-timestamp nil)
 
 (defun bh/toggle-insert-inactive-timestamp ()
   (interactive)

@@ -5174,7 +5174,7 @@ creation of the timestamp on and off for new headlines.
 
 #+header: :tangle yes
 #+begin_src emacs-lisp
-(defvar bh/insert-inactive-timestamp t)
+(defvar bh/insert-inactive-timestamp nil)
 
 (defun bh/toggle-insert-inactive-timestamp ()
   (interactive)
