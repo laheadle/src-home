@@ -20,7 +20,8 @@
  package-enable-at-startup nil
  package-archives
  '(("melpa-stable" . "https://stable.melpa.org/packages/")
-   ("melpa" . "https://melpa.org/packages/")))
+   ("melpa" . "https://melpa.org/packages/")
+   ("gnu" . "https://elpa.gnu.org/packages/")))
 
 (require 'package)
 (package-initialize)
@@ -352,6 +353,8 @@ is already narrowed."
     (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
     (setq emmet-move-cursor-between-quotes t))) ;; default nil
 
+(use-package cider)
+
 (add-hook 'js-mode-hook (lambda () (abbrev-mode 1)))
 
 (setq js-indent-level 2)
@@ -510,23 +513,8 @@ is already narrowed."
   ("_" sp-join-sexp ) ;;Good
   ("|" sp-split-sexp ))
 
-(show-paren-mode 1)
+(show-paren-mode)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(js2-basic-offset 2)
- '(js2-bounce-indent-p nil)
- '(package-selected-packages
-   (quote
-    (helm-descbinds helm-git-grep helm-ls-git emmet-mode helm-org-rifle helm yaml-mode with-editor use-package smex php-mode markdown-mode js2-mode free-keys circe bbdb))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(diff-context ((t (:inherit ##))))
- '(org-mode-line-clock ((t (:foreground "red" :box (:line-width -1 :style released-button)))))
- '(secondary-selection ((t (:background "gray96")))))
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))
