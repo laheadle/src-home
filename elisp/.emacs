@@ -127,7 +127,8 @@ Breadcrumb bookmarks:
          ("C-x c SPC" . helm-all-mark-rings)))
 (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
 
-(use-package helm-org-rifle)
+(use-package helm-org-rifle
+  :bind ("C-c g" . helm-org-rifle-agenda-files))
 
 (use-package helm-ls-git)
 
@@ -137,6 +138,7 @@ Breadcrumb bookmarks:
   :init (helm-descbinds-mode))
 
 (use-package counsel
+  :bind ("C-b" . ivy-switch-buffer)
   :config
   (progn
     (ivy-mode 1)
@@ -243,8 +245,6 @@ is already narrowed."
     (kill-ring-save (point) (line-end-position))))
 
 (global-set-key "\C-p" 'beginning-of-line)
-(global-set-key "\C-cg" 'goto-line)
-
 
 ;; Shift the selected region right if distance is positive, left if
 ;; negative
@@ -321,8 +321,6 @@ is already narrowed."
   (let ((m (point)))
     (find-alternate-file (buffer-file-name))
     (goto-char m)))
-(define-key global-map (kbd "C-b") 'l-reload)
-
 
 (defun l-backups ()
   (shell-command "backups.sh&"))
