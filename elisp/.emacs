@@ -294,6 +294,11 @@ is already narrowed."
 
   (global-set-key "\M-z" 'zap-to-char)
 
+(defadvice kill-region (before slick-cut activate compile)
+  (interactive
+   (if mark-active (list (region-beginning) (region-end))
+     (list (line-beginning-position) (line-beginning-position 2)))))
+
 ;; watch the file system
 (global-auto-revert-mode nil)
 

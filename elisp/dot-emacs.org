@@ -562,6 +562,13 @@ is already narrowed."
 
 
 #+END_SRC
+** kill line efficiently (thanks kholidfu)
+#+BEGIN_SRC emacs-lisp
+(defadvice kill-region (before slick-cut activate compile)
+  (interactive
+   (if mark-active (list (region-beginning) (region-end))
+     (list (line-beginning-position) (line-beginning-position 2)))))
+#+END_SRC
 
 * Files and directories
 
