@@ -102,6 +102,7 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
   (org-babel-mark-block)
   (exchange-point-and-mark))
 
+  (setq org-M-RET-may-split-line '((default . nil)))
 #+END_SRC
 
 
@@ -123,6 +124,23 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 :PROPERTIES:
 :header-args: :tangle home.el
 :END:
+** media
+#+BEGIN_SRC emacs-lisp
+(use-package elfeed)
+
+(use-package elfeed-org
+  :init (progn
+          ;; Load elfeed-org
+          (require 'elfeed-org)
+
+          ;; Initialize elfeed-org
+          ;; This hooks up elfeed-org to read the configuration when elfeed
+          ;; is started with =M-x elfeed=
+          (elfeed-org)
+
+          (setq rmh-elfeed-org-files (list "~/doc/org/non-agenda/elfeed.org"))))
+#+END_SRC
+** misc
 #+BEGIN_SRC emacs-lisp
 (setq org-user-agenda-files (quote ("~/doc/org/1" "~/doc/org"
                                     "~/doc/org/2")))
@@ -176,6 +194,7 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 (global-set-key "\C-c\C-f" 'remote-flash-shell)
 
 #+END_SRC
+
 
 * work
 :PROPERTIES:
@@ -245,51 +264,6 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 
 ;; fix stupid mousedown sets mark
 ;; http://stackoverflow.com/questions/13986605/how-to-make-emacs-mouse-drag-not-highlight-or-set-mark
-
-
-;; (progn
-;;   (setq load-path (cons  "/usr/local/lib/erlang/lib/tools-2.9/emacs"
-;;                          load-path))
-;;       (setq erlang-root-dir "/usr/local/lib/erlang")
-;;       (setq exec-path (cons "/usr/local/lib/erlang/bin" exec-path))
-;;       (require 'erlang-start))
-
-;; (add-to-list 'load-path "/Users/lyn_headley/.emacs.d/site-lisp/distel/elisp")
-;; (require 'distel)
-;; (distel-setup)
-;; (defconst distel-shell-keys
-;;   '(("\C-\M-i"   erl-complete)
-;;     ("\M-?"      erl-complete)
-;;     ("\M-."      erl-find-source-under-point)
-;;     ("\M-,"      erl-find-source-unwind)
-;;     ("\M-*"      erl-find-source-unwind)
-;;     )
-;;   "Additional keys to bind when in Erlang shell.")
-
-;; (add-hook 'erlang-shell-mode-hook
-;;           (lambda ()
-;;             ;; add some Distel bindings to the Erlang shell
-;;             (dolist (spec distel-shell-keys)
-;;               (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
-
-;; (defvar l-ebin-epgsql "/Users/lyn_headley/Workspace/trails/erlang/sg/deps/epgsql/ebin")
-;; (defvar l-ebin-sg "/Users/lyn_headley/Workspace/trails/erlang/sg/ebin")
-;; (defconst l-include-sg "/Users/lyn_headley/Workspace/trails/erlang/sg/include")
-;; (defvar l-ebin-yaws "/Users/lyn_headley/Workspace/trails/erlang/sg/deps/yaws/ebin")
-;; (defvar l-include-yaws "/Users/lyn_headley/Workspace/trails/erlang/sg/deps/yaws/include")
-;; (defvar l-ebin-poolboy "/Users/lyn_headley/Workspace/trails/erlang/sg/deps/poolboy/ebin")
-
-;; (setq erlang-compile-extra-opts (list `(i . ,l-include-yaws)
-;;                                       `(i . ,l-include-sg)
-;;                                       ))
-
-;; (setq inferior-erlang-machine-options
-;;      (list "-name" "dev@localhost"
-;;             "-pa" l-ebin-sg
-;;            "-pa" l-ebin-yaws
-;;            "-pa" l-ebin-epgsql
-;;            "-pa" l-ebin-poolboy))
-
 
 #+END_SRC
 
@@ -629,6 +603,8 @@ is already narrowed."
 * Miscellaneous
 #+BEGIN_SRC emacs-lisp
 
+(use-package helm-chrome)
+
 (use-package with-editor)
 
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -672,7 +648,23 @@ is already narrowed."
 #+END_SRC
 ** cider
 #+BEGIN_SRC emacs-lisp
-(use-package cider)
+(use-package cider
+  :init
+
+  (setq cider-prompt-for-symbol nil
+        cider-cljs-lein-repl
+        "(do (require 'figwheel-sidecar.repl-api)
+           (figwheel-sidecar.repl-api/start-figwheel!)
+           (figwheel-sidecar.repl-api/cljs-repl))"))
+
+(use-package clojure-cheatsheet)
+(use-package helm-cider
+  :init (helm-cider-mode 1))
+
+(use-package cider-hydra)
+
+(add-hook 'cider-mode-hook #'cider-hydra-mode)
+
 #+END_SRC
 
 
@@ -854,7 +846,54 @@ is already narrowed."
 #+BEGIN_SRC emacs-lisp
 (show-paren-mode)
 #+END_SRC
+** erlang
+#+BEGIN_SRC emacs-lisp
+(progn
+  (setq load-path (cons  "/usr/lib/erlang/lib/tools-2.9.1/emacs"
+                         load-path))
+      (setq erlang-root-dir "/usr/lib/erlang")
+      (setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
+      (require 'erlang-start))
 
+;; (add-to-list 'load-path "/Users/lyn_headley/.emacs.d/site-lisp/distel/elisp")
+;; (require 'distel)
+;; (distel-setup)
+;; (defconst distel-shell-keys
+;;   '(("\C-\M-i"   erl-complete)
+;;     ("\M-?"      erl-complete)
+;;     ("\M-."      erl-find-source-under-point)
+;;     ("\M-,"      erl-find-source-unwind)
+;;     ("\M-*"      erl-find-source-unwind)
+;;     )
+;;   "Additional keys to bind when in Erlang shell.")
+
+;; (add-hook 'erlang-shell-mode-hook
+;;           (lambda ()
+;;             ;; add some Distel bindings to the Erlang shell
+;;             (dolist (spec distel-shell-keys)
+;;               (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
+
+;; (defvar l-ebin-epgsql "/Users/lyn_headley/Workspace/trails/erlang/sg/deps/epgsql/ebin")
+;; (defvar l-ebin-sg "/Users/lyn_headley/Workspace/trails/erlang/sg/ebin")
+;; (defconst l-include-sg "/Users/lyn_headley/Workspace/trails/erlang/sg/include")
+;; (defvar l-ebin-yaws "/Users/lyn_headley/Workspace/trails/erlang/sg/deps/yaws/ebin")
+;; (defvar l-include-yaws "/Users/lyn_headley/Workspace/trails/erlang/sg/deps/yaws/include")
+;; (defvar l-ebin-poolboy "/Users/lyn_headley/Workspace/trails/erlang/sg/deps/poolboy/ebin")
+
+;; (setq erlang-compile-extra-opts (list `(i . ,l-include-yaws)
+;;                                       `(i . ,l-include-sg)
+;;                                       ))
+
+;; (setq inferior-erlang-machine-options
+;;      (list "-name" "dev@localhost"
+;;             "-pa" l-ebin-sg
+;;            "-pa" l-ebin-yaws
+;;            "-pa" l-ebin-epgsql
+;;            "-pa" l-ebin-poolboy))
+
+
+
+#+END_SRC
 
 * Custom 
 #+BEGIN_SRC emacs-lisp
