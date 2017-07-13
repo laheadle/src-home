@@ -642,7 +642,7 @@ is already narrowed."
 
 #+BEGIN_SRC emacs-lisp
 
-(require 'git-auto-commit) 
+(require 'git-auto-commit)
 ;(setq gac-dir-set (list l-src-home '((:cmd-git-add . "git add --all"))))
 
 
