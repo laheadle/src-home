@@ -1,3 +1,23 @@
+(setq
+ package-enable-at-startup nil
+ package-archives
+ '(("melpa-stable" . "https://stable.melpa.org/packages/")
+   ("melpa" . "https://melpa.org/packages/")
+   ("org" . "http://orgmode.org/elpa/")
+   ("gnu" . "https://elpa.gnu.org/packages/")))
+
+(require 'package)
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+;(load (expand-file-name "~/packages.el"))
+(use-package bbdb)
+
 (defvar l-elisp-home (file-truename "~/src/home/elisp/"))
 (add-to-list 'load-path (concat l-elisp-home "lib"))
 
@@ -13,35 +33,12 @@
 
 (load-file (concat l-elisp-home l-env ".el"))
 
-(add-to-list 'load-path "~/extern/org-mode/lisp")
-(setq org-mode-user-lisp-path "~/extern/org-mode/lisp")
-
-(setq
- package-enable-at-startup nil
- package-archives
- '(("melpa-stable" . "https://stable.melpa.org/packages/")
-   ("melpa" . "https://melpa.org/packages/")
-   ("gnu" . "https://elpa.gnu.org/packages/")))
-
-(require 'package)
-(package-initialize)
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(require 'use-package)
-(setq use-package-always-ensure t)
-;(load (expand-file-name "~/packages.el"))
-(use-package bbdb)
-
 (use-package free-keys)
 (use-package bind-key)
 (define-prefix-command 'my-map)
 (bind-key "C-1" 'my-map)
 
-(setq org-mode-user-lisp-path "~/extern/org-mode/lisp")
-(setq org-mode-user-contrib-lisp-path "~/extern/org-mode/contrib/lisp")
+(use-package org-plus-contrib)
 
 (load (concat l-elisp-home "org-mode.el"))
 
@@ -119,7 +116,7 @@ Breadcrumb bookmarks:
          ;("C-x b" . helm-buffers-list)
          ("M-y" . helm-show-kill-ring)
          ("M-x" . helm-M-x)
-         ("C-x C-f" . helm-find-files)
+         ;("C-x C-f" . helm-find-files)
          ("C-x c o" . helm-occur)
          ("C-x c s" . helm-swoop)
          ("C-x c y" . helm-yas-complete)
@@ -137,15 +134,17 @@ Breadcrumb bookmarks:
 (use-package helm-descbinds
   :init (helm-descbinds-mode))
 
+(use-package swiper)
 (use-package counsel
-  :bind ("C-b" . ivy-switch-buffer)
-  :config
+  :bind (("C-b" . ivy-switch-buffer)
+         ("C-s" . swiper))
+  :init
   (progn
     (ivy-mode 1)
     (setq ivy-wrap t)
     (setq ivy-use-virtual-buffers t)
     (setq enable-recursive-minibuffers t)
-    (global-set-key "\C-s" 'swiper)
+
     (global-set-key (kbd "C-c C-r") 'ivy-resume)
     (global-set-key (kbd "<f6>") 'ivy-resume)
     (global-set-key (kbd "M-x") 'counsel-M-x)
@@ -160,7 +159,6 @@ Breadcrumb bookmarks:
     (global-set-key (kbd "C-c k") 'counsel-ag)
     (global-set-key (kbd "C-x l") 'counsel-locate)
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
-  (use-package swiper)
 
 (define-prefix-command 'endless/toggle-map)
 ;; The manual recommends C-c for user keys, but C-x t is

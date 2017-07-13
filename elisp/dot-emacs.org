@@ -2,6 +2,32 @@
 
 * the only thing in .emacs.d is melpa packages and some state files
 
+* Package Management
+
+#+BEGIN_SRC emacs-lisp
+
+(setq
+ package-enable-at-startup nil
+ package-archives
+ '(("melpa-stable" . "https://stable.melpa.org/packages/")
+   ("melpa" . "https://melpa.org/packages/")
+   ("org" . "http://orgmode.org/elpa/")
+   ("gnu" . "https://elpa.gnu.org/packages/")))
+
+(require 'package)
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+;(load (expand-file-name "~/packages.el"))
+(use-package bbdb)
+
+#+END_SRC
+
 * ~src/home/elisp directory
 
 #+BEGIN_SRC emacs-lisp
@@ -37,38 +63,6 @@
 (load-file (concat l-elisp-home l-env ".el"))
 #+END_SRC
 
-* load path
-
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/extern/org-mode/lisp")
-(setq org-mode-user-lisp-path "~/extern/org-mode/lisp")
-#+END_SRC
-
-* Package Management
-
-#+BEGIN_SRC emacs-lisp
-
-(setq
- package-enable-at-startup nil
- package-archives
- '(("melpa-stable" . "https://stable.melpa.org/packages/")
-   ("melpa" . "https://melpa.org/packages/")
-   ("gnu" . "https://elpa.gnu.org/packages/")))
-
-(require 'package)
-(package-initialize)
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(require 'use-package)
-(setq use-package-always-ensure t)
-;(load (expand-file-name "~/packages.el"))
-(use-package bbdb)
-
-#+END_SRC
-
 * Keybindings
 
 #+begin_src emacs-lisp
@@ -81,8 +75,8 @@
 [2017-06-05 Mon 09:42]
 #+BEGIN_SRC emacs-lisp
 
-(setq org-mode-user-lisp-path "~/extern/org-mode/lisp")
-(setq org-mode-user-contrib-lisp-path "~/extern/org-mode/contrib/lisp")
+(use-package org-plus-contrib)
+
 #+END_SRC
 
 I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
@@ -346,7 +340,7 @@ Breadcrumb bookmarks:
          ;("C-x b" . helm-buffers-list)
          ("M-y" . helm-show-kill-ring)
          ("M-x" . helm-M-x)
-         ("C-x C-f" . helm-find-files)
+         ;("C-x C-f" . helm-find-files)
          ("C-x c o" . helm-occur)
          ("C-x c s" . helm-swoop)
          ("C-x c y" . helm-yas-complete)
@@ -368,15 +362,17 @@ Breadcrumb bookmarks:
 * Ivy
 
 #+BEGIN_SRC emacs-lisp
+(use-package swiper)
 (use-package counsel
-  :bind ("C-b" . ivy-switch-buffer)
-  :config
+  :bind (("C-b" . ivy-switch-buffer)
+         ("C-s" . swiper))
+  :init
   (progn
     (ivy-mode 1)
     (setq ivy-wrap t)
     (setq ivy-use-virtual-buffers t)
     (setq enable-recursive-minibuffers t)
-    (global-set-key "\C-s" 'swiper)
+
     (global-set-key (kbd "C-c C-r") 'ivy-resume)
     (global-set-key (kbd "<f6>") 'ivy-resume)
     (global-set-key (kbd "M-x") 'counsel-M-x)
@@ -391,7 +387,6 @@ Breadcrumb bookmarks:
     (global-set-key (kbd "C-c k") 'counsel-ag)
     (global-set-key (kbd "C-x l") 'counsel-locate)
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
-  (use-package swiper)
 #+END_SRC
 
 #+results:
