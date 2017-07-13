@@ -643,34 +643,7 @@ is already narrowed."
 #+BEGIN_SRC emacs-lisp
 
 (require 'git-auto-commit)
-(setq gac-dir-set '()
-  "Set of git repositories to auto-commit using
-`gac-commit-file'. Each item is a repository description
-containing:
-
-  (\"/path/to/repository\" CONFIGURATION)
-
-Where CONFIGURATION is PLIST elements:
-
-:schedule-push-delay
-
-  Override `gac-default-schedule-push-delay'.
-
-:cmd-git-add
-
-  Override `gac-default-cmd-git-add'.
-
-
-:cmd-git-commit
-
-  Override `gac-default-cmd-git-commit'.
-
-:cmd-git-push
-
-  Override `gac-default-cmd-git-push'.
-"
-  :type 'list
-  :group 'git-auto-commit)
+(setq gac-dir-set (list l-src-home '((:cmd-git-add . "git add --all"))))
 
 
 
