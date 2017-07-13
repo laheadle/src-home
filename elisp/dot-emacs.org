@@ -852,6 +852,9 @@ is already narrowed."
 (show-paren-mode)
 #+END_SRC
 ** erlang
+:PROPERTIES:
+:header-args: :tangle home.el
+:END:
 #+BEGIN_SRC emacs-lisp
 (progn
   (setq load-path (cons  "/usr/lib/erlang/lib/tools-2.9.1/emacs"
