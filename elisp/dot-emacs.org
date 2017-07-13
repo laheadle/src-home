@@ -638,13 +638,12 @@ is already narrowed."
               magit-visit-ref-create t)
   :bind (("C-." . magit-status)))
 
-
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
 
 (require 'git-auto-commit)
-(setq gac-dir-set (list l-src-home '((:cmd-git-add . "git add --all"))))
+;(setq gac-dir-set (list l-src-home '((:cmd-git-add . "git add --all"))))
 
 
 
