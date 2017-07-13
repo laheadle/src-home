@@ -638,6 +638,7 @@ is already narrowed."
               magit-visit-ref-create t)
   :bind (("C-." . magit-status)))
 
+
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
