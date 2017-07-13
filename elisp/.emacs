@@ -240,6 +240,11 @@ is already narrowed."
 
 (put 'upcase-region 'disabled nil)
 
+(delete-selection-mode 1)
+
+(use-package expand-region
+  :bind ("C-@" . er/expand-region))
+
 (define-key global-map (kbd "M-k")
   (lambda () (interactive)
     (kill-ring-save (point) (line-end-position))))

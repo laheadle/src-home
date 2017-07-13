@@ -501,10 +501,15 @@ is already narrowed."
       ("f" origami-forward-toggle-node)
       ("a" origami-toggle-all-nodes))))
 #+END_SRC
-** misc
+** misc and regions
 #+BEGIN_SRC emacs-lisp
 
 (put 'upcase-region 'disabled nil)
+
+(delete-selection-mode 1)
+
+(use-package expand-region
+  :bind ("C-@" . er/expand-region))
 
 (define-key global-map (kbd "M-k")
   (lambda () (interactive)
