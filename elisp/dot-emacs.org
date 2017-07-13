@@ -31,6 +31,7 @@
 * ~src/home/elisp directory
 
 #+BEGIN_SRC emacs-lisp
+(defvar l-src-home (file-truename "~/src/home/"))
 (defvar l-elisp-home (file-truename "~/src/home/elisp/"))
 (add-to-list 'load-path (concat l-elisp-home "lib"))
 #+END_SRC
@@ -627,7 +628,7 @@ is already narrowed."
 (setq debug-on-error t)
 
 #+END_SRC
-* magit
+* git
 
 #+BEGIN_SRC emacs-lisp
 (use-package magit
@@ -636,6 +637,41 @@ is already narrowed."
               magit-revert-buffers 1
               magit-visit-ref-create t)
   :bind (("C-." . magit-status)))
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+
+(require 'git-auto-commit)
+(setq gac-dir-set '()
+  "Set of git repositories to auto-commit using
+`gac-commit-file'. Each item is a repository description
+containing:
+
+  (\"/path/to/repository\" CONFIGURATION)
+
+Where CONFIGURATION is PLIST elements:
+
+:schedule-push-delay
+
+  Override `gac-default-schedule-push-delay'.
+
+:cmd-git-add
+
+  Override `gac-default-cmd-git-add'.
+
+
+:cmd-git-commit
+
+  Override `gac-default-cmd-git-commit'.
+
+:cmd-git-push
+
+  Override `gac-default-cmd-git-push'.
+"
+  :type 'list
+  :group 'git-auto-commit)
+
 
 
 #+END_SRC
