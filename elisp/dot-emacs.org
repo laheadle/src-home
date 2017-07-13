@@ -280,6 +280,7 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 * bookmarks
 
 #+BEGIN_SRC emacs-lisp
+
 (require 'breadcrumb)
 
   (defhydra hydra-breadcrumb
@@ -642,7 +643,7 @@ is already narrowed."
 
 #+BEGIN_SRC emacs-lisp
 
-(require 'git-auto-commit)
+;(require 'git-auto-commit)
 ;(setq gac-dir-set (list l-src-home '((:cmd-git-add . "git add --all"))))
 
 

@@ -18,6 +18,7 @@
 ;(load (expand-file-name "~/packages.el"))
 (use-package bbdb)
 
+(defvar l-src-home (file-truename "~/src/home/"))
 (defvar l-elisp-home (file-truename "~/src/home/elisp/"))
 (add-to-list 'load-path (concat l-elisp-home "lib"))
 
@@ -355,6 +356,9 @@ is already narrowed."
               magit-revert-buffers 1
               magit-visit-ref-create t)
   :bind (("C-." . magit-status)))
+
+;(require 'git-auto-commit)
+;(setq gac-dir-set (list l-src-home '((:cmd-git-add . "git add --all"))))
 
 (use-package emmet-mode
   :init
