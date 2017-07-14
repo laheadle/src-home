@@ -63,6 +63,18 @@
 
 (global-set-key "\C-c\C-f" 'remote-flash-shell)
 
+(defun endless/visit-pull-request-url ()
+  "Visit the current branch's PR on Github."
+  (interactive)
+  (browse-url
+   (format "https://github.com/%s/pull/new/%s"
+           (replace-regexp-in-string
+            "\\`.+github\\.com:\\(.+\\)\\.git\\'" "\\1"
+            (magit-get "remote"
+                       (magit-get-push-remote)
+                       "url"))
+           (magit-get-current-branch))))
+
 (progn
   (setq load-path (cons  "/usr/lib/erlang/lib/tools-2.9.1/emacs"
                          load-path))

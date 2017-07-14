@@ -631,13 +631,46 @@ is already narrowed."
 #+END_SRC
 * git
 
+#+BEGIN_SRC emacs-lisp :header-args :tangle home.el
+
+(defun endless/visit-pull-request-url ()
+  "Visit the current branch's PR on Github."
+  (interactive)
+  (browse-url
+   (format "https://github.com/%s/pull/new/%s"
+           (replace-regexp-in-string
+            "\\`.+github\\.com:\\(.+\\)\\.git\\'" "\\1"
+            (magit-get "remote"
+                       (magit-get-push-remote)
+                       "url"))
+           (magit-get-current-branch))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :header-args :tangle work.el
+
+(defun endless/visit-pull-request-url ()
+  "Visit the current branch's PR on Github."
+  (interactive)
+  (browse-url
+   (format "https://github.mheducation.com/%s/pull/new/%s"
+           (replace-regexp-in-string
+            "\\`.+github\\.mheducation\\.com:\\(.+\\)\\.git\\'" "\\1"
+            (magit-get "remote"
+                       (magit-get-push-remote)
+                       "url"))
+           (magit-get-current-branch))))
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
 (use-package magit
   :init (setq magit-popup-use-prefix-argument nil
               magit-commit-show-diff nil
               magit-revert-buffers 1
               magit-visit-ref-create t)
-  :bind (("C-." . magit-status)))
+  :bind (("C-." . magit-status)
+         :map magit-mode-map
+         ("v" . endless/visit-pull-request-url)))
+
 
 #+END_SRC
 
