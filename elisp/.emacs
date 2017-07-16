@@ -62,6 +62,10 @@
 
 (add-hook 'after-save-hook 'my/tangle-on-save-emacs-config-org-file)
 
+(setq org-babel-load-languages '((shell . t)
+                                 (emacs-lisp . t)
+                                 (org . t)))
+
 (use-package hydra)
 
 (require 'breadcrumb)
@@ -158,7 +162,7 @@ Breadcrumb bookmarks:
     ;(global-set-key (kbd "C-c g") 'counsel-git)
     (global-set-key (kbd "C-c j") 'counsel-git-grep)
     (global-set-key (kbd "C-c k") 'counsel-ag)
-    (global-set-key (kbd "C-x l") 'counsel-locate)
+;    (global-set-key (kbd "C-x l") 'counsel-locate)
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
 
 (define-prefix-command 'endless/toggle-map)

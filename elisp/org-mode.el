@@ -781,9 +781,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
       (org-display-inline-images)
     (error nil)))
 
-(org-babel-do-load-languages 'org-babel-load-languages '((shell . t) (emacs-lisp . t)))
-
-
 ; Do not prompt to confirm evaluation
 ; This may be dangerous - make sure you understand the consequences
 ; of setting this -- see the docstring for details
