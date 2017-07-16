@@ -303,6 +303,11 @@ is already narrowed."
    (if mark-active (list (region-beginning) (region-end))
      (list (line-beginning-position) (line-beginning-position 2)))))
 
+(use-package undo-tree
+  :init (global-undo-tree-mode 1)
+  :bind (("C-z" . undo)
+         ("C-S-z" . redo)))
+
 ;; watch the file system
 (global-auto-revert-mode nil)
 
