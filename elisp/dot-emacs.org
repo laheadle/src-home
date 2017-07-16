@@ -577,7 +577,7 @@ is already narrowed."
 (use-package undo-tree
   :init (global-undo-tree-mode 1)
   :bind (("C-z" . undo)
-         ("C-S-z" . redo)))
+         ("C-S-z" . undo-tree-redo)))
 #+END_SRC
 
 * Files and directories

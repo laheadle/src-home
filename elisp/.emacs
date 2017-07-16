@@ -306,7 +306,7 @@ is already narrowed."
 (use-package undo-tree
   :init (global-undo-tree-mode 1)
   :bind (("C-z" . undo)
-         ("C-S-z" . redo)))
+         ("C-S-z" . undo-tree-redo)))
 
 ;; watch the file system
 (global-auto-revert-mode nil)
