@@ -115,6 +115,13 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 (add-hook 'after-save-hook 'my/tangle-on-save-emacs-config-org-file)
 
 #+end_src
+*** languages
+#+BEGIN_SRC emacs-lisp
+(setq org-babel-load-languages '((shell . t)
+                                 (emacs-lisp . t)
+                                 (org . t)))
+#+END_SRC
+
 * home
 :PROPERTIES:
 :header-args: :tangle home.el
@@ -387,7 +394,7 @@ Breadcrumb bookmarks:
     ;(global-set-key (kbd "C-c g") 'counsel-git)
     (global-set-key (kbd "C-c j") 'counsel-git-grep)
     (global-set-key (kbd "C-c k") 'counsel-ag)
-    (global-set-key (kbd "C-x l") 'counsel-locate)
+;    (global-set-key (kbd "C-x l") 'counsel-locate)
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
 #+END_SRC
 
@@ -570,6 +577,15 @@ is already narrowed."
   (interactive
    (if mark-active (list (region-beginning) (region-end))
      (list (line-beginning-position) (line-beginning-position 2)))))
+#+END_SRC
+** undo-tree
+
+#+BEGIN_SRC emacs-lisp
+(use-package undo-tree
+  :init (global-undo-tree-mode 1)
+  :bind (("C-z" . undo-tree-undo)
+         ("C-S-z" . undo-tree-redo)))
+
 #+END_SRC
 
 * Files and directories
