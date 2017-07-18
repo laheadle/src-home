@@ -60,3 +60,17 @@
 
 (use-package exec-path-from-shell
   :config (exec-path-from-shell-initialize))
+
+(set-register ?d '(file . "/lheadley@dn.kcptech.com:/home/lheadley"))
+
+(defun endless/visit-pull-request-url ()
+  "Visit the current branch's PR on Github."
+  (interactive)
+  (browse-url
+   (format "https://github.mheducation.com/%s/pull/new/%s"
+           (replace-regexp-in-string
+            "\\`.+github\\.mheducation\\.com:\\(.+\\)\\.git\\'" "\\1"
+            (magit-get "remote"
+                       (magit-get-push-remote)
+                       "url"))
+           (magit-get-current-branch))))

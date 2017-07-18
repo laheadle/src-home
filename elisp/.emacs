@@ -364,7 +364,9 @@ is already narrowed."
               magit-commit-show-diff nil
               magit-revert-buffers 1
               magit-visit-ref-create t)
-  :bind (("C-." . magit-status)))
+  :bind (("C-." . magit-status)
+         :map magit-mode-map
+         ("v" . endless/visit-pull-request-url)))
 
 ;(require 'git-auto-commit)
 ;(setq gac-dir-set (list l-src-home '((:cmd-git-add . "git add --all"))))
