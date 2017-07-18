@@ -61,6 +61,8 @@
 (use-package exec-path-from-shell
   :config (exec-path-from-shell-initialize))
 
+(set-register ?d '(file . "/lheadley@dn.kcptech.com:/home/lheadley"))
+
 (defun endless/visit-pull-request-url ()
   "Visit the current branch's PR on Github."
   (interactive)

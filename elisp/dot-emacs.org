@@ -590,8 +590,12 @@ is already narrowed."
 
 * Files and directories
 
-#+BEGIN_SRC emacs-lisp
+Remote Directroies
+#+BEGIN_SRC emacs-lisp :tangle work.el
+(set-register ?d '(file . "/lheadley@dn.kcptech.com:/home/lheadley"))
+#+END_SRC
 
+#+BEGIN_SRC emacs-lisp
 ;; watch the file system
 (global-auto-revert-mode nil)
 
