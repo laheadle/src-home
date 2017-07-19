@@ -343,6 +343,8 @@ is already narrowed."
 (defvar one-hour (* 60 60))
 (run-with-timer one-hour (* 24 one-hour) 'l-backups)
 
+(global-eldoc-mode -1)
+ 
 (use-package helm-chrome)
 
 (use-package with-editor)
