@@ -62,9 +62,10 @@
 
 (add-hook 'after-save-hook 'my/tangle-on-save-emacs-config-org-file)
 
-(setq org-babel-load-languages '((shell . t)
-                                 (emacs-lisp . t)
-                                 (org . t)))
+(org-babel-do-load-languages
+ 'org-babel-load-languages '((shell . t)
+                             (emacs-lisp . t)
+                             (org . t)))
 
 (use-package hydra)
 
