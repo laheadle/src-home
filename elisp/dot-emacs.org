@@ -379,7 +379,8 @@ Breadcrumb bookmarks:
   (progn
     (ivy-mode 1)
     (setq ivy-wrap t)
-    (setq ivy-use-virtual-buffers t)
+    (setq ivy-use-virtual-buffers t
+          ivy-height 25)
     (setq enable-recursive-minibuffers t)
 
     (global-set-key (kbd "C-c C-r") 'ivy-resume)
