@@ -41,6 +41,21 @@
 
 (use-package org-plus-contrib)
 
+(defun l-org-jump-to-dir ()
+  (interactive)
+  (if (eq major-mode 'org-mode)
+      (if-let ((headers (org-entry-get (point) "header-args" t)))
+          (let* ((props (org-babel-parse-header-arguments headers))
+                (dir (cdr (assoc :dir props))))
+            (if dir (progn
+                      (find-file dir)
+                      (magit-status)
+                      (delete-other-windows))
+              (magit-status)))
+        (magit-status))
+    (magit-status)))
+(bind-key "C-." 'l-org-jump-to-dir org-mode-map)
+
 (load (concat l-elisp-home "org-mode.el"))
 
 (eval-after-load 'org-src
@@ -160,7 +175,7 @@ Breadcrumb bookmarks:
     (global-set-key (kbd "<f1> l") 'counsel-find-library)
     (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
     (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-    ;(global-set-key (kbd "C-c g") 'counsel-git)
+    (global-set-key (kbd "C-r") 'counsel-git)
     (global-set-key (kbd "C-c j") 'counsel-git-grep)
     (global-set-key (kbd "C-c k") 'counsel-ag)
 ;    (global-set-key (kbd "C-x l") 'counsel-locate)
