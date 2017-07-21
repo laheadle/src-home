@@ -133,9 +133,10 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 #+end_src
 *** languages
 #+BEGIN_SRC emacs-lisp
-(setq org-babel-load-languages '((shell . t)
-                                 (emacs-lisp . t)
-                                 (org . t)))
+(org-babel-do-load-languages
+ 'org-babel-load-languages '((shell . t)
+                             (emacs-lisp . t)
+                             (org . t)))
 #+END_SRC
 
 * home
@@ -647,6 +648,8 @@ Remote Directroies
 * Miscellaneous
 #+BEGIN_SRC emacs-lisp
 
+(global-eldoc-mode -1)
+ 
 (use-package helm-chrome)
 
 (use-package with-editor)

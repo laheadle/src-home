@@ -77,9 +77,10 @@
 
 (add-hook 'after-save-hook 'my/tangle-on-save-emacs-config-org-file)
 
-(setq org-babel-load-languages '((shell . t)
-                                 (emacs-lisp . t)
-                                 (org . t)))
+(org-babel-do-load-languages
+ 'org-babel-load-languages '((shell . t)
+                             (emacs-lisp . t)
+                             (org . t)))
 
 (use-package hydra)
 
@@ -357,6 +358,8 @@ is already narrowed."
 (defvar one-hour (* 60 60))
 (run-with-timer one-hour (* 24 one-hour) 'l-backups)
 
+(global-eldoc-mode -1)
+ 
 (use-package helm-chrome)
 
 (use-package with-editor)
