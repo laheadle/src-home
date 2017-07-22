@@ -362,7 +362,7 @@ is already narrowed."
 (menu-bar-mode -1)
 
 (use-package ace-window
-  :bind (("C-x f" . hydra-frame-window/body)) ;; bye-bye set-fill-column
+  :bind (("C-x f" . ace-window)) ;; bye-bye set-fill-column
   :init
   (progn
     (setq aw-dispatch-always t)
