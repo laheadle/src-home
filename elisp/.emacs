@@ -362,7 +362,24 @@ is already narrowed."
 (menu-bar-mode -1)
 
 (use-package ace-window
-  :bind ("M-p" . ace-window))
+  :bind ("M-p" . ace-window)
+  :init
+  (progn
+    (setq aw-dispatch-always t)
+
+    (defhydra hydra-window-frame (:color red)
+      "Frame"
+      ("f" make-frame "new frame")
+      ("x" delete-frame "delete frame"))
+    (defhydra hydra-window-size (:color red)
+      "Windows size"
+      ("h" shrink-window-horizontally "shrink horizontal")
+      ("j" shrink-window "shrink vertical")
+      ("k" enlarge-window "enlarge vertical")
+      ("l" enlarge-window-horizontally "enlarge horizontal"))
+    (add-to-list 'aw-dispatch-alist '(?w hydra-window-size/body) t)
+    (add-to-list 'aw-dispatch-alist '(?\; hydra-window-frame/body) t)
+    (ace-window-display-mode t)))
 
 (defun eshell-here ()
   "Opens up a new shell in the directory associated with the
