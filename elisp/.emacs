@@ -363,7 +363,7 @@ is already narrowed."
 
 (use-package ace-window
   :bind ("M-p" . ace-window)
-  :init
+  :config
   (progn
     (setq aw-dispatch-always t)
 

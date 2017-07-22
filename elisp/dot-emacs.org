@@ -654,7 +654,7 @@ Remote Directroies
 #+BEGIN_SRC emacs-lisp
 (use-package ace-window
   :bind ("M-p" . ace-window)
-  :init
+  :config
   (progn
     (setq aw-dispatch-always t)
 
