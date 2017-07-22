@@ -343,7 +343,7 @@ is already narrowed."
 (prefer-coding-system 'utf-8)
 
 (desktop-save-mode 1)
-
+(setq desktop-restore-eager 10)
 (setq require-final-newline nil)
 (setq mode-require-final-newline nil)
 
