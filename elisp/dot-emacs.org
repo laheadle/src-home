@@ -644,6 +644,12 @@ Remote Directroies
 (run-with-timer one-hour (* 24 one-hour) 'l-backups)
 
 #+END_SRC
+* Frames
+** space savers
+#+BEGIN_SRC emacs-lisp
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+#+END_SRC
 
 * Miscellaneous
 #+BEGIN_SRC emacs-lisp
