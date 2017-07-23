@@ -236,11 +236,14 @@ is already narrowed."
 ;; copy it if that's what you want.
 (define-key ctl-x-map "n" #'narrow-or-widen-dwim)
 
+(defun l-set-tab-width ()
+  (setq tab-width (if (eq major-mode 'emacs-lisp-mode) 8 4)))
+(add-hook 'emacs-lisp-mode-hook 'l-set-tab-width)
 (add-hook 'after-change-major-mode-hook 
           '(lambda () 
              (setq-default indent-tabs-mode nil)
              (setq c-basic-indent 4)
-             (setq tab-width 4)))
+             (l-set-tab-width)))
 
 (use-package origami
   :init
@@ -402,9 +405,8 @@ directory to make multiple eshell windows easier."
 (bind-key "C-!" 'eshell-here)
 
 (defun eshell/x ()
-  (insert "exit")
-  (eshell-send-input)
-  (delete-window))
+  (delete-window)
+  (eshell/exit))
 
 (global-eldoc-mode -1)
  
