@@ -893,7 +893,7 @@ directory to make multiple eshell windows easier."
 
           (setq tide-tsserver-executable "node_modules/typescript/bin/tsserver")
 
-          (add-hook 'typescript-mode-hook #'setup-tide-mode)))
+          (add-hook 'typescript-mode-hook #'setup-tide-mode))) 
 #+END_SRC
 *** Angular
 
