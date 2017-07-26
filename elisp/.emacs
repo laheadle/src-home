@@ -155,6 +155,8 @@ Breadcrumb bookmarks:
 (use-package helm-descbinds
   :init (helm-descbinds-mode))
 
+(setq async-bytecomp-allowed-packages '(all))
+
 (use-package swiper)
 (use-package counsel
   :bind (("C-b" . ivy-switch-buffer)
@@ -522,6 +524,8 @@ directory to make multiple eshell windows easier."
           (setq tide-tsserver-executable "node_modules/typescript/bin/tsserver")
 
           (add-hook 'typescript-mode-hook #'setup-tide-mode)))
+
+(use-package ng2-mode)
 
 (use-package smartparens
   :init

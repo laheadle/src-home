@@ -301,6 +301,8 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 #+BEGIN_SRC emacs-lisp
 (use-package hydra)
 #+END_SRC
+
+
 * bookmarks
 
 #+BEGIN_SRC emacs-lisp
@@ -385,6 +387,13 @@ Breadcrumb bookmarks:
   :init (helm-descbinds-mode))
 
 #+END_SRC
+** byte compiling packages
+
+#+BEGIN_SRC emacs-lisp
+(setq async-bytecomp-allowed-packages '(all))
+#+END_SRC
+
+
 * Ivy
 
 #+BEGIN_SRC emacs-lisp
@@ -886,6 +895,12 @@ directory to make multiple eshell windows easier."
 
           (add-hook 'typescript-mode-hook #'setup-tide-mode)))
 #+END_SRC
+*** Angular
+
+#+BEGIN_SRC emacs-lisp
+(use-package ng2-mode) 
+#+END_SRC
+
 ** Smartparens
 
 #+BEGIN_SRC emacs-lisp
@@ -1050,7 +1065,6 @@ directory to make multiple eshell windows easier."
 (use-package lispy
   :init (progn (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))))
 #+END_SRC
-
 * Custom 
 #+BEGIN_SRC emacs-lisp
 
