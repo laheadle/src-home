@@ -136,6 +136,7 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 (org-babel-do-load-languages
  'org-babel-load-languages '((shell . t)
                              (emacs-lisp . t)
+                             (http . t)
                              (org . t)))
 #+END_SRC
 
@@ -735,8 +736,34 @@ directory to make multiple eshell windows easier."
 (column-number-mode)
 
 (setq debug-on-error t)
+#+END_SRC
+
+** http
+#+BEGIN_SRC emacs-lisp
+(use-package ob-http)
+#+END_SRC
+* dictionary, lookups
+#+BEGIN_SRC emacs-lisp
+(use-package xah-lookup)
+(defun my-lookup-rae (&optional *word)
+  "lookup rae doc of word under cursor"
+  (interactive)
+  (require 'xah-lookup)
+  (xah-lookup-word-on-internet
+   ,*word
+   (get 'my-lookup-rae 'xah-lookup-url )
+   (get 'my-lookup-rae 'xah-lookup-browser-function )))
+
+(put 'my-lookup-rae 'xah-lookup-url "http://dle.rae.es/?w=word02051")
+(put 'my-lookup-rae 'xah-lookup-browser-function 'browse-url)
 
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package dictionary)
+#+END_SRC
+
+
 * git
 
 #+BEGIN_SRC emacs-lisp :header-args :tangle home.el

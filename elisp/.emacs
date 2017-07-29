@@ -80,6 +80,7 @@
 (org-babel-do-load-languages
  'org-babel-load-languages '((shell . t)
                              (emacs-lisp . t)
+                             (http . t)
                              (org . t)))
 
 (use-package hydra)
@@ -429,6 +430,23 @@ directory to make multiple eshell windows easier."
 (column-number-mode)
 
 (setq debug-on-error t)
+
+(use-package ob-http)
+
+(use-package xah-lookup)
+(defun my-lookup-rae (&optional *word)
+  "lookup rae doc of word under cursor"
+  (interactive)
+  (require 'xah-lookup)
+  (xah-lookup-word-on-internet
+   *word
+   (get 'my-lookup-rae 'xah-lookup-url )
+   (get 'my-lookup-rae 'xah-lookup-browser-function )))
+
+(put 'my-lookup-rae 'xah-lookup-url "http://dle.rae.es/?w=word02051")
+(put 'my-lookup-rae 'xah-lookup-browser-function 'browse-url)
+
+(use-package dictionary)
 
 (use-package magit
   :init (setq magit-popup-use-prefix-argument nil
