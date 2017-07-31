@@ -14,7 +14,8 @@
   (package-install 'use-package))
 
 (require 'use-package)
-(setq use-package-always-ensure t)
+(setq use-package-always-ensure t
+      use-package-verbose t)
 ;(load (expand-file-name "~/packages.el"))
 (use-package bbdb)
 
@@ -54,9 +55,10 @@
               (magit-status)))
         (magit-status))
     (magit-status)))
-(bind-key "C-." 'l-org-jump-to-dir org-mode-map)
 
 (load (concat l-elisp-home "org-mode.el"))
+
+(bind-key "C-." 'l-org-jump-to-dir org-mode-map)
 
 (eval-after-load 'org-src
   '(define-key org-src-mode-map
@@ -76,12 +78,6 @@
     (org-babel-tangle)))
 
 (add-hook 'after-save-hook 'my/tangle-on-save-emacs-config-org-file)
-
-(org-babel-do-load-languages
- 'org-babel-load-languages '((shell . t)
-                             (emacs-lisp . t)
-                             (http . t)
-                             (org . t)))
 
 (use-package hydra)
 
@@ -348,8 +344,6 @@ is already narrowed."
 
 (prefer-coding-system 'utf-8)
 
-(desktop-save-mode 1)
-(setq desktop-restore-eager 10)
 (setq require-final-newline nil)
 (setq mode-require-final-newline nil)
 
@@ -646,8 +640,29 @@ directory to make multiple eshell windows easier."
 
 (show-paren-mode)
 
-(use-package lispy
-  :config (progn (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))))
+;(use-package lispy
+;  :demand t
+;  :config (progn (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))))
+;(require 'lispy)
+
+;; (use-package lispy
+;; :defer 1
+;;   :init
+;;   (dolist (hook '(emacs-lisp-mode-hook
+;;                   lisp-interaction-mode-hook
+;;                   lisp-mode-hook
+;;                   scheme-mode-hook
+;;                   clojure-mode-hook))
+;;     (add-hook hook (lambda () (lispy-mode 1)))))
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages '((shell . t)
+                             (emacs-lisp . t)
+                             (http . t)
+                             (org . t)))
+
+;(desktop-save-mode 1)
+;(setq desktop-restore-eager 10)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
