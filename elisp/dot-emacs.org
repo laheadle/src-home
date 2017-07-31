@@ -1109,8 +1109,8 @@ directory to make multiple eshell windows easier."
 #+END_SRC
 * desktop
 #+BEGIN_SRC emacs-lisp
-;(desktop-save-mode 1)
-;(setq desktop-restore-eager 10)
+(desktop-save-mode 1)
+(setq desktop-restore-eager 10)
 #+END_SRC
 
 * Custom 

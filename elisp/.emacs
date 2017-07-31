@@ -661,8 +661,8 @@ directory to make multiple eshell windows easier."
                              (http . t)
                              (org . t)))
 
-;(desktop-save-mode 1)
-;(setq desktop-restore-eager 10)
+(desktop-save-mode 1)
+(setq desktop-restore-eager 10)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
