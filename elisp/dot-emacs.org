@@ -1063,7 +1063,7 @@ directory to make multiple eshell windows easier."
 #+BEGIN_SRC emacs-lisp
 
 (use-package lispy
-  :init (progn (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))))
+  :config (progn (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))))
 #+END_SRC
 * Custom 
 #+BEGIN_SRC emacs-lisp

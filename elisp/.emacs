@@ -629,7 +629,7 @@ directory to make multiple eshell windows easier."
 (show-paren-mode)
 
 (use-package lispy
-  :init (progn (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))))
+  :config (progn (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
