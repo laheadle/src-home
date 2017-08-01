@@ -755,7 +755,7 @@ directory to make multiple eshell windows easier."
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(use-package dictionary)
+;(use-package dictionary)
 #+END_SRC
 
 
@@ -920,7 +920,7 @@ directory to make multiple eshell windows easier."
 *** Angular
 
 #+BEGIN_SRC emacs-lisp
-(use-package ng2-mode) 
+;(use-package ng2-mode) 
 #+END_SRC
 
 ** Smartparens
@@ -1084,20 +1084,14 @@ directory to make multiple eshell windows easier."
 ** lisp
 #+BEGIN_SRC emacs-lisp
 
-;(use-package lispy
-;  :demand t
-;  :config (progn (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))))
-;(require 'lispy)
-
-;; (use-package lispy
-;; :defer 1
-;;   :init
-;;   (dolist (hook '(emacs-lisp-mode-hook
-;;                   lisp-interaction-mode-hook
-;;                   lisp-mode-hook
-;;                   scheme-mode-hook
-;;                   clojure-mode-hook))
-;;     (add-hook hook (lambda () (lispy-mode 1)))))
+(use-package lispy
+  :init
+  (dolist (hook '(emacs-lisp-mode-hook
+                  lisp-interaction-mode-hook
+                  lisp-mode-hook
+                  scheme-mode-hook
+                  clojure-mode-hook))
+    (add-hook hook (lambda () (lispy-mode 1)))))
 #+END_SRC
 ** babel
 #+BEGIN_SRC emacs-lisp

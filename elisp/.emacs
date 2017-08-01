@@ -440,7 +440,7 @@ directory to make multiple eshell windows easier."
 (put 'my-lookup-rae 'xah-lookup-url "http://dle.rae.es/?w=word02051")
 (put 'my-lookup-rae 'xah-lookup-browser-function 'browse-url)
 
-(use-package dictionary)
+;(use-package dictionary)
 
 (use-package magit
   :init (setq magit-popup-use-prefix-argument nil
@@ -537,7 +537,7 @@ directory to make multiple eshell windows easier."
 
           (add-hook 'typescript-mode-hook #'setup-tide-mode)))
 
-(use-package ng2-mode)
+;(use-package ng2-mode)
 
 (use-package smartparens
   :init
@@ -640,20 +640,14 @@ directory to make multiple eshell windows easier."
 
 (show-paren-mode)
 
-;(use-package lispy
-;  :demand t
-;  :config (progn (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))))
-;(require 'lispy)
-
-;; (use-package lispy
-;; :defer 1
-;;   :init
-;;   (dolist (hook '(emacs-lisp-mode-hook
-;;                   lisp-interaction-mode-hook
-;;                   lisp-mode-hook
-;;                   scheme-mode-hook
-;;                   clojure-mode-hook))
-;;     (add-hook hook (lambda () (lispy-mode 1)))))
+(use-package lispy
+  :init
+  (dolist (hook '(emacs-lisp-mode-hook
+                  lisp-interaction-mode-hook
+                  lisp-mode-hook
+                  scheme-mode-hook
+                  clojure-mode-hook))
+    (add-hook hook (lambda () (lispy-mode 1)))))
 
 (org-babel-do-load-languages
  'org-babel-load-languages '((shell . t)
