@@ -123,8 +123,8 @@ Breadcrumb bookmarks:
           helm-ff-skip-boring-files t
           helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --smart-case --no-heading --line-number %s %s %s"
           helm-grep-ag-pipe-cmd-switches '("--colors 'match:fg:black'" "--colors 'match:bg:yellow'"))
-    (helm-mode)
-    (helm-adaptive-mode t)
+    ;(helm-mode)
+    ;(helm-adaptive-mode t)
     (require 'grep)
     (add-to-list 'grep-find-ignored-directories "t2k-applet")
     (add-to-list 'grep-find-ignored-directories "node_modules")
@@ -657,6 +657,9 @@ directory to make multiple eshell windows easier."
 
 (desktop-save-mode 1)
 (setq desktop-restore-eager 10)
+
+(use-package yasnippet)
+(use-package yankpad)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
