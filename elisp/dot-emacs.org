@@ -231,7 +231,7 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "~/Workspace/docs/org/refile.org")
-               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+               "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
               ("r" "respond" entry (file "~/Workspace/docs/org/refile.org")
                "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
               ("n" "note" entry (file "~/Workspace/docs/org/refile.org")
@@ -796,6 +796,7 @@ directory to make multiple eshell windows easier."
   :init (setq magit-popup-use-prefix-argument nil
               magit-commit-show-diff nil
               magit-revert-buffers 1
+              magit-diff-refine-hunk 'all
               magit-visit-ref-create t)
   :bind (("C-." . magit-status)
          :map magit-mode-map
@@ -1084,14 +1085,14 @@ directory to make multiple eshell windows easier."
 ** lisp
 #+BEGIN_SRC emacs-lisp
 
-(use-package lispy
-  :init
-  (dolist (hook '(emacs-lisp-mode-hook
-                  lisp-interaction-mode-hook
-                  lisp-mode-hook
-                  scheme-mode-hook
-                  clojure-mode-hook))
-    (add-hook hook (lambda () (lispy-mode 1)))))
+;(use-package lispy
+;  :init
+;  (dolist (hook '(emacs-lisp-mode-hook
+;                  lisp-interaction-mode-hook
+;                  lisp-mode-hook
+;                  scheme-mode-hook
+;                  clojure-mode-hook))
+;    (add-hook hook (lambda () (lispy-mode 1)))))
 #+END_SRC
 ** babel
 #+BEGIN_SRC emacs-lisp

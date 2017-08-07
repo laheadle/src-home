@@ -446,6 +446,7 @@ directory to make multiple eshell windows easier."
   :init (setq magit-popup-use-prefix-argument nil
               magit-commit-show-diff nil
               magit-revert-buffers 1
+              magit-diff-refine-hunk 'all
               magit-visit-ref-create t)
   :bind (("C-." . magit-status)
          :map magit-mode-map
@@ -640,14 +641,14 @@ directory to make multiple eshell windows easier."
 
 (show-paren-mode)
 
-(use-package lispy
-  :init
-  (dolist (hook '(emacs-lisp-mode-hook
-                  lisp-interaction-mode-hook
-                  lisp-mode-hook
-                  scheme-mode-hook
-                  clojure-mode-hook))
-    (add-hook hook (lambda () (lispy-mode 1)))))
+;(use-package lispy
+;  :init
+;  (dolist (hook '(emacs-lisp-mode-hook
+;                  lisp-interaction-mode-hook
+;                  lisp-mode-hook
+;                  scheme-mode-hook
+;                  clojure-mode-hook))
+;    (add-hook hook (lambda () (lispy-mode 1)))))
 
 (org-babel-do-load-languages
  'org-babel-load-languages '((shell . t)
