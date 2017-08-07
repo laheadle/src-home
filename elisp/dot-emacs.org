@@ -355,8 +355,8 @@ Breadcrumb bookmarks:
           helm-ff-skip-boring-files t
           helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --smart-case --no-heading --line-number %s %s %s"
           helm-grep-ag-pipe-cmd-switches '("--colors 'match:fg:black'" "--colors 'match:bg:yellow'"))
-    (helm-mode)
-    (helm-adaptive-mode t)
+    ;(helm-mode)
+    ;(helm-adaptive-mode t)
     (require 'grep)
     (add-to-list 'grep-find-ignored-directories "t2k-applet")
     (add-to-list 'grep-find-ignored-directories "node_modules")
@@ -1094,6 +1094,7 @@ directory to make multiple eshell windows easier."
 ;                  clojure-mode-hook))
 ;    (add-hook hook (lambda () (lispy-mode 1)))))
 #+END_SRC
+
 ** babel
 #+BEGIN_SRC emacs-lisp
 (org-babel-do-load-languages
@@ -1106,6 +1107,13 @@ directory to make multiple eshell windows easier."
 #+BEGIN_SRC emacs-lisp
 (desktop-save-mode 1)
 (setq desktop-restore-eager 10)
+#+END_SRC
+* templates/snippets
+** yankpad
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet)
+(use-package yankpad)
+
 #+END_SRC
 
 * Custom 
