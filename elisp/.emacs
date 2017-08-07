@@ -650,6 +650,8 @@ directory to make multiple eshell windows easier."
 ;                  clojure-mode-hook))
 ;    (add-hook hook (lambda () (lispy-mode 1)))))
 
+(use-package markdown-mode)
+
 (org-babel-do-load-languages
  'org-babel-load-languages '((shell . t)
                              (emacs-lisp . t)

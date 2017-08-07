@@ -1094,6 +1094,11 @@ directory to make multiple eshell windows easier."
 ;                  clojure-mode-hook))
 ;    (add-hook hook (lambda () (lispy-mode 1)))))
 #+END_SRC
+** markdown
+
+#+BEGIN_SRC emacs-lisp
+(use-package markdown-mode)
+#+END_SRC
 
 ** babel
 #+BEGIN_SRC emacs-lisp
