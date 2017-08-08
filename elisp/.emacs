@@ -157,7 +157,9 @@ Breadcrumb bookmarks:
 (use-package swiper)
 (use-package counsel
   :bind (("C-b" . ivy-switch-buffer)
-         ("C-s" . swiper))
+         ("C-s" . swiper)
+         :map my-map
+         ("q" . counsel-rg))
   :init
   (progn
     (ivy-mode 1)
