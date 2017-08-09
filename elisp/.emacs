@@ -246,6 +246,8 @@ is already narrowed."
              (setq c-basic-indent 4)
              (l-set-tab-width)))
 
+(use-package wgrep)
+
 (use-package origami
   :init
   (progn

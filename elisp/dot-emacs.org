@@ -514,7 +514,10 @@ is already narrowed."
 
 ** grep
 
-??
+#+BEGIN_SRC emacs-lisp
+(use-package wgrep)
+#+END_SRC
+
 
 ** folding
 
