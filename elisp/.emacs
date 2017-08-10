@@ -381,6 +381,8 @@ is already narrowed."
     (add-to-list 'aw-dispatch-alist '(?\; hydra-window-frame/body) t)
     (ace-window-display-mode t)))
 
+
+
 (defun eshell-here ()
   "Opens up a new shell in the directory associated with the
 current buffer's file. The eshell is renamed to match that
