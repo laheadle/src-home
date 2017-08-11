@@ -674,6 +674,9 @@ directory to make multiple eshell windows easier."
                              (http . t)
                              (org . t)))
 
+(setq org-babel-default-header-args:sh
+  '((:prologue . "exec 2>&1") (:epilogue . ":")))
+
 (desktop-save-mode 1)
 (setq desktop-restore-eager 10)
 

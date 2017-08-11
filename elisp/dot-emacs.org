@@ -1131,6 +1131,9 @@ directory to make multiple eshell windows easier."
                              (emacs-lisp . t)
                              (http . t)
                              (org . t)))
+
+(setq org-babel-default-header-args:sh
+  '((:prologue . "exec 2>&1") (:epilogue . ":")))
 #+END_SRC
 * desktop
 #+BEGIN_SRC emacs-lisp
