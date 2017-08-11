@@ -658,7 +658,7 @@ directory to make multiple eshell windows easier."
 
 (show-paren-mode)
 
-(use-package lispy)
+(use-package lispy :defer t)
 
   ;; :init
 ;; (dolist (hook '(emacs-lisp-mode-hook
@@ -676,7 +676,7 @@ directory to make multiple eshell windows easier."
 (setq org-babel-default-header-args:sh
   '((:prologue . "exec 2>&1") (:epilogue . ":")))
 
-(desktop-save-mode 1)
+(desktop-save-mode -1)
 (setq desktop-restore-eager 10)
 
 (use-package yasnippet)

@@ -1110,7 +1110,7 @@ directory to make multiple eshell windows easier."
 ** lisp
 #+BEGIN_SRC emacs-lisp
 
-(use-package lispy)
+(use-package lispy :defer t)
 
   ;; :init
 ;; (dolist (hook '(emacs-lisp-mode-hook
@@ -1136,7 +1136,7 @@ directory to make multiple eshell windows easier."
 #+END_SRC
 * desktop
 #+BEGIN_SRC emacs-lisp
-(desktop-save-mode 1)
+(desktop-save-mode -1)
 (setq desktop-restore-eager 10)
 #+END_SRC
 * templates/snippets
