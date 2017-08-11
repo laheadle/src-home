@@ -71,6 +71,16 @@
 
   (setq org-M-RET-may-split-line '((default . nil)))
 
+(use-package org-super-agenda
+  :config
+  (progn
+    (org-super-agenda-mode)
+    (setq org-super-agenda-groups
+          '((:name "A" :priority "A")
+            (:name "B" :priority "B")
+            (:name "C" :priority "C" :order 200)
+            (:todo "HOLD" :order 300)))))
+
 (defvar l-dot-emacs (concat l-elisp-home "dot-emacs.org"))
 
 (defun my/tangle-on-save-emacs-config-org-file ()

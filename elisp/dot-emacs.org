@@ -119,6 +119,20 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
   (setq org-M-RET-may-split-line '((default . nil)))
 #+END_SRC
 
+** super-agenda
+#+BEGIN_SRC emacs-lisp
+
+(use-package org-super-agenda
+  :config
+  (progn
+    (org-super-agenda-mode)
+    (setq org-super-agenda-groups
+          '((:name "A" :priority "A")
+            (:name "B" :priority "B")
+            (:name "C" :priority "C" :order 200)
+            (:todo "HOLD" :order 300)))))
+#+END_SRC
+
 
 ** Babel
 *** tangle .emacs on save
