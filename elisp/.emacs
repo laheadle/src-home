@@ -259,6 +259,7 @@ is already narrowed."
 (use-package wgrep)
 
 (use-package origami
+  :defer t
   :init
   (progn
     (global-origami-mode)
@@ -480,19 +481,20 @@ directory to make multiple eshell windows easier."
     (setq emmet-move-cursor-between-quotes t))) ;; default nil
 
 (use-package cider
+  :defer t
   :init
-
   (setq cider-prompt-for-symbol nil
         cider-cljs-lein-repl
         "(do (require 'figwheel-sidecar.repl-api)
            (figwheel-sidecar.repl-api/start-figwheel!)
            (figwheel-sidecar.repl-api/cljs-repl))"))
 
-(use-package clojure-cheatsheet)
+(use-package clojure-cheatsheet :defer t)
 (use-package helm-cider
-  :init (helm-cider-mode 1))
+  :defer t
+  :config (helm-cider-mode 1))
 
-(use-package cider-hydra)
+(use-package cider-hydra :defer t)
 
 (add-hook 'cider-mode-hook #'cider-hydra-mode)
 
@@ -665,7 +667,7 @@ directory to make multiple eshell windows easier."
 ;;                   clojure-mode-hook))
 ;;     (add-hook hook (lambda () (lispy-mode 1))))
 
-(use-package markdown-mode)
+(use-package markdown-mode :defer t)
 
 (org-babel-do-load-languages
  'org-babel-load-languages '((shell . t)
