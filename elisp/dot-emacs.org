@@ -25,7 +25,7 @@
 (setq use-package-always-ensure t
       use-package-verbose t)
 ;(load (expand-file-name "~/packages.el"))
-(use-package bbdb)
+(use-package bbdb :defer t)
 
 #+END_SRC
 
@@ -68,8 +68,8 @@
 * Keybindings
 
 #+begin_src emacs-lisp
-(use-package free-keys)
-(use-package bind-key)
+(use-package free-keys :defer t)
+(use-package bind-key  :defer t)
 (define-prefix-command 'my-map)
 (bind-key "C-1" 'my-map)
 #+end_src

@@ -17,7 +17,7 @@
 (setq use-package-always-ensure t
       use-package-verbose t)
 ;(load (expand-file-name "~/packages.el"))
-(use-package bbdb)
+(use-package bbdb :defer t)
 
 (defvar l-src-home (file-truename "~/src/home/"))
 (defvar l-elisp-home (file-truename "~/src/home/elisp/"))
@@ -35,8 +35,8 @@
 
 (load-file (concat l-elisp-home l-env ".el"))
 
-(use-package free-keys)
-(use-package bind-key)
+(use-package free-keys :defer t)
+(use-package bind-key  :defer t)
 (define-prefix-command 'my-map)
 (bind-key "C-1" 'my-map)
 
