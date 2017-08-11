@@ -114,65 +114,15 @@ Breadcrumb bookmarks:
   :init
   (global-company-mode))
 
-(use-package helm
-  :diminish helm-mode
-  :init
-  (progn
-    (require 'helm-config)
-    (setq helm-candidate-number-limit 100)
-
-    ;; From https://gist.github.com/antifuchs/9238468
-    (setq helm-idle-delay 0.0 ; update fast sources immediately (doesn't).
-          helm-input-idle-delay 0.01  ; this actually updates things
-                                        ; reeeelatively quickly.
-          helm-yas-display-key-on-candidate t
-          helm-quick-update t
-          helm-mode-fuzzy-match t
-          helm-completion-in-region-fuzzy-match t
-          helm-M-x-requires-pattern nil
-          helm-ff-skip-boring-files t
-          helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --smart-case --no-heading --line-number %s %s %s"
-          helm-grep-ag-pipe-cmd-switches '("--colors 'match:fg:black'" "--colors 'match:bg:yellow'"))
-    ;(helm-mode)
-    ;(helm-adaptive-mode t)
-    (require 'grep)
-    (add-to-list 'grep-find-ignored-directories "t2k-applet")
-    (add-to-list 'grep-find-ignored-directories "node_modules")
-    )
-  :bind (("C-c h" . helm-mini)
-         ("C-h a" . helm-apropos)
-         ;("C-x b" . helm-buffers-list)
-         ("M-y" . helm-show-kill-ring)
-         ("M-x" . helm-M-x)
-         ;("C-x C-f" . helm-find-files)
-         ("C-x c o" . helm-occur)
-         ("C-x c s" . helm-swoop)
-         ("C-x c y" . helm-yas-complete)
-         ("C-x c Y" . helm-yas-create-snippet-on-region)
-         ("C-x c SPC" . helm-all-mark-rings)))
-(ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
-
-(use-package helm-org-rifle
-  :bind ("C-c g" . helm-org-rifle-agenda-files))
-
-(use-package helm-ls-git)
-
-(use-package helm-git-grep)
-
-(use-package helm-descbinds
-  :init (helm-descbinds-mode))
-
-(setq async-bytecomp-allowed-packages '(all))
-
 (use-package swiper)
 (use-package counsel
   :bind (("C-b" . ivy-switch-buffer)
          ("C-s" . swiper)
          :map my-map
          ("q" . counsel-rg))
+  :config (ivy-mode 1)
   :init
   (progn
-    (ivy-mode 1)
     (setq ivy-wrap t)
     (setq ivy-use-virtual-buffers t
           ivy-height 25)
@@ -425,8 +375,6 @@ directory to make multiple eshell windows easier."
 
 (global-eldoc-mode -1)
  
-(use-package helm-chrome)
-
 (use-package with-editor)
 
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -490,9 +438,6 @@ directory to make multiple eshell windows easier."
            (figwheel-sidecar.repl-api/cljs-repl))"))
 
 (use-package clojure-cheatsheet :defer t)
-(use-package helm-cider
-  :defer t
-  :config (helm-cider-mode 1))
 
 (use-package cider-hydra :defer t)
 

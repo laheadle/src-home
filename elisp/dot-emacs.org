@@ -348,7 +348,7 @@ Breadcrumb bookmarks:
 
 * Helm
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 
 (use-package helm
   :diminish helm-mode
@@ -401,7 +401,7 @@ Breadcrumb bookmarks:
 #+END_SRC
 ** byte compiling packages
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (setq async-bytecomp-allowed-packages '(all))
 #+END_SRC
 
@@ -415,9 +415,9 @@ Breadcrumb bookmarks:
          ("C-s" . swiper)
          :map my-map
          ("q" . counsel-rg))
+  :config (ivy-mode 1)
   :init
   (progn
-    (ivy-mode 1)
     (setq ivy-wrap t)
     (setq ivy-use-virtual-buffers t
           ivy-height 25)
@@ -464,8 +464,6 @@ Breadcrumb bookmarks:
 (define-key endless/toggle-map "w" #'whitespace-mode)
 #+end_src
 
-#+results:
-: whitespace-mode
 
 * narrow/widen
 #+begin_src emacs-lisp
@@ -740,8 +738,6 @@ directory to make multiple eshell windows easier."
 
 (global-eldoc-mode -1)
  
-(use-package helm-chrome)
-
 (use-package with-editor)
 
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -863,10 +859,15 @@ directory to make multiple eshell windows easier."
            (figwheel-sidecar.repl-api/cljs-repl))"))
 
 (use-package clojure-cheatsheet :defer t)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle no
 (use-package helm-cider
   :defer t
   :config (helm-cider-mode 1))
+#+END_SRC
 
+#+BEGIN_SRC emacs-lisp
 (use-package cider-hydra :defer t)
 
 (add-hook 'cider-mode-hook #'cider-hydra-mode)
@@ -1211,10 +1212,7 @@ directory to make multiple eshell windows easier."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(js2-basic-offset 2)
- '(js2-bounce-indent-p nil)
- '(package-selected-packages
-   (quote
-    (helm-descbinds helm-git-grep helm-ls-git emmet-mode helm-org-rifle helm yaml-mode with-editor use-package smex php-mode markdown-mode js2-mode free-keys circe bbdb))))
+ '(js2-bounce-indent-p nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
