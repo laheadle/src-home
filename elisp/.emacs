@@ -384,7 +384,8 @@ is already narrowed."
     (defhydra hydra-window-frame (:color red)
       "Frame"
       ("f" make-frame "new frame")
-      ("x" delete-frame "delete frame"))
+      ("x" delete-frame "delete frame")
+      ("n" ns-next-frame "next frame"))
     (defhydra hydra-window-size (:color red)
       "Windows size"
       ("h" shrink-window-horizontally "shrink horizontal")
@@ -657,14 +658,12 @@ directory to make multiple eshell windows easier."
 
 (show-paren-mode)
 
-;(use-package lispy
-;  :init
-;  (dolist (hook '(emacs-lisp-mode-hook
-;                  lisp-interaction-mode-hook
-;                  lisp-mode-hook
-;                  scheme-mode-hook
-;                  clojure-mode-hook))
-;    (add-hook hook (lambda () (lispy-mode 1)))))
+(use-package lispy)
+
+  ;; :init
+;; (dolist (hook '(emacs-lisp-mode-hook
+;;                   clojure-mode-hook))
+;;     (add-hook hook (lambda () (lispy-mode 1))))
 
 (use-package markdown-mode)
 
