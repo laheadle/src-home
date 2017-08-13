@@ -79,7 +79,7 @@
           '((:name "A" :priority "A")
             (:name "B" :priority "B")
             (:name "C" :priority "C" :order 200)
-            (:todo "HOLD" :order 300)))))
+            (:todo "HOLD" :todo "WAITING" :order 300)))))
 
 (defvar l-dot-emacs (concat l-elisp-home "dot-emacs.org"))
 
@@ -113,6 +113,16 @@ Breadcrumb bookmarks:
 (use-package company
   :init
   (global-company-mode))
+
+(use-package helm-org-rifle
+  :bind ("C-c g" . helm-org-rifle-agenda-files))
+
+(use-package helm-ls-git)
+
+;(use-package helm-git-grep)
+
+(use-package helm-descbinds
+  :init (helm-descbinds-mode))
 
 (use-package swiper)
 (use-package counsel

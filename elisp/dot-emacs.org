@@ -130,7 +130,7 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
           '((:name "A" :priority "A")
             (:name "B" :priority "B")
             (:name "C" :priority "C" :order 200)
-            (:todo "HOLD" :order 300)))))
+            (:todo "HOLD" :todo "WAITING" :order 300)))))
 #+END_SRC
 
 
@@ -387,13 +387,15 @@ Breadcrumb bookmarks:
          ("C-x c Y" . helm-yas-create-snippet-on-region)
          ("C-x c SPC" . helm-all-mark-rings)))
 (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
+#+END_SRC
 
+#+BEGIN_SRC emacs-lisp
 (use-package helm-org-rifle
   :bind ("C-c g" . helm-org-rifle-agenda-files))
 
 (use-package helm-ls-git)
 
-(use-package helm-git-grep)
+;(use-package helm-git-grep)
 
 (use-package helm-descbinds
   :init (helm-descbinds-mode))
