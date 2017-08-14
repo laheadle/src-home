@@ -76,10 +76,10 @@
   (progn
     (org-super-agenda-mode)
     (setq org-super-agenda-groups
-          '((:name "A" :priority "A")
+          '((:todo "HOLD" :todo "WAITING" :order 300)
+            (:name "A" :priority "A")
             (:name "B" :priority "B")
-            (:name "C" :priority "C" :order 200)
-            (:todo "HOLD" :todo "WAITING" :order 300)))))
+            (:name "C" :priority "C" :order 200)))))
 
 (defvar l-dot-emacs (concat l-elisp-home "dot-emacs.org"))
 
