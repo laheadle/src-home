@@ -2,7 +2,7 @@
                             ("FLAGGED" . ??)
                             ("MATT" . ?m)
                             ("RETRO" . ?r)
-                            ("CONFIG" . ?c)
+                            ("COMPUTING" . ?c)
                             ("WORK" . ?w)
                             )))
 
