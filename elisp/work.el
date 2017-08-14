@@ -1,6 +1,7 @@
 (setq org-tag-alist (quote (
                             ("FLAGGED" . ??)
                             ("MATT" . ?m)
+                            ("RETRO" . ?r)
                             )))
 
 
