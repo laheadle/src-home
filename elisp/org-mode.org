@@ -1051,7 +1051,7 @@ don't want to spend time waiting for it to be generated.
                        (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
                        (org-tags-match-list-sublevels nil))))
                nil)
-
+              ("r" . "Weekly Review")
               ("r3" "Get Current: Review Previous Calendar"
                ((agenda "" ((org-agenda-start-day (concat "-" (number-to-string (+ 13 (nth 6 (decode-time)))) "d"))
                             (org-agenda-span (+ 14 (nth 6 (decode-time))))
