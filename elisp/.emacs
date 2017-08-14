@@ -618,9 +618,9 @@ directory to make multiple eshell windows easier."
 (use-package lispy :defer t)
 
   ;; :init
-;; (dolist (hook '(emacs-lisp-mode-hook
-;;                   clojure-mode-hook))
-;;     (add-hook hook (lambda () (lispy-mode 1))))
+(dolist (hook '(emacs-lisp-mode-hook
+                  clojure-mode-hook))
+    (add-hook hook (lambda () (lispy-mode 1))))
 
 (use-package markdown-mode :defer t)
 
