@@ -237,6 +237,8 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
                             ("FLAGGED" . ??)
                             ("MATT" . ?m)
                             ("RETRO" . ?r)
+                            ("CONFIG" . ?c)
+                            ("WORK" . ?w)
                             )))
 
 

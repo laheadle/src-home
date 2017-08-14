@@ -2,6 +2,8 @@
                             ("FLAGGED" . ??)
                             ("MATT" . ?m)
                             ("RETRO" . ?r)
+                            ("CONFIG" . ?c)
+                            ("WORK" . ?w)
                             )))
 
 
