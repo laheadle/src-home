@@ -216,7 +216,8 @@ is already narrowed."
              (setq c-basic-indent 4)
              (l-set-tab-width)))
 
-(use-package wgrep)
+(use-package wgrep
+:config (setq wgrep-auto-save-buffer t))
 
 (use-package origami
   :defer t
@@ -645,10 +646,6 @@ directory to make multiple eshell windows easier."
     ;; This is globally useful, so it goes under `C-x', and `m'
     ;; for "multiple-cursors" is easy to remember.
     (define-key ctl-x-map "\C-m" #'mc/mark-all-dwim)
-    ;; Usually, both `C-x C-m' and `C-x RET' invoke the
-    ;; `mule-keymap', but that's a waste of keys. Here we put it
-    ;; _just_ under `C-x RET'.
-    (define-key ctl-x-map (kbd "<return>") mule-keymap)
 
     ;; Remember `er/expand-region' is bound to M-2!
     (global-set-key (kbd "M-3") #'mc/mark-next-like-this)
@@ -678,7 +675,12 @@ directory to make multiple eshell windows easier."
     (define-key endless/mc-map "\C-a"
       #'mc/edit-beginnings-of-lines)
     (define-key endless/mc-map "\C-e"
-      #'mc/edit-ends-of-lines)))
+      #'mc/edit-ends-of-lines)
+
+    ;; Usually, both `C-x C-m' and `C-x RET' invoke the
+    ;; `mule-keymap', but that's a waste of keys. Here we put it
+    ;; _just_ under `C-x RET'.
+    (define-key ctl-x-map (kbd "<return>") mule-keymap)))
 
 (defun remove-dos-eol ()
   "Do not show ^M in files containing mixed UNIX and DOS line endings."
