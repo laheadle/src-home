@@ -4752,8 +4752,8 @@ My logging settings are set as follows:
 #+header: :tangle yes
 #+begin_src emacs-lisp
 (setq org-log-done (quote time))
-(setq org-log-into-drawer t)
-(setq org-log-state-notes-insert-after-drawers nil)
+(setq org-log-into-drawer nil)
+(setq org-log-state-notes-insert-after-drawers t)
 #+end_src
 
 My =org-todo-keywords= are set as follows:
