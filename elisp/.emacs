@@ -451,6 +451,11 @@ directory to make multiple eshell windows easier."
   (add-hook 'tuareg-mode-hook 'merlin-mode t)
   (add-hook 'caml-mode-hook 'merlin-mode t)))
 
+(with-eval-after-load 'company
+  (add-to-list 'company-backends 'merlin-company-backend))
+
+(add-hook 'merlin-mode-hook 'company-mode)
+
 (use-package cider
   :defer t
   :init
