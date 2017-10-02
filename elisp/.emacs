@@ -404,6 +404,8 @@ directory to make multiple eshell windows easier."
 
 (use-package ob-http)
 
+(use-package csv-mode)
+
 (use-package xah-lookup)
 (defun my-lookup-rae (&optional *word)
   "lookup rae doc of word under cursor"
@@ -438,6 +440,9 @@ directory to make multiple eshell windows easier."
     (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
     (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
     (setq emmet-move-cursor-between-quotes t))) ;; default nil
+
+(use-package tuareg)
+(use-package merlin)
 
 (use-package cider
   :defer t

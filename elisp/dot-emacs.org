@@ -765,6 +765,12 @@ directory to make multiple eshell windows easier."
 #+BEGIN_SRC emacs-lisp
 (use-package ob-http)
 #+END_SRC
+* csv mode
+#+begin_src emacs-lisp
+
+(use-package csv-mode)
+
+#+end_src
 * dictionary, lookups
 #+BEGIN_SRC emacs-lisp
 (use-package xah-lookup)
@@ -853,6 +859,14 @@ directory to make multiple eshell windows easier."
     (setq emmet-move-cursor-between-quotes t))) ;; default nil
 
 #+END_SRC
+** ocaml
+
+#+begin_src emacs-lisp
+
+(use-package tuareg)
+(use-package merlin)
+
+#+end_src
 ** cider
 #+BEGIN_SRC emacs-lisp
 (use-package cider
