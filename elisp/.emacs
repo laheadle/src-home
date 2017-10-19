@@ -651,6 +651,7 @@ directory to make multiple eshell windows easier."
 
 (org-babel-do-load-languages
  'org-babel-load-languages '((shell . t)
+                             (gnuplot . t)
                              (emacs-lisp . t)
                              (http . t)
                              (org . t)))

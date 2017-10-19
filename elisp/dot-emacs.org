@@ -1172,6 +1172,7 @@ directory to make multiple eshell windows easier."
 #+BEGIN_SRC emacs-lisp
 (org-babel-do-load-languages
  'org-babel-load-languages '((shell . t)
+                             (gnuplot . t)
                              (emacs-lisp . t)
                              (http . t)
                              (org . t)))
