@@ -421,6 +421,8 @@ directory to make multiple eshell windows easier."
 
 ;(use-package dictionary)
 
+(use-package gnuplot)
+
 (use-package magit
   :init (setq magit-popup-use-prefix-argument nil
               magit-commit-show-diff nil

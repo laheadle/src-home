@@ -791,7 +791,13 @@ directory to make multiple eshell windows easier."
 #+BEGIN_SRC emacs-lisp
 ;(use-package dictionary)
 #+END_SRC
+* gnuplot
 
+#+begin_src emacs-lisp
+
+(use-package gnuplot)
+
+#+end_src
 
 * git
 
