@@ -133,6 +133,7 @@ Breadcrumb bookmarks:
   :config (ivy-mode 1)
   :init
   (progn
+    (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
     (setq ivy-wrap t)
     (setq ivy-use-virtual-buffers t
           ivy-height 25)
@@ -150,7 +151,7 @@ Breadcrumb bookmarks:
     (global-set-key (kbd "C-r") 'counsel-git)
     (global-set-key (kbd "C-c j") 'counsel-git-grep)
     (global-set-key (kbd "C-c k") 'counsel-ag)
-;    (global-set-key (kbd "C-x l") 'counsel-locate)
+                                        ;    (global-set-key (kbd "C-x l") 'counsel-locate)
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
 
 (define-prefix-command 'endless/toggle-map)
