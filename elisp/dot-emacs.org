@@ -877,6 +877,11 @@ directory to make multiple eshell windows easier."
   (add-to-list 'company-backends 'merlin-company-backend))
 
 (add-hook 'merlin-mode-hook 'company-mode)
+
+(defun l-config-merlin () '((logfile . "/tmp/merlin")))
+(setq merlin-debug t)
+
+(setq merlin-configuration-function #'l-config-merlin)
 #+end_src
 ** cider
 #+BEGIN_SRC emacs-lisp

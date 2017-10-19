@@ -456,6 +456,11 @@ directory to make multiple eshell windows easier."
 
 (add-hook 'merlin-mode-hook 'company-mode)
 
+(defun l-config-merlin () '((logfile . "/tmp/merlin")))
+(setq merlin-debug t)
+
+(setq merlin-configuration-function #'l-config-merlin)
+
 (use-package cider
   :defer t
   :init
