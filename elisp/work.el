@@ -17,7 +17,7 @@
               ("r" "review" entry (file+olp "~/Workspace/docs/org/work.org" "Review")
                "* NEXT [#A] Review: %? \nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t)
               ("u" "avalon ui" entry (file+olp "~/Workspace/docs/org/work.org" "Avalon" "avui")
-               "* NEXT AVUI: %? \nSCHEDULED: %t\n%U\n%a\n** plan\n** commit message" :clock-in t :clock-resume t)
+               "* NEXT AVUI: %? \nSCHEDULED: %t\n%U\n%a\n** plan\n** NEXT commit message\n** NEXT consider testing\n" :clock-in t :clock-resume t)
               ("n" "note" entry (file "~/Workspace/docs/org/refile.org")
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
               ("j" "Journal" entry (file+datetree "~/Workspace/docs/org/diary.org")
