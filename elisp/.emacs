@@ -42,6 +42,8 @@
 
 (use-package org-plus-contrib)
 
+(load (concat l-elisp-home "org-mode.el"))
+
 (defun l-org-jump-to-dir ()
   (interactive)
   (if (eq major-mode 'org-mode)
@@ -56,13 +58,17 @@
         (magit-status))
     (magit-status)))
 
-(load (concat l-elisp-home "org-mode.el"))
-
 (bind-key "C-." 'l-org-jump-to-dir org-mode-map)
 
 (eval-after-load 'org-src
   '(define-key org-src-mode-map
      "\C-x\C-s" #'org-edit-src-exit))
+
+
+(fset 'l-org-goto-clean-agenda
+      (lambda (&optional arg) "Go to agenda, current day, top of file" (interactive "p") (kmacro-exec-ring-item (quote ([67108988 32 103 114 46] 0 "%d")) arg)))
+
+(bind-key "w" 'l-org-goto-clean-agenda my-map)
 
 (defun l-beginning-of-block ()
   (interactive)
