@@ -42,6 +42,8 @@
 
 (use-package org-plus-contrib)
 
+(load (concat l-elisp-home "org-mode.el"))
+
 (defun l-org-jump-to-dir ()
   (interactive)
   (if (eq major-mode 'org-mode)
@@ -56,13 +58,17 @@
         (magit-status))
     (magit-status)))
 
-(load (concat l-elisp-home "org-mode.el"))
-
 (bind-key "C-." 'l-org-jump-to-dir org-mode-map)
 
 (eval-after-load 'org-src
   '(define-key org-src-mode-map
      "\C-x\C-s" #'org-edit-src-exit))
+
+
+(fset 'l-org-goto-clean-agenda
+      (lambda (&optional arg) "Go to agenda, current day, top of file" (interactive "p") (kmacro-exec-ring-item (quote ([67108988 32 103 114 46] 0 "%d")) arg)))
+
+(bind-key "w" 'l-org-goto-clean-agenda my-map)
 
 (defun l-beginning-of-block ()
   (interactive)
@@ -133,6 +139,7 @@ Breadcrumb bookmarks:
   :config (ivy-mode 1)
   :init
   (progn
+    (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
     (setq ivy-wrap t)
     (setq ivy-use-virtual-buffers t
           ivy-height 25)
@@ -150,7 +157,7 @@ Breadcrumb bookmarks:
     (global-set-key (kbd "C-r") 'counsel-git)
     (global-set-key (kbd "C-c j") 'counsel-git-grep)
     (global-set-key (kbd "C-c k") 'counsel-ag)
-;    (global-set-key (kbd "C-x l") 'counsel-locate)
+                                        ;    (global-set-key (kbd "C-x l") 'counsel-locate)
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
 
 (define-prefix-command 'endless/toggle-map)
@@ -165,7 +172,7 @@ Breadcrumb bookmarks:
 (define-key endless/toggle-map "q" #'toggle-debug-on-quit)
 (define-key endless/toggle-map "m" #'transient-mark-mode)
 (define-key endless/toggle-map "t" #'transient-mark-mode)
-
+(define-key endless/toggle-map "s" #'org-super-agenda-mode)
 
 ;;; Generalized version of `read-only-mode'.
 (define-key endless/toggle-map "r" #'dired-toggle-read-only)
