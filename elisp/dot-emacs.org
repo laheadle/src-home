@@ -1170,6 +1170,7 @@ directory to make multiple eshell windows easier."
 
 ** babel
 #+BEGIN_SRC emacs-lisp
+(require 'ob-gnuplot)
 (org-babel-do-load-languages
  'org-babel-load-languages '((shell . t)
                              (gnuplot . t)

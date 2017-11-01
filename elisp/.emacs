@@ -649,6 +649,7 @@ directory to make multiple eshell windows easier."
 
 (use-package markdown-mode :defer t)
 
+(require 'ob-gnuplot)
 (org-babel-do-load-languages
  'org-babel-load-languages '((shell . t)
                              (gnuplot . t)
