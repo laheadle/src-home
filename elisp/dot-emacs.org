@@ -1168,6 +1168,12 @@ directory to make multiple eshell windows easier."
                   clojure-mode-hook))
     (add-hook hook (lambda () (lispy-mode 1))))
 #+END_SRC
+** php
+#+BEGIN_SRC emacs-lisp
+
+(use-package php-mode)
+
+#+END_SRC
 ** markdown
 
 #+BEGIN_SRC emacs-lisp
