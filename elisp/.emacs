@@ -414,6 +414,7 @@ directory to make multiple eshell windows easier."
 (use-package csv-mode)
 
 (defun start-org-drill ()
+  (interactive)
   (setq org-drill-maximum-duration 7)
   (require 'org-drill)
   (org-drill))

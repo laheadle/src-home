@@ -781,6 +781,7 @@ directory to make multiple eshell windows easier."
 #+BEGIN_SRC emacs-lisp
 
 (defun start-org-drill ()
+  (interactive)
   (setq org-drill-maximum-duration 7)
   (require 'org-drill)
   (org-drill))
