@@ -28,7 +28,7 @@
 ;; Custom Key Bindings
 
 
-(bind-key "C-|" 'org-agenda)
+(bind-key "C-\\" 'org-agenda)
 (bind-key "C-*" 'bh/org-todo)
 (bind-key "C-$" 'bh/widen)
 ;(bind-key "<f7>" 'bh/set-truncate-lines)
