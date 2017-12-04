@@ -413,6 +413,11 @@ directory to make multiple eshell windows easier."
 
 (use-package csv-mode)
 
+(defun start-org-drill ()
+  (setq org-drill-maximum-duration 7)
+  (require 'org-drill)
+  (org-drill))
+
 (use-package xah-lookup)
 (defun my-lookup-rae (&optional *word)
   "lookup rae doc of word under cursor"
