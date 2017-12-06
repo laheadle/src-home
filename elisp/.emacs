@@ -77,6 +77,11 @@
 
   (setq org-M-RET-may-split-line '((default . nil)))
 
+(fset 'l-org-new-line-at-end
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ([3 14 left return] 0 "%d")) arg)))
+
+(bind-key "e" 'l-org-new-line-at-end my-map)
+
 (use-package org-super-agenda
   :config
   (progn
