@@ -17,7 +17,7 @@
               ("r" "review" entry (file+olp "~/Workspace/docs/org/work.org" "Review")
                "* NEXT [#A] Review: %? \nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t)
               ("u" "avalon ui" entry (file+olp "~/Workspace/docs/org/work.org" "Avalon" "avui")
-               "* NEXT AVUI: %? \nSCHEDULED: %t\n%U\n%a\n** plan\n** NEXT commit message\n** NEXT consider testing\n" :clock-in t :clock-resume t)
+               "* NEXT AVUI: %? [%]\nSCHEDULED: %t\n%U\n%a\n** plan\n** NEXT commit message\n** NEXT consider testing\n" :clock-in t :clock-resume t)
               ("n" "note" entry (file "~/Workspace/docs/org/refile.org")
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
               ("j" "Journal" entry (file+datetree "~/Workspace/docs/org/diary.org")
@@ -30,6 +30,15 @@
                "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
               ("h" "Habit" entry (file "~/Workspace/docs/org/refile.org")
                "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+
+(defhydra l/org-refile-hydra (:foreign-keys run) 
+  "Refile"
+  ("w" (my/refile "~/Workspace/docs/org/work.org" "Work") "Refile to Work")
+  ("u" (my/refile "~/Workspace/docs/org/work.org" "avui") "Refile to avui")
+  ("j" org-refile-goto-last-stored "Jump to last refile")
+  ("q" nil "cancel"))
+
+(bind-key "r" 'l/org-refile-hydra/body 'my-map)
 
 (defun l-getenv (var)
   (shell-command-to-string (concat ". ~/.bashrc; echo -n $" var)))

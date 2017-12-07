@@ -70,6 +70,15 @@
 
 (bind-key "w" 'l-org-goto-clean-agenda my-map)
 
+;; https://mollermara.com/blog/Fast-refiling-in-org-mode-with-hydras/
+(defun my/refile (file headline &optional arg)
+  (let ((pos (save-excursion
+               (find-file file)
+               (org-find-exact-headline-in-buffer headline))))
+    (message "%s %s %s %s" arg headline file pos)
+    (org-refile arg nil (list headline file nil pos)))
+  (switch-to-buffer (current-buffer)))
+
 (defun l-beginning-of-block ()
   (interactive)
   (org-babel-mark-block)
