@@ -1,10 +1,19 @@
+;;;
+;;; Org Mode
+;;;
+(add-to-list 'load-path (expand-file-name "~/extern/org-mode/lisp"))
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+(require 'org)
+;;
+;; Standard key bindings
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+
 ;; The following setting is different from the document so that you
 ;; can override the document path by setting your path in the variable
 ;; org-mode-user-lisp-path
 ;;
-(if (boundp 'org-mode-user-lisp-path)
-    (add-to-list 'load-path org-mode-user-lisp-path)
-  (add-to-list 'load-path (expand-file-name "~/git/org-mode/lisp")))
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (require 'org)
@@ -21,9 +30,9 @@
 ;;
 (if (boundp 'org-user-agenda-files)
     (setq org-agenda-files org-user-agenda-files)
-  (setq org-agenda-files (quote ("~/git/org"
-                               "~/git/org/client1"
-                               "~/git/client2"))))
+  (setq org-agenda-files (quote ("~/extern/org"
+                               "~/extern/org/client1"
+                               "~/extern/client2"))))
 
 ;; Custom Key Bindings
 
@@ -449,43 +458,6 @@ A prefix arg forces clock in of the default task."
 ; For tag searches ignore tasks with scheduled and deadline dates
 (setq org-agenda-tags-todo-honor-ignore-options t)
 
-(require 'bbdb)
-(require 'bbdb-com)
-
-(global-set-key (kbd "<f9> p") 'bh/phone-call)
-
-;;
-;; Phone capture template handling with BBDB lookup
-;; Adapted from code by Gregory J. Grubbs
-(defun bh/phone-call ()
-  "Return name and company info for caller from bbdb lookup"
-  (interactive)
-  (let* (name rec caller)
-    (setq name (completing-read "Who is calling? "
-                                (bbdb-hashtable)
-                                'bbdb-completion-predicate
-                                'confirm))
-    (when (> (length name) 0)
-      ; Something was supplied - look it up in bbdb
-      (setq rec
-            (or (first
-                 (or (bbdb-search (bbdb-records) name nil nil)
-                     (bbdb-search (bbdb-records) nil name nil)))
-                name)))
-
-    ; Build the bbdb link if we have a bbdb record, otherwise just return the name
-    (setq caller (cond ((and rec (vectorp rec))
-                        (let ((name (bbdb-record-name rec))
-                              (company (bbdb-record-company rec)))
-                          (concat "[[bbdb:"
-                                  name "]["
-                                  name "]]"
-                                  (when company
-                                    (concat " - " company)))))
-                       (rec)
-                       (t "NameOfCaller")))
-    (insert caller)))
-
 (setq org-agenda-span 'day)
 
 (setq org-stuck-projects (quote ("" nil nil "")))
@@ -777,7 +749,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (require 'ox-latex)
 (require 'ox-ascii)
 
-(setq org-ditaa-jar-path "~/git/org-mode/contrib/scripts/ditaa.jar")
+(setq org-ditaa-jar-path "~/extern/org-mode/contrib/scripts/ditaa.jar")
 (setq org-plantuml-jar-path "~/java/plantuml.jar")
 
 (add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
@@ -834,7 +806,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
       ; norang-extra are images and css files that need to be included
       ; norang is the top-level project that gets published
       (quote (("norang-org"
-               :base-directory "~/git/www.norang.ca"
+               :base-directory "~/extern/www.norang.ca"
                :publishing-directory "/ssh:www-data@www:~/www.norang.ca/htdocs"
                :recursive t
                :table-of-contents nil
@@ -847,7 +819,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                :author-info nil
                :creator-info nil)
               ("norang-extra"
-               :base-directory "~/git/www.norang.ca/"
+               :base-directory "~/extern/www.norang.ca/"
                :publishing-directory "/ssh:www-data@www:~/www.norang.ca/htdocs"
                :base-extension "css\\|pdf\\|png\\|jpg\\|gif"
                :publishing-function org-publish-attachment
@@ -861,7 +833,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
               ; doc-extra are images and css files that need to be included
               ; doc is the top-level project that gets published
               ("doc-org"
-               :base-directory "~/git/doc.norang.ca/"
+               :base-directory "~/extern/doc.norang.ca/"
                :publishing-directory "/ssh:www-data@www:~/doc.norang.ca/htdocs"
                :recursive nil
                :section-numbers nil
@@ -873,7 +845,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                :author-info nil
                :creator-info nil)
               ("doc-extra"
-               :base-directory "~/git/doc.norang.ca/"
+               :base-directory "~/extern/doc.norang.ca/"
                :publishing-directory "/ssh:www-data@www:~/doc.norang.ca/htdocs"
                :base-extension "css\\|pdf\\|png\\|jpg\\|gif"
                :publishing-function org-publish-attachment
@@ -882,7 +854,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
               ("doc"
                :components ("doc-org" "doc-extra"))
               ("doc-private-org"
-               :base-directory "~/git/doc.norang.ca/private"
+               :base-directory "~/extern/doc.norang.ca/private"
                :publishing-directory "/ssh:www-data@www:~/doc.norang.ca/htdocs/private"
                :recursive nil
                :section-numbers nil
@@ -898,7 +870,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                :author-info nil
                :creator-info nil)
               ("doc-private-extra"
-               :base-directory "~/git/doc.norang.ca/private"
+               :base-directory "~/extern/doc.norang.ca/private"
                :publishing-directory "/ssh:www-data@www:~/doc.norang.ca/htdocs/private"
                :base-extension "css\\|pdf\\|png\\|jpg\\|gif"
                :publishing-function org-publish-attachment
@@ -910,7 +882,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
               ; Miscellaneous pages for other websites
               ; org are the org-files that generate the content
               ("org-org"
-               :base-directory "~/git/org/"
+               :base-directory "~/extern/org/"
                :publishing-directory "/ssh:www-data@www:~/org"
                :recursive t
                :section-numbers nil
@@ -928,7 +900,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
               ; org-mode-doc is the top-level project that gets published
               ; This uses the same target directory as the 'doc' project
               ("org-mode-doc-org"
-               :base-directory "~/git/org-mode-doc/"
+               :base-directory "~/extern/org-mode-doc/"
                :publishing-directory "/ssh:www-data@www:~/doc.norang.ca/htdocs"
                :recursive t
                :section-numbers nil
@@ -942,7 +914,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                :author-info nil
                :creator-info nil)
               ("org-mode-doc-extra"
-               :base-directory "~/git/org-mode-doc/"
+               :base-directory "~/extern/org-mode-doc/"
                :publishing-directory "/ssh:www-data@www:~/doc.norang.ca/htdocs"
                :base-extension "css\\|pdf\\|png\\|jpg\\|gif\\|org"
                :publishing-function org-publish-attachment
@@ -1371,7 +1343,7 @@ so change the default 'F' binding in the agenda to allow both"
 (setq org-agenda-skip-timestamp-if-done t)
 
 (setq org-agenda-include-diary nil)
-(setq org-agenda-diary-file "~/git/org/diary.org")
+(setq org-agenda-diary-file "~/extern/org/diary.org")
 
 (setq org-agenda-insert-diary-extract-time t)
 
@@ -1395,9 +1367,9 @@ so change the default 'F' binding in the agenda to allow both"
 (setq org-agenda-start-on-weekday 1)
 
 ;; Enable display of the time grid so we can see the marker for the current time
-(setq org-agenda-time-grid (quote ((daily today remove-match)
-                                   #("----------------" 0 16 (org-heading t))
-                                   (0900 1100 1300 1500 1700))))
+;(setq org-agenda-time-grid (quote ((daily today remove-match)
+ ;                                  #("----------------" 0 16 (org-heading t))
+  ;                                 (0900 1100 1300 1500 1700))))
 
 ;; Display tags farther right
 (setq org-agenda-tags-column -102)
@@ -1504,7 +1476,7 @@ Late deadlines first, then scheduled, then non-late deadlines"
 ;;
 (if (boundp 'org-mode-user-contrib-lisp-path)
     (add-to-list 'load-path org-mode-user-contrib-lisp-path)
-  (add-to-list 'load-path (expand-file-name "~/git/org-mode/contrib/lisp")))
+  (add-to-list 'load-path (expand-file-name "~/extern/org-mode/contrib/lisp")))
 
 (require 'org-checklist)
 
@@ -1545,8 +1517,8 @@ Late deadlines first, then scheduled, then non-late deadlines"
 (setq org-src-window-setup 'current-window)
 
 (setq org-log-done (quote time))
-(setq org-log-into-drawer t)
-(setq org-log-state-notes-insert-after-drawers nil)
+(setq org-log-into-drawer nil)
+(setq org-log-state-notes-insert-after-drawers t)
 
 (setq org-clock-sound "/usr/local/lib/tngchime.wav")
 
@@ -1696,7 +1668,7 @@ Late deadlines first, then scheduled, then non-late deadlines"
 
 (setq org-remove-highlights-with-change t)
 
-(add-to-list 'Info-default-directory-list "~/git/org-mode/doc")
+(add-to-list 'Info-default-directory-list "~/extern/org-mode/doc")
 
 (setq org-read-date-prefer-future 'time)
 

@@ -93,7 +93,7 @@ git describe --abbrev=4
 
 #+name: org-mode-version
 #+begin_src sh :exports none
-cd ~/git/org-mode && git describe HEAD
+cd ~/extern/org-mode && git describe HEAD
 #+end_src
 
 This is version call_org-mode-doc-version() of this document.  This
@@ -118,7 +118,7 @@ emacs startup to use the latest version of org-mode from the =git= repository.
 :END:
 [2012-06-24 Sun 11:21]
 
-I keep a copy of the org-mode =git= repository in =~/git/org-mode/=.  This clone
+I keep a copy of the org-mode =git= repository in =~/extern/org-mode/=.  This clone
 was created with
 #+begin_src sh
 cd ~/git
@@ -127,7 +127,7 @@ git clone git://orgmode.org/org-mode.git
 
 To update and get new commits from the org-mode developers you can use 
 #+begin_src sh
-cd ~/git/org-mode
+cd ~/extern/org-mode
 git pull
 make uncompiled
 #+end_src
@@ -144,12 +144,12 @@ The following setup in my .emacs enables =org-mode= for most buffers.
 =org-mode= is the default mode for =.org=, =.org_archive=, and =.txt=
 files.
 
-#+header: :tangle no
+#+header: :tangle yes
 #+begin_src emacs-lisp
 ;;;
 ;;; Org Mode
 ;;;
-(add-to-list 'load-path (expand-file-name "~/git/org-mode/lisp"))
+(add-to-list 'load-path (expand-file-name "~/extern/org-mode/lisp"))
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (require 'org)
 ;;
@@ -165,9 +165,6 @@ files.
 ;; can override the document path by setting your path in the variable
 ;; org-mode-user-lisp-path
 ;;
-(if (boundp 'org-mode-user-lisp-path)
-    (add-to-list 'load-path org-mode-user-lisp-path)
-  (add-to-list 'load-path (expand-file-name "~/git/org-mode/lisp")))
 
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (require 'org)
@@ -245,9 +242,9 @@ See [[#Publishing][Publishing and Exporting]] for more details.
 Here is my current =org-agenda-files= setup.
 #+header: :tangle no
 #+begin_src emacs-lisp
-(setq org-agenda-files (quote ("~/git/org"
-                               "~/git/org/client1"
-                               "~/git/client2")))
+(setq org-agenda-files (quote ("~/extern/org"
+                               "~/extern/org/client1"
+                               "~/extern/client2")))
 #+end_src
 
 #+header: :tangle yes
@@ -258,9 +255,9 @@ Here is my current =org-agenda-files= setup.
 ;;
 (if (boundp 'org-user-agenda-files)
     (setq org-agenda-files org-user-agenda-files)
-  (setq org-agenda-files (quote ("~/git/org"
-                               "~/git/org/client1"
-                               "~/git/client2"))))
+  (setq org-agenda-files (quote ("~/extern/org"
+                               "~/extern/org/client1"
+                               "~/extern/client2"))))
 #+end_src
 
 =org-mode= manages the =org-agenda-files= variable automatically using
@@ -281,13 +278,13 @@ I also disable the comment function =C-c ;= since I never use those.
 I kept accidentally hitting this key sequence when doing =C-c
 singlequote= for editing source blocks.
 
-In the example above I have =~/git/client2= in a separate git
-repository from ~/git/org.  This gives me the flexibility of leaving
+In the example above I have =~/extern/client2= in a separate git
+repository from ~/extern/org.  This gives me the flexibility of leaving
 confidential information at the client site and having all of my
 personal information available everywhere I use org-mode.  I
 synchronize my personal repositories on multiple machines and skip the
 confidential info on the non-client laptop I travel with.
-=org-agenda-files= on this laptop does not include the =~/git/client2=
+=org-agenda-files= on this laptop does not include the =~/extern/client2=
 directory.
 ** Org File Structure
 :PROPERTIES:
@@ -787,7 +784,7 @@ since it's a new task and I get a buffer like this:
 ,* TODO 
   [2010-08-05 Thu 21:06]
 
-  [[file:~/git/org-mode-doc/org-mode.org::*Capture%20Tasks%20is%20all%20about%20being%20FAST][Capture Tasks is all about being FAST]]
+  [[file:~/extern/org-mode-doc/org-mode.org::*Capture%20Tasks%20is%20all%20about%20being%20FAST][Capture Tasks is all about being FAST]]
 #+end_src
 
 Enter the details of the TODO item and =C-c C-c= to file it away in
@@ -2139,98 +2136,6 @@ triggers described previously in [[#ToDoStateTriggers][ToDo state triggers]]
   filed to the project task under the appropriate work org-mode file and
   eventually gets removed from the agenda when the project is complete
   and archived.
-* Handling Phone Calls
-:PROPERTIES:
-:CUSTOM_ID: HandlinePhoneCalls
-:END:
-
-Phone calls are interruptions and I use capture mode to deal with
-these (like all interruptions).  Most of the heavy lifting for phone
-calls is done by capture mode.  I use a special capture template for
-phone calls combined with a custom function that replaces text with
-information from my =bbdb= addressbook database.
-
-=C-c c p= starts a capture task normally and I'm free to enter notes
-from the call in the template immediately.  The cursor starts in the
-template normally where the name of the caller would be inserted.  I
-can use a =bbdb= lookup function to insert the name with =f9-p= or I
-can just type in whatever is appropriate.  If a =bbdb= entry needs to
-be created for the caller I can do that and replace the caller details
-with =f9-p= anytime that is convenient for me.  I found that
-automatically calling the bbdb lookup function would interrupt my
-workflow during the call in cases where the information about the
-caller was not readily available.  Sometimes I want to make notes first 
-and get the caller details later during the call.
-
-The phone call capture template starts the clock as soon as the phone
-rings and I'm free to lookup and replace the caller in bbdb anytime
-during or after the call.  Capture mode starts the clock using the
-=:clock-in t= setting in the template.
-
-When the phone call ends I simple do =C-c C-c= to close the capture
-buffer and stop the clock.  If I have to close it early and look up
-other information during the call I just do =C-c C-c F9-SPC= to close
-the capture buffer (which stops the clock) and then immediately switch
-back to the last clocked item to continue the clock in the phone call
-task.  When the phone call ends I clock out which normally clocks in
-my default task again (if any).
-
-Here is my set up for phone calls.  I would like to thank Gregory
-J. Grubbs for the original bbdb lookup functions which this version
-is based on.
-
-Below is the partial capture template showing the phone call template
-followed by the phone-call related lookup functions.
-
-#+header: :tangle no
-#+begin_src emacs-lisp
-;; Capture templates for: TODO tasks, Notes, appointments, phone calls, and org-protocol
-(setq org-capture-templates
-      (quote (...
-              ("p" "Phone call" entry (file "~/git/org/refile.org")
-               "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-              ...)))
-#+end_src
-
-#+header: :tangle yes
-#+begin_src emacs-lisp
-(require 'bbdb)
-(require 'bbdb-com)
-
-(global-set-key (kbd "<f9> p") 'bh/phone-call)
-
-;;
-;; Phone capture template handling with BBDB lookup
-;; Adapted from code by Gregory J. Grubbs
-(defun bh/phone-call ()
-  "Return name and company info for caller from bbdb lookup"
-  (interactive)
-  (let* (name rec caller)
-    (setq name (completing-read "Who is calling? "
-                                (bbdb-hashtable)
-                                'bbdb-completion-predicate
-                                'confirm))
-    (when (> (length name) 0)
-      ; Something was supplied - look it up in bbdb
-      (setq rec
-            (or (first
-                 (or (bbdb-search (bbdb-records) name nil nil)
-                     (bbdb-search (bbdb-records) nil name nil)))
-                name)))
-
-    ; Build the bbdb link if we have a bbdb record, otherwise just return the name
-    (setq caller (cond ((and rec (vectorp rec))
-                        (let ((name (bbdb-record-name rec))
-                              (company (bbdb-record-company rec)))
-                          (concat "[[bbdb:"
-                                  name "]["
-                                  name "]]"
-                                  (when company
-                                    (concat " - " company)))))
-                       (rec)
-                       (t "NameOfCaller")))
-    (insert caller)))  
-#+end_src
 * GTD stuff
 :PROPERTIES:
 :CUSTOM_ID: GTD
@@ -2841,7 +2746,7 @@ on your system.
 
 #+header: :tangle yes
 #+begin_src emacs-lisp
-(setq org-ditaa-jar-path "~/git/org-mode/contrib/scripts/ditaa.jar")
+(setq org-ditaa-jar-path "~/extern/org-mode/contrib/scripts/ditaa.jar")
 (setq org-plantuml-jar-path "~/java/plantuml.jar")
 
 (add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
@@ -3184,7 +3089,7 @@ Here's my publishing setup:
       ; norang-extra are images and css files that need to be included
       ; norang is the top-level project that gets published
       (quote (("norang-org"
-               :base-directory "~/git/www.norang.ca"
+               :base-directory "~/extern/www.norang.ca"
                :publishing-directory "/ssh:www-data@www:~/www.norang.ca/htdocs"
                :recursive t
                :table-of-contents nil
@@ -3197,7 +3102,7 @@ Here's my publishing setup:
                :author-info nil
                :creator-info nil)
               ("norang-extra"
-               :base-directory "~/git/www.norang.ca/"
+               :base-directory "~/extern/www.norang.ca/"
                :publishing-directory "/ssh:www-data@www:~/www.norang.ca/htdocs"
                :base-extension "css\\|pdf\\|png\\|jpg\\|gif"
                :publishing-function org-publish-attachment
@@ -3211,7 +3116,7 @@ Here's my publishing setup:
               ; doc-extra are images and css files that need to be included
               ; doc is the top-level project that gets published
               ("doc-org"
-               :base-directory "~/git/doc.norang.ca/"
+               :base-directory "~/extern/doc.norang.ca/"
                :publishing-directory "/ssh:www-data@www:~/doc.norang.ca/htdocs"
                :recursive nil
                :section-numbers nil
@@ -3223,7 +3128,7 @@ Here's my publishing setup:
                :author-info nil
                :creator-info nil)
               ("doc-extra"
-               :base-directory "~/git/doc.norang.ca/"
+               :base-directory "~/extern/doc.norang.ca/"
                :publishing-directory "/ssh:www-data@www:~/doc.norang.ca/htdocs"
                :base-extension "css\\|pdf\\|png\\|jpg\\|gif"
                :publishing-function org-publish-attachment
@@ -3232,7 +3137,7 @@ Here's my publishing setup:
               ("doc"
                :components ("doc-org" "doc-extra"))
               ("doc-private-org"
-               :base-directory "~/git/doc.norang.ca/private"
+               :base-directory "~/extern/doc.norang.ca/private"
                :publishing-directory "/ssh:www-data@www:~/doc.norang.ca/htdocs/private"
                :recursive nil
                :section-numbers nil
@@ -3248,7 +3153,7 @@ Here's my publishing setup:
                :author-info nil
                :creator-info nil)
               ("doc-private-extra"
-               :base-directory "~/git/doc.norang.ca/private"
+               :base-directory "~/extern/doc.norang.ca/private"
                :publishing-directory "/ssh:www-data@www:~/doc.norang.ca/htdocs/private"
                :base-extension "css\\|pdf\\|png\\|jpg\\|gif"
                :publishing-function org-publish-attachment
@@ -3260,7 +3165,7 @@ Here's my publishing setup:
               ; Miscellaneous pages for other websites
               ; org are the org-files that generate the content
               ("org-org"
-               :base-directory "~/git/org/"
+               :base-directory "~/extern/org/"
                :publishing-directory "/ssh:www-data@www:~/org"
                :recursive t
                :section-numbers nil
@@ -3278,7 +3183,7 @@ Here's my publishing setup:
               ; org-mode-doc is the top-level project that gets published
               ; This uses the same target directory as the 'doc' project
               ("org-mode-doc-org"
-               :base-directory "~/git/org-mode-doc/"
+               :base-directory "~/extern/org-mode-doc/"
                :publishing-directory "/ssh:www-data@www:~/doc.norang.ca/htdocs"
                :recursive t
                :section-numbers nil
@@ -3292,7 +3197,7 @@ Here's my publishing setup:
                :author-info nil
                :creator-info nil)
               ("org-mode-doc-extra"
-               :base-directory "~/git/org-mode-doc/"
+               :base-directory "~/extern/org-mode-doc/"
                :publishing-directory "/ssh:www-data@www:~/doc.norang.ca/htdocs"
                :base-extension "css\\|pdf\\|png\\|jpg\\|gif\\|org"
                :publishing-function org-publish-attachment
@@ -3361,7 +3266,7 @@ The http://doc.norang.ca/ site contains subdirectories with client and
 private documentation that are restricted by using Apache Basic
 authentication.  I don't create links to these sites from the publicly
 viewable pages.  http://doc.norang.ca/someclient/ would show the index
-for any org files under =~/git/doc.norang.ca/someclient/= if that is
+for any org files under =~/extern/doc.norang.ca/someclient/= if that is
 set up as a viewable website.  I use most of the information myself
 but give access to clients if they are interested in the
 information/notes that I keep about their systems.
@@ -4060,7 +3965,7 @@ you're not supposed to be working.
 #+header: :tangle yes
 #+begin_src emacs-lisp
 (setq org-agenda-include-diary nil)
-(setq org-agenda-diary-file "~/git/org/diary.org")
+(setq org-agenda-diary-file "~/extern/org/diary.org")
 #+end_src
 
 The diary file keeps =date-tree= entries created by the capture mode
@@ -4070,7 +3975,7 @@ want to clock during interruptions.
 I don't use a =~/diary= file anymore.  That is just there as a
 zero-length file to keep Emacs happy.  I use org-mode's diary
 functions instead.  Inserting entries with =i= in the emacs agenda
-creates date entries in the =~/git/org/diary.org= file.
+creates date entries in the =~/extern/org/diary.org= file.
 
 I include holidays from the calendar in my =todo.org= file as follows:
 #+begin_src org :exports src
@@ -4161,9 +4066,9 @@ Here are the =.emacs= settings:
 (setq org-agenda-start-on-weekday 1)
 
 ;; Enable display of the time grid so we can see the marker for the current time
-(setq org-agenda-time-grid (quote ((daily today remove-match)
-                                   #("----------------" 0 16 (org-heading t))
-                                   (0900 1100 1300 1500 1700))))
+;(setq org-agenda-time-grid (quote ((daily today remove-match)
+ ;                                  #("----------------" 0 16 (org-heading t))
+  ;                                 (0900 1100 1300 1500 1700))))
 
 ;; Display tags farther right
 (setq org-agenda-tags-column -102)
@@ -4295,7 +4200,7 @@ Add the following to your =.emacs=
 
 #+header: :tangle no
 #+begin_src emacs-lisp
-(add-to-list 'load-path (expand-file-name "~/git/org-mode/contrib/lisp"))
+(add-to-list 'load-path (expand-file-name "~/extern/org-mode/contrib/lisp"))
 
 (require 'org-checklist)
 #+end_src
@@ -4308,7 +4213,7 @@ Add the following to your =.emacs=
 ;;
 (if (boundp 'org-mode-user-contrib-lisp-path)
     (add-to-list 'load-path org-mode-user-contrib-lisp-path)
-  (add-to-list 'load-path (expand-file-name "~/git/org-mode/contrib/lisp")))
+  (add-to-list 'load-path (expand-file-name "~/extern/org-mode/contrib/lisp")))
 
 (require 'org-checklist)
 #+end_src
@@ -5385,7 +5290,7 @@ date) system versions.
 
 #+header: :tangle yes
 #+begin_src emacs-lisp
-(add-to-list 'Info-default-directory-list "~/git/org-mode/doc")
+(add-to-list 'Info-default-directory-list "~/extern/org-mode/doc")
 #+end_src
 ** Prefer future dates or not?
 :PROPERTIES:
@@ -6070,7 +5975,7 @@ This is invoked by a bash shell script as follows:
 #+begin_src sh :results output
 #!/bin/sh
 emacsclient -e '(bh/clock-in-bzflagt-task)'
-~/git/bzflag/trunk/bzflag/src/bzflag/bzflag -directory ~/git/bzflag/trunk/bzflag/data $*
+~/extern/bzflag/trunk/bzflag/src/bzflag/bzflag -directory ~/extern/bzflag/trunk/bzflag/data $*
 emacsclient -e '(bh/resume-clock)'
 #+end_src
 
@@ -6194,7 +6099,7 @@ REPOS="org doc.norang.ca www.norang.ca"
 for REPO in $REPOS
 do
     echo "Repository: $REPO"
-    cd ~/git/$REPO
+    cd ~/extern/$REPO
     # Remove deleted files
     git ls-files --deleted -z | xargs -0 git rm >/dev/null 2>&1
     # Add new files
@@ -6320,7 +6225,7 @@ log_msg() {
 # fast-forward reference $1 to $syncrepo/$1
 fast_forward_ref() {
   log_msg "fast-forwarding ref $1"
-  current_ref=$(cat .git/HEAD)
+  current_ref=$(cat .extern/HEAD)
   if [ "x$current_ref" = "xref: refs/heads/$1" ]
   then
     # Check for dirty index
@@ -6390,7 +6295,7 @@ time {
   if find $reporoot -type d -name '*.git' | { 
       while read repo
       do
-        repo=${repo/\/.git/}
+        repo=${repo/\/.extern/}
         cd ${repo}
         upd=$(git remote update $syncrepo 2>&1 || retval=1)
         [ "x$upd" = "xFetching $syncrepo" ] || {

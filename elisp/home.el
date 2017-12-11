@@ -1,16 +1,16 @@
-(use-package elfeed)
+;(use-package elfeed)
 
-(use-package elfeed-org
-  :init (progn
-          ;; Load elfeed-org
-          (require 'elfeed-org)
+;; (use-package elfeed-org
+;;   :init (progn
+;;           ;; Load elfeed-org
+;;           (require 'elfeed-org)
 
-          ;; Initialize elfeed-org
-          ;; This hooks up elfeed-org to read the configuration when elfeed
-          ;; is started with =M-x elfeed=
-          (elfeed-org)
+;;           ;; Initialize elfeed-org
+;;           ;; This hooks up elfeed-org to read the configuration when elfeed
+;;           ;; is started with =M-x elfeed=
+;;           (elfeed-org)
 
-          (setq rmh-elfeed-org-files (list "~/doc/org/non-agenda/elfeed.org"))))
+;;           (setq rmh-elfeed-org-files (list "~/doc/org/non-agenda/elfeed.org"))))
 
 (setq org-user-agenda-files (quote ("~/doc/org/1" "~/doc/org"
                                     "~/doc/org/2")))

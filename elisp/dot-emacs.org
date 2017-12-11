@@ -24,8 +24,6 @@
 (require 'use-package)
 (setq use-package-always-ensure t
       use-package-verbose t)
-;(load (expand-file-name "~/packages.el"))
-(use-package bbdb :defer t)
 
 #+END_SRC
 
@@ -75,10 +73,6 @@
 #+end_src
 * Org
 [2017-06-05 Mon 09:42]
-#+BEGIN_SRC emacs-lisp
-
-(use-package org-plus-contrib)
-#+END_SRC
 
 I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 #+BEGIN_SRC emacs-lisp
@@ -173,19 +167,19 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 :END:
 ** media
 #+BEGIN_SRC emacs-lisp
-(use-package elfeed)
+;(use-package elfeed)
 
-(use-package elfeed-org
-  :init (progn
-          ;; Load elfeed-org
-          (require 'elfeed-org)
+;; (use-package elfeed-org
+;;   :init (progn
+;;           ;; Load elfeed-org
+;;           (require 'elfeed-org)
 
-          ;; Initialize elfeed-org
-          ;; This hooks up elfeed-org to read the configuration when elfeed
-          ;; is started with =M-x elfeed=
-          (elfeed-org)
+;;           ;; Initialize elfeed-org
+;;           ;; This hooks up elfeed-org to read the configuration when elfeed
+;;           ;; is started with =M-x elfeed=
+;;           (elfeed-org)
 
-          (setq rmh-elfeed-org-files (list "~/doc/org/non-agenda/elfeed.org"))))
+;;           (setq rmh-elfeed-org-files (list "~/doc/org/non-agenda/elfeed.org"))))
 #+END_SRC
 ** misc
 #+BEGIN_SRC emacs-lisp
@@ -420,8 +414,8 @@ Breadcrumb bookmarks:
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(use-package helm-org-rifle
-  :bind ("C-c g" . helm-org-rifle-agenda-files))
+;; (use-package helm-org-rifle
+;;   :bind ("C-c g" . helm-org-rifle-agenda-files))
 
 (use-package helm-ls-git)
 
@@ -902,7 +896,7 @@ directory to make multiple eshell windows easier."
 #+END_SRC
 ** ocaml
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 
 (use-package tuareg)
 (use-package merlin)
@@ -925,7 +919,7 @@ directory to make multiple eshell windows easier."
 (setq merlin-configuration-function #'l-config-merlin)
 #+end_src
 ** cider
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (use-package cider
   :defer t
   :init
@@ -944,7 +938,7 @@ directory to make multiple eshell windows easier."
   :config (helm-cider-mode 1))
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (use-package cider-hydra :defer t)
 
 (add-hook 'cider-mode-hook #'cider-hydra-mode)
@@ -1229,14 +1223,14 @@ directory to make multiple eshell windows easier."
 #+END_SRC
 * templates/snippets
 ** yankpad
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (use-package yasnippet)
-(use-package yankpad)
+;(use-package yankpad)
 
 #+END_SRC
 * multiple cursors
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 
 (use-package multiple-cursors
   :config
