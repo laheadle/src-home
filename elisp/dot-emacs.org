@@ -167,19 +167,19 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 :END:
 ** media
 #+BEGIN_SRC emacs-lisp
-;(use-package elfeed)
+(use-package elfeed)
 
-;; (use-package elfeed-org
-;;   :init (progn
-;;           ;; Load elfeed-org
-;;           (require 'elfeed-org)
+ (use-package elfeed-org
+   :init (progn
+           ;; Load elfeed-org
+           (require 'elfeed-org)
 
-;;           ;; Initialize elfeed-org
-;;           ;; This hooks up elfeed-org to read the configuration when elfeed
-;;           ;; is started with =M-x elfeed=
-;;           (elfeed-org)
+           ;; Initialize elfeed-org
+           ;; This hooks up elfeed-org to read the configuration when elfeed
+           ;; is started with =M-x elfeed=
+           (elfeed-org)
 
-;;           (setq rmh-elfeed-org-files (list "~/doc/org/non-agenda/elfeed.org"))))
+           (setq rmh-elfeed-org-files (list "~/doc/org/non-agenda/elfeed.org"))))
 #+END_SRC
 ** misc
 #+BEGIN_SRC emacs-lisp
