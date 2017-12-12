@@ -17,6 +17,8 @@
 (setq use-package-always-ensure t
       use-package-verbose t)
 
+(setq debug-on-quit t)
+
 (defvar l-src-home (file-truename "~/src/home/"))
 (defvar l-elisp-home (file-truename "~/src/home/elisp/"))
 (add-to-list 'load-path (concat l-elisp-home "lib"))
@@ -37,6 +39,36 @@
 (use-package bind-key  :defer t)
 (define-prefix-command 'my-map)
 (bind-key "C-1" 'my-map)
+
+(use-package swiper)
+(use-package counsel
+  :bind (("C-b" . ivy-switch-buffer)
+         ("C-s" . swiper)
+         :map my-map
+         ("q" . counsel-rg))
+  :config (ivy-mode 1)
+  :init
+  (progn
+    (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
+    (setq ivy-wrap t)
+    (setq ivy-use-virtual-buffers t
+          ivy-height 25)
+    (setq enable-recursive-minibuffers t)
+
+    (global-set-key (kbd "C-c C-r") 'ivy-resume)
+    (global-set-key (kbd "<f6>") 'ivy-resume)
+    (global-set-key (kbd "M-x") 'counsel-M-x)
+    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+    (global-set-key (kbd "<f1> l") 'counsel-find-library)
+    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+    (global-set-key (kbd "C-r") 'counsel-git)
+    (global-set-key (kbd "C-c j") 'counsel-git-grep)
+    (global-set-key (kbd "C-c k") 'counsel-ag)
+                                        ;    (global-set-key (kbd "C-x l") 'counsel-locate)
+    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
 
 (load (concat l-elisp-home "org-mode.el"))
 
@@ -129,8 +161,8 @@ Breadcrumb bookmarks:
   :init
   (global-company-mode))
 
-;; (use-package helm-org-rifle
-;;   :bind ("C-c g" . helm-org-rifle-agenda-files))
+(use-package helm-org-rifle
+  :bind ("C-c g" . helm-org-rifle-agenda-files))
 
 (use-package helm-ls-git)
 
@@ -138,36 +170,6 @@ Breadcrumb bookmarks:
 
 (use-package helm-descbinds
   :init (helm-descbinds-mode))
-
-(use-package swiper)
-(use-package counsel
-  :bind (("C-b" . ivy-switch-buffer)
-         ("C-s" . swiper)
-         :map my-map
-         ("q" . counsel-rg))
-  :config (ivy-mode 1)
-  :init
-  (progn
-    (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
-    (setq ivy-wrap t)
-    (setq ivy-use-virtual-buffers t
-          ivy-height 25)
-    (setq enable-recursive-minibuffers t)
-
-    (global-set-key (kbd "C-c C-r") 'ivy-resume)
-    (global-set-key (kbd "<f6>") 'ivy-resume)
-    (global-set-key (kbd "M-x") 'counsel-M-x)
-    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-    (global-set-key (kbd "<f1> l") 'counsel-find-library)
-    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-    (global-set-key (kbd "C-r") 'counsel-git)
-    (global-set-key (kbd "C-c j") 'counsel-git-grep)
-    (global-set-key (kbd "C-c k") 'counsel-ag)
-                                        ;    (global-set-key (kbd "C-x l") 'counsel-locate)
-    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
 
 (define-prefix-command 'endless/toggle-map)
 ;; The manual recommends C-c for user keys, but C-x t is
@@ -465,6 +467,41 @@ directory to make multiple eshell windows easier."
     (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
     (setq emmet-move-cursor-between-quotes t))) ;; default nil
 
+(use-package tuareg)
+(use-package merlin)
+
+(let ((opam-share (ignore-errors (car (process-lines "opam" "config" "var" "share")))))
+ (when (and opam-share (file-directory-p opam-share))
+  (add-to-list 'load-path (expand-file-name "emacs/site-lisp" opam-share))
+  (autoload 'merlin-mode "merlin" nil t nil)
+  (add-hook 'tuareg-mode-hook 'merlin-mode t)
+  (add-hook 'caml-mode-hook 'merlin-mode t)))
+
+(with-eval-after-load 'company
+  (add-to-list 'company-backends 'merlin-company-backend))
+
+(add-hook 'merlin-mode-hook 'company-mode)
+
+(defun l-config-merlin () '((logfile . "/tmp/merlin")))
+(setq merlin-debug t)
+
+(setq merlin-configuration-function #'l-config-merlin)
+
+(use-package cider
+  :defer t
+  :init
+  (setq cider-prompt-for-symbol nil
+        cider-cljs-lein-repl
+        "(do (require 'figwheel-sidecar.repl-api)
+           (figwheel-sidecar.repl-api/start-figwheel!)
+           (figwheel-sidecar.repl-api/cljs-repl))"))
+
+(use-package clojure-cheatsheet :defer t)
+
+(use-package cider-hydra :defer t)
+
+(add-hook 'cider-mode-hook #'cider-hydra-mode)
+
 (add-hook 'js-mode-hook (lambda () (abbrev-mode 1)))
 
 (setq js-indent-level 2)
@@ -651,6 +688,51 @@ directory to make multiple eshell windows easier."
 
 (desktop-save-mode -1)
 (setq desktop-restore-eager 10)
+
+(use-package yasnippet)
+(use-package yankpad)
+
+(use-package multiple-cursors
+  :config
+  (progn
+    ;; This is globally useful, so it goes under `C-x', and `m'
+    ;; for "multiple-cursors" is easy to remember.
+    (define-key ctl-x-map "\C-m" #'mc/mark-all-dwim)
+
+    ;; Remember `er/expand-region' is bound to M-2!
+    (global-set-key (kbd "M-3") #'mc/mark-next-like-this)
+    (global-set-key (kbd "M-4") #'mc/mark-previous-like-this)
+
+    ;; These vary between keyboards. They're supposed to be
+    ;; Shifted versions of the two above.
+    (global-set-key (kbd "M-#") #'mc/unmark-next-like-this)
+    (global-set-key (kbd "M-$") #'mc/unmark-previous-like-this)
+
+    (define-prefix-command 'endless/mc-map)
+    ;; C-x m is usually `compose-mail'. Bind it to something
+    ;; else if you use this command.
+    (define-key ctl-x-map "m" 'endless/mc-map)
+
+    ;; Really really nice!
+    (define-key endless/mc-map "i" #'mc/insert-numbers)
+    (define-key endless/mc-map "h" #'mc-hide-unmatched-lines-mode)
+    (define-key endless/mc-map "a" #'mc/mark-all-like-this)
+
+    ;; Occasionally useful
+    (define-key endless/mc-map "d"
+      #'mc/mark-all-symbols-like-this-in-defun)
+    (define-key endless/mc-map "r" #'mc/reverse-regions)
+    (define-key endless/mc-map "s" #'mc/sort-regions)
+    (define-key endless/mc-map "l" #'mc/edit-lines)
+    (define-key endless/mc-map "\C-a"
+      #'mc/edit-beginnings-of-lines)
+    (define-key endless/mc-map "\C-e"
+      #'mc/edit-ends-of-lines)
+
+    ;; Usually, both `C-x C-m' and `C-x RET' invoke the
+    ;; `mule-keymap', but that's a waste of keys. Here we put it
+    ;; _just_ under `C-x RET'.
+    (define-key ctl-x-map (kbd "<return>") mule-keymap)))
 
 (defun remove-dos-eol ()
   "Do not show ^M in files containing mixed UNIX and DOS line endings."
