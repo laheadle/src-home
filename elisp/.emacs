@@ -1,3 +1,10 @@
+;;;
+;;; Org Mode
+;;;
+(add-to-list 'load-path (expand-file-name "~/extern/org-mode/lisp"))
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+(require 'org)
+
 (setq
  package-enable-at-startup nil
  package-archives
@@ -426,7 +433,7 @@ directory to make multiple eshell windows easier."
 
 (defun start-org-drill ()
   (interactive)
-  (setq org-drill-maximum-duration 7)
+  (setq org-drill-maximum-duration 8)
   (require 'org-drill)
   (org-drill))
 

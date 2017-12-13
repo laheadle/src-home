@@ -1,9 +1,3 @@
-;;;
-;;; Org Mode
-;;;
-(add-to-list 'load-path (expand-file-name "~/extern/org-mode/lisp"))
-(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
-(require 'org)
 ;;
 ;; Standard key bindings
 (global-set-key "\C-cl" 'org-store-link)

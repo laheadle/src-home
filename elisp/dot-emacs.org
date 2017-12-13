@@ -1,7 +1,15 @@
 #+PROPERTY: header-args :tangle .emacs
 
 * the only thing in .emacs.d is melpa packages and some state files
-
+* Immediately set org-mode path
+#+BEGIN_SRC emacs-lisp
+;;;
+;;; Org Mode
+;;;
+(add-to-list 'load-path (expand-file-name "~/extern/org-mode/lisp"))
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+(require 'org)
+#+END_SRC
 * Package Management
 
 #+BEGIN_SRC emacs-lisp
@@ -799,7 +807,7 @@ directory to make multiple eshell windows easier."
 
 (defun start-org-drill ()
   (interactive)
-  (setq org-drill-maximum-duration 7)
+  (setq org-drill-maximum-duration 8)
   (require 'org-drill)
   (org-drill))
 
