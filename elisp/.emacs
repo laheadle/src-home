@@ -458,6 +458,7 @@ directory to make multiple eshell windows easier."
 (use-package magit
   :init (setq magit-popup-use-prefix-argument nil
               magit-commit-show-diff nil
+              magit-completing-read-function 'ivy-completing-read
               magit-revert-buffers 1
               magit-diff-refine-hunk 'all
               magit-visit-ref-create t)
