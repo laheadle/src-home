@@ -31,14 +31,6 @@
               ("h" "Habit" entry (file "~/Workspace/docs/org/refile.org")
                "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
-(defhydra l/org-refile-hydra (:foreign-keys run) 
-  "Refile"
-  ("w" (my/refile "~/Workspace/docs/org/work.org" "Work") "Refile to Work")
-  ("u" (my/refile "~/Workspace/docs/org/work.org" "avui") "Refile to avui")
-  ("j" org-refile-goto-last-stored "Jump to last refile")
-  ("q" nil "cancel"))
-
-(bind-key "r" 'l/org-refile-hydra/body 'my-map)
 
 (defun l-getenv (var)
   (shell-command-to-string (concat ". ~/.bashrc; echo -n $" var)))
