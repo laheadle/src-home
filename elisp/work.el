@@ -1,9 +1,8 @@
 (setq org-tag-alist (quote (
                             ("FLAGGED" . ??)
                             ("MATT" . ?m)
+                            ("NOTE" . ?n)
                             ("RETRO" . ?r)
-                            ("COMPUTING" . ?c)
-                            ("WORK" . ?w)
                             )))
 
 
