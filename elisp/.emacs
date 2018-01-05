@@ -4,7 +4,6 @@
 (add-to-list 'load-path (expand-file-name "~/extern/org-mode/lisp"))
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (require 'org)
-(require 'org-goto)
 
 (setq
  package-enable-at-startup nil
