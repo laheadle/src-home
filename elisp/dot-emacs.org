@@ -892,7 +892,7 @@ directory to make multiple eshell windows easier."
 
 
 #+END_SRC
-*** merge upstream
+** add to popup: merge upstream
 #+BEGIN_SRC emacs-lisp
 
 (magit-define-popup-action 'magit-merge-popup ?u
