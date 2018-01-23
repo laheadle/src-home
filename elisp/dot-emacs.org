@@ -844,6 +844,8 @@ directory to make multiple eshell windows easier."
 #+end_src
 
 * git
+** pull requests - home and work
+
 
 #+BEGIN_SRC emacs-lisp :header-args :tangle home.el
 
@@ -875,6 +877,7 @@ directory to make multiple eshell windows easier."
            (magit-get-current-branch))))
 #+END_SRC
 
+** magit 
 #+BEGIN_SRC emacs-lisp
 (use-package magit
   :init (setq magit-popup-use-prefix-argument nil
@@ -889,14 +892,14 @@ directory to make multiple eshell windows easier."
 
 
 #+END_SRC
-
+*** merge upstream
 #+BEGIN_SRC emacs-lisp
 
-;(require 'git-auto-commit)
-;(setq gac-dir-set (list l-src-home '((:cmd-git-add . "git add --all"))))
-
-
-
+(magit-define-popup-action 'magit-merge-popup ?u
+         "Catch Up To Upstream"
+         (lambda ()
+           (interactive)
+           (magit-merge "@{upstream}" `("--ff" "--ff-only"))))
 #+END_SRC
 * TODO languages
 ** HTML
@@ -1302,7 +1305,50 @@ directory to make multiple eshell windows easier."
 (add-hook 'org-src-mode-hook 'remove-dos-eol)
 (add-hook 'org-mode-hook 'remove-dos-eol)
 #+END_SRC
+* blogging
 
+#+begin_src emacs-lisp
+
+(use-package xml-rpc)
+(use-package metaweblog)
+(use-package htmlize)
+(use-package org2blog)
+
+(require 'xml-rpc)
+(require 'org2blog-autoloads)
+(require 'netrc)
+
+
+(setq asyncthinking (netrc-machine (netrc-parse "~/.netrc") "asyncthinking" t))
+ 
+;; Setting your Blog configuration.
+(setq org2blog/wp-blog-alist
+      `(("asyncthinking"
+         :url "https://asyncthinking.wordpress.com/xmlrpc.php"
+         :username ,(netrc-get asyncthinking "login")
+         :password ,(netrc-get asyncthinking "password")
+         :default-title "Hello World"
+         :default-categories ("")
+         :tags-as-categories nil)))
+
+
+(progn
+  ;; implemented as HTML styling. Your pick!
+  (setq org2blog/wp-use-sourcecode-shortcode 't)
+  
+  ;; removed light="true"
+  (setq org2blog/wp-sourcecode-default-params nil)
+  
+  ;; target language needs to be in here
+  (setq org2blog/wp-sourcecode-langs
+        '("actionscript3" "bash" "coldfusion" "cpp" "csharp" "css" "delphi"
+          "erlang" "fsharp" "diff" "groovy" "html" "javascript" "java" "javafx" "matlab"
+          "objc" "perl" "php" "text" "powershell" "python" "ruby" "scala" "sql"
+          "vb" "xml"
+          "sh" "emacs-lisp" "lisp" "lua"))
+  
+  (setq org-src-fontify-natively t))
+#+end_src
 * Custom 
 #+BEGIN_SRC emacs-lisp
 
