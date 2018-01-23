@@ -899,7 +899,7 @@ directory to make multiple eshell windows easier."
          "Catch Up To Upstream"
          (lambda ()
            (interactive)
-           (magit-merge "@{upstream}" `("--ff" "--ff-only"))))
+           (magit-merge "@{upstream}")))
 #+END_SRC
 * TODO languages
 ** HTML

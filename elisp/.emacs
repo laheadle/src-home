@@ -470,7 +470,7 @@ directory to make multiple eshell windows easier."
          "Catch Up To Upstream"
          (lambda ()
            (interactive)
-           (magit-merge "@{upstream}" `("--ff" "--ff-only"))))
+           (magit-merge "@{upstream}")))
 
 (use-package emmet-mode
   :init
