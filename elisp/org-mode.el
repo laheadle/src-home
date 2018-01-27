@@ -1503,22 +1503,19 @@ Late deadlines first, then scheduled, then non-late deadlines"
 
 (setq org-table-export-default-format "orgtbl-to-csv")
 
-(setq org-link-frame-setup (quote ((vm . vm-visit-folder)
-                                   (gnus . org-gnus-no-new-news)
-                                   (file . find-file))))
+(setq org-link-frame-setup (quote ((file . find-file))))
 
 ; Use the current window for C-c ' source editing
 (setq org-src-window-setup 'current-window)
 
 (setq org-log-done (quote time))
-(setq org-log-into-drawer nil)
-(setq org-log-state-notes-insert-after-drawers t)
+(setq org-log-into-drawer t)
 
 (setq org-clock-sound "/usr/local/lib/tngchime.wav")
 
 ; Enable habit tracking (and a bunch of other modules)
-(setq org-modules (quote (org-bbdb
-                          org-bibtex
+(setq org-modules (quote (
+                          
                           org-crypt
                           org-gnus
                           org-id
@@ -1528,10 +1525,9 @@ Late deadlines first, then scheduled, then non-late deadlines"
                           org-inlinetask
                           org-irc
                           org-mew
-                          org-mhe
+                          
                           org-protocol
-                          org-rmail
-                          org-vm
+                          
                           org-wl
                           org-w3m)))
 

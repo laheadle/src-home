@@ -4,7 +4,6 @@
 (add-to-list 'load-path (expand-file-name "~/extern/org-mode/lisp"))
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (require 'org)
-(require 'org-goto)
 
 (setq
  package-enable-at-startup nil
@@ -468,8 +467,11 @@ directory to make multiple eshell windows easier."
          :map magit-mode-map
          ("v" . endless/visit-pull-request-url)))
 
-;(require 'git-auto-commit)
-;(setq gac-dir-set (list l-src-home '((:cmd-git-add . "git add --all"))))
+(magit-define-popup-action 'magit-merge-popup ?u
+         "Catch Up To Upstream"
+         (lambda ()
+           (interactive)
+           (magit-merge "@{upstream}")))
 
 (use-package emmet-mode
   :init
@@ -753,6 +755,46 @@ directory to make multiple eshell windows easier."
 
 (add-hook 'org-src-mode-hook 'remove-dos-eol)
 (add-hook 'org-mode-hook 'remove-dos-eol)
+
+(use-package xml-rpc)
+(use-package metaweblog)
+(use-package htmlize)
+(use-package org2blog)
+
+(require 'xml-rpc)
+(require 'org2blog-autoloads)
+(require 'netrc)
+
+
+(setq asyncthinking (netrc-machine (netrc-parse "~/.netrc") "asyncthinking" t))
+ 
+;; Setting your Blog configuration.
+(setq org2blog/wp-blog-alist
+      `(("asyncthinking"
+         :url "https://asyncthinking.wordpress.com/xmlrpc.php"
+         :username ,(netrc-get asyncthinking "login")
+         :password ,(netrc-get asyncthinking "password")
+         :default-title "Hello World"
+         :default-categories ("")
+         :tags-as-categories nil)))
+
+
+(progn
+  ;; implemented as HTML styling. Your pick!
+  (setq org2blog/wp-use-sourcecode-shortcode 't)
+  
+  ;; removed light="true"
+  (setq org2blog/wp-sourcecode-default-params nil)
+  
+  ;; target language needs to be in here
+  (setq org2blog/wp-sourcecode-langs
+        '("actionscript3" "bash" "coldfusion" "cpp" "csharp" "css" "delphi"
+          "erlang" "fsharp" "diff" "groovy" "html" "javascript" "java" "javafx" "matlab"
+          "objc" "perl" "php" "text" "powershell" "python" "ruby" "scala" "sql"
+          "vb" "xml"
+          "sh" "emacs-lisp" "lisp" "lua"))
+  
+  (setq org-src-fontify-natively t))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
