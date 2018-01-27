@@ -193,6 +193,7 @@ Breadcrumb bookmarks:
 (define-key endless/toggle-map "t" #'transient-mark-mode)
 (define-key endless/toggle-map "s" #'org-super-agenda-mode)
 (define-key endless/toggle-map "i" 'ido-mode)
+(define-key endless/toggle-map "v" 'ivy-mode)
 
 ;;; Generalized version of `read-only-mode'.
 (define-key endless/toggle-map "r" #'dired-toggle-read-only)
