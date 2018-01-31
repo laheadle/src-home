@@ -145,25 +145,6 @@
 
 (use-package hydra)
 
-(require 'breadcrumb)
-
-  (defhydra hydra-breadcrumb
-    (my-map "b")
-    "
-Breadcrumb bookmarks:
-  _<up>_:   prev   _S-<up>_:   local prev
-  _<down>_: next   _S-<down>_: local next
-  _s_: set  _c_: clear  _l_: list  _q_: quit
-"
-    ("<down>" bc-next nil :exit nil)
-    ("<up>" bc-previous nil :exit nil)
-    ("S-<down>" bc-local-next nil :exit nil)
-    ("S-<up>" bc-local-previous nil :exit nil)
-    ("l" bc-list nil)
-    ("s" bc-set nil)
-    ("c" bc-clear nil)
-    ("q" nil nil))
-
 (use-package company
   :init
   (global-company-mode))
@@ -797,6 +778,9 @@ directory to make multiple eshell windows easier."
   (setq org-src-fontify-natively t))
 
 (require 'dired+)
+
+(add-to-list 'load-path (concat l-elisp-home "lib/bookmark+"))
+(require 'bookmark+)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
