@@ -1353,6 +1353,12 @@ directory to make multiple eshell windows easier."
   
   (setq org-src-fontify-natively t))
 #+end_src
+* dired+
+#+begin_src emacs-lisp
+
+(require 'dired+)
+
+#+end_src
 * Custom 
 #+BEGIN_SRC emacs-lisp
 

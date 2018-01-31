@@ -796,6 +796,8 @@ directory to make multiple eshell windows easier."
   
   (setq org-src-fontify-natively t))
 
+(require 'dired+)
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
