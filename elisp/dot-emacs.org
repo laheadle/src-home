@@ -294,6 +294,7 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 :header-args: :tangle work.el
 :END:
 
+** org 
 #+begin_src emacs-lisp :tangle no
 
 (defhydra l/org-refile-hydra (:foreign-keys run) 
@@ -341,7 +342,10 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
               ("h" "Habit" entry (file "~/Workspace/docs/org/refile.org")
                "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
+#+END_SRC
 
+** other
+#+BEGIN_SRC emacs-lisp
 (defun l-getenv (var)
   (shell-command-to-string (concat ". ~/.bashrc; echo -n $" var)))
 
@@ -388,30 +392,6 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 ** terraform
 
 (use-package terraform-mode)
-
-* bookmarks
-
-#+BEGIN_SRC emacs-lisp
-
-(require 'breadcrumb)
-
-  (defhydra hydra-breadcrumb
-    (my-map "b")
-    "
-Breadcrumb bookmarks:
-  _<up>_:   prev   _S-<up>_:   local prev
-  _<down>_: next   _S-<down>_: local next
-  _s_: set  _c_: clear  _l_: list  _q_: quit
-"
-    ("<down>" bc-next nil :exit nil)
-    ("<up>" bc-previous nil :exit nil)
-    ("S-<down>" bc-local-next nil :exit nil)
-    ("S-<up>" bc-local-previous nil :exit nil)
-    ("l" bc-list nil)
-    ("s" bc-set nil)
-    ("c" bc-clear nil)
-    ("q" nil nil))
-#+END_SRC
 * completion
 ** company
 #+BEGIN_SRC emacs-lisp
@@ -1352,6 +1332,19 @@ directory to make multiple eshell windows easier."
   
   (setq org-src-fontify-natively t))
 #+end_src
+* dired+
+#+begin_src emacs-lisp
+
+(require 'dired+)
+
+#+end_src
+* bookmarks
+
+#+BEGIN_SRC emacs-lisp
+
+(add-to-list 'load-path (concat l-elisp-home "lib/bookmark+"))
+(require 'bookmark+)
+#+END_SRC
 * Custom 
 #+BEGIN_SRC emacs-lisp
 
