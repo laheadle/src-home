@@ -463,15 +463,17 @@ directory to make multiple eshell windows easier."
               magit-revert-buffers 1
               magit-diff-refine-hunk 'all
               magit-visit-ref-create t)
+  :config (progn
+            (magit-define-popup-action 'magit-merge-popup ?u
+                                       "Catch Up To Upstream"
+                                       (lambda ()
+                                         (interactive)
+                                         (magit-merge "@{upstream}"))))
   :bind (("C-." . magit-status)
          :map magit-mode-map
          ("v" . endless/visit-pull-request-url)))
 
-(magit-define-popup-action 'magit-merge-popup ?u
-         "Catch Up To Upstream"
-         (lambda ()
-           (interactive)
-           (magit-merge "@{upstream}")))
+
 
 (use-package emmet-mode
   :init
