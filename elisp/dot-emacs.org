@@ -33,7 +33,7 @@
 (setq use-package-always-ensure t
       use-package-verbose t)
 
-(setq debug-on-quit t)
+;(setq debug-on-quit t)
 #+END_SRC
 
 * ~src/home/elisp directory

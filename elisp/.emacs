@@ -24,7 +24,7 @@
 (setq use-package-always-ensure t
       use-package-verbose t)
 
-(setq debug-on-quit t)
+;(setq debug-on-quit t)
 
 (defvar l-src-home (file-truename "~/src/home/"))
 (defvar l-elisp-home (file-truename "~/src/home/elisp/"))
