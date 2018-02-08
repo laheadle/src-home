@@ -104,14 +104,69 @@
 
 (bind-key "w" 'l-org-goto-clean-agenda my-map)
 
-;; https://mollermara.com/blog/Fast-refiling-in-org-mode-with-hydras/
+;; Adapted from https://emacs.stackexchange.com/questions/8045/org-refile-to-a-known-fixed-location
 (defun my/refile (file headline &optional arg)
-  (let ((pos (save-excursion
-               (find-file file)
-               (org-find-exact-headline-in-buffer headline))))
-    (message "%s %s %s %s" arg headline file pos)
-    (org-refile arg nil (list headline file nil pos)))
-  (switch-to-buffer (current-buffer)))
+  "Refile to a specific location. 
+
+With a 'C-u' ARG argument, we jump to that location (see
+`org-refile').
+
+Use `org-agenda-refile' in `org-agenda' mode."
+  (let* ((pos (with-current-buffer (or (get-buffer file)	;Is the file open in a buffer already?
+				       (find-file-noselect file)) ;Otherwise, try to find the file by name (Note, default-directory matters here if it isn't absolute)
+		(or (org-find-exact-headline-in-buffer headline)
+		    (error "Can't find headline `%s'" headline))))
+	 (filepath (buffer-file-name (marker-buffer pos)));If we're given a relative name, find absolute path
+	 (rfloc (list headline filepath nil pos)))
+    (if (and (eq major-mode 'org-agenda-mode) (not (and arg (listp arg)))) ;Don't use org-agenda-refile if we're just jumping
+	(org-agenda-refile nil rfloc)
+      (org-refile arg nil rfloc))))
+
+(defun josh/refile (file headline &optional arg)
+  "Refile to HEADLINE in FILE. Clean up org-capture if it's activated.
+
+With a `C-u` ARG, just jump to the headline."
+  (interactive "P")
+  (let ((is-capturing (and (boundp 'org-capture-mode) org-capture-mode)))
+    (cond
+     ((and arg (listp arg))	    ;Are we jumping?
+      (my/refile file headline arg))
+     ;; Are we in org-capture-mode?
+     (is-capturing      	;Minor mode variable that's defined when capturing
+      (josh/org-capture-refile-but-with-args file headline arg)) 
+     (t
+      (my/refile file headline arg)))
+    (when (or arg is-capturing)
+      (setq hydra-deactivate t))))
+
+(defun josh/org-capture-refile-but-with-args (file headline &optional arg)
+  "Copied from `org-capture-refile' since it doesn't allow passing arguments. This does."
+  (unless (eq (org-capture-get :type 'local) 'entry)
+    (error
+     "Refiling from a capture buffer makes only sense for `entry'-type templates"))
+  (let ((pos (point))
+	(base (buffer-base-buffer (current-buffer)))
+	(org-capture-is-refiling t)
+	(kill-buffer (org-capture-get :kill-buffer 'local)))
+    (org-capture-put :kill-buffer nil)
+    (org-capture-finalize)
+    (save-window-excursion
+      (with-current-buffer (or base (current-buffer))
+	(org-with-wide-buffer
+	 (goto-char pos)
+	 (my/refile file headline arg))))
+    (when kill-buffer (kill-buffer base))))
+
+(defmacro josh/make-org-refile-hydra (hydraname file keyandheadline)
+  "Make a hydra named HYDRANAME with refile targets to FILE.
+KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\")"
+  `(defhydra ,hydraname (:color blue :after-exit (unless (or hydra-deactivate
+							     current-prefix-arg) ;If we're just jumping to a location, quit the hydra
+						   (josh/org-refile-hydra/body)))
+     ,file
+     ,@(cl-loop for kv in keyandheadline
+		collect (list (car kv) (list 'josh/refile file (cdr kv) 'current-prefix-arg) (cdr kv)))
+     ("q" nil "cancel")))
 
 (defun l-beginning-of-block ()
   (interactive)
