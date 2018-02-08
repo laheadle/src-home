@@ -252,23 +252,6 @@ is already narrowed."
 (use-package wgrep
 :config (setq wgrep-auto-save-buffer t))
 
-(use-package origami
-  :defer t
-  :init
-  (progn
-    (global-origami-mode)
-    (defhydra hydra-folding (my-map "f" :color red)
-      "
-  _o_pen node    _n_ext fold       toggle _f_orward
-  _c_lose node   _p_revious fold   toggle _a_ll
-  "
-      ("o" origami-open-node)
-      ("c" origami-close-node)
-      ("n" origami-next-fold)
-      ("p" origami-previous-fold)
-      ("f" origami-forward-toggle-node)
-      ("a" origami-toggle-all-nodes))))
-
 (put 'upcase-region 'disabled nil)
 
 (delete-selection-mode 1)
