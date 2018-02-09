@@ -838,7 +838,13 @@ Remote Directroies
 
 
 #+END_SRC
+* Buffers
+** kill
+#+begin_src emacs-lisp
 
+(bind-key "C-x k" 'kill-this-buffer global-map)
+
+#+end_src
 * shells
 
 #+BEGIN_SRC emacs-lisp

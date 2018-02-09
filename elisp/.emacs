@@ -431,6 +431,8 @@ is already narrowed."
 
 
 
+(bind-key "C-x k" 'kill-this-buffer global-map)
+
 (defun eshell-here ()
   "Opens up a new shell in the directory associated with the
 current buffer's file. The eshell is renamed to match that
