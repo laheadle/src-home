@@ -1,3 +1,25 @@
+(josh/make-org-refile-hydra josh/org-refile-hydra-file-a
+                            "~/doc/org/1/family.org"
+			    (("f" . "Family")
+                             ("p" . "Personal")
+                             ("m" . "Meta")
+                             ("a" . "Adri")
+                             ("t" . "Travel")
+                             ("c" . "children")
+                             ))
+
+(josh/make-org-refile-hydra josh/org-refile-hydra-file-b
+                            "~/doc/org/diary.org"
+			    (("e" . "MyEvents")))
+
+(defhydra josh/org-refile-hydra (:foreign-keys run) 
+  "Refile"
+  ("f" josh/org-refile-hydra-file-a/body "Family" :exit t)
+  ("j" org-refile-goto-last-stored "Jump to last refile" :exit t)
+  ("q" nil "cancel"))
+
+(bind-key "r" 'josh/org-refile-hydra/body 'my-map)
+
 (setq org-user-agenda-files (quote ("~/doc/org/1" "~/doc/org"
                                     "~/doc/org/2")))
 (setq org-directory "~/doc/org")
