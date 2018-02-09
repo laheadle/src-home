@@ -147,18 +147,78 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
      "\C-x\C-s" #'org-edit-src-exit))
 
 (bind-key "w" 'l-org-goto-clean-agenda my-map)
-
-;; https://mollermara.com/blog/Fast-refiling-in-org-mode-with-hydras/
-(defun my/refile (file headline &optional arg)
-  (let ((pos (save-excursion
-               (find-file file)
-               (org-find-exact-headline-in-buffer headline))))
-    (message "%s %s %s %s" arg headline file pos)
-    (org-refile arg nil (list headline file nil pos)))
-  (switch-to-buffer (current-buffer)))
 #+END_SRC
 
-** My customisations
+** refiling
+
+#+BEGIN_SRC emacs-lisp
+
+;; Adapted from https://emacs.stackexchange.com/questions/8045/org-refile-to-a-known-fixed-location
+(defun my/refile (file headline &optional arg)
+  "Refile to a specific location. 
+
+With a 'C-u' ARG argument, we jump to that location (see
+`org-refile').
+
+Use `org-agenda-refile' in `org-agenda' mode."
+  (let* ((pos (with-current-buffer (or (get-buffer file)	;Is the file open in a buffer already?
+				       (find-file-noselect file)) ;Otherwise, try to find the file by name (Note, default-directory matters here if it isn't absolute)
+		(or (org-find-exact-headline-in-buffer headline)
+		    (error "Can't find headline `%s'" headline))))
+	 (filepath (buffer-file-name (marker-buffer pos)));If we're given a relative name, find absolute path
+	 (rfloc (list headline filepath nil pos)))
+    (if (and (eq major-mode 'org-agenda-mode) (not (and arg (listp arg)))) ;Don't use org-agenda-refile if we're just jumping
+	(org-agenda-refile nil rfloc)
+      (org-refile arg nil rfloc))))
+
+(defun josh/refile (file headline &optional arg)
+  "Refile to HEADLINE in FILE. Clean up org-capture if it's activated.
+
+With a `C-u` ARG, just jump to the headline."
+  (interactive "P")
+  (let ((is-capturing (and (boundp 'org-capture-mode) org-capture-mode)))
+    (cond
+     ((and arg (listp arg))	    ;Are we jumping?
+      (my/refile file headline arg))
+     ;; Are we in org-capture-mode?
+     (is-capturing      	;Minor mode variable that's defined when capturing
+      (josh/org-capture-refile-but-with-args file headline arg)) 
+     (t
+      (my/refile file headline arg)))
+    (when (or arg is-capturing)
+      (setq hydra-deactivate t))))
+
+(defun josh/org-capture-refile-but-with-args (file headline &optional arg)
+  "Copied from `org-capture-refile' since it doesn't allow passing arguments. This does."
+  (unless (eq (org-capture-get :type 'local) 'entry)
+    (error
+     "Refiling from a capture buffer makes only sense for `entry'-type templates"))
+  (let ((pos (point))
+	(base (buffer-base-buffer (current-buffer)))
+	(org-capture-is-refiling t)
+	(kill-buffer (org-capture-get :kill-buffer 'local)))
+    (org-capture-put :kill-buffer nil)
+    (org-capture-finalize)
+    (save-window-excursion
+      (with-current-buffer (or base (current-buffer))
+	(org-with-wide-buffer
+	 (goto-char pos)
+	 (my/refile file headline arg))))
+    (when kill-buffer (kill-buffer base))))
+
+(defmacro josh/make-org-refile-hydra (hydraname file keyandheadline)
+  "Make a hydra named HYDRANAME with refile targets to FILE.
+KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\")"
+  `(defhydra ,hydraname (:color blue :after-exit (unless (or hydra-deactivate
+							     current-prefix-arg) ;If we're just jumping to a location, quit the hydra
+						   (josh/org-refile-hydra/body)))
+     ,file
+     ,@(cl-loop for kv in keyandheadline
+		collect (list (car kv) (list 'josh/refile file (cdr kv) 'current-prefix-arg) (cdr kv)))
+     ("q" nil "cancel")))
+#+END_SRC
+
+** beginning of block FIXME
 #+BEGIN_SRC emacs-lisp
 
 (defun l-beginning-of-block ()
@@ -334,7 +394,7 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
   ("j" org-refile-goto-last-stored "Jump to last refile")
   ("q" nil "cancel"))
 
-(bind-key "r" 'l/org-refile-hydra/body 'my-map)
+
 
 
 #+END_SRC
@@ -373,7 +433,44 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
                "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
 #+END_SRC
+*** refiling
 
+#+begin_src emacs-lisp
+
+
+(josh/make-org-refile-hydra josh/org-refile-hydra-file-a
+                            "~/Workspace/docs/org/work.org"
+			    (("w" . "Work")
+			     ("a" . "Avalon")
+			     ("u" . "avui")
+			     ("h" . "avach")                             
+                             ))
+
+(josh/make-org-refile-hydra josh/org-refile-hydra-file-b
+                            "~/Workspace/docs/org/diary.org"
+			    (("e" . "MyEvents")))
+
+(josh/make-org-refile-hydra josh/org-refile-hydra-file-c
+			    "~/Workspace/docs/org/computing.org"
+			    (("e" . "Emacs")
+			     ("c" . "Config")))
+
+(josh/make-org-refile-hydra josh/org-refile-hydra-file-d
+			    "~/Workspace/docs/org/accounts.org"
+			    (("a" . "Accounts")))
+
+(defhydra josh/org-refile-hydra (:foreign-keys run) 
+  "Refile"
+  ("w" josh/org-refile-hydra-file-a/body "Work" :exit t)
+  ("d" josh/org-refile-hydra-file-b/body "Diary" :exit t)
+  ("c" josh/org-refile-hydra-file-c/body "Computing" :exit t)
+  ("a" josh/org-refile-hydra-file-d/body "Accounts" :exit t)  
+  ("j" org-refile-goto-last-stored "Jump to last refile" :exit t)
+  ("q" nil "cancel"))
+
+(bind-key "r" 'josh/org-refile-hydra/body 'my-map)
+
+#+end_src
 ** other
 #+BEGIN_SRC emacs-lisp
 (defun l-getenv (var)
@@ -587,24 +684,7 @@ is already narrowed."
 
 ** folding
 
-#+BEGIN_SRC emacs-lisp
-(use-package origami
-  :defer t
-  :init
-  (progn
-    (global-origami-mode)
-    (defhydra hydra-folding (my-map "f" :color red)
-      "
-  _o_pen node    _n_ext fold       toggle _f_orward
-  _c_lose node   _p_revious fold   toggle _a_ll
-  "
-      ("o" origami-open-node)
-      ("c" origami-close-node)
-      ("n" origami-next-fold)
-      ("p" origami-previous-fold)
-      ("f" origami-forward-toggle-node)
-      ("a" origami-toggle-all-nodes))))
-#+END_SRC
+
 ** misc and regions
 #+BEGIN_SRC emacs-lisp
 
@@ -758,7 +838,13 @@ Remote Directroies
 
 
 #+END_SRC
+* Buffers
+** kill
+#+begin_src emacs-lisp
 
+(bind-key "C-x k" 'kill-this-buffer global-map)
+
+#+end_src
 * shells
 
 #+BEGIN_SRC emacs-lisp
