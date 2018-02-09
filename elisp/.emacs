@@ -260,6 +260,8 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 (autoload 'dired-toggle-read-only "dired" nil t)
 (define-key endless/toggle-map "w" #'whitespace-mode)
 
+(define-key endless/toggle-map "h" (lambda () (interactive) (setq org-use-tag-inheritance (not org-use-tag-inheritance))))
+
 (put 'narrow-to-region 'disabled nil)
 
 (defun narrow-or-widen-dwim (p)

@@ -979,6 +979,11 @@ don't want to spend time waiting for it to be generated.
                  '(todo-state-down effort-up category-keep))))
               ("f" "Flags" tags "+FLAGGED+LEVEL=2"
                ((org-agenda-overriding-header "Flags")))
+              ("g" "Goals"
+               ((tags "TODO=\"GOAL\"" nil)
+                (tags "GOALS-TODO=\"GOAL\""
+                      ((org-tags-match-list-sublevels nil)))
+                ))
               (" " "Agenda"
                ((agenda "" nil)
                 (tags "REFILE"
@@ -4663,8 +4668,10 @@ My =org-todo-keywords= are set as follows:
 #+header: :tangle no
 #+begin_src emacs-lisp
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
+      (quote (
+              (sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING")
+              (sequence "GOAL(g)" "|"))))
 #+end_src
 
 This adds a log entry whenever a task moves to any of the following states:

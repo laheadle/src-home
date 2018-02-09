@@ -400,16 +400,47 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(setq org-tag-alist (quote (
-                            ("FLAGGED" . ??)
-                            ("MATT" . ?m)
-                            ("NOTE" . ?n)
-                            ("RETRO" . ?r)
-                            )))
+
+(setq org-tag-alist '(
+                      ("FLAGGED" . ??)
+                      ("MATT" . ?m)
+                      ("NOTE" . ?n)
+                      ("RETRO" . ?r)
+                      (:startgrouptag)
+                      ("GOALS")
+                      (:grouptags)
+                      ("STRETCH")
+                      ("CORPORATE")
+                      ("PERSONAL")
+                      (:endgrouptag)
+                      (:startgrouptag)
+                      ("STRETCH")
+                      (:grouptags)
+                      ("INTELLECTION")
+                      ("CONTEXT")
+                      ("STRATEGIC")
+                      ("LEARNER")
+                      ("INPUT")
+                      (:endgrouptag)
+                      (:startgrouptag)
+                      ("PERSONAL")
+                      (:grouptags)
+                      ("TESTING")
+                      ("ENGINEERING")
+                      ("COLLABORATION")
+                      (:startgrouptag)
+                      ("CORPORATE")
+                      (:grouptags)
+                      ("WORKING_OUTSIDE_IN")
+                      ("DRIVING_WITH_DATA")
+                      ("EXECUTING_WITH_AGILITY")
+                      ("PARTNERING_ACROSS_TEAMS")
+                      (:endgrouptag)))
 
 
 (setq org-directory "~/Workspace/docs/org")
 (setq org-default-notes-file "~/Workspace/docs/org/refile.org")
+
 
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
@@ -613,8 +644,13 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 (autoload 'dired-toggle-read-only "dired" nil t)
 (define-key endless/toggle-map "w" #'whitespace-mode)
 #+end_src
+** org toggles
 
+#+begin_src emacs-lisp
 
+(define-key endless/toggle-map "h" (lambda () (interactive) (setq org-use-tag-inheritance (not org-use-tag-inheritance))))
+
+#+end_src
 * narrow/widen
 #+begin_src emacs-lisp
 

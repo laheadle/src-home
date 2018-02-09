@@ -188,6 +188,11 @@
                  '(todo-state-down effort-up category-keep))))
               ("f" "Flags" tags "+FLAGGED+LEVEL=2"
                ((org-agenda-overriding-header "Flags")))
+              ("g" "Goals"
+               ((tags "TODO=\"GOAL\"" nil)
+                (tags "GOALS-TODO=\"GOAL\""
+                      ((org-tags-match-list-sublevels nil)))
+                ))
               (" " "Agenda"
                ((agenda "" nil)
                 (tags "REFILE"
