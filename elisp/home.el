@@ -6,6 +6,7 @@
                              ("a" . "Adri")
                              ("t" . "Travel")
                              ("c" . "children")
+                             ("r" . "Friends")
                              ))
 
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-b
