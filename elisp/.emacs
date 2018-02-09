@@ -441,7 +441,7 @@ directory to make multiple eshell windows easier."
 
 (defun start-org-drill ()
   (interactive)
-  (setq org-drill-maximum-duration 8)
+  (setq org-drill-maximum-duration 5)
   (require 'org-drill)
   (org-drill))
 
