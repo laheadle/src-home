@@ -408,6 +408,7 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
                              ("m" . "Meta")
                              ("a" . "Adri")
                              ("t" . "Travel")
+                             ("h" . "House")
                              ("c" . "children")
                              ("r" . "Friends")
                              ))

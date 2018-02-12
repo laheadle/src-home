@@ -5,6 +5,7 @@
                              ("m" . "Meta")
                              ("a" . "Adri")
                              ("t" . "Travel")
+                             ("h" . "House")
                              ("c" . "children")
                              ("r" . "Friends")
                              ))
