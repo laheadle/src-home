@@ -162,11 +162,11 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 (fset 'l-org-goto-clean-agenda
       "\C-\\ g.ro")
 
+(bind-key "w" 'l-org-goto-clean-agenda my-map)
+
 (eval-after-load 'org-src
   '(define-key org-src-mode-map
      "\C-x\C-s" #'org-edit-src-exit))
-
-(bind-key "w" 'l-org-goto-clean-agenda my-map)
 
 (defun l-beginning-of-block ()
   (interactive)

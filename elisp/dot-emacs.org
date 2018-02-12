@@ -125,8 +125,8 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 (define-prefix-command 'my-map)
 (bind-key "C-1" 'my-map)
 #+end_src
-* detect work vs home environment
-
+* work or home environment
+** detect
 #+BEGIN_SRC emacs-lisp
 
 (defvar l-env-file (concat l-elisp-home "environment.el"))
@@ -144,7 +144,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
 #+results:
 : work
-
+** load
 #+BEGIN_SRC emacs-lisp
 (load-file (concat l-elisp-home l-env ".el"))
 #+END_SRC
@@ -188,10 +188,15 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 * Org
 [2017-06-05 Mon 09:42]
 
+** load Bernt
+
 I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 #+BEGIN_SRC emacs-lisp
 (load (concat l-elisp-home "org-mode.el"))
+#+END_SRC
 
+** jump to directory associated with an entry
+#+BEGIN_SRC emacs-lisp
 (defun l-org-jump-to-dir ()
   (interactive)
   (if (eq major-mode 'org-mode)
@@ -208,14 +213,23 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 
 (bind-key "C-." 'l-org-jump-to-dir org-mode-map)
 
+#+END_SRC
+** agenda stuff
+
+#+BEGIN_SRC emacs-lisp
 (fset 'l-org-goto-clean-agenda
       "\C-\\ g.ro")
 
+(bind-key "w" 'l-org-goto-clean-agenda my-map)
+
+#+END_SRC
+
+*** source code 
+#+BEGIN_SRC emacs-lisp
 (eval-after-load 'org-src
   '(define-key org-src-mode-map
      "\C-x\C-s" #'org-edit-src-exit))
 
-(bind-key "w" 'l-org-goto-clean-agenda my-map)
 #+END_SRC
 
 ** beginning of block FIXME
