@@ -30,80 +30,6 @@
 (defvar l-elisp-home (file-truename "~/src/home/elisp/"))
 (add-to-list 'load-path (concat l-elisp-home "lib"))
 
-(defvar l-env-file (concat l-elisp-home "environment.el"))
-
-(defun read-file (filePath)
-  "Return filePath's file content as lisp object"
-  (with-temp-buffer
-    (insert-file-contents filePath)
-    (read (buffer-string))))
-
-(setq l-env (read-file l-env-file))
-
-(load-file (concat l-elisp-home l-env ".el"))
-
-(use-package free-keys :defer t)
-(use-package bind-key  :defer t)
-(define-prefix-command 'my-map)
-(bind-key "C-1" 'my-map)
-
-(use-package swiper)
-(use-package counsel
-  :bind (("C-b" . ivy-switch-buffer)
-         ("C-s" . swiper)
-         :map my-map
-         ("q" . counsel-rg))
-  :config (ivy-mode 1)
-  :init
-  (progn
-    (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
-    (setq ivy-wrap t)
-    (setq ivy-use-virtual-buffers t
-          ivy-height 25)
-    (setq enable-recursive-minibuffers t)
-
-    (global-set-key (kbd "C-c C-r") 'ivy-resume)
-    (global-set-key (kbd "<f6>") 'ivy-resume)
-    (global-set-key (kbd "M-x") 'counsel-M-x)
-    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-    (global-set-key (kbd "<f1> l") 'counsel-find-library)
-    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-    (global-set-key (kbd "C-r") 'counsel-git)
-    (global-set-key (kbd "C-c j") 'counsel-git-grep)
-    (global-set-key (kbd "C-c k") 'counsel-ag)
-                                        ;    (global-set-key (kbd "C-x l") 'counsel-locate)
-    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
-
-(load (concat l-elisp-home "org-mode.el"))
-
-(defun l-org-jump-to-dir ()
-  (interactive)
-  (if (eq major-mode 'org-mode)
-      (if-let ((headers (org-entry-get (point) "header-args" t)))
-          (let* ((props (org-babel-parse-header-arguments headers))
-                (dir (cdr (assoc :dir props))))
-            (if dir (progn
-                      (find-file dir)
-                      (magit-status)
-                      (delete-other-windows))
-              (magit-status)))
-        (magit-status))
-    (magit-status)))
-
-(bind-key "C-." 'l-org-jump-to-dir org-mode-map)
-
-(fset 'l-org-goto-clean-agenda
-      "\C-\\ g.ro")
-
-(eval-after-load 'org-src
-  '(define-key org-src-mode-map
-     "\C-x\C-s" #'org-edit-src-exit))
-
-(bind-key "w" 'l-org-goto-clean-agenda my-map)
-
 ;; Adapted from https://emacs.stackexchange.com/questions/8045/org-refile-to-a-known-fixed-location
 (defun my/refile (file headline &optional arg)
   "Refile to a specific location. 
@@ -168,6 +94,92 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 		collect (list (car kv) (list 'josh/refile file (cdr kv) 'current-prefix-arg) (cdr kv)))
      ("q" nil "cancel")))
 
+(use-package free-keys :defer t)
+(use-package bind-key  :defer t)
+(define-prefix-command 'my-map)
+(bind-key "C-1" 'my-map)
+
+(defvar l-env-file (concat l-elisp-home "environment.el"))
+
+(defun read-file (filePath)
+  "Return filePath's file content as lisp object"
+  (with-temp-buffer
+    (insert-file-contents filePath)
+    (read (buffer-string))))
+
+(setq l-env (read-file l-env-file))
+
+(defun load-env ()
+  (load-file (concat l-elisp-home l-env ".el")))
+
+(defun load-from-env (code-name)
+  (load-file (concat l-elisp-home code-name "-" l-env ".el")))
+
+(load-env)
+
+(use-package swiper)
+(use-package counsel
+  :bind (("C-b" . ivy-switch-buffer)
+         ("C-s" . swiper)
+         :map my-map
+         ("q" . counsel-rg))
+  :config (ivy-mode 1)
+  :init
+  (progn
+    (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
+    (setq ivy-wrap t)
+    (setq ivy-use-virtual-buffers t
+          ivy-height 25)
+    (setq enable-recursive-minibuffers t)
+
+    (global-set-key (kbd "C-c C-r") 'ivy-resume)
+    (global-set-key (kbd "<f6>") 'ivy-resume)
+    (global-set-key (kbd "M-x") 'counsel-M-x)
+    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+    (global-set-key (kbd "<f1> l") 'counsel-find-library)
+    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+    (global-set-key (kbd "C-r") 'counsel-git)
+    (global-set-key (kbd "C-c j") 'counsel-git-grep)
+    (global-set-key (kbd "C-c k") 'counsel-ag)
+                                        ;    (global-set-key (kbd "C-x l") 'counsel-locate)
+    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
+
+(use-package hydra)
+
+(load-from-env "org-user-agenda-files")
+
+(load (concat l-elisp-home "org-mode.el"))
+
+(load-from-env "org")
+
+(defun l-org-jump-to-dir ()
+  (interactive)
+  (if (eq major-mode 'org-mode)
+      (if-let ((headers (org-entry-get (point) "header-args" t)))
+          (let* ((props (org-babel-parse-header-arguments headers))
+                (dir (cdr (assoc :dir props))))
+            (if dir (progn
+                      (find-file dir)
+                      (magit-status)
+                      (delete-other-windows))
+              (magit-status)))
+        (magit-status))
+    (magit-status)))
+
+(bind-key "C-." 'l-org-jump-to-dir org-mode-map)
+
+(fset 'l-org-goto-clean-agenda
+      "\C-\\ g.ro")
+
+(bind-key "w" 'l-org-goto-clean-agenda my-map)
+
+(eval-after-load 'org-src
+  '(define-key org-src-mode-map
+     "\C-x\C-s" #'org-edit-src-exit))
+
 (defun l-beginning-of-block ()
   (interactive)
   (org-babel-mark-block)
@@ -222,8 +234,6 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
     (org-babel-tangle)))
 
 (add-hook 'after-save-hook 'my/tangle-on-save-emacs-config-org-file)
-
-(use-package hydra)
 
 (use-package company
   :init
@@ -483,7 +493,7 @@ directory to make multiple eshell windows easier."
 
 (defun start-org-drill ()
   (interactive)
-  (setq org-drill-maximum-duration 8)
+  (setq org-drill-maximum-duration 5)
   (require 'org-drill)
   (org-drill))
 

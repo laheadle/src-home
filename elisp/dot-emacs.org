@@ -48,108 +48,7 @@
 : l-elisp-home
 
 
-* detect work vs home environment
-
-#+BEGIN_SRC emacs-lisp
-
-(defvar l-env-file (concat l-elisp-home "environment.el"))
-
-(defun read-file (filePath)
-  "Return filePath's file content as lisp object"
-  (with-temp-buffer
-    (insert-file-contents filePath)
-    (read (buffer-string))))
-
-(setq l-env (read-file l-env-file))
-
-
-#+END_SRC
-
-#+results:
-: work
-
-#+BEGIN_SRC emacs-lisp
-(load-file (concat l-elisp-home l-env ".el"))
-#+END_SRC
-
-* Keybindings
-
-#+begin_src emacs-lisp
-(use-package free-keys :defer t)
-(use-package bind-key  :defer t)
-(define-prefix-command 'my-map)
-(bind-key "C-1" 'my-map)
-#+end_src
-* Ivy / Counsel
-
-#+BEGIN_SRC emacs-lisp
-(use-package swiper)
-(use-package counsel
-  :bind (("C-b" . ivy-switch-buffer)
-         ("C-s" . swiper)
-         :map my-map
-         ("q" . counsel-rg))
-  :config (ivy-mode 1)
-  :init
-  (progn
-    (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
-    (setq ivy-wrap t)
-    (setq ivy-use-virtual-buffers t
-          ivy-height 25)
-    (setq enable-recursive-minibuffers t)
-
-    (global-set-key (kbd "C-c C-r") 'ivy-resume)
-    (global-set-key (kbd "<f6>") 'ivy-resume)
-    (global-set-key (kbd "M-x") 'counsel-M-x)
-    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-    (global-set-key (kbd "<f1> l") 'counsel-find-library)
-    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-    (global-set-key (kbd "C-r") 'counsel-git)
-    (global-set-key (kbd "C-c j") 'counsel-git-grep)
-    (global-set-key (kbd "C-c k") 'counsel-ag)
-                                        ;    (global-set-key (kbd "C-x l") 'counsel-locate)
-    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
-#+END_SRC
-
-#+results:
-
-* Org
-[2017-06-05 Mon 09:42]
-
-I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
-#+BEGIN_SRC emacs-lisp
-(load (concat l-elisp-home "org-mode.el"))
-
-(defun l-org-jump-to-dir ()
-  (interactive)
-  (if (eq major-mode 'org-mode)
-      (if-let ((headers (org-entry-get (point) "header-args" t)))
-          (let* ((props (org-babel-parse-header-arguments headers))
-                (dir (cdr (assoc :dir props))))
-            (if dir (progn
-                      (find-file dir)
-                      (magit-status)
-                      (delete-other-windows))
-              (magit-status)))
-        (magit-status))
-    (magit-status)))
-
-(bind-key "C-." 'l-org-jump-to-dir org-mode-map)
-
-(fset 'l-org-goto-clean-agenda
-      "\C-\\ g.ro")
-
-(eval-after-load 'org-src
-  '(define-key org-src-mode-map
-     "\C-x\C-s" #'org-edit-src-exit))
-
-(bind-key "w" 'l-org-goto-clean-agenda my-map)
-#+END_SRC
-
-** refiling
+* refiling
 
 #+BEGIN_SRC emacs-lisp
 
@@ -216,6 +115,143 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
      ,@(cl-loop for kv in keyandheadline
 		collect (list (car kv) (list 'josh/refile file (cdr kv) 'current-prefix-arg) (cdr kv)))
      ("q" nil "cancel")))
+#+END_SRC
+
+* Keybindings
+
+#+begin_src emacs-lisp
+(use-package free-keys :defer t)
+(use-package bind-key  :defer t)
+(define-prefix-command 'my-map)
+(bind-key "C-1" 'my-map)
+#+end_src
+* work or home environment
+** detect
+#+BEGIN_SRC emacs-lisp
+
+(defvar l-env-file (concat l-elisp-home "environment.el"))
+
+(defun read-file (filePath)
+  "Return filePath's file content as lisp object"
+  (with-temp-buffer
+    (insert-file-contents filePath)
+    (read (buffer-string))))
+
+(setq l-env (read-file l-env-file))
+
+(defun load-env ()
+  (load-file (concat l-elisp-home l-env ".el")))
+
+(defun load-from-env (code-name)
+  (load-file (concat l-elisp-home code-name "-" l-env ".el")))
+
+#+END_SRC
+
+#+results:
+: work
+** load
+#+BEGIN_SRC emacs-lisp
+(load-env)
+#+END_SRC
+
+* Ivy / Counsel
+
+#+BEGIN_SRC emacs-lisp
+(use-package swiper)
+(use-package counsel
+  :bind (("C-b" . ivy-switch-buffer)
+         ("C-s" . swiper)
+         :map my-map
+         ("q" . counsel-rg))
+  :config (ivy-mode 1)
+  :init
+  (progn
+    (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
+    (setq ivy-wrap t)
+    (setq ivy-use-virtual-buffers t
+          ivy-height 25)
+    (setq enable-recursive-minibuffers t)
+
+    (global-set-key (kbd "C-c C-r") 'ivy-resume)
+    (global-set-key (kbd "<f6>") 'ivy-resume)
+    (global-set-key (kbd "M-x") 'counsel-M-x)
+    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+    (global-set-key (kbd "<f1> l") 'counsel-find-library)
+    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+    (global-set-key (kbd "C-r") 'counsel-git)
+    (global-set-key (kbd "C-c j") 'counsel-git-grep)
+    (global-set-key (kbd "C-c k") 'counsel-ag)
+                                        ;    (global-set-key (kbd "C-x l") 'counsel-locate)
+    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
+#+END_SRC
+
+#+results:
+
+* hydra
+
+#+BEGIN_SRC emacs-lisp
+(use-package hydra)
+#+END_SRC
+
+
+* Org
+[2017-06-05 Mon 09:42]
+** load agenda-files
+Set this before loading Bernt.
+#+begin_src emacs-lisp
+(load-from-env "org-user-agenda-files")
+#+end_src
+** load Bernt
+
+I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
+#+BEGIN_SRC emacs-lisp
+(load (concat l-elisp-home "org-mode.el"))
+#+END_SRC
+** load org environment
+
+#+begin_src emacs-lisp
+
+(load-from-env "org")
+
+#+end_src
+** jump to directory associated with an entry
+#+BEGIN_SRC emacs-lisp
+(defun l-org-jump-to-dir ()
+  (interactive)
+  (if (eq major-mode 'org-mode)
+      (if-let ((headers (org-entry-get (point) "header-args" t)))
+          (let* ((props (org-babel-parse-header-arguments headers))
+                (dir (cdr (assoc :dir props))))
+            (if dir (progn
+                      (find-file dir)
+                      (magit-status)
+                      (delete-other-windows))
+              (magit-status)))
+        (magit-status))
+    (magit-status)))
+
+(bind-key "C-." 'l-org-jump-to-dir org-mode-map)
+
+#+END_SRC
+** agenda stuff
+
+#+BEGIN_SRC emacs-lisp
+(fset 'l-org-goto-clean-agenda
+      "\C-\\ g.ro")
+
+(bind-key "w" 'l-org-goto-clean-agenda my-map)
+
+#+END_SRC
+
+*** source code 
+#+BEGIN_SRC emacs-lisp
+(eval-after-load 'org-src
+  '(define-key org-src-mode-map
+     "\C-x\C-s" #'org-edit-src-exit))
+
 #+END_SRC
 
 ** beginning of block FIXME
@@ -300,7 +336,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 :PROPERTIES:
 :header-args: :tangle home.el
 :END:
-** media
+** media FIXME
 #+BEGIN_SRC emacs-lisp :tangle no
 (use-package elfeed)
 
@@ -316,10 +352,67 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
           (setq rmh-elfeed-org-files (list "~/doc/org/non-agenda/elfeed.org"))))
 #+END_SRC
-** misc
+** remotes
+#+BEGIN_SRC emacs-lisp
+(set-register ?d '(file . "/laheadle@drive.stinkless.org:/home/laheadle"))
+(set-register ?r '(file . "/root@drive.stinkless.org:/etc"))
+(defun remote-flash-shell ()
+  (interactive)
+  (let ((od default-directory))
+    (setq default-directory "/laheadle@flash.stinkless.org:/")
+    (unwind-protect
+        (call-interactively 'shell)
+      (setq default-directory od))))
+
+(global-set-key "\C-c\C-f" 'remote-flash-shell)
+
+#+END_SRC
+
+
+** org
+:PROPERTIES:
+:header-args: :tangle org-home.el
+:END:
+*** user agenda files
+:PROPERTIES:
+:header-args: :tangle org-user-agenda-files-home.el
+:END:
 #+BEGIN_SRC emacs-lisp
 (setq org-user-agenda-files (quote ("~/doc/org/1" "~/doc/org"
                                     "~/doc/org/2")))
+#+END_SRC
+
+*** refiling
+
+#+begin_src emacs-lisp
+
+
+(josh/make-org-refile-hydra josh/org-refile-hydra-file-a
+                            "~/doc/org/1/family.org"
+			    (("f" . "Family")
+                             ("p" . "Personal")
+                             ("m" . "Meta")
+                             ("a" . "Adri")
+                             ("t" . "Travel")
+                             ("c" . "children")
+                             ("r" . "Friends")
+                             ))
+
+(josh/make-org-refile-hydra josh/org-refile-hydra-file-b
+                            "~/doc/org/diary.org"
+			    (("e" . "MyEvents")))
+
+(defhydra josh/org-refile-hydra (:foreign-keys run) 
+  "Refile"
+  ("f" josh/org-refile-hydra-file-a/body "Family" :exit t)
+  ("j" org-refile-goto-last-stored "Jump to last refile" :exit t)
+  ("q" nil "cancel"))
+
+(bind-key "r" 'josh/org-refile-hydra/body 'my-map)
+
+#+end_src
+*** misc
+#+BEGIN_SRC emacs-lisp
 (setq org-directory "~/doc/org")
 
 (setq org-default-notes-file "~/doc/org/refile.org")
@@ -357,48 +450,25 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                             ("READING" . ?d)
                             )))
 
-(set-register ?d '(file . "/laheadle@drive.stinkless.org:/home/laheadle"))
-(set-register ?r '(file . "/root@drive.stinkless.org:/etc"))
-(defun remote-flash-shell ()
-  (interactive)
-  (let ((od default-directory))
-    (setq default-directory "/laheadle@flash.stinkless.org:/")
-    (unwind-protect
-        (call-interactively 'shell)
-      (setq default-directory od))))
-
-(global-set-key "\C-c\C-f" 'remote-flash-shell)
-
 #+END_SRC
-
-
-* hydra
-
-#+BEGIN_SRC emacs-lisp
-(use-package hydra)
-#+END_SRC
-
-
 * work
 :PROPERTIES:
 :header-args: :tangle work.el
 :END:
 
 ** org 
-#+begin_src emacs-lisp :tangle no
-
-(defhydra l/org-refile-hydra (:foreign-keys run) 
-  "Refile"
-  ("w" (my/refile "~/Workspace/docs/org/work.org" "Work") "Refile to Work")
-  ("u" (my/refile "~/Workspace/docs/org/work.org" "avui") "Refile to avui")
-  ("j" org-refile-goto-last-stored "Jump to last refile")
-  ("q" nil "cancel"))
-
-
-
-
+:PROPERTIES:
+:header-args: :tangle org-work.el
+:END:
+*** user agenda files
+:PROPERTIES:
+:header-args: :tangle org-user-agenda-files-work.el
+:END:
+#+BEGIN_SRC emacs-lisp
+(setq org-user-agenda-files (quote ("~/Workspace/docs/org")))
 #+END_SRC
 
+*** general
 #+BEGIN_SRC emacs-lisp
 
 (setq org-tag-alist '(
@@ -440,8 +510,9 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
 (setq org-directory "~/Workspace/docs/org")
 (setq org-default-notes-file "~/Workspace/docs/org/refile.org")
-
-
+#+END_SRC
+*** capture
+#+BEGIN_SRC emacs-lisp
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "~/Workspace/docs/org/refile.org")
@@ -506,8 +577,6 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 #+BEGIN_SRC emacs-lisp
 (defun l-getenv (var)
   (shell-command-to-string (concat ". ~/.bashrc; echo -n $" var)))
-
-(setq org-user-agenda-files (quote ("~/Workspace/docs/org")))
 
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 3))) ;; lines at a time
     
@@ -946,7 +1015,7 @@ directory to make multiple eshell windows easier."
 
 (defun start-org-drill ()
   (interactive)
-  (setq org-drill-maximum-duration 8)
+  (setq org-drill-maximum-duration 5)
   (require 'org-drill)
   (org-drill))
 
