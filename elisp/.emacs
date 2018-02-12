@@ -109,7 +109,13 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
 (setq l-env (read-file l-env-file))
 
-(load-file (concat l-elisp-home l-env ".el"))
+(defun load-env ()
+  (load-file (concat l-elisp-home l-env ".el")))
+
+(defun load-from-env (code-name)
+  (load-file (concat l-elisp-home code-name "-" l-env ".el")))
+
+(load-env)
 
 (use-package swiper)
 (use-package counsel
@@ -141,7 +147,13 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                                         ;    (global-set-key (kbd "C-x l") 'counsel-locate)
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
 
+(use-package hydra)
+
+(load-from-env "org-user-agenda-files")
+
 (load (concat l-elisp-home "org-mode.el"))
+
+(load-from-env "org")
 
 (defun l-org-jump-to-dir ()
   (interactive)
@@ -222,8 +234,6 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
     (org-babel-tangle)))
 
 (add-hook 'after-save-hook 'my/tangle-on-save-emacs-config-org-file)
-
-(use-package hydra)
 
 (use-package company
   :init
