@@ -1,6 +1,20 @@
 #+PROPERTY: header-args :tangle .emacs
 
-* the only thing in .emacs.d is melpa packages and some state files
+* commentary
+** loading order
+ 1. bind key
+ 2. my map
+ 3. detect env
+ 4. (load-env) -- random shit
+ 5. use-package hydra
+ 6. set org-user-agenda-files
+ 7. load org
+    - requires org
+    - sets agenda-files from org-user-agenda-files
+ 8. (load-from-env "org")
+    - sets org tags, capture templates, etc
+    - defines org hydra refiling funcs
+** the only thing in .emacs.d is melpa packages and some state files
 * Immediately set org-mode path
 #+BEGIN_SRC emacs-lisp
 ;;;
