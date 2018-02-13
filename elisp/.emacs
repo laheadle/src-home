@@ -225,7 +225,8 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
           '((:todo "HOLD" :todo "WAITING" :order 300)
             (:name "A" :priority "A")
             (:name "B" :priority "B")
-            (:name "C" :priority "C" :order 200)))))
+            (:name "C" :priority "C" :order 200)
+            (:name "DEADLINES" :deadline t :order 250)))))
 
 (defvar l-dot-emacs (concat l-elisp-home "dot-emacs.org"))
 
