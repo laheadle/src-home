@@ -224,10 +224,10 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
     (setq org-super-agenda-groups
           '((:todo "HOLD" :todo "WAITING" :order 300)
             (:name "HABITS" :habit t)
+            (:name "DEADLINES" :deadline t :order 250)
             (:name "A" :priority "A")
             (:name "B" :priority "B")
-            (:name "C" :priority "C" :order 200)
-            (:name "DEADLINES" :deadline t :order 250)))))
+            (:name "C" :priority "C" :order 200)))))
 
 (defvar l-dot-emacs (concat l-elisp-home "dot-emacs.org"))
 
