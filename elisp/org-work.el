@@ -39,11 +39,15 @@
 (setq org-default-notes-file "~/Workspace/docs/org/refile.org")
 
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
+;; U - inactive timestamp
+;; a - link
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "~/Workspace/docs/org/refile.org")
                "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
               ("r" "review" entry (file+olp "~/Workspace/docs/org/work.org" "Review")
                "* NEXT [#A] Review: %? \nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("e" "email" entry (file+olp "~/Workspace/docs/org/work.org" "Work" "Email")
+               "* NEXT Email\n%U\n" :clock-in t :clock-keep t :immediate-finish t)
               ("u" "avalon ui" entry (file+olp "~/Workspace/docs/org/work.org" "Avalon" "avui")
                "* NEXT AVUI: %? [%]\nSCHEDULED: %t\n%U\n%a\n** NEXT \n** NEXT \n** NEXT commit message\n** NEXT consider testing\n" :clock-in t :clock-resume t)
               ("n" "note" entry (file "~/Workspace/docs/org/refile.org")
