@@ -39,13 +39,23 @@
 (setq org-default-notes-file "~/Workspace/docs/org/refile.org")
 
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
+;; U - inactive timestamp
+;; a - link
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "~/Workspace/docs/org/refile.org")
                "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
               ("r" "review" entry (file+olp "~/Workspace/docs/org/work.org" "Review")
                "* NEXT [#A] Review: %? \nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t)
+              ("e" "email" entry (file+olp "~/Workspace/docs/org/work.org" "Work" "Email")
+               "* MEETING Email\n%U\n" :clock-in t :clock-keep t :immediate-finish t)
+              ("b" "bio" entry (file+olp "~/Workspace/docs/org/diary.org" "Bio")
+               "* MEETING Bio \n%U\n" :clock-in t :clock-keep t :immediate-finish t)
+              ("s" "self" entry (file+olp "~/Workspace/docs/org/diary.org" "Self")
+               "* MEETING Self \n%U\n" :clock-in t :clock-keep t :immediate-finish t)
               ("u" "avalon ui" entry (file+olp "~/Workspace/docs/org/work.org" "Avalon" "avui")
                "* NEXT AVUI: %? [%]\nSCHEDULED: %t\n%U\n%a\n** NEXT \n** NEXT \n** NEXT commit message\n** NEXT consider testing\n" :clock-in t :clock-resume t)
+              ("h" "achieve" entry (file+olp "~/Workspace/docs/org/work.org" "Avalon" "avach")
+               "* NEXT ACHIEVE: %? [%]\nSCHEDULED: %t\n%U\n%a\n** NEXT \n** NEXT \n** NEXT commit message\n** NEXT consider testing\n" :clock-in t :clock-resume t)
               ("n" "note" entry (file "~/Workspace/docs/org/refile.org")
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
               ("j" "Journal" entry (file+datetree "~/Workspace/docs/org/diary.org")
@@ -56,7 +66,7 @@
                "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
               ("p" "Phone call" entry (file "~/Workspace/docs/org/refile.org")
                "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-              ("h" "Habit" entry (file "~/Workspace/docs/org/refile.org")
+              ("x" "Habit" entry (file "~/Workspace/docs/org/refile.org")
                "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-a
