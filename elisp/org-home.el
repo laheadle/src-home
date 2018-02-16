@@ -4,7 +4,7 @@
                              ("p" . "Personal")
                              ("m" . "Meta")
                              ("a" . "Adri")
-                             ("" . "Bookmarks")
+                             ("b" . "Bookmarks")
                              ("t" . "Travel")
                              ("h" . "House")
                              ("c" . "children")
