@@ -223,7 +223,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
     (org-super-agenda-mode)
     (setq org-super-agenda-groups
           '((:todo "HOLD" :todo "WAITING" :order 300)
-            (:name "STATUS" :habit t :regexp "status")
+            (:name "STATUS" :and (:habit t :regexp "status"))
             (:name "HABITS" :habit t)
             (:name "A" :priority "A")
             (:name "B" :priority "B")
