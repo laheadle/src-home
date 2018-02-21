@@ -74,7 +74,8 @@
 			    (("w" . "Work")
 			     ("a" . "Avalon")
 			     ("u" . "avui")
-			     ("h" . "avach")                             
+			     ("h" . "avach")
+                             ("m" . "Meetings")
                              ))
 
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-b

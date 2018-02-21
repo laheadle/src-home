@@ -580,7 +580,8 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 			    (("w" . "Work")
 			     ("a" . "Avalon")
 			     ("u" . "avui")
-			     ("h" . "avach")                             
+			     ("h" . "avach")
+                             ("m" . "Meetings")
                              ))
 
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-b
@@ -1259,10 +1260,7 @@ directory to make multiple eshell windows easier."
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
   (setq typescript-indent-level 2)
-
-  ;; company is an optional dependency. You have to
-  ;; install it separately via package-install
-  ;; `M-x package-install [ret] company`
+  (abbrev-mode 1)
   (company-mode +1))
 
 (use-package tide
