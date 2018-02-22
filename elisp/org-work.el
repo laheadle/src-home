@@ -75,6 +75,7 @@
 			     ("a" . "Avalon")
 			     ("u" . "avui")
 			     ("h" . "avach")
+			     ("c" . "Career")
                              ("m" . "Meetings")
                              ))
 

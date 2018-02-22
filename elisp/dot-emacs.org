@@ -580,6 +580,7 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 			     ("a" . "Avalon")
 			     ("u" . "avui")
 			     ("h" . "avach")
+			     ("c" . "Career")
                              ("m" . "Meetings")
                              ))
 
