@@ -620,6 +620,7 @@ directory to make multiple eshell windows easier."
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
   (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
+  (bind-key "C-c r" 'tide-references typescript-mode-map)
   (setq typescript-indent-level 2)
   (abbrev-mode 1)
   (company-mode +1))
