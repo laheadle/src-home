@@ -1142,6 +1142,14 @@ directory to make multiple eshell windows easier."
 
 
 #+END_SRC
+** git gutter
+
+#+begin_src emacs-lisp
+
+(use-package git-gutter
+  :config (global-git-gutter-mode +1))
+
+#+end_src
 * TODO languages
 ** HTML
 #+BEGIN_SRC emacs-lisp

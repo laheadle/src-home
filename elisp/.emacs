@@ -536,6 +536,9 @@ directory to make multiple eshell windows easier."
 
 
 
+(use-package git-gutter
+  :config (global-git-gutter-mode +1))
+
 (use-package emmet-mode
   :init
   (progn
