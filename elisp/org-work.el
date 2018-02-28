@@ -46,7 +46,7 @@
                "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
               ("r" "review" entry (file+olp "~/Workspace/docs/org/work.org" "Review")
                "* NEXT [#A] Review: %? \nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("e" "email" entry (file+olp "~/Workspace/docs/org/work.org" "Work" "Misc-Work" "Email")
+              ("e" "email" entry (file+olp "~/Workspace/docs/org/work.org" "Misc-Work" "Email")
                "* MEETING Email\n%U\n" :clock-in t :clock-keep t :immediate-finish t)
               ("b" "bio" entry (file+olp "~/Workspace/docs/org/work.org" "Bio")
                "* MEETING Bio \n%U\n" :clock-in t :clock-keep t :immediate-finish t)
