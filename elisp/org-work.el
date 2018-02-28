@@ -48,9 +48,9 @@
                "* NEXT [#A] Review: %? \nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t)
               ("e" "email" entry (file+olp "~/Workspace/docs/org/work.org" "Work" "Email")
                "* MEETING Email\n%U\n" :clock-in t :clock-keep t :immediate-finish t)
-              ("b" "bio" entry (file+olp "~/Workspace/docs/org/diary.org" "Bio")
+              ("b" "bio" entry (file+olp "~/Workspace/docs/org/work.org" "Bio")
                "* MEETING Bio \n%U\n" :clock-in t :clock-keep t :immediate-finish t)
-              ("s" "self" entry (file+olp "~/Workspace/docs/org/diary.org" "Self")
+              ("s" "self" entry (file+olp "~/Workspace/docs/org/work.org" "Self")
                "* MEETING Self \n%U\n" :clock-in t :clock-keep t :immediate-finish t)
               ("u" "avalon ui" entry (file+olp "~/Workspace/docs/org/work.org" "Avalon" "avui")
                "* NEXT AVUI: %? [%]\nSCHEDULED: %t\n%U\n%a\n** NEXT \n** NEXT \n** NEXT commit message\n** NEXT consider testing\n" :clock-in t :clock-resume t)
@@ -64,6 +64,8 @@
                "* TODO Review %c\n%U\n" :immediate-finish t)
               ("m" "Meeting" entry (file "~/Workspace/docs/org/refile.org")
                "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+              ("v" "Event" entry (file+olp "~/Workspace/docs/org/work.org" "Events")
+               "*  %? :EVENT:\n%U\n")
               ("p" "Phone call" entry (file "~/Workspace/docs/org/refile.org")
                "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
               ("x" "Habit" entry (file "~/Workspace/docs/org/refile.org")
@@ -79,6 +81,7 @@
                              ("a" . "Accounts")
                              ("m" . "Meetings")
                              ("i" . "Misc-Work")
+                             ("e" . "Events")
                              ))
 
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-b
