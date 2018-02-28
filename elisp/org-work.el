@@ -76,28 +76,18 @@
 			     ("u" . "avui")
 			     ("h" . "avach")
 			     ("c" . "Career")
+                             ("a" . "Accounts")
                              ("m" . "Meetings")
+                             ("i" . "Misc-Work")
                              ))
 
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-b
                             "~/Workspace/docs/org/diary.org"
 			    (("e" . "MyEvents")))
 
-(josh/make-org-refile-hydra josh/org-refile-hydra-file-c
-			    "~/Workspace/docs/org/computing.org"
-			    (("e" . "Emacs")
-			     ("c" . "Config")))
-
-(josh/make-org-refile-hydra josh/org-refile-hydra-file-d
-			    "~/Workspace/docs/org/accounts.org"
-			    (("a" . "Accounts")))
-
 (defhydra josh/org-refile-hydra (:foreign-keys run) 
   "Refile"
   ("w" josh/org-refile-hydra-file-a/body "Work" :exit t)
-  ("d" josh/org-refile-hydra-file-b/body "Diary" :exit t)
-  ("c" josh/org-refile-hydra-file-c/body "Computing" :exit t)
-  ("a" josh/org-refile-hydra-file-d/body "Accounts" :exit t)  
   ("j" org-refile-goto-last-stored "Jump to last refile" :exit t)
   ("q" nil "cancel"))
 
