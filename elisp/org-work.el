@@ -38,18 +38,20 @@
 (setq org-directory "~/Workspace/docs/org")
 (setq org-default-notes-file "~/Workspace/docs/org/refile.org")
 
-;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
+;; Capture templates
 ;; U - inactive timestamp
 ;; a - link
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "~/Workspace/docs/org/refile.org")
                "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("r" "review" entry (file+olp "~/Workspace/docs/org/work.org" "Review")
-               "* NEXT [#A] Review: %? \nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("e" "email" entry (file+olp "~/Workspace/docs/org/work.org" "Misc-Work" "Email")
-               "* MEETING Email\n%U\n" :clock-in t :clock-keep t :immediate-finish t)
+              ("r" "review" entry (file+olp "~/Workspace/docs/org/refile.org")
+               "* NEXT [#A] Review: %? :REVIEW: \nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t)
               ("b" "bio" entry (file+olp "~/Workspace/docs/org/work.org" "Bio")
                "* MEETING Bio \n%U\n" :clock-in t :clock-keep t :immediate-finish t)
+              ("e" "email" entry (file+olp "~/Workspace/docs/org/work.org" "Misc-Work" "Email")
+               "* MEETING Email\n%U\n" :clock-in t :clock-keep t :immediate-finish t)
+              ("f" "reflection" entry (file+olp "~/Workspace/docs/org/work.org" "Misc-Work" "Reflection")
+               "* MEETING Reflection\n%U\n" :clock-in t :clock-keep t :immediate-finish t)
               ("s" "self" entry (file+olp "~/Workspace/docs/org/work.org" "Self")
                "* MEETING Self \n%U\n" :clock-in t :clock-keep t :immediate-finish t)
               ("u" "avalon ui" entry (file+olp "~/Workspace/docs/org/work.org" "Avalon" "avui")
@@ -58,16 +60,10 @@
                "* NEXT ACHIEVE: %? [%]\nSCHEDULED: %t\n%U\n%a\n** NEXT \n** NEXT \n** NEXT commit message\n** NEXT consider testing\n" :clock-in t :clock-resume t)
               ("n" "note" entry (file "~/Workspace/docs/org/refile.org")
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("j" "Journal" entry (file+datetree "~/Workspace/docs/org/diary.org")
-               "* %?\n%U\n" :clock-in t :clock-resume t)
-              ("w" "org-protocol" entry (file "~/Workspace/docs/org/refile.org")
-               "* TODO Review %c\n%U\n" :immediate-finish t)
               ("m" "Meeting" entry (file "~/Workspace/docs/org/refile.org")
                "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
               ("v" "Event" entry (file+olp "~/Workspace/docs/org/work.org" "Events")
                "*  %? :EVENT:\n%U\n")
-              ("p" "Phone call" entry (file "~/Workspace/docs/org/refile.org")
-               "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
               ("x" "Habit" entry (file "~/Workspace/docs/org/refile.org")
                "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
