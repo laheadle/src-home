@@ -44,7 +44,7 @@
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "~/Workspace/docs/org/refile.org")
                "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("r" "review" entry (file+olp "~/Workspace/docs/org/refile.org")
+              ("r" "review" entry (file "~/Workspace/docs/org/refile.org")
                "* NEXT [#A] Review: %? :REVIEW: \nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t)
               ("b" "bio" entry (file+olp "~/Workspace/docs/org/work.org" "Bio")
                "* MEETING Bio \n%U\n" :clock-in t :clock-keep t :immediate-finish t)
