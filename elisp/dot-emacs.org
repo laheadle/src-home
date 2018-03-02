@@ -656,7 +656,7 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
               ("n" "note" entry (file "~/Workspace/docs/org/refile.org")
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
               ("m" "Meeting" entry (file "~/Workspace/docs/org/refile.org")
-               "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+               "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-keep t)
               ("v" "Event" entry (file+olp "~/Workspace/docs/org/work.org" "Events")
                "*  %? :EVENT:\n%U\n")
               ("x" "Habit" entry (file "~/Workspace/docs/org/refile.org")
