@@ -1702,7 +1702,7 @@ directory to make multiple eshell windows easier."
 
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp :tangle custom.el
+#+BEGIN_SRC emacs-lisp :tangle no
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
