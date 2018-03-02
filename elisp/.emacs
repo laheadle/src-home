@@ -532,7 +532,7 @@ directory to make multiple eshell windows easier."
                                          (magit-merge "@{upstream}"))))
   :bind (("C-." . magit-status)
          :map magit-mode-map
-         ("v" . endless/visit-pull-request-url)))
+         ("C-c v" . endless/visit-pull-request-url)))
 
 
 
