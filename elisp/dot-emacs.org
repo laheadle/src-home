@@ -675,7 +675,6 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 			     ("u" . "avui")
 			     ("h" . "avach")
 			     ("c" . "Career")
-                             ("a" . "Accounts")
                              ("m" . "Meetings")
                              ("i" . "Misc-Work")
                              ("e" . "Events")

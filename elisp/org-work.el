@@ -74,7 +74,6 @@
 			     ("u" . "avui")
 			     ("h" . "avach")
 			     ("c" . "Career")
-                             ("a" . "Accounts")
                              ("m" . "Meetings")
                              ("i" . "Misc-Work")
                              ("e" . "Events")
