@@ -234,27 +234,6 @@ See [[#Publishing][Publishing and Exporting]] for more details.
 :CUSTOM_ID: AgendaSetup
 :END:
 
-Here is my current =org-agenda-files= setup.
-#+header: :tangle no
-#+begin_src emacs-lisp
-(setq org-agenda-files (quote ("~/extern/org"
-                               "~/extern/org/client1"
-                               "~/extern/client2")))
-#+end_src
-
-#+header: :tangle yes
-#+begin_src emacs-lisp :exports none
-;; The following setting is different from the document so that you
-;; can override the document org-agenda-files by setting your
-;; org-agenda-files in the variable org-user-agenda-files
-;;
-(if (boundp 'org-user-agenda-files)
-    (setq org-agenda-files org-user-agenda-files)
-  (setq org-agenda-files (quote ("~/extern/org"
-                               "~/extern/org/client1"
-                               "~/extern/client2"))))
-#+end_src
-
 =org-mode= manages the =org-agenda-files= variable automatically using
 =C-c [= and =C-c ]= to add and remove files respectively.  However,
 this replaces my directory list with a list of explicit filenames

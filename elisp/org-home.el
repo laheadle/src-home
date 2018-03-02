@@ -32,21 +32,21 @@
 (defun set-family-refiles ()
   (bind-key "r" 'josh/org-refile-family-hydra/body 'my-map))
 
-(josh/make-org-refile-hydra josh/org-refile-hydra-file-a
+(josh/make-org-refile-hydra josh/org-refile-hydra-file-aa
                             "~/doc/org/2/mywork.org"
 			    (
                              ("d" . "Darwin")
                              ))
 
-(josh/make-org-refile-hydra josh/org-refile-hydra-file-c
+(josh/make-org-refile-hydra josh/org-refile-hydra-file-cc
                             "~/doc/org/non-agenda/2/cooler.org"
                             (("c" . "Cooler")
                              ))
 
 (defhydra josh/org-refile-mywork-hydra (:foreign-keys run) 
   "Refile"
-  ("f" josh/org-refile-hydra-file-a/body "Mywork" :exit t)
-  ("c" josh/org-refile-hydra-file-c/body "Cooler" :exit t)
+  ("f" josh/org-refile-hydra-file-aa/body "Mywork" :exit t)
+  ("c" josh/org-refile-hydra-file-cc/body "Cooler" :exit t)
   ("j" org-refile-goto-last-stored "Jump to last refile" :exit t)
   ("q" nil "cancel"))
 
