@@ -393,11 +393,18 @@ is already narrowed."
   :bind (("C-z" . undo-tree-undo)
          ("C-S-z" . undo-tree-redo)))
 
-;; watch the file system
-(global-auto-revert-mode nil)
-
 (setq make-backup-files nil)
 
+(defun l-backups ()
+  (shell-command "backups.sh&"))
+
+(defvar one-hour (* 60 60))
+(run-with-timer one-hour (* 24 one-hour) 'l-backups)
+
+(ffap-bindings)
+
+;; watch the file system
+(global-auto-revert-mode nil)
 
 (setq dired-guess-shell-alist-user
       (list
@@ -413,12 +420,6 @@ is already narrowed."
   (let ((m (point)))
     (find-alternate-file (buffer-file-name))
     (goto-char m)))
-
-(defun l-backups ()
-  (shell-command "backups.sh&"))
-
-(defvar one-hour (* 60 60))
-(run-with-timer one-hour (* 24 one-hour) 'l-backups)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)

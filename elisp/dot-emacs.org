@@ -995,17 +995,35 @@ is already narrowed."
 
 * Files and directories
 
-Remote Directroies
+** Remote Directroies
+*** work
 #+BEGIN_SRC emacs-lisp :tangle work.el
 (set-register ?d '(file . "/lheadley@dn.kcptech.com:/home/lheadley"))
 #+END_SRC
 
+** backups
 #+BEGIN_SRC emacs-lisp
-;; watch the file system
-(global-auto-revert-mode nil)
 
 (setq make-backup-files nil)
 
+(defun l-backups ()
+  (shell-command "backups.sh&"))
+
+(defvar one-hour (* 60 60))
+(run-with-timer one-hour (* 24 one-hour) 'l-backups)
+
+#+END_SRC
+** ffap
+
+#+begin_src emacs-lisp
+
+(ffap-bindings)
+
+#+end_src
+** misc
+#+BEGIN_SRC emacs-lisp
+;; watch the file system
+(global-auto-revert-mode nil)
 
 (setq dired-guess-shell-alist-user
       (list
@@ -1021,14 +1039,8 @@ Remote Directroies
   (let ((m (point)))
     (find-alternate-file (buffer-file-name))
     (goto-char m)))
-
-(defun l-backups ()
-  (shell-command "backups.sh&"))
-
-(defvar one-hour (* 60 60))
-(run-with-timer one-hour (* 24 one-hour) 'l-backups)
-
 #+END_SRC
+
 * Frames
 ** space savers
 #+BEGIN_SRC emacs-lisp
