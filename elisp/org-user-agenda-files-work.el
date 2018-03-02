@@ -1,1 +1,1 @@
-(setq org-user-agenda-files (quote ("~/Workspace/docs/org")))
+(setq org-agenda-files (quote ("~/Workspace/docs/org")))

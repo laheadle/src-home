@@ -585,7 +585,7 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 :header-args: :tangle org-user-agenda-files-work.el
 :END:
 #+BEGIN_SRC emacs-lisp
-(setq org-user-agenda-files (quote ("~/Workspace/docs/org")))
+(setq org-agenda-files (quote ("~/Workspace/docs/org")))
 #+END_SRC
 
 *** general
