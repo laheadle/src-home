@@ -69,7 +69,7 @@
                 ("n" "note" entry (file "~/doc/org/1/refile.org")
                  "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
                 ("m" "Meeting" entry (file "~/doc/org/1/refile.org")
-                 "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+                 "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-keep t)
                 ("h" "Habit" entry (file "~/doc/org/1/refile.org")
                  "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
@@ -103,7 +103,7 @@
                 ("n" "note" entry (file "~/doc/org/2/refile.org")
                  "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
                 ("m" "Meeting" entry (file "~/doc/org/2/refile.org")
-                 "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+                 "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-keep t)
                 ("h" "Habit" entry (file "~/doc/org/2/refile.org")
                  "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
