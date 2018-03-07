@@ -1,6 +1,17 @@
 (defvar l-org-context :family)
 
-(josh/make-org-refile-hydra josh/org-refile-hydra-file-a
+(defmacro josh/make-org-refile-family-hydra (hydraname file keyandheadline)
+  "Make a hydra named HYDRANAME with refile targets to FILE.
+KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\")"
+  `(defhydra ,hydraname (:color blue :after-exit (unless (or hydra-deactivate
+							     current-prefix-arg) ;If we're just jumping to a location, quit the hydra
+						   (josh/org-refile-family-hydra/body)))
+     ,file
+     ,@(cl-loop for kv in keyandheadline
+		collect (list (car kv) (list 'josh/refile file (cdr kv) 'current-prefix-arg) (cdr kv)))
+     ("q" nil "cancel")))
+
+(josh/make-org-refile-family-hydra josh/org-refile-hydra-file-a
                             "~/doc/org/1/family.org"
 			    (("f" . "Family")
                              ("p" . "Personal")
@@ -13,11 +24,11 @@
                              ("r" . "Friends")
                              ))
 
-(josh/make-org-refile-hydra josh/org-refile-hydra-file-b
+(josh/make-org-refile-family-hydra josh/org-refile-hydra-file-b
                             "~/doc/org/diary.org"
 			    (("e" . "MyEvents")))
 
-(josh/make-org-refile-hydra josh/org-refile-hydra-file-c
+(josh/make-org-refile-family-hydra josh/org-refile-hydra-file-c
                             "~/doc/org/non-agenda/1/cooler.org"
                             (("c" . "Cooler")
                              ))
@@ -32,13 +43,24 @@
 (defun set-family-refiles ()
   (bind-key "r" 'josh/org-refile-family-hydra/body 'my-map))
 
-(josh/make-org-refile-hydra josh/org-refile-hydra-file-aa
+(defmacro josh/make-org-refile-mywork-hydra (hydraname file keyandheadline)
+  "Make a hydra named HYDRANAME with refile targets to FILE.
+KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\")"
+  `(defhydra ,hydraname (:color blue :after-exit (unless (or hydra-deactivate
+							     current-prefix-arg) ;If we're just jumping to a location, quit the hydra
+						   (josh/org-refile-mywork-hydra/body)))
+     ,file
+     ,@(cl-loop for kv in keyandheadline
+		collect (list (car kv) (list 'josh/refile file (cdr kv) 'current-prefix-arg) (cdr kv)))
+     ("q" nil "cancel")))
+
+(josh/make-org-refile-mywork-hydra josh/org-refile-hydra-file-aa
                             "~/doc/org/2/mywork.org"
 			    (
                              ("d" . "Darwin")
                              ))
 
-(josh/make-org-refile-hydra josh/org-refile-hydra-file-cc
+(josh/make-org-refile-mywork-hydra josh/org-refile-hydra-file-cc
                             "~/doc/org/non-agenda/2/cooler.org"
                             (("c" . "Cooler")
                              ))

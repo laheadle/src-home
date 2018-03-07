@@ -83,17 +83,6 @@ With a `C-u` ARG, just jump to the headline."
 	 (my/refile file headline arg))))
     (when kill-buffer (kill-buffer base))))
 
-(defmacro josh/make-org-refile-hydra (hydraname file keyandheadline)
-  "Make a hydra named HYDRANAME with refile targets to FILE.
-KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\")"
-  `(defhydra ,hydraname (:color blue :after-exit (unless (or hydra-deactivate
-							     current-prefix-arg) ;If we're just jumping to a location, quit the hydra
-						   (josh/org-refile-hydra/body)))
-     ,file
-     ,@(cl-loop for kv in keyandheadline
-		collect (list (car kv) (list 'josh/refile file (cdr kv) 'current-prefix-arg) (cdr kv)))
-     ("q" nil "cancel")))
-
 (use-package free-keys :defer t)
 (use-package bind-key  :defer t)
 (define-prefix-command 'my-map)
