@@ -254,6 +254,7 @@ With a `C-u` ARG, just jump to the headline."
 (define-key endless/toggle-map "m" #'transient-mark-mode)
 (define-key endless/toggle-map "t" #'transient-mark-mode)
 (define-key endless/toggle-map "s" #'org-super-agenda-mode)
+(define-key endless/toggle-map "t" #'org-indent-mode)
 (define-key endless/toggle-map "i" 'ido-mode)
 (define-key endless/toggle-map "v" 'ivy-mode)
 
