@@ -419,15 +419,17 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
 (josh/make-org-refile-family-hydra josh/org-refile-hydra-file-a
                             "~/doc/org/1/family.org"
-			    (("f" . "Family")
-                             ("p" . "Personal")
-                             ("m" . "Meta")
+			    (
                              ("a" . "Adri")
                              ("b" . "Bookmarks")
-                             ("t" . "Travel")
-                             ("h" . "House")
                              ("c" . "Children")
+                             ("e" . "Events")
+                             ("h" . "House")
+                             ("f" . "Family")
+                             ("p" . "Personal")
+                             ("m" . "Meta")
                              ("r" . "Friends")
+                             ("t" . "Travel")
                              ))
 
 (josh/make-org-refile-family-hydra josh/org-refile-hydra-file-b
