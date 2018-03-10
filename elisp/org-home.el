@@ -21,7 +21,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                              ("h" . "House")
                              ("f" . "Family")
                              ("p" . "Personal")
-                             ("m" . "Meta")
+                             ("m" . "Misc-Family")
                              ("r" . "Friends")
                              ("t" . "Travel")
                              ))
