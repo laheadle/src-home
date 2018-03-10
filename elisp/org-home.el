@@ -102,13 +102,8 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
 
   (setq org-tag-alist (quote (("FLAGGED" . ??)
-                              ("MYWORK" . ?w)
-                              ("FAMILY" . ?f)
-                              ("SELF" . ?s)
                               ("ADRI" . ?a)
-                              ("META" . ?m)
-                              ("FRIENDS" . ?r)
-                              ("READING" . ?d)
+                              ("CHORE" . ?c)
                               ))))
 
 (defun set-mywork-misc ()
