@@ -437,7 +437,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 			    (("e" . "MyEvents")))
 
 (josh/make-org-refile-family-hydra josh/org-refile-hydra-file-c
-                            "~/doc/org/non-agenda/1/cooler.org"
+                            "~/doc/org/1/non-agenda/cooler.org"
                             (("c" . "Cooler")
                              ))
 
@@ -475,7 +475,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                              ))
 
 (josh/make-org-refile-mywork-hydra josh/org-refile-hydra-file-cc
-                            "~/doc/org/non-agenda/2/cooler.org"
+                            "~/doc/org/2/non-agenda/cooler.org"
                             (("c" . "Cooler")
                              ))
 
