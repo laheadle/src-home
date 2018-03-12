@@ -505,7 +505,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                  "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
                 ("v" "Event" entry (file+olp "~/doc/org/1/family.org" "Events")
                  "* %? :EVENT:\n%U\n")
-                ("f" "reflection" entry (file+olp "~/doc/org/1/refile.org")
+                ("f" "reflection" entry (file "~/doc/org/1/refile.org")
                  "* MEETING Reflection\n%U\n" :clock-in t :clock-keep t)
                 ("n" "note" entry (file "~/doc/org/1/refile.org")
                  "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
