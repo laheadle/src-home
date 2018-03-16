@@ -13,15 +13,17 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
 (josh/make-org-refile-family-hydra josh/org-refile-hydra-file-a
                             "~/doc/org/1/family.org"
-			    (("f" . "Family")
-                             ("p" . "Personal")
-                             ("m" . "Meta")
+			    (
                              ("a" . "Adri")
                              ("b" . "Bookmarks")
-                             ("t" . "Travel")
-                             ("h" . "House")
                              ("c" . "Children")
+                             ("e" . "Events")
+                             ("h" . "House")
+                             ("f" . "Family")
+                             ("p" . "Personal")
+                             ("i" . "Misc-Family")
                              ("r" . "Friends")
+                             ("t" . "Travel")
                              ))
 
 (josh/make-org-refile-family-hydra josh/org-refile-hydra-file-b
@@ -29,7 +31,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 			    (("e" . "MyEvents")))
 
 (josh/make-org-refile-family-hydra josh/org-refile-hydra-file-c
-                            "~/doc/org/non-agenda/1/cooler.org"
+                            "~/doc/org/1/non-agenda/cooler.org"
                             (("c" . "Cooler")
                              ))
 
@@ -61,7 +63,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                              ))
 
 (josh/make-org-refile-mywork-hydra josh/org-refile-hydra-file-cc
-                            "~/doc/org/non-agenda/2/cooler.org"
+                            "~/doc/org/2/non-agenda/cooler.org"
                             (("c" . "Cooler")
                              ))
 
@@ -85,8 +87,8 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
         (quote (("t" "todo" entry (file "~/doc/org/1/refile.org")
                  "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
                 ("v" "Event" entry (file+olp "~/doc/org/1/family.org" "Events")
-                 "*  %? :EVENT:\n%U\n")
-                ("f" "reflection" entry (file+olp "~/doc/org/1/refile.org")
+                 "* %? :EVENT:\n%U\n")
+                ("f" "reflection" entry (file "~/doc/org/1/refile.org")
                  "* MEETING Reflection\n%U\n" :clock-in t :clock-keep t)
                 ("n" "note" entry (file "~/doc/org/1/refile.org")
                  "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
@@ -100,13 +102,8 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
 
   (setq org-tag-alist (quote (("FLAGGED" . ??)
-                              ("MYWORK" . ?w)
-                              ("FAMILY" . ?f)
-                              ("SELF" . ?s)
                               ("ADRI" . ?a)
-                              ("META" . ?m)
-                              ("FRIENDS" . ?r)
-                              ("READING" . ?d)
+                              ("CHORE" . ?c)
                               ))))
 
 (defun set-mywork-misc ()
@@ -120,8 +117,8 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                  "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
                 ("v" "Event" entry (file+olp "~/doc/org/2/mywork.org" "Events")
                  "*  %? :EVENT:\n%U\n")
-                ("f" "reflection" entry (file+olp "~/doc/org/2/refile.org")
-                 "* MEETING Reflection\n%U\n" :clock-in t :clock-keep t)
+                ("f" "reflection" entry (file "~/doc/org/2/refile.org")
+                 "* MEETING Reflection: %?\n%U\n" :clock-in t :clock-keep t)
                 ("n" "note" entry (file "~/doc/org/2/refile.org")
                  "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
                 ("m" "Meeting" entry (file "~/doc/org/2/refile.org")
