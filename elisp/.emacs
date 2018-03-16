@@ -487,6 +487,7 @@ directory to make multiple eshell windows easier."
 
 (defun start-org-drill ()
   (interactive)
+  (setq org-drill-add-random-noise-to-intervals-p t)
   (setq org-drill-maximum-duration 4)
   (require 'org-drill)
   (org-drill))
