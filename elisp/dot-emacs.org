@@ -749,6 +749,69 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 ** terraform
 
 (use-package terraform-mode)
+** learning the org chart
+
+*** template
+#+begin_src emacs-lisp
+(defvar l-drill-org-template
+  "** Lyn Headley
+,***                                                                 :drill:
+SCHEDULED: <2018-03-20 Tue>
+:PROPERTIES:
+:ID:       EB027A26-BFF4-4F08-BF9E-17D80E001209
+:DRILL_LAST_INTERVAL: 4.0
+:DRILL_REPEATS_SINCE_FAIL: 2
+:DRILL_TOTAL_REPEATS: 1
+:DRILL_FAILURE_COUNT: 0
+:DRILL_AVERAGE_QUALITY: 4.0
+:DRILL_EASE: 2.5
+:DRILL_LAST_QUALITY: 4
+:DRILL_LAST_REVIEWED: [2018-03-16 Fri 09:26]
+:END:
+Lyn Headley boss
+,**** 
+Matt Litwin
+,***                                                                 :drill:
+SCHEDULED: <2018-03-20 Tue>
+:PROPERTIES:
+:ID:       EB027A26-BFF4-4F08-BF9E-17D80E001209
+:DRILL_LAST_INTERVAL: 4.0
+:DRILL_REPEATS_SINCE_FAIL: 2
+:DRILL_TOTAL_REPEATS: 1
+:DRILL_FAILURE_COUNT: 0
+:DRILL_AVERAGE_QUALITY: 4.0
+:DRILL_EASE: 2.5
+:DRILL_LAST_QUALITY: 4
+:DRILL_LAST_REVIEWED: [2018-03-16 Fri 09:26]
+:END:
+Lyn Headley joined
+,**** 
+2014
+,***                                                                 :drill:
+SCHEDULED: <2018-03-20 Tue>
+:PROPERTIES:
+:ID:       EB027A26-BFF4-4F08-BF9E-17D80E001209
+:DRILL_LAST_INTERVAL: 4.0
+:DRILL_REPEATS_SINCE_FAIL: 2
+:DRILL_TOTAL_REPEATS: 1
+:DRILL_FAILURE_COUNT: 0
+:DRILL_AVERAGE_QUALITY: 4.0
+:DRILL_EASE: 2.5
+:DRILL_LAST_QUALITY: 4
+:DRILL_LAST_REVIEWED: [2018-03-16 Fri 09:26]
+:END:
+Lyn Headley title
+,**** 
+Web App Developer
+")
+#+end_src
+*** macro
+#+begin_src emacs-lisp
+
+;; insert template
+
+;; run saved macro: narrow, replace
+#+end_src
 * completion
 ** company
 #+BEGIN_SRC emacs-lisp

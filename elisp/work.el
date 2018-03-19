@@ -31,6 +31,62 @@
 (use-package exec-path-from-shell
   :config (exec-path-from-shell-initialize))
 
+(defvar l-drill-org-template
+  "** Lyn Headley
+***                                                                 :drill:
+SCHEDULED: <2018-03-20 Tue>
+:PROPERTIES:
+:ID:       EB027A26-BFF4-4F08-BF9E-17D80E001209
+:DRILL_LAST_INTERVAL: 4.0
+:DRILL_REPEATS_SINCE_FAIL: 2
+:DRILL_TOTAL_REPEATS: 1
+:DRILL_FAILURE_COUNT: 0
+:DRILL_AVERAGE_QUALITY: 4.0
+:DRILL_EASE: 2.5
+:DRILL_LAST_QUALITY: 4
+:DRILL_LAST_REVIEWED: [2018-03-16 Fri 09:26]
+:END:
+Lyn Headley boss
+**** 
+Matt Litwin
+***                                                                 :drill:
+SCHEDULED: <2018-03-20 Tue>
+:PROPERTIES:
+:ID:       EB027A26-BFF4-4F08-BF9E-17D80E001209
+:DRILL_LAST_INTERVAL: 4.0
+:DRILL_REPEATS_SINCE_FAIL: 2
+:DRILL_TOTAL_REPEATS: 1
+:DRILL_FAILURE_COUNT: 0
+:DRILL_AVERAGE_QUALITY: 4.0
+:DRILL_EASE: 2.5
+:DRILL_LAST_QUALITY: 4
+:DRILL_LAST_REVIEWED: [2018-03-16 Fri 09:26]
+:END:
+Lyn Headley joined
+**** 
+2014
+***                                                                 :drill:
+SCHEDULED: <2018-03-20 Tue>
+:PROPERTIES:
+:ID:       EB027A26-BFF4-4F08-BF9E-17D80E001209
+:DRILL_LAST_INTERVAL: 4.0
+:DRILL_REPEATS_SINCE_FAIL: 2
+:DRILL_TOTAL_REPEATS: 1
+:DRILL_FAILURE_COUNT: 0
+:DRILL_AVERAGE_QUALITY: 4.0
+:DRILL_EASE: 2.5
+:DRILL_LAST_QUALITY: 4
+:DRILL_LAST_REVIEWED: [2018-03-16 Fri 09:26]
+:END:
+Lyn Headley title
+**** 
+Web App Developer
+")
+
+;; insert template
+
+;; run saved macro: narrow, replace
+
 (set-register ?d '(file . "/lheadley@dn.kcptech.com:/home/lheadley"))
 
 (defun endless/visit-pull-request-url ()
