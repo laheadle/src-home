@@ -393,6 +393,7 @@ is already narrowed."
 (run-with-timer one-hour (* 24 one-hour) 'l-backups)
 
 (ffap-bindings)
+(setq ffap-require-prefix t)
 
 ;; watch the file system
 (global-auto-revert-mode nil)

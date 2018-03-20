@@ -1102,7 +1102,7 @@ is already narrowed."
 #+begin_src emacs-lisp
 
 (ffap-bindings)
-
+(setq ffap-require-prefix t)
 #+end_src
 ** misc
 #+BEGIN_SRC emacs-lisp
