@@ -84,6 +84,15 @@ Web App Developer
 ")
 
 ;; insert template
+(defun l-insert-l-drill-org-template ()
+  (beginning-of-line)
+  (save-excursion
+    (insert l-drill-org-template))
+  (narrow-or-widen-dwim)
+  (let ((new (read-from-minibuffer "Employee name: ")))
+    (query-replace))                    ; wrong, just replace flat out
+  (narrow-or-widen-dwim))
+
 
 ;; run saved macro: narrow, replace
 
