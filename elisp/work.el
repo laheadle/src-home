@@ -89,9 +89,14 @@ Web App Developer
   (save-excursion
     (insert l-drill-org-template))
   (narrow-or-widen-dwim)
-  (let ((new (read-from-minibuffer "Employee name: ")))
-    (query-replace))                    ; wrong, just replace flat out
-  (narrow-or-widen-dwim))
+  (let ((new (read-from-minibuffer "Employee name: "))
+        (new-replaced
+         (replace-regexp-in-string
+          "Lyn Headley"
+          "new"
+          l-drill-org-template)))
+    (save-excursion (insert new-replaced))
+    (narrow-or-widen-dwim)))
 
 
 ;; run saved macro: narrow, replace
