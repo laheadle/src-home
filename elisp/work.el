@@ -34,20 +34,17 @@
 (defconst l-drill-org-template
   "** Lyn Headley
 ***                                                                 :drill:
-SCHEDULED: <2018-03-20 Tue>
-Lyn Headley boss
+Lyn Headley Boss
 **** 
-Matt Litwin
+jj-Boss
 ***                                                                 :drill:
-SCHEDULED: <2018-03-20 Tue>
 Lyn Headley joined
 **** 
-jj-2014
+jj-Joined
 ***                                                                 :drill:
-SCHEDULED: <2018-03-20 Tue>
 Lyn Headley title
 **** 
-jj-Web
+jj-Title
 ")
 
 ;; insert template

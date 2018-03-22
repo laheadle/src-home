@@ -982,8 +982,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (org-agenda-to-appt))
 
 ; Rebuild the reminders everytime the agenda is displayed
-(add-hook 'org-finalize-agenda-hook 'bh/org-agenda-to-appt 'append)
-
+(add-hook 'org-agenda-finalize-hook 'bh/org-agenda-to-appt 'append)
 ; This is at the end of my .emacs - so appointments are set up when Emacs starts
 (bh/org-agenda-to-appt)
 
