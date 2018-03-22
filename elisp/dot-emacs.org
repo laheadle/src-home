@@ -810,15 +810,13 @@ Web App Developer
 
 ;; insert template
 (defun l-insert-l-drill-org-template ()
+  (interactive)
   (beginning-of-line)
-  (save-excursion
-    (insert l-drill-org-template))
-  (narrow-or-widen-dwim)
-  (let ((new (read-from-minibuffer "Employee name: "))
+  (let* ((new (read-from-minibuffer "Employee name: "))
         (new-replaced
          (replace-regexp-in-string
           "Lyn Headley"
-          "new"
+          new
           l-drill-org-template)))
     (save-excursion (insert new-replaced))
     (narrow-or-widen-dwim)))
