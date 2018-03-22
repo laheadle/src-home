@@ -753,56 +753,23 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
 *** template
 #+begin_src emacs-lisp
-(defvar l-drill-org-template
+(defconst l-drill-org-template
   "** Lyn Headley
 ,***                                                                 :drill:
 SCHEDULED: <2018-03-20 Tue>
-:PROPERTIES:
-:ID:       EB027A26-BFF4-4F08-BF9E-17D80E001209
-:DRILL_LAST_INTERVAL: 4.0
-:DRILL_REPEATS_SINCE_FAIL: 2
-:DRILL_TOTAL_REPEATS: 1
-:DRILL_FAILURE_COUNT: 0
-:DRILL_AVERAGE_QUALITY: 4.0
-:DRILL_EASE: 2.5
-:DRILL_LAST_QUALITY: 4
-:DRILL_LAST_REVIEWED: [2018-03-16 Fri 09:26]
-:END:
 Lyn Headley boss
 ,**** 
 Matt Litwin
 ,***                                                                 :drill:
 SCHEDULED: <2018-03-20 Tue>
-:PROPERTIES:
-:ID:       EB027A26-BFF4-4F08-BF9E-17D80E001209
-:DRILL_LAST_INTERVAL: 4.0
-:DRILL_REPEATS_SINCE_FAIL: 2
-:DRILL_TOTAL_REPEATS: 1
-:DRILL_FAILURE_COUNT: 0
-:DRILL_AVERAGE_QUALITY: 4.0
-:DRILL_EASE: 2.5
-:DRILL_LAST_QUALITY: 4
-:DRILL_LAST_REVIEWED: [2018-03-16 Fri 09:26]
-:END:
 Lyn Headley joined
 ,**** 
-2014
+jj-2014
 ,***                                                                 :drill:
 SCHEDULED: <2018-03-20 Tue>
-:PROPERTIES:
-:ID:       EB027A26-BFF4-4F08-BF9E-17D80E001209
-:DRILL_LAST_INTERVAL: 4.0
-:DRILL_REPEATS_SINCE_FAIL: 2
-:DRILL_TOTAL_REPEATS: 1
-:DRILL_FAILURE_COUNT: 0
-:DRILL_AVERAGE_QUALITY: 4.0
-:DRILL_EASE: 2.5
-:DRILL_LAST_QUALITY: 4
-:DRILL_LAST_REVIEWED: [2018-03-16 Fri 09:26]
-:END:
 Lyn Headley title
 ,**** 
-Web App Developer
+jj-Web
 ")
 #+end_src
 *** create new drill item
@@ -813,13 +780,25 @@ Web App Developer
   (interactive)
   (beginning-of-line)
   (let* ((new (read-from-minibuffer "Employee name: "))
-        (new-replaced
-         (replace-regexp-in-string
-          "Lyn Headley"
-          new
-          l-drill-org-template)))
+         (boss (read-from-minibuffer "Boss: "))
+         (joined (read-from-minibuffer "Joined: "))
+         (title (read-from-minibuffer "Title: "))
+         (new-replaced
+          (replace-regexp-in-string
+           "Lyn Headley"
+           new
+           (replace-regexp-in-string
+            "jj-Boss"
+            boss
+            (replace-regexp-in-string
+             "jj-Joined"
+             joined
+             (replace-regexp-in-string
+              "jj-Title"
+              title
+              l-drill-org-template))))))
     (save-excursion (insert new-replaced))
-    (narrow-or-widen-dwim)))
+    (call-interactively #'narrow-or-widen-dwim)))
 
 
 ;; run saved macro: narrow, replace
