@@ -794,8 +794,7 @@ jj-Title
               "jj-Title"
               title
               l-drill-org-template))))))
-    (save-excursion (insert new-replaced))
-    (call-interactively #'narrow-or-widen-dwim)))
+    (save-excursion (insert new-replaced))))
 
 
 ;; run saved macro: narrow, replace
