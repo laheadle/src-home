@@ -338,8 +338,12 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 
 #+end_src
 *** languages
+** Habits
+#+begin_src emacs-lisp
 
-
+(setq org-habit-preceding-days 27
+      org-habit-following-days 1)
+#+end_src
 * home
 :PROPERTIES:
 :header-args: :tangle home.el

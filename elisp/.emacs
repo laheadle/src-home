@@ -228,6 +228,9 @@ With a `C-u` ARG, just jump to the headline."
 
 (add-hook 'after-save-hook 'my/tangle-on-save-emacs-config-org-file)
 
+(setq org-habit-preceding-days 27
+      org-habit-following-days 1)
+
 (use-package company
   :init
   (global-company-mode))
