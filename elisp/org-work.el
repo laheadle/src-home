@@ -25,6 +25,7 @@
                       ("TESTING")
                       ("ENGINEERING")
                       ("COLLABORATION")
+                      (:endgrouptag)
                       (:startgrouptag)
                       ("CORPORATE")
                       (:grouptags)

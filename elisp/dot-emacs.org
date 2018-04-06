@@ -628,6 +628,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                       ("TESTING")
                       ("ENGINEERING")
                       ("COLLABORATION")
+                      (:endgrouptag)
                       (:startgrouptag)
                       ("CORPORATE")
                       (:grouptags)
