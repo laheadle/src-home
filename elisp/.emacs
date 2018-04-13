@@ -439,7 +439,11 @@ is already narrowed."
 
 
 
-(bind-key "C-x k" 'kill-this-buffer global-map)
+(defun l-kill-this-buffer ()
+  (interactive)
+  (kill-buffer (current-buffer)))
+
+(bind-key "C-x k" 'l-kill-this-buffer global-map)
 
 (defun eshell-here ()
   "Opens up a new shell in the directory associated with the
