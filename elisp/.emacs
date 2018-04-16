@@ -228,6 +228,8 @@ With a `C-u` ARG, just jump to the headline."
 
 (add-hook 'after-save-hook 'my/tangle-on-save-emacs-config-org-file)
 
+(require 'ox-md)
+
 (use-package company
   :init
   (global-company-mode))

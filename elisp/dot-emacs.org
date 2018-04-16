@@ -338,8 +338,13 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 
 #+end_src
 *** languages
+** exporting
 
+#+begin_src emacs-lisp
 
+(require 'ox-md)
+
+#+end_src
 * home
 :PROPERTIES:
 :header-args: :tangle home.el
