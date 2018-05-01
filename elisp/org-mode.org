@@ -3338,6 +3338,7 @@ automatically updated the next time I look at the agenda.
 
 #+header: :tangle yes
 #+begin_src emacs-lisp
+ (require 'time-stamp)
 ; Erase all reminders and rebuilt reminders for today from the agenda
 (defun bh/org-agenda-to-appt ()
   (interactive)
