@@ -173,7 +173,7 @@ With a `C-u` ARG, just jump to the headline."
     (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
     (setq ivy-wrap t)
     (setq ivy-use-virtual-buffers t
-          ivy-height 25)
+          ivy-height 20)
     (setq enable-recursive-minibuffers t)
     (setq counsel-rg-base-command
           "rg -i -M 120 --no-heading --line-number --color never %s .")
