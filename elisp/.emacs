@@ -741,7 +741,10 @@ directory to make multiple eshell windows easier."
 
 (show-paren-mode)
 
-(use-package lispy :defer t)
+(use-package lispy :defer t
+  :bind (
+         :map lispy-mode-map
+         ("C-1" . 'my-map)))
 
   ;; :init
 (dolist (hook '(emacs-lisp-mode-hook
