@@ -21,7 +21,7 @@
                        (magit-get-push-remote)
                        "url"))
            (magit-get-current-branch))))
-;; test
+
 (progn
   (setq load-path (cons  "/usr/lib/erlang/lib/tools-2.9.1/emacs"
                          load-path))

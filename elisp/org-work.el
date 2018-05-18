@@ -22,6 +22,7 @@
                       (:startgrouptag)
                       ("PERSONAL")
                       (:grouptags)
+                      ("EDUCATION")
                       ("TESTING")
                       ("ENGINEERING")
                       ("COLLABORATION")
