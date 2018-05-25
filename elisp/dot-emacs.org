@@ -173,7 +173,7 @@ With a `C-u` ARG, just jump to the headline."
     (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
     (setq ivy-wrap t)
     (setq ivy-use-virtual-buffers t
-          ivy-height 25)
+          ivy-height 20)
     (setq enable-recursive-minibuffers t)
     (setq counsel-rg-base-command
           "rg -i -M 120 --no-heading --line-number --color never %s .")
@@ -343,6 +343,14 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 
 (setq org-habit-preceding-days 27
       org-habit-following-days 1)
+
+#+end_src
+** exporting
+
+#+begin_src emacs-lisp
+
+(require 'ox-md)
+
 #+end_src
 * home
 :PROPERTIES:
@@ -629,9 +637,11 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                       (:startgrouptag)
                       ("PERSONAL")
                       (:grouptags)
+                      ("EDUCATION")
                       ("TESTING")
                       ("ENGINEERING")
                       ("COLLABORATION")
+                      (:endgrouptag)
                       (:startgrouptag)
                       ("CORPORATE")
                       (:grouptags)
@@ -681,6 +691,16 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
 #+begin_src emacs-lisp
 
+(defmacro josh/make-org-refile-hydra (hydraname file keyandheadline)
+  "Make a hydra named HYDRANAME with refile targets to FILE.
+KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\")"
+  `(defhydra ,hydraname (:color blue :after-exit (unless (or hydra-deactivate
+							     current-prefix-arg) ;If we're just jumping to a location, quit the hydra
+						   (josh/org-refile-hydra/body)))
+     ,file
+     ,@(cl-loop for kv in keyandheadline
+		collect (list (car kv) (list 'josh/refile file (cdr kv) 'current-prefix-arg) (cdr kv)))
+     ("q" nil "cancel")))
 
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-a
                             "~/Workspace/docs/org/work.org"
@@ -692,6 +712,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                              ("m" . "Meetings")
                              ("i" . "Misc-Work")
                              ("e" . "Events")
+                             ("s" . "Sketchpad")
                              ))
 
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-b
@@ -1145,7 +1166,11 @@ is already narrowed."
 ** kill
 #+begin_src emacs-lisp
 
-(bind-key "C-x k" 'kill-this-buffer global-map)
+(defun l-kill-this-buffer ()
+  (interactive)
+  (kill-buffer (current-buffer)))
+
+(bind-key "C-x k" 'l-kill-this-buffer global-map)
 
 #+end_src
 * shells
@@ -1612,7 +1637,10 @@ directory to make multiple eshell windows easier."
 ** lisp
 #+BEGIN_SRC emacs-lisp
 
-(use-package lispy :defer t)
+(use-package lispy :defer t
+  :bind (
+         :map lispy-mode-map
+         ("C-1" . 'my-map)))
 
   ;; :init
 (dolist (hook '(emacs-lisp-mode-hook

@@ -975,9 +975,11 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 (setq org-export-allow-BIND t)
 
+(require 'time-stamp)
 ; Erase all reminders and rebuilt reminders for today from the agenda
 (defun bh/org-agenda-to-appt ()
   (interactive)
+  (message "updating reminders %s" (time-stamp-string))
   (setq appt-time-msg-list nil)
   (org-agenda-to-appt))
 

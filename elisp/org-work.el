@@ -22,9 +22,11 @@
                       (:startgrouptag)
                       ("PERSONAL")
                       (:grouptags)
+                      ("EDUCATION")
                       ("TESTING")
                       ("ENGINEERING")
                       ("COLLABORATION")
+                      (:endgrouptag)
                       (:startgrouptag)
                       ("CORPORATE")
                       (:grouptags)
@@ -67,6 +69,17 @@
               ("x" "Habit" entry (file "~/Workspace/docs/org/refile.org")
                "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
+(defmacro josh/make-org-refile-hydra (hydraname file keyandheadline)
+  "Make a hydra named HYDRANAME with refile targets to FILE.
+KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\")"
+  `(defhydra ,hydraname (:color blue :after-exit (unless (or hydra-deactivate
+							     current-prefix-arg) ;If we're just jumping to a location, quit the hydra
+						   (josh/org-refile-hydra/body)))
+     ,file
+     ,@(cl-loop for kv in keyandheadline
+		collect (list (car kv) (list 'josh/refile file (cdr kv) 'current-prefix-arg) (cdr kv)))
+     ("q" nil "cancel")))
+
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-a
                             "~/Workspace/docs/org/work.org"
 			    (("w" . "Work")
@@ -77,6 +90,7 @@
                              ("m" . "Meetings")
                              ("i" . "Misc-Work")
                              ("e" . "Events")
+                             ("s" . "Sketchpad")
                              ))
 
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-b

@@ -118,7 +118,7 @@ With a `C-u` ARG, just jump to the headline."
     (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
     (setq ivy-wrap t)
     (setq ivy-use-virtual-buffers t
-          ivy-height 25)
+          ivy-height 20)
     (setq enable-recursive-minibuffers t)
     (setq counsel-rg-base-command
           "rg -i -M 120 --no-heading --line-number --color never %s .")
@@ -230,6 +230,8 @@ With a `C-u` ARG, just jump to the headline."
 
 (setq org-habit-preceding-days 27
       org-habit-following-days 1)
+
+(require 'ox-md)
 
 (use-package company
   :init
@@ -442,7 +444,11 @@ is already narrowed."
 
 
 
-(bind-key "C-x k" 'kill-this-buffer global-map)
+(defun l-kill-this-buffer ()
+  (interactive)
+  (kill-buffer (current-buffer)))
+
+(bind-key "C-x k" 'l-kill-this-buffer global-map)
 
 (defun eshell-here ()
   "Opens up a new shell in the directory associated with the
@@ -738,7 +744,10 @@ directory to make multiple eshell windows easier."
 
 (show-paren-mode)
 
-(use-package lispy :defer t)
+(use-package lispy :defer t
+  :bind (
+         :map lispy-mode-map
+         ("C-1" . 'my-map)))
 
   ;; :init
 (dolist (hook '(emacs-lisp-mode-hook

@@ -229,37 +229,6 @@ only what is important visible in agenda views.
 
 Other org files are used for publishing only and do not contribute to the agenda.
 See [[#Publishing][Publishing and Exporting]] for more details.
-** Agenda Setup
-:PROPERTIES:
-:CUSTOM_ID: AgendaSetup
-:END:
-
-=org-mode= manages the =org-agenda-files= variable automatically using
-=C-c [= and =C-c ]= to add and remove files respectively.  However,
-this replaces my directory list with a list of explicit filenames
-instead and is not what I want.  If this occurs then adding a new org
-file to any of the above directories will not contribute to my agenda
-and I will probably miss something important.
-
-I have disabled the =C-c [= and =C-c ]= keys in =org-mode-hook= to
-prevent messing up my list of directories in the =org-agenda-files=
-variable.  I just add and remove directories manually in my =.emacs=
-file.  Changing the list of directories in =org-agenda-files= happens
-very rarely since new files in existing directories are automatically
-picked up.
-
-I also disable the comment function =C-c ;= since I never use those.
-I kept accidentally hitting this key sequence when doing =C-c
-singlequote= for editing source blocks.
-
-In the example above I have =~/extern/client2= in a separate git
-repository from ~/extern/org.  This gives me the flexibility of leaving
-confidential information at the client site and having all of my
-personal information available everywhere I use org-mode.  I
-synchronize my personal repositories on multiple machines and skip the
-confidential info on the non-client laptop I travel with.
-=org-agenda-files= on this laptop does not include the =~/extern/client2=
-directory.
 ** Org File Structure
 :PROPERTIES:
 :CUSTOM_ID: OrgFileStructure
@@ -986,18 +955,18 @@ don't want to spend time waiting for it to be generated.
                             (org-tags-match-list-sublevels 'indented)
                             (org-agenda-sorting-strategy
                              '(category-keep))))
-                ;; (tags-todo "-CANCELLED/!NEXT"
-                ;;            ((org-agenda-overriding-header (concat "Project Next Tasks"
-                ;;                                                   (if bh/hide-scheduled-and-waiting-next-tasks
-                ;;                                                       ""
-                ;;                                                     " (including WAITING and SCHEDULED tasks)")))
-                ;;             (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
-                ;;             (org-tags-match-list-sublevels t)
-                ;;             (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-                ;;             (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
-                ;;             (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
-                ;;             (org-agenda-sorting-strategy
-                ;;              '(todo-state-down effort-up category-keep))))
+                (tags-todo "-CANCELLED/!NEXT"
+                           ((org-agenda-overriding-header (concat "Project Next Tasks"
+                                                                  (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                      ""
+                                                                    " (including WAITING and SCHEDULED tasks)")))
+                            (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
+                            (org-tags-match-list-sublevels t)
+                            (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                            (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                            (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                            (org-agenda-sorting-strategy
+                             '(todo-state-down effort-up category-keep))))
                 (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
                            ((org-agenda-overriding-header (concat "Project Subtasks"
                                                                   (if bh/hide-scheduled-and-waiting-next-tasks
@@ -3338,9 +3307,11 @@ automatically updated the next time I look at the agenda.
 
 #+header: :tangle yes
 #+begin_src emacs-lisp
+ (require 'time-stamp)
 ; Erase all reminders and rebuilt reminders for today from the agenda
 (defun bh/org-agenda-to-appt ()
   (interactive)
+  (message "updating reminders %s" (time-stamp-string))
   (setq appt-time-msg-list nil)
   (org-agenda-to-appt))
 
