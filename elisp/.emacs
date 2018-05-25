@@ -745,6 +745,8 @@ directory to make multiple eshell windows easier."
                   clojure-mode-hook))
     (add-hook hook (lambda () (lispy-mode 1))))
 
+(use-package lua-mode)
+
 (use-package php-mode)
 
 (use-package markdown-mode :defer t)
