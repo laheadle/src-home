@@ -338,6 +338,13 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 
 #+end_src
 *** languages
+** Habits
+#+begin_src emacs-lisp
+
+(setq org-habit-preceding-days 27
+      org-habit-following-days 1)
+
+#+end_src
 ** exporting
 
 #+begin_src emacs-lisp
@@ -1777,6 +1784,12 @@ boundaries of the current start and end tag , or nil."
 (dolist (hook '(emacs-lisp-mode-hook
                   clojure-mode-hook))
     (add-hook hook (lambda () (lispy-mode 1))))
+#+END_SRC
+** lua
+#+BEGIN_SRC emacs-lisp
+
+(use-package lua-mode)
+
 #+END_SRC
 ** php
 #+BEGIN_SRC emacs-lisp

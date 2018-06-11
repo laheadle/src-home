@@ -228,6 +228,9 @@ With a `C-u` ARG, just jump to the headline."
 
 (add-hook 'after-save-hook 'my/tangle-on-save-emacs-config-org-file)
 
+(setq org-habit-preceding-days 27
+      org-habit-following-days 1)
+
 (require 'ox-md)
 
 (use-package company
@@ -889,6 +892,8 @@ boundaries of the current start and end tag , or nil."
 (dolist (hook '(emacs-lisp-mode-hook
                   clojure-mode-hook))
     (add-hook hook (lambda () (lispy-mode 1))))
+
+(use-package lua-mode)
 
 (use-package php-mode)
 
