@@ -1013,6 +1013,7 @@ boundaries of the current start and end tag , or nil."
 (require 'bookmark+)
 
 (use-package vagrant-tramp)
+(use-package counsel-tramp)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
