@@ -1117,7 +1117,7 @@ is already narrowed."
        (list "\\.zip$" "munzip")))
 
 
-(prefer-coding-system 'utf-8)
+(prefer-coding-system 'utf-8-unix)
 
 (setq require-final-newline nil)
 (setq mode-require-final-newline nil)
@@ -1943,6 +1943,14 @@ boundaries of the current start and end tag , or nil."
 (add-to-list 'load-path (concat l-elisp-home "lib/bookmark+"))
 (require 'bookmark+)
 #+END_SRC
+* remote servers
+** vagrant
+
+#+begin_src emacs-lisp
+
+(use-package vagrant-tramp)
+
+#+end_src
 * Custom 
 #+BEGIN_SRC emacs-lisp
 
