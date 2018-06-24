@@ -60,6 +60,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                             "~/doc/org/2/mywork.org"
 			    (
                              ("d" . "Darwin")
+                             ("i" . "Misc-Mywork")
                              ))
 
 (josh/make-org-refile-mywork-hydra josh/org-refile-hydra-file-cc
