@@ -408,7 +408,7 @@ is already narrowed."
        (list "\\.zip$" "munzip")))
 
 
-(prefer-coding-system 'utf-8)
+(prefer-coding-system 'utf-8-unix)
 
 (setq require-final-newline nil)
 (setq mode-require-final-newline nil)
@@ -1039,6 +1039,9 @@ boundaries of the current start and end tag , or nil."
 
 (add-to-list 'load-path (concat l-elisp-home "lib/bookmark+"))
 (require 'bookmark+)
+
+(use-package vagrant-tramp)
+(use-package counsel-tramp)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
