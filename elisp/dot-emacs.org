@@ -274,37 +274,6 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 
 (bind-key "e" 'l-org-new-line-at-end my-map)
 #+END_SRC
-** show agenda when idle
-
-#+begin_src emacs-lisp
-
- (defun jump-to-org-agenda ()
-   (interactive)
-   (let ((buf (get-buffer "*Org Agenda*"))
-         wind)
-     (if buf
-         (if (setq wind (get-buffer-window buf))
-             (select-window wind)
-           (if (called-interactively-p)
-               (progn
-                 (select-window (display-buffer buf t t))
-                 (org-fit-window-to-buffer)
-                 ;; (org-agenda-redo)
-                 )
-             (with-selected-window (display-buffer buf)
-               (org-fit-window-to-buffer)
-               ;; (org-agenda-redo)
-               )))
-       (call-interactively 'org-agenda-list)))
-   ;;(let ((buf (get-buffer "*Calendar*")))
-   ;;  (unless (get-buffer-window buf)
-   ;;    (org-agenda-goto-calendar)))
-   )
-
- (run-with-idle-timer 300 t 'jump-to-org-agenda)
-
-
-#+end_src
 ** super-agenda
 #+BEGIN_SRC emacs-lisp
 
@@ -1565,9 +1534,9 @@ boundaries of the current start and end tag , or nil."
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(use-package cider-hydra :defer t)
+;(use-package cider-hydra :defer t)
 
-(add-hook 'cider-mode-hook #'cider-hydra-mode)
+;(add-hook 'cider-mode-hook #'cider-hydra-mode)
 
 #+END_SRC
 

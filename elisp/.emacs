@@ -182,31 +182,6 @@ With a `C-u` ARG, just jump to the headline."
 
 (bind-key "e" 'l-org-new-line-at-end my-map)
 
-(defun jump-to-org-agenda ()
-  (interactive)
-  (let ((buf (get-buffer "*Org Agenda*"))
-        wind)
-    (if buf
-        (if (setq wind (get-buffer-window buf))
-            (select-window wind)
-          (if (called-interactively-p)
-              (progn
-                (select-window (display-buffer buf t t))
-                (org-fit-window-to-buffer)
-                ;; (org-agenda-redo)
-                )
-            (with-selected-window (display-buffer buf)
-              (org-fit-window-to-buffer)
-              ;; (org-agenda-redo)
-              )))
-      (call-interactively 'org-agenda-list)))
-  ;;(let ((buf (get-buffer "*Calendar*")))
-  ;;  (unless (get-buffer-window buf)
-  ;;    (org-agenda-goto-calendar)))
-  )
-
-(run-with-idle-timer 300 t 'jump-to-org-agenda)
-
 (use-package org-super-agenda
   :config
   (progn
@@ -746,9 +721,9 @@ boundaries of the current start and end tag , or nil."
 
 (use-package clojure-cheatsheet :defer t)
 
-(use-package cider-hydra :defer t)
+;(use-package cider-hydra :defer t)
 
-(add-hook 'cider-mode-hook #'cider-hydra-mode)
+;(add-hook 'cider-mode-hook #'cider-hydra-mode)
 
 (add-hook 'js-mode-hook (lambda () (abbrev-mode 1)))
 
