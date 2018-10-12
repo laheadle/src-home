@@ -88,6 +88,18 @@ With a `C-u` ARG, just jump to the headline."
 (define-prefix-command 'my-map)
 (bind-key "C-1" 'my-map)
 
+(use-package god-mode
+  :config (progn
+            (global-set-key (kbd "<escape>") 'god-mode-all)
+            (define-key god-local-mode-map (kbd ".") 'repeat)
+            (setq god-exempt-major-modes
+                  '(dired-mode grep-mode vc-annotate-mode git-commit-mode magit-status-mode magit-popup-mode))
+                  (global-set-key (kbd "C-x C-1") 'delete-other-windows)
+                  (global-set-key (kbd "C-x C-2") 'split-window-below)
+                  (global-set-key (kbd "C-x C-3") 'split-window-right)
+                  (global-set-key (kbd "C-x C-0") 'delete-window)
+            (setq god-exempt-predicates nil)))
+
 (defvar l-env-file (concat l-elisp-home "environment.el"))
 
 (defun read-file (filePath)
