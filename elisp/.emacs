@@ -97,7 +97,7 @@ With a `C-u` ARG, just jump to the headline."
             (global-set-key (kbd "<escape>") 'god-mode-all)
             (define-key god-local-mode-map (kbd ".") 'repeat)
             (setq god-exempt-major-modes
-                  '(dired-mode grep-mode vc-annotate-mode git-commit-mode magit-status-mode magit-popup-mode))
+                  '(magit-mode dired-mode grep-mode vc-annotate-mode git-commit-mode magit-status-mode magit-popup-mode))
             (global-set-key (kbd "C-x C-1") 'delete-other-windows)
             (global-set-key (kbd "C-x C-2") 'split-window-below)
             (global-set-key (kbd "C-x C-3") 'split-window-right)
