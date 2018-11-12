@@ -229,6 +229,24 @@ With a `C-u` ARG, just jump to the headline."
 
 (require 'ox-md)
 
+;; This is an Emacs package that creates graphviz directed graphs from
+;; the headings of an org file
+(use-package org-mind-map
+  :init
+  (require 'ox-org)
+  :ensure t
+  ;; Uncomment the below if 'ensure-system-packages` is installed
+  ;;:ensure-system-package (gvgen . graphviz)
+  :config
+  (setq org-mind-map-engine "dot")       ; Default. Directed Graph
+  ;; (setq org-mind-map-engine "neato")  ; Undirected Spring Graph
+  ;; (setq org-mind-map-engine "twopi")  ; Radial Layout
+  ;; (setq org-mind-map-engine "fdp")    ; Undirected Spring Force-Directed
+  ;; (setq org-mind-map-engine "sfdp")   ; Multiscale version of fdp for the layout of large graphs
+  ;; (setq org-mind-map-engine "twopi")  ; Radial layouts
+  ;; (setq org-mind-map-engine "circo")  ; Circular Layout
+  )
+
 (use-package company
   :init
   (global-company-mode))
@@ -918,7 +936,8 @@ boundaries of the current start and end tag , or nil."
 
 (use-package lua-mode)
 
-(use-package php-mode)
+(use-package php-mode
+:bind (("C-." . magit-status)))
 
 (use-package markdown-mode :defer t)
 
