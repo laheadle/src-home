@@ -87,6 +87,7 @@ With a `C-u` ARG, just jump to the headline."
 (use-package bind-key  :defer t)
 (define-prefix-command 'my-map)
 (bind-key "C-1" 'my-map)
+(use-package which-key)
 
 (defun my-update-cursor ()
   (setq cursor-type (if (or god-local-mode buffer-read-only)
@@ -913,7 +914,7 @@ boundaries of the current start and end tag , or nil."
   ;; :init
 (dolist (hook '(emacs-lisp-mode-hook
                   clojure-mode-hook))
-    (add-hook hook (lambda () (lispy-mode 1))))
+    (add-hook hook (lambda () (lispy-mode 1) (which-key-mode))))
 
 (use-package lua-mode)
 

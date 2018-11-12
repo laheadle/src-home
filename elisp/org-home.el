@@ -119,6 +119,8 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                  "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
                 ("v" "Event" entry (file+olp "~/doc/org/2/mywork.org" "Events")
                  "*  %? :EVENT:\n%U\n")
+                 ("p" "Protocol" entry (file "~/doc/org/2/non-agenda/web-notes.org")
+                  "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
                 ("f" "reflection" entry (file "~/doc/org/2/refile.org")
                  "* MEETING Reflection: %?\n%U\n" :clock-in t :clock-keep t)
                 ("n" "note" entry (file "~/doc/org/2/refile.org")
