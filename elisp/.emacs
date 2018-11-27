@@ -247,9 +247,7 @@ With a `C-u` ARG, just jump to the headline."
   ;; (setq org-mind-map-engine "circo")  ; Circular Layout
   )
 
-(use-package company
-  :init
-  (global-company-mode))
+(use-package company)
 
 (use-package helm-org-rifle
   :bind ("C-c g" . helm-org-rifle-agenda-files))

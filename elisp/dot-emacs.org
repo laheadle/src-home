@@ -847,9 +847,7 @@ jj-Title
 * completion
 ** company
 #+BEGIN_SRC emacs-lisp
-(use-package company
-  :init
-  (global-company-mode))
+(use-package company)
 #+END_SRC
 
 * Helm
