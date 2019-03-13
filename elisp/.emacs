@@ -254,7 +254,7 @@ With a `C-u` ARG, just jump to the headline."
                                    :auto-sitemap t
                                    :makeindex t)
                                   ("stinkless" :base-directory "~/doc/org/2/non-agenda"
-                                  :publishing-directory "~/doc/org/published-projects/stinkless"
+                                  :publishing-directory "~/doc/published-projects/stinkless"
                                   :recursive t
                                   :publishing-function org-html-publish-to-html
                                   :auto-sitemap t
