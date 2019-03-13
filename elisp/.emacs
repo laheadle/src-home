@@ -247,6 +247,19 @@ With a `C-u` ARG, just jump to the headline."
   ;; (setq org-mind-map-engine "circo")  ; Circular Layout
   )
 
+(setq org-publish-project-alist '(("darwin" :base-directory "~/doc/org/2/non-agenda/project-darwin"
+                                   :publishing-directory "/tmp/project-darwin"
+                                   :recursive t
+                                   :publishing-function org-html-publish-to-html
+                                   :auto-sitemap t
+                                   :makeindex t)
+                                  ("stinkless" :base-directory "~/doc/org/2/non-agenda"
+                                  :publishing-directory "~/doc/org/published-projects/stinkless"
+                                  :recursive t
+                                  :publishing-function org-html-publish-to-html
+                                  :auto-sitemap t
+                                  :makeindex t)))
+
 (use-package company)
 
 (use-package helm-org-rifle
