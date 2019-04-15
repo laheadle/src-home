@@ -247,6 +247,19 @@ With a `C-u` ARG, just jump to the headline."
   ;; (setq org-mind-map-engine "circo")  ; Circular Layout
   )
 
+(setq org-publish-project-alist '(("darwin" :base-directory "~/doc/org/2/non-agenda/project-darwin"
+                                   :publishing-directory "~/doc/published-projects/darwin"
+                                   :recursive t
+                                   :publishing-function org-html-publish-to-html
+                                   :auto-sitemap t
+                                   :makeindex t)
+                                  ("stinkless" :base-directory "~/doc/org/2/non-agenda"
+                                  :publishing-directory "~/doc/published-projects/stinkless"
+                                  :recursive t
+                                  :publishing-function org-html-publish-to-html
+                                  :auto-sitemap t
+                                  :makeindex t)))
+
 (use-package company)
 
 (use-package helm-org-rifle
@@ -761,11 +774,7 @@ boundaries of the current start and end tag , or nil."
 (use-package cider
   :defer t
   :init
-  (setq cider-prompt-for-symbol nil
-        cider-cljs-lein-repl
-        "(do (require 'figwheel-sidecar.repl-api)
-           (figwheel-sidecar.repl-api/start-figwheel!)
-           (figwheel-sidecar.repl-api/cljs-repl))"))
+  (setq cider-prompt-for-symbol nil))
 
 (use-package clojure-cheatsheet :defer t)
 
