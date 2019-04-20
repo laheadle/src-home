@@ -250,6 +250,7 @@ With a `C-u` ARG, just jump to the headline."
 (setq org-publish-project-alist '(("darwin" :base-directory "~/doc/org/2/non-agenda/project-darwin"
                                    :publishing-directory "~/doc/published-projects/darwin"
                                    :recursive t
+                                   :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"project-styles.css\" />"
                                    :publishing-function org-html-publish-to-html
                                    :auto-sitemap t
                                    :makeindex t)
