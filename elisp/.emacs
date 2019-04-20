@@ -426,6 +426,17 @@ is already narrowed."
 (setq ffap-require-prefix t)
 
 ;; watch the file system
+
+(defun l-copy-current-directory ()
+  (interactive)
+  (let ((d default-directory))
+    (with-temp-buffer
+      (insert d)
+      (kill-ring-save (save-excursion (beginning-of-buffer) (point))
+                      (save-excursion (end-of-buffer) (point))))))
+
+(bind-key "i" 'l-copy-current-directory 'my-map)
+
 (global-auto-revert-mode nil)
 
 (setq dired-guess-shell-alist-user

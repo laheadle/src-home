@@ -1144,6 +1144,17 @@ is already narrowed."
 ** misc
 #+BEGIN_SRC emacs-lisp
 ;; watch the file system
+
+(defun l-copy-current-directory ()
+  (interactive)
+  (let ((d default-directory))
+    (with-temp-buffer
+      (insert d)
+      (kill-ring-save (save-excursion (beginning-of-buffer) (point))
+                      (save-excursion (end-of-buffer) (point))))))
+
+(bind-key "i" 'l-copy-current-directory 'my-map)
+
 (global-auto-revert-mode nil)
 
 (setq dired-guess-shell-alist-user
@@ -1161,7 +1172,7 @@ is already narrowed."
     (find-alternate-file (buffer-file-name))
     (goto-char m)))
 #+END_SRC
-
+** 
 * Frames
 ** space savers
 #+BEGIN_SRC emacs-lisp
