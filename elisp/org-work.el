@@ -59,7 +59,7 @@
               ("u" "avalon ui" entry (file+olp "~/Workspace/docs/org/work.org" "Avalon" "avui")
                "* NEXT  %? [%]\nSCHEDULED: %t\n%U\n%a\n** \n** commit message\n** consider testing\n" :clock-in t :clock-resume t)
               ("h" "achieve" entry (file+olp "~/Workspace/docs/org/work.org" "Avalon" "avach")
-               "* NEXT ACHIEVE: %? [%]\nSCHEDULED: %t\n%U\n%a\n** NEXT \n** NEXT \n** NEXT commit message\n** NEXT consider testing\n" :clock-in t :clock-resume t)
+               "* NEXT ACHIEVE: %? [%]\nSCHEDULED: %t\n%U\n%a\n** NEXT \n** NEXT \n** NEXT consider testing\n" :clock-in t :clock-resume t)
               ("n" "note" entry (file "~/Workspace/docs/org/refile.org")
                "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
               ("m" "Meeting" entry (file "~/Workspace/docs/org/refile.org")
