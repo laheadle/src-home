@@ -83,6 +83,9 @@ With a `C-u` ARG, just jump to the headline."
 	 (my/refile file headline arg))))
     (when kill-buffer (kill-buffer base))))
 
+;; refile in reverse-chron
+(setq org-reverse-note-order t)
+
 (use-package free-keys :defer t)
 (use-package bind-key  :defer t)
 (define-prefix-command 'my-map)
