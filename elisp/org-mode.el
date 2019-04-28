@@ -203,6 +203,7 @@
                 (tags-todo "-HOLD-CANCELLED/!"
                            ((org-agenda-overriding-header "Projects")
                             (org-agenda-skip-function 'bh/skip-non-projects)
+                            (org-agenda-skip-function 'bh/skip-subprojects)
                             (org-tags-match-list-sublevels 'indented)
                             (org-agenda-sorting-strategy
                              '(category-keep))))
@@ -310,7 +311,7 @@ Switch projects and subprojects from NEXT back to TODO"
   (when (not (and (boundp 'org-capture-mode) org-capture-mode))
     (cond
      ((and (member (org-get-todo-state) (list "TODO"))
-           (bh/is-task-p))
+           (bh/is-standalone-task-p))
       "NEXT")
      ((and (member (org-get-todo-state) (list "NEXT"))
            (bh/is-project-p))
@@ -427,13 +428,6 @@ A prefix arg forces clock in of the default task."
               :max-gap 0
               :gap-ok-around ("4:00"))))
 
-;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
-(setq org-clock-out-remove-zero-time-clocks t)
-
-;; Agenda clock report parameters
-(setq org-agenda-clockreport-parameter-plist
-      (quote (:link t :maxlevel 5 :fileskip0 t :compact t :narrow 80)))
-
 ; Set default column view headings: Task Effort Clock_Summary
 (setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
 
@@ -485,7 +479,7 @@ Callers of this function already widen the buffer view."
           nil
         t))))
 
-(defun bh/is-task-p ()
+(defun bh/is-standalone-task-p ()
   "Any task with a todo keyword and no subtask"
   (save-restriction
     (widen)
@@ -554,40 +548,44 @@ Callers of this function already widen the buffer view."
               next-headline)) ; a stuck project, has subtasks but no next task
         nil))))
 
+(defun bh/is-non-stuck-project ()
+  (save-restriction
+    (widen)
+    (when (bh/is-project-p)
+      (let* ((subtree-end (save-excursion (org-end-of-subtree t)))
+             (has-next ))
+        (save-excursion
+          (forward-line 1)
+          (while (and (not has-next) (< (point) subtree-end) (re-search-forward "^\\*+ NEXT " subtree-end t))
+            (unless (member "WAITING" (org-get-tags-at))
+              (setq has-next t))))
+        (if has-next
+            nil       ; a stuck project, has subtasks but no next task
+          t)))))
+
 (defun bh/skip-non-stuck-projects ()
   "Skip trees that are not stuck projects"
   ;; (bh/list-sublevels-for-projects-indented)
   (save-restriction
     (widen)
     (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
-      (if (bh/is-project-p)
-          (let* ((subtree-end (save-excursion (org-end-of-subtree t)))
-                 (has-next ))
-            (save-excursion
-              (forward-line 1)
-              (while (and (not has-next) (< (point) subtree-end) (re-search-forward "^\\*+ NEXT " subtree-end t))
-                (unless (member "WAITING" (org-get-tags-at))
-                  (setq has-next t))))
-            (if has-next
-                next-headline
-              nil)) ; a stuck project, has subtasks but no next task
+      (if (bh/is-non-stuck-project)
+          nil
         next-headline))))
 
 (defun bh/skip-non-projects ()
   "Skip trees that are not projects"
   ;; (bh/list-sublevels-for-projects-indented)
-  (if (save-excursion (bh/skip-non-stuck-projects))
-      (save-restriction
-        (widen)
-        (let ((subtree-end (save-excursion (org-end-of-subtree t))))
-          (cond
-           ((bh/is-project-p)
-            nil)
-           ((and (bh/is-project-subtree-p) (not (bh/is-task-p)))
-            nil)
-           (t
-            subtree-end))))
-    (save-excursion (org-end-of-subtree t))))
+  (save-restriction
+    (widen)
+    (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+      (cond
+       ((and (bh/is-project-p) (bh/is-non-stuck-project))
+        nil)
+       ((and (bh/is-project-subtree-p) (not (bh/is-standalone-task-p)))
+        nil)
+       (t
+        subtree-end)))))
 
 (defun bh/skip-non-tasks ()
   "Show non-project tasks.
@@ -596,7 +594,7 @@ Skip project and sub-project tasks, habits, and project related tasks."
     (widen)
     (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
       (cond
-       ((bh/is-task-p)
+       ((bh/is-standalone-task-p)
         nil)
        (t
         next-headline)))))
@@ -627,7 +625,7 @@ Skip project and sub-project tasks, habits, and project related tasks."
         next-headline)
        ((bh/is-project-p)
         next-headline)
-       ((and (bh/is-task-p) (not (bh/is-project-subtree-p)))
+       ((and (bh/is-standalone-task-p) (not (bh/is-project-subtree-p)))
         next-headline)
        (t
         nil)))))
@@ -706,11 +704,18 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
         nil)))))
 
 (defun bh/skip-non-subprojects ()
-  "Skip trees that are not projects"
+  "Skip trees that are not subprojects"
   (let ((next-headline (save-excursion (outline-next-heading))))
     (if (bh/is-subproject-p)
         nil
       next-headline)))
+
+(defun bh/skip-subprojects ()
+  "Skip trees that are subprojects"
+  (let ((next-headline (save-excursion (outline-next-heading))))
+    (if (bh/is-subproject-p)
+      next-headline
+        nil)))
 
 (setq org-archive-mark-done nil)
 (setq org-archive-location "%s_archive::* Archived Tasks")
