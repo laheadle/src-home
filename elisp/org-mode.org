@@ -927,6 +927,7 @@ don't want to spend time waiting for it to be generated.
                ((org-agenda-overriding-header "Habits")
                 (org-agenda-sorting-strategy
                  '(todo-state-down effort-up category-keep))))
+              ("a" "Adri" tags-todo "+ADRI-TODO=\"DONE\"+CATEGORY=\"Misc-Family\"")
               ("f" "Flags" tags "+FLAGGED+LEVEL=2"
                ((org-agenda-overriding-header "Flags")))
               ("g" "Goals"

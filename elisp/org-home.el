@@ -35,10 +35,16 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                             (("c" . "Cooler")
                              ))
 
+(josh/make-org-refile-family-hydra josh/org-refile-hydra-file-d
+                            "~/doc/org/1/tickler.org"
+                            (("t" . "Tickler")
+                             ))
+
 (defhydra josh/org-refile-family-hydra (:foreign-keys run) 
   "Refile"
   ("f" josh/org-refile-hydra-file-a/body "Family" :exit t)
   ("c" josh/org-refile-hydra-file-c/body "Cooler" :exit t)
+  ("t" josh/org-refile-hydra-file-d/body "Tickler" :exit t)
   ("j" org-refile-goto-last-stored "Jump to last refile" :exit t)
   ("q" nil "cancel"))
 
