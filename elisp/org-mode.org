@@ -934,6 +934,16 @@ don't want to spend time waiting for it to be generated.
                 (tags "GOALS-TODO=\"GOAL\""
                       ((org-tags-match-list-sublevels nil)))
                 ))
+              ("b" "My Todos" tags-todo "-DONE-CANCELLED"
+               ((org-agenda-overriding-header "My Todos")
+                (org-agenda-skip-function 'my-org-agenda-skip-all-siblings-but-first)))
+              ("c" "My Todos 2" tags-todo "-DONE-CANCELLED"
+               ((org-agenda-overriding-header "My Todos 2")
+                (org-agenda-skip-function 'lh/skip-task-descendents)))
+              ("d" "My Todos 3" 
+               ((agenda "" nil)
+                (tags-todo "-DONE-CANCELLED+LEVEL=2/!"
+                           ((org-agenda-overriding-header "My Todos 3")))))
               (" " "Agenda"
                ((agenda "" nil)
                 (tags "REFILE"
@@ -1159,6 +1169,24 @@ the description above.
 
 #+header: :tangle yes
 #+begin_src emacs-lisp
+
+(defun org-current-is-todo ()
+  (or (string= "TODO" (org-get-todo-state))
+      (string= "NEXT" (org-get-todo-state))))
+
+(defun my-org-agenda-skip-all-siblings-but-first ()
+  "Skip all but the first non-done entry."
+  (let (should-skip-entry)
+    (unless (org-current-is-todo)
+      (setq should-skip-entry t))
+    (save-excursion
+      (while (and (not should-skip-entry) (org-goto-sibling t))
+        (when (org-current-is-todo)
+          (setq should-skip-entry t))))
+    (when should-skip-entry
+      (or (outline-next-heading)
+          (goto-char (point-max))))))
+
 (defun bh/org-auto-exclude-function (tag)
   "Automatic task exclusion in the agenda with / RET"
   (and (cond
@@ -1365,6 +1393,27 @@ Switch projects and subprojects from NEXT back to TODO"
           (setq parent-task (point))))
       (goto-char parent-task)
       parent-task)))
+(defun lh/has-todo-ancestor ()
+  ""
+    (save-restriction
+    (widen)
+    (let ((task (save-excursion (org-back-to-heading 'invisible-ok)
+                                (point))))
+      (save-excursion
+        (bh/find-project-task)
+        (if (equal (point) task)
+            nil
+          t)))))
+
+(defun lh/skip-task-descendents ()
+  ""
+  (save-restriction
+    (widen)
+    (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
+      (if (lh/has-todo-ancestor)
+          next-headline
+        nil
+))))
 
 (defun bh/punch-in (arg)
   "Start continuous clocking and set the default task to the
