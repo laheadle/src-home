@@ -193,7 +193,7 @@
                 (org-agenda-skip-function 'lh/skip-task-descendents)))
               ("d" "My Todos 3" 
                ((agenda "" nil)
-                (tags-todo "-DONE-CANCELLED+LEVEL=2/!"
+                (tags-todo "-DONE-CANCELLED+LEVEL<=2/!"
                            ((org-agenda-overriding-header "My Todos 3")))))
               (" " "Agenda"
                ((agenda "" nil)
