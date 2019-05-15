@@ -1079,6 +1079,8 @@ boundaries of the current start and end tag , or nil."
 (use-package vagrant-tramp)
 (use-package counsel-tramp)
 
+(defalias 'jpp 'json-pretty-print)
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
