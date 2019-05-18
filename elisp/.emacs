@@ -250,21 +250,26 @@ With a `C-u` ARG, just jump to the headline."
   ;; (setq org-mind-map-engine "circo")  ; Circular Layout
   )
 
-(setq org-publish-project-alist '(("darwin" :base-directory "~/doc/org/2/non-agenda/project-darwin"
+(setq org-publish-project-alist '(("darwin-docs" :base-directory "~/doc/org/2/non-agenda/project-darwin"
                                    :publishing-directory "~/doc/published-projects/darwin"
-                                   :base-extension any
-                                   :exclude "html"
+                                   :base-extension "org"
                                    :recursive t
                                    :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"project-styles.css\" />"
                                    :publishing-function org-html-publish-to-html
                                    :auto-sitemap t
                                    :makeindex t)
+                                  ("darwin-imgs" :base-directory "~/doc/org/2/non-agenda/project-darwin"
+                                   :publishing-directory "~/doc/published-projects/darwin"
+                                   :base-extension "png\\|jpg\\|jpeg"
+                                   :recursive t
+                                   :publishing-function org-publish-attachment)
+                                  ("darwin" :components ("darwin-docs" "darwin-imgs"))
                                   ("stinkless" :base-directory "~/doc/org/2/non-agenda"
-                                  :publishing-directory "~/doc/published-projects/stinkless"
-                                  :recursive t
-                                  :publishing-function org-html-publish-to-html
-                                  :auto-sitemap t
-                                  :makeindex t)))
+                                   :publishing-directory "~/doc/published-projects/stinkless"
+                                   :recursive t
+                                   :publishing-function org-html-publish-to-html
+                                   :auto-sitemap t
+                                   :makeindex t)))
 
 (use-package company)
 
