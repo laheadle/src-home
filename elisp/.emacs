@@ -254,7 +254,8 @@ With a `C-u` ARG, just jump to the headline."
                                    :publishing-directory "~/doc/published-projects/darwin"
                                    :base-extension "org"
                                    :recursive t
-                                   :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"project-styles.css\" />"
+                                   :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/project-styles.css\" />"
+                                   :html-head-include-default-style nil
                                    :publishing-function org-html-publish-to-html
                                    :auto-sitemap t
                                    :makeindex t)
