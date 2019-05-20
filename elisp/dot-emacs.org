@@ -2048,10 +2048,13 @@ boundaries of the current start and end tag , or nil."
   (interactive)
   (query-replace "- " "" nil (point-min) (point-max)))
 
+(defun l-publish-darwin ()
+  (org-publish-project (quote (#("darwin" 0 1 (idx 2)) :components ("darwin-docs" "darwin-imgs"))) nil))
+
 (defalias 'jpp 'json-pretty-print)
 (defalias 'rss 'l-remove-spaces-dashes)
 (defalias 'hd 'helm-org-rifle-directories)
-(defalias 'opp 'org-publish-project)
+(defalias 'opp 'l-publish-darwin)
 #+end_src
 * Custom 
 #+BEGIN_SRC emacs-lisp
