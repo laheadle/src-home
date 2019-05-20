@@ -1689,6 +1689,23 @@ boundaries of the current start and end tag , or nil."
   (abbrev-mode 1)
   (company-mode +1))
 
+
+(defun l-switch-to-partner-file ()
+  (interactive)
+  (let* ((buff buffer-file-name)
+         (elts (split-string buff "\\."))
+         (suffix (car (last elts)))
+         (nsuffix (cond ((equal suffix "ts") "scss")
+                            ((equal suffix "scss") "html")
+                            ((equal suffix "html") "ts")
+                            (t (error buff))))
+         (nfile (concat (string-join (butlast elts) ".")
+                        "."
+                        nsuffix)))
+    (find-file nfile)))
+
+(bind-key "C-x x" 'l-switch-to-partner-file global-map)
+
 (use-package tide
   :init (progn
           ;; aligns annotation to the right hand side
