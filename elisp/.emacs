@@ -1088,7 +1088,7 @@ boundaries of the current start and end tag , or nil."
 
 (defun l-remove-spaces-dashes ()
   (interactive)
-  (query-replace "- " "" (point-min) (point-max)))
+  (query-replace "- " "" nil (point-min) (point-max)))
 
 (defalias 'jpp 'json-pretty-print)
 (defalias 'rss 'l-remove-spaces-dashes)
