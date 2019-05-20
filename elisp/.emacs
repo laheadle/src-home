@@ -1093,6 +1093,7 @@ boundaries of the current start and end tag , or nil."
 (defalias 'jpp 'json-pretty-print)
 (defalias 'rss 'l-remove-spaces-dashes)
 (defalias 'hd 'helm-org-rifle-directories)
+(defalias 'opp 'org-publish-project)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)

@@ -2051,6 +2051,7 @@ boundaries of the current start and end tag , or nil."
 (defalias 'jpp 'json-pretty-print)
 (defalias 'rss 'l-remove-spaces-dashes)
 (defalias 'hd 'helm-org-rifle-directories)
+(defalias 'opp 'org-publish-project)
 #+end_src
 * Custom 
 #+BEGIN_SRC emacs-lisp
