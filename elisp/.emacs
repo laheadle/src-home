@@ -1086,7 +1086,12 @@ boundaries of the current start and end tag , or nil."
 (use-package vagrant-tramp)
 (use-package counsel-tramp)
 
+(defun l-remove-spaces-dashes ()
+  (interactive)
+  (query-replace "- " "" (point-min) (point-max)))
+
 (defalias 'jpp 'json-pretty-print)
+(defalias 'rss 'l-remove-spaces-dashes)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
