@@ -398,6 +398,72 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
                                    :makeindex t)))
 
 #+end_src
+** Custom Links
+*** ripgrep/counsel
+#+begin_src emacs-lisp
+
+(defconst org+-counselrg-link-type "counselrg"
+  "String for identifying counsel-rg links.")
+
+(defun org+-buffer-base-name (buffer-name)
+  "Remove trailing <.*> in BUFFER-NAME."
+  (save-match-data
+    (when (string-match "<[^<>]+>\\'" buffer-name)
+      (setq buffer-name (substring buffer-name nil (match-beginning 0)))))
+  buffer-name)
+
+(defun org+-counselrg-store ()
+  "Store links of type counselrg:LINK-PATH."
+  (when (derived-mode-p 'ivy-occur-grep-mode)
+    (org-store-link-props :type org+-counselrg-link-type
+              :link (format "%s:%S" org+-counselrg-link-type (cons default-directory (org+-buffer-base-name (buffer-name))))
+              :description (format "%s in %s" (buffer-name) default-directory))
+    t))
+
+(defun org+-counselrg-follow (link-path)
+  "Follow org-links of type counselrg:LINK-PATH."
+  (let* ((caller-window (get-buffer-window))
+     (dir-buf (read link-path))
+     (dir-name (car dir-buf))
+     (buf-name (cdr dir-buf))
+     (buf
+      ;; First try to re-use already existing buffer.
+      (cl-loop for buf in (buffer-list)
+           if (with-current-buffer buf
+            (and
+             (derived-mode-p 'ivy-occur-grep-mode)
+             (file-equal-p default-directory dir-name)
+             (string-equal
+              (org+-buffer-base-name (buffer-name))
+              buf-name
+              )))
+           do (with-current-buffer buf (ivy-occur-revert-buffer))
+           and return buf
+           finally
+           ;; if there is no buffer for re-use:
+           return
+           (with-current-buffer (generate-new-buffer buf-name)
+             (setq default-directory dir-name)
+             (ivy-occur-grep-mode)
+             (let ((inhibit-read-only t)
+               (counsel-ag-base-command counsel-rg-base-command))
+               (setq-local ivy-occur-last
+                   (make-ivy-state
+                    :directory default-directory
+                    :caller 'counsel-ag
+                    :window caller-window
+                    :buffer (current-buffer)
+                    ))
+               (counsel-ag-occur))
+             (current-buffer))
+           )))
+    (switch-to-buffer buf)))
+
+(org-link-set-parameters org+-counselrg-link-type
+             :follow #'org+-counselrg-follow
+             :store #'org+-counselrg-store)
+
+#+end_src
 * home
 :PROPERTIES:
 :header-args: :tangle home.el
