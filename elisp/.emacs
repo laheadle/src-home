@@ -256,6 +256,7 @@ With a `C-u` ARG, just jump to the headline."
                                    :recursive t
                                    :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/project-styles.css\" />"
                                    :html-head-include-default-style nil
+                                   :html-head-extra ""
                                    :publishing-function org-html-publish-to-html
                                    :auto-sitemap t
                                    :makeindex t)
