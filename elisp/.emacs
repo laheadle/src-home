@@ -324,7 +324,7 @@ With a `C-u` ARG, just jump to the headline."
                     :window caller-window
                     :buffer (current-buffer)
                     ))
-               (counsel-ag-occur))
+               (counsel-rg-occur))
              (current-buffer))
            )))
     (switch-to-buffer buf)))

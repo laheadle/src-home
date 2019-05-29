@@ -454,7 +454,7 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
                     :window caller-window
                     :buffer (current-buffer)
                     ))
-               (counsel-ag-occur))
+               (counsel-rg-occur))
              (current-buffer))
            )))
     (switch-to-buffer buf)))
