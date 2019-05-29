@@ -1836,3 +1836,5 @@ Late deadlines first, then scheduled, then non-late deadlines"
 (bind-key "g" 'beginning-of-buffer org-agenda-mode-map)
 
 (require 'org-habit)
+
+(setq org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
