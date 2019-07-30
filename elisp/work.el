@@ -9,6 +9,7 @@
 (set-register ?t `(file . ,(l-getenv "tk")))
 (set-register ?g '(file . "/Users/lyn_headley/Workspace/glossary/g"))
 (set-register ?a '(file . "/Users/lyn_headley/Workspace/asset-registry/a"))
+(set-register ?f '(file . "/Users/lyn_headley/Workspace/docs/org/non-agenda/frontend.org"))
 
 (defun l-show-make-var ()
   (interactive)
