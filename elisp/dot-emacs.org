@@ -1191,6 +1191,13 @@ is already narrowed."
    (if mark-active (list (region-beginning) (region-end))
      (list (line-beginning-position) (line-beginning-position 2)))))
 #+END_SRC
+** copy to kill ring
+
+#+begin_src emacs-lisp
+
+(defun lh-copy-to-kill-ring--avalon-proj1 () (interactive) (kill-new "https://clo-metadata-dash-dev.edmesh.com/adaptive-authoring/#/annotate;project_id=1"))
+#+end_src
+
 ** undo-tree
 
 #+BEGIN_SRC emacs-lisp
@@ -2140,6 +2147,7 @@ boundaries of the current start and end tag , or nil."
   (org-publish-project (quote (#("darwin" 0 1 (idx 2)) :components ("darwin-docs" "darwin-imgs"))) nil))
 
 (defalias 'jpp 'json-pretty-print)
+(defalias 'lcka 'lh-copy-to-kill-ring--avalon-proj1)
 (defalias 'rss 'l-remove-spaces-dashes)
 (defalias 'hd 'helm-org-rifle-directories)
 (defalias 'opp 'l-publish-darwin)

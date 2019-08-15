@@ -482,6 +482,8 @@ is already narrowed."
    (if mark-active (list (region-beginning) (region-end))
      (list (line-beginning-position) (line-beginning-position 2)))))
 
+(defun lh-copy-to-kill-ring--avalon-proj1 () (interactive) (kill-new "https://clo-metadata-dash-dev.edmesh.com/adaptive-authoring/#/annotate;project_id=1"))
+
 (use-package undo-tree
   :init (global-undo-tree-mode 1)
   :bind (("C-z" . undo-tree-undo)
@@ -1175,6 +1177,7 @@ boundaries of the current start and end tag , or nil."
   (org-publish-project (quote (#("darwin" 0 1 (idx 2)) :components ("darwin-docs" "darwin-imgs"))) nil))
 
 (defalias 'jpp 'json-pretty-print)
+(defalias 'lcka 'lh-copy-to-kill-ring--avalon-proj1)
 (defalias 'rss 'l-remove-spaces-dashes)
 (defalias 'hd 'helm-org-rifle-directories)
 (defalias 'opp 'l-publish-darwin)
