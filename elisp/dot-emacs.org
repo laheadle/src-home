@@ -1117,8 +1117,13 @@ is already narrowed."
 
 
 ** folding
+** jumping
 
+#+begin_src emacs-lisp
+(use-package ace-jump-mode
+  :bind ("C-0" . ace-jump-mode))
 
+#+end_src
 ** misc and regions
 #+BEGIN_SRC emacs-lisp
 

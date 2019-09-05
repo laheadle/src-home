@@ -417,6 +417,9 @@ is already narrowed."
 (use-package wgrep
 :config (setq wgrep-auto-save-buffer t))
 
+(use-package ace-jump-mode
+  :bind ("C-0" . ace-jump-mode))
+
 (put 'upcase-region 'disabled nil)
 
 (delete-selection-mode 1)
