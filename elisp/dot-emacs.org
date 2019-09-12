@@ -1121,7 +1121,7 @@ is already narrowed."
 
 #+begin_src emacs-lisp
 (use-package ace-jump-mode
-  :bind ("C-0" . ace-jump-mode))
+  :bind ("M-h" . ace-jump-mode))
 
 #+end_src
 ** misc and regions
