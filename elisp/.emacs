@@ -856,7 +856,7 @@ boundaries of the current start and end tag , or nil."
   :init
   (setq cider-prompt-for-symbol nil))
 
-(use-package clojure-cheatsheet :defer t)
+;(use-package clojure-cheatsheet :defer t)
 
 ;(use-package cider-hydra :defer t)
 
