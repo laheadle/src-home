@@ -1046,6 +1046,7 @@ boundaries of the current start and end tag , or nil."
 
   ;; :init
 (dolist (hook '(emacs-lisp-mode-hook
+                cider-repl-mode-hook
                 clojure-mode-hook))
   (add-hook hook (lambda ()
                    (lispy-mode 1)
