@@ -1968,7 +1968,8 @@ boundaries of the current start and end tag , or nil."
 (use-package lispy :defer t
   :bind (
          :map lispy-mode-map
-         ("C-1" . 'my-map)))
+         ("C-1" . 'my-map)
+         ("M-k" . 'lispy-new-copy)))
 
   ;; :init
 (dolist (hook '(emacs-lisp-mode-hook
