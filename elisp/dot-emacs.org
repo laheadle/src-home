@@ -269,8 +269,6 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
         (magit-status))
     (magit-status)))
 
-(bind-key "C-." 'l-org-jump-to-dir org-mode-map)
-
 #+END_SRC
 ** agenda stuff
 
@@ -463,6 +461,17 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 (org-link-set-parameters org+-counselrg-link-type
              :follow #'org+-counselrg-follow
              :store #'org+-counselrg-store)
+
+#+end_src
+** Keybindings
+
+#+begin_src emacs-lisp
+
+(bind-key "C-." 'l-org-jump-to-dir org-mode-map)
+(bind-key "M-h" 'ace-jump-mode org-mode-map)
+
+
+
 
 #+end_src
 * home
@@ -1969,7 +1978,8 @@ boundaries of the current start and end tag , or nil."
   :bind (
          :map lispy-mode-map
          ("C-1" . 'my-map)
-         ("M-k" . 'lispy-new-copy)))
+         ("M-k" . 'lispy-new-copy)
+         ("M-h" . 'ace-jump-mode)))
 
   ;; :init
 (dolist (hook '(emacs-lisp-mode-hook

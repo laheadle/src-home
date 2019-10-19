@@ -183,8 +183,6 @@ With a `C-u` ARG, just jump to the headline."
         (magit-status))
     (magit-status)))
 
-(bind-key "C-." 'l-org-jump-to-dir org-mode-map)
-
 (fset 'l-org-goto-clean-agenda
       "\C-\\ g.ro")
 
@@ -333,6 +331,9 @@ With a `C-u` ARG, just jump to the headline."
 (org-link-set-parameters org+-counselrg-link-type
              :follow #'org+-counselrg-follow
              :store #'org+-counselrg-store)
+
+(bind-key "C-." 'l-org-jump-to-dir org-mode-map)
+(bind-key "M-h" 'ace-jump-mode org-mode-map)
 
 (use-package company)
 
@@ -1043,7 +1044,8 @@ boundaries of the current start and end tag , or nil."
   :bind (
          :map lispy-mode-map
          ("C-1" . 'my-map)
-         ("M-k" . 'lispy-new-copy)))
+         ("M-k" . 'lispy-new-copy)
+         ("M-h" . 'ace-jump-mode)))
 
   ;; :init
 (dolist (hook '(emacs-lisp-mode-hook
