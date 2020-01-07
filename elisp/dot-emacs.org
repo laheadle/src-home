@@ -1123,6 +1123,8 @@ is already narrowed."
 (use-package ace-jump-mode
   :bind ("M-h" . ace-jump-mode))
 
+(bind-key "M-h" 'ace-jump-mode org-mode-map)
+
 #+end_src
 ** misc and regions
 #+BEGIN_SRC emacs-lisp

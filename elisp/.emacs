@@ -420,6 +420,8 @@ is already narrowed."
 (use-package ace-jump-mode
   :bind ("M-h" . ace-jump-mode))
 
+(bind-key "M-h" 'ace-jump-mode org-mode-map)
+
 (put 'upcase-region 'disabled nil)
 
 (delete-selection-mode 1)
