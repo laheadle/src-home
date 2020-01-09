@@ -130,6 +130,10 @@ With a `C-u` ARG, just jump to the headline."
 
 (load-env)
 
+(defun l-c-o () (interactive)
+ (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+ (setq read-file-name-function 'read-file-name-default))
+
 (use-package swiper)
 (use-package counsel
   :bind (("C-b" . ivy-switch-buffer)
@@ -182,8 +186,6 @@ With a `C-u` ARG, just jump to the headline."
               (magit-status)))
         (magit-status))
     (magit-status)))
-
-(bind-key "C-." 'l-org-jump-to-dir org-mode-map)
 
 (fset 'l-org-goto-clean-agenda
       "\C-\\ g.ro")
@@ -333,6 +335,9 @@ With a `C-u` ARG, just jump to the headline."
 (org-link-set-parameters org+-counselrg-link-type
              :follow #'org+-counselrg-follow
              :store #'org+-counselrg-store)
+
+(bind-key "C-." 'l-org-jump-to-dir org-mode-map)
+(bind-key "M-h" 'ace-jump-mode org-mode-map)
 
 (use-package company)
 
@@ -856,7 +861,18 @@ boundaries of the current start and end tag , or nil."
   :init
   (setq cider-prompt-for-symbol nil))
 
-;(use-package clojure-cheatsheet :defer t)
+(use-package clj-refactor)
+
+
+(defun my-clojure-mode-hook ()
+    (clj-refactor-mode 1)
+    (yas-minor-mode 1) ; for adding require/use/import statements
+    ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+    (cljr-add-keybindings-with-prefix "C-c C-m"))
+
+(add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+
+;; ;(use-package clojure-cheatsheet :defer t)
 
 ;(use-package cider-hydra :defer t)
 
@@ -938,114 +954,18 @@ boundaries of the current start and end tag , or nil."
 
 ;(use-package ng2-mode)
 
-(use-package smartparens
-  :init
-  (progn
-    (require 'smartparens-config)
-    (add-hook 'html-mode-hook #'smartparens-mode)
-    (add-hook 'js-mode-hook #'smartparens-mode)
-    (add-hook 'typescript-mode-hook #'smartparens-mode)))
-
-
-(defhydra hydra-learn-sp (my-map "p" :hint nil)
-  "
-  _B_ backward-sexp            -----
-  _F_ forward-sexp               _s_ splice-sexp
-  _L_ backward-down-sexp         _df_ splice-sexp-killing-forward
-  _H_ backward-up-sexp           _db_ splice-sexp-killing-backward
-^^------                         _da_ splice-sexp-killing-around
-  _k_ down-sexp                -----
-  _j_ up-sexp                    _C-s_ select-next-thing-exchange
--^^-----                         _C-p_ select-previous-thing
-  _n_ next-sexp                  _C-n_ select-next-thing
-  _p_ previous-sexp            -----
-  _a_ beginning-of-sexp          _C-f_ forward-symbol
-  _z_ end-of-sexp                _C-b_ backward-symbol
---^^-                          -----
-  _t_ transpose-sexp             _c_ convolute-sexp
--^^--                            _g_ absorb-sexp
-  _x_ delete-char                _q_ emit-sexp
-  _dw_ kill-word               -----
-  _dd_ kill-sexp                 _,b_ extract-before-sexp
--^^--                            _,a_ extract-after-sexp
-  _S_ unwrap-sexp              -----
--^^--                            _AP_ add-to-previous-sexp
-  _C-h_ forward-slurp-sexp       _AN_ add-to-next-sexp
-  _C-l_ forward-barf-sexp      -----
-  _C-S-h_ backward-slurp-sexp    _ join-sexp
-  _C-S-l_ backward-barf-sexp     _|_ split-sexp
-"
-  ;; TODO: Use () and [] - + * | <space>
-  ("B" sp-backward-sexp );; similiar to VIM b
-  ("F" sp-forward-sexp );; similar to VIM f
-  ;;
-  ("L" sp-backward-down-sexp )
-  ("H" sp-backward-up-sexp )
-  ;;
-  ("k" sp-down-sexp ) ; root - towards the root
-  ("j" sp-up-sexp )
-  ;;
-  ("n" sp-next-sexp )
-  ("p" sp-previous-sexp )
-  ;; a..z
-  ("a" sp-beginning-of-sexp )
-  ("z" sp-end-of-sexp )
-  ;;
-  ("t" sp-transpose-sexp )
-  ;;
-  ("x" sp-delete-char )
-  ("dw" sp-kill-word )
-  ;;("ds" sp-kill-symbol ) ;; Prefer kill-sexp
-  ("dd" sp-kill-sexp )
-  ;;("yy" sp-copy-sexp ) ;; Don't like it. Pref visual selection
-  ;;
-  ("S" sp-unwrap-sexp ) ;; Strip!
-  ;;("wh" sp-backward-unwrap-sexp ) ;; Too similar to above
-  ;;
-  ("C-h" sp-forward-slurp-sexp )
-  ("C-l" sp-forward-barf-sexp )
-  ("C-S-h" sp-backward-slurp-sexp )
-  ("C-S-l" sp-backward-barf-sexp )
-  ;;
-  ;;("C-[" (bind (sp-wrap-with-pair "[")) ) ;;FIXME
-  ;;("C-(" (bind (sp-wrap-with-pair "(")) )
-  ;;
-  ("s" sp-splice-sexp )
-  ("df" sp-splice-sexp-killing-forward )
-  ("db" sp-splice-sexp-killing-backward )
-  ("da" sp-splice-sexp-killing-around )
-  ;;
-  ("C-s" sp-select-next-thing-exchange )
-  ("C-p" sp-select-previous-thing )
-  ("C-n" sp-select-next-thing )
-  ;;
-  ("C-f" sp-forward-symbol )
-  ("C-b" sp-backward-symbol )
-  ;;
-  ;;("C-t" sp-prefix-tag-object)
-  ;;("H-p" sp-prefix-pair-object)
-  ("c" sp-convolute-sexp )
-  ("g" sp-absorb-sexp )
-  ("q" sp-emit-sexp )
-  ;;
-  (",b" sp-extract-before-sexp )
-  (",a" sp-extract-after-sexp )
-  ;;
-  ("AP" sp-add-to-previous-sexp );; Difference to slurp?
-  ("AN" sp-add-to-next-sexp )
-  ;;
-  ("_" sp-join-sexp ) ;;Good
-  ("|" sp-split-sexp ))
-
 (show-paren-mode)
 
 (use-package lispy :defer t
   :bind (
          :map lispy-mode-map
-         ("C-1" . 'my-map)))
+         ("C-1" . 'my-map)
+         ("M-k" . 'lispy-new-copy)
+         ("M-h" . 'ace-jump-mode)))
 
   ;; :init
 (dolist (hook '(emacs-lisp-mode-hook
+                cider-repl-mode-hook
                 clojure-mode-hook))
   (add-hook hook (lambda ()
                    (lispy-mode 1)
@@ -1130,7 +1050,7 @@ boundaries of the current start and end tag , or nil."
 (use-package xml-rpc)
 (use-package metaweblog)
 (use-package htmlize)
-(use-package org2blog)
+;(use-package org2blog)
 
 (require 'xml-rpc)
 (require 'org2blog-autoloads)
