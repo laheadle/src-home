@@ -425,6 +425,8 @@ is already narrowed."
 (use-package ace-jump-mode
   :bind ("M-h" . ace-jump-mode))
 
+(bind-key "M-h" 'ace-jump-mode org-mode-map)
+
 (put 'upcase-region 'disabled nil)
 
 (delete-selection-mode 1)
@@ -948,7 +950,7 @@ boundaries of the current start and end tag , or nil."
           (setq company-tooltip-align-annotations t)
           (setq tide-tsserver-process-environment '("TSS_LOG=-level verbose -file /tmp/tss.log"))
 
-          (setq tide-tsserver-executable "node_modules/typescript/bin/tsserver")
+          ;; (setq tide-tsserver-executable "node_modules/typescript/bin/tsserver")
 
           (add-hook 'typescript-mode-hook #'setup-tide-mode)))
 
