@@ -151,7 +151,7 @@ With a `C-u` ARG, just jump to the headline."
           ivy-height 20)
     (setq enable-recursive-minibuffers t)
     (setq counsel-rg-base-command
-          "rg -i -M 120 --no-heading --line-number --color never %s .")
+          "rg -M 180 --no-heading --line-number --color never %s .")
     (global-set-key (kbd "C-c C-r") 'ivy-resume)
     (global-set-key (kbd "<f6>") 'ivy-resume)
     (global-set-key (kbd "M-x") 'counsel-M-x)
