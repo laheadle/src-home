@@ -22,12 +22,12 @@
                        "url"))
            (magit-get-current-branch))))
 
-;; (progn
-;;   (setq load-path (cons  "/usr/lib/erlang/lib/tools-2.9.1/emacs"
-;;                          load-path))
-;;       (setq erlang-root-dir "/usr/lib/erlang")
-;;       (setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
-;;       (require 'erlang-start))
+(progn
+  (setq load-path (cons  "/usr/lib/erlang/lib/tools-2.9.1/emacs"
+                         load-path))
+      (setq erlang-root-dir "/usr/lib/erlang")
+      (setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
+      (require 'erlang-start))
 
 ;; (add-to-list 'load-path "/Users/lyn_headley/.emacs.d/site-lisp/distel/elisp")
 ;; (require 'distel)

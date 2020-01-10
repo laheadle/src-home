@@ -13,6 +13,8 @@
    ("org" . "http://orgmode.org/elpa/")
    ("gnu" . "https://elpa.gnu.org/packages/")))
 
+(setq package-archive-priorities '(("melpa-stable" . 100)))
+
 (require 'package)
 (package-initialize)
 
@@ -1052,7 +1054,7 @@ boundaries of the current start and end tag , or nil."
 (use-package xml-rpc)
 (use-package metaweblog)
 (use-package htmlize)
-;(use-package org2blog)
+(use-package org2blog)
 
 (require 'xml-rpc)
 (require 'org2blog-autoloads)
