@@ -812,54 +812,6 @@ boundaries of the current start and end tag , or nil."
 (add-hook 'sgml-mode-hook (lambda () (hl-tags-mode 1)))
 (add-hook 'nxml-mode-hook (lambda () (hl-tags-mode 1)))
 
-(use-package tuareg)
-(use-package merlin)
-
-(let ((opam-share (ignore-errors (car (process-lines "opam" "config" "var" "share")))))
- (when (and opam-share (file-directory-p opam-share))
-  (add-to-list 'load-path (expand-file-name "emacs/site-lisp" opam-share))
-  (autoload 'merlin-mode "merlin" nil t nil)
-  (add-hook 'tuareg-mode-hook 'merlin-mode t)
-  (add-hook 'caml-mode-hook 'merlin-mode t)))
-
-(with-eval-after-load 'company
-  (add-to-list 'company-backends 'merlin-company-backend))
-
-(add-hook 'merlin-mode-hook 'company-mode)
-
-(defun l-config-merlin () '((logfile . "/tmp/merlin")))
-(setq merlin-debug t)
-
-(setq merlin-configuration-function #'l-config-merlin)
-
-(defun shell-cmd (cmd)
-  "Returns the stdout output of a shell command or nil if the command returned
-   an error"
-  (car (ignore-errors (apply 'process-lines (split-string cmd)))))
-
-(use-package reason-mode
-
-  :config (progn
-            (let* ((refmt-bin (or (shell-cmd "refmt ----where")
-                                  (shell-cmd "which refmt")))
-                   (merlin-bin (or (shell-cmd "ocamlmerlin ----where")
-                                   (shell-cmd "which ocamlmerlin")))
-                   (merlin-base-dir (when merlin-bin
-                                      (replace-regexp-in-string "bin/ocamlmerlin$" "" merlin-bin))))
-              ;; Add npm merlin.el to the emacs load path and tell emacs where to find ocamlmerlin
-              (when merlin-bin
-                (add-to-list 'load-path (concat merlin-base-dir "share/emacs/site-lisp/"))
-                (setq merlin-command merlin-bin))
-
-              (when refmt-bin
-                (setq refmt-command refmt-bin)))
-            (require 'merlin)
-            (add-hook 'reason-mode-hook (lambda ()
-                                          (add-hook 'before-save-hook 'refmt-before-save)
-                                          (merlin-mode)))
-
-            (setq merlin-ac-setup t)))
-
 (use-package cider
   :defer t
   :init

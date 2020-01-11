@@ -24,11 +24,6 @@
     (let ((default-directory "/Users/lyn_headley/Workspace/WebGSP/"))
       (message "%s" (shell-command-to-string cmd-str))))))
 
-;;
-
-;; fix stupid mousedown sets mark
-;; http://stackoverflow.com/questions/13986605/how-to-make-emacs-mouse-drag-not-highlight-or-set-mark
-
 (use-package exec-path-from-shell
   :config (exec-path-from-shell-initialize))
 
