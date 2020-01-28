@@ -896,15 +896,6 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
       (message "%s" (shell-command-to-string cmd-str))))))
 
 #+END_SRC
-** erlang
-#+BEGIN_SRC emacs-lisp
-;;
-
-;; fix stupid mousedown sets mark
-;; http://stackoverflow.com/questions/13986605/how-to-make-emacs-mouse-drag-not-highlight-or-set-mark
-
-#+END_SRC
-
 ** Shells and terminals
 
 #+BEGIN_SRC emacs-lisp
@@ -1650,62 +1641,6 @@ boundaries of the current start and end tag , or nil."
 (add-hook 'sgml-mode-hook (lambda () (hl-tags-mode 1)))
 (add-hook 'nxml-mode-hook (lambda () (hl-tags-mode 1)))
 #+END_SRC
-** ocaml
-
-#+begin_src emacs-lisp
-
-(use-package tuareg)
-(use-package merlin)
-
-(let ((opam-share (ignore-errors (car (process-lines "opam" "config" "var" "share")))))
- (when (and opam-share (file-directory-p opam-share))
-  (add-to-list 'load-path (expand-file-name "emacs/site-lisp" opam-share))
-  (autoload 'merlin-mode "merlin" nil t nil)
-  (add-hook 'tuareg-mode-hook 'merlin-mode t)
-  (add-hook 'caml-mode-hook 'merlin-mode t)))
-
-(with-eval-after-load 'company
-  (add-to-list 'company-backends 'merlin-company-backend))
-
-(add-hook 'merlin-mode-hook 'company-mode)
-
-(defun l-config-merlin () '((logfile . "/tmp/merlin")))
-(setq merlin-debug t)
-
-(setq merlin-configuration-function #'l-config-merlin)
-#+end_src
-** reason
-#+begin_src emacs-lisp
-
-(defun shell-cmd (cmd)
-  "Returns the stdout output of a shell command or nil if the command returned
-   an error"
-  (car (ignore-errors (apply 'process-lines (split-string cmd)))))
-
-(use-package reason-mode
-
-  :config (progn
-            (let* ((refmt-bin (or (shell-cmd "refmt ----where")
-                                  (shell-cmd "which refmt")))
-                   (merlin-bin (or (shell-cmd "ocamlmerlin ----where")
-                                   (shell-cmd "which ocamlmerlin")))
-                   (merlin-base-dir (when merlin-bin
-                                      (replace-regexp-in-string "bin/ocamlmerlin$" "" merlin-bin))))
-              ;; Add npm merlin.el to the emacs load path and tell emacs where to find ocamlmerlin
-              (when merlin-bin
-                (add-to-list 'load-path (concat merlin-base-dir "share/emacs/site-lisp/"))
-                (setq merlin-command merlin-bin))
-
-              (when refmt-bin
-                (setq refmt-command refmt-bin)))
-            (require 'merlin)
-            (add-hook 'reason-mode-hook (lambda ()
-                                          (add-hook 'before-save-hook 'refmt-before-save)
-                                          (merlin-mode)))
-
-            (setq merlin-ac-setup t)))
-
-#+end_src
 ** cider
 #+BEGIN_SRC emacs-lisp
 (use-package cider
@@ -1836,57 +1771,6 @@ boundaries of the current start and end tag , or nil."
 ** parens
 #+BEGIN_SRC emacs-lisp
 (show-paren-mode)
-#+END_SRC
-** erlang
-:PROPERTIES:
-:header-args: :tangle home.el
-:END:
-#+BEGIN_SRC emacs-lisp
-(progn
-  (setq load-path (cons  "/usr/lib/erlang/lib/tools-2.9.1/emacs"
-                         load-path))
-      (setq erlang-root-dir "/usr/lib/erlang")
-      (setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
-      (require 'erlang-start))
-
-;; (add-to-list 'load-path "/Users/lyn_headley/.emacs.d/site-lisp/distel/elisp")
-;; (require 'distel)
-;; (distel-setup)
-;; (defconst distel-shell-keys
-;;   '(("\C-\M-i"   erl-complete)
-;;     ("\M-?"      erl-complete)
-;;     ("\M-."      erl-find-source-under-point)
-;;     ("\M-,"      erl-find-source-unwind)
-;;     ("\M-*"      erl-find-source-unwind)
-;;     )
-;;   "Additional keys to bind when in Erlang shell.")
-
-;; (add-hook 'erlang-shell-mode-hook
-;;           (lambda ()
-;;             ;; add some Distel bindings to the Erlang shell
-;;             (dolist (spec distel-shell-keys)
-;;               (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
-
-;; (defvar l-ebin-epgsql "/Users/lyn_headley/Workspace/trails/erlang/sg/deps/epgsql/ebin")
-;; (defvar l-ebin-sg "/Users/lyn_headley/Workspace/trails/erlang/sg/ebin")
-;; (defconst l-include-sg "/Users/lyn_headley/Workspace/trails/erlang/sg/include")
-;; (defvar l-ebin-yaws "/Users/lyn_headley/Workspace/trails/erlang/sg/deps/yaws/ebin")
-;; (defvar l-include-yaws "/Users/lyn_headley/Workspace/trails/erlang/sg/deps/yaws/include")
-;; (defvar l-ebin-poolboy "/Users/lyn_headley/Workspace/trails/erlang/sg/deps/poolboy/ebin")
-
-;; (setq erlang-compile-extra-opts (list `(i . ,l-include-yaws)
-;;                                       `(i . ,l-include-sg)
-;;                                       ))
-
-;; (setq inferior-erlang-machine-options
-;;      (list "-name" "dev@localhost"
-;;             "-pa" l-ebin-sg
-;;            "-pa" l-ebin-yaws
-;;            "-pa" l-ebin-epgsql
-;;            "-pa" l-ebin-poolboy))
-
-
-
 #+END_SRC
 ** lisp
 #+BEGIN_SRC emacs-lisp
