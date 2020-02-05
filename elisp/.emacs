@@ -94,26 +94,6 @@ With a `C-u` ARG, just jump to the headline."
 (bind-key "C-1" 'my-map)
 (use-package which-key)
 
-(defun my-update-cursor ()
-  (setq cursor-type (if (or god-local-mode buffer-read-only)
-                        'box
-                      'bar)))
-(use-package god-mode
-  :config (progn
-            (global-set-key (kbd "<escape>") 'god-mode-all)
-            (setq god-exempt-major-modes
-                  '(org-agenda-mode magit-mode dired-mode grep-mode vc-annotate-mode git-commit-mode magit-status-mode magit-popup-mode))
-                  (define-key god-local-mode-map (kbd "z") 'repeat)
-                  (define-key god-local-mode-map (kbd "i") 'god-local-mode)
-                  (global-set-key (kbd "C-x C-1") 'delete-other-windows)
-                  (global-set-key (kbd "C-x C-2") 'split-window-below)
-                  (global-set-key (kbd "C-x C-3") 'split-window-right)
-                  (global-set-key (kbd "C-x C-0") 'delete-window)
-                  (add-hook 'god-mode-enabled-hook 'my-update-cursor)
-                  (add-hook 'god-mode-disabled-hook 'my-update-cursor)
-                  ;;            (setq god-exempt-predicates nil)
-                  ))
-
 (defvar l-env-file (concat l-elisp-home "environment.el"))
 
 (defun read-file (filePath)
