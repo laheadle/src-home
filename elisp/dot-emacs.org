@@ -1801,7 +1801,9 @@ boundaries of the current start and end tag , or nil."
 #+BEGIN_SRC emacs-lisp
 
 (use-package php-mode
-:bind (("C-." . magit-status)))
+  :bind (
+         :map php-mode-map
+         ("C-." . magit-status)))
 
 #+END_SRC
 ** markdown

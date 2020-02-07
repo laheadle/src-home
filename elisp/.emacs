@@ -931,7 +931,9 @@ boundaries of the current start and end tag , or nil."
 (use-package lua-mode)
 
 (use-package php-mode
-:bind (("C-." . magit-status)))
+  :bind (
+         :map php-mode-map
+         ("C-." . magit-status)))
 
 (use-package markdown-mode :defer t)
 
