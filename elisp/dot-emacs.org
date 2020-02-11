@@ -483,6 +483,9 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 #+end_src
 ** utility functions
 
+*** om library
+I deleted the .git directory and pulled in the source code.
+
 #+begin_src emacs-lisp
 
 (add-to-list 'load-path (concat l-elisp-home "lib/om.el"))
