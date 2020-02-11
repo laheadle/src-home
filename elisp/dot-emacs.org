@@ -481,6 +481,14 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 
 
 #+end_src
+** utility functions
+
+#+begin_src emacs-lisp
+
+(add-to-list 'load-path (concat l-elisp-home "lib/om.el"))
+(require 'om)
+
+#+end_src
 * home
 :PROPERTIES:
 :header-args: :tangle home.el

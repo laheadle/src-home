@@ -341,6 +341,9 @@ With a `C-u` ARG, just jump to the headline."
 (bind-key "C-." 'l-org-jump-to-dir org-mode-map)
 (bind-key "M-h" 'ace-jump-mode org-mode-map)
 
+(add-to-list 'load-path (concat l-elisp-home "lib/om.el"))
+(require 'om)
+
 (use-package company)
 
 (use-package helm-org-rifle
