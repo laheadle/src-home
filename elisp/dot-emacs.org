@@ -22,6 +22,10 @@
 ;;;
 (add-to-list 'load-path (expand-file-name "~/extern/org-mode/lisp"))
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+
+;; broken notifications -- workaround [2020-02-14 Fri]
+(setq org-show-notification-handler (lambda (msg) (message "%s" msg)))
+
 (require 'org)
 #+END_SRC
 * Package Management
