@@ -1840,6 +1840,11 @@ boundaries of the current start and end tag , or nil."
 (setq org-babel-default-header-args:sh
   '((:prologue . "exec 2>&1") (:epilogue . ":")))
 #+END_SRC
+** css
+#+begin_src emacs-lisp
+
+(add-hook 'scss-mode-hook (lambda () (setq css-indent-offset 2)))
+#+end_src
 * desktop
 #+BEGIN_SRC emacs-lisp
 (desktop-save-mode -1)

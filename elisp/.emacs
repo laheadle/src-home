@@ -955,6 +955,8 @@ boundaries of the current start and end tag , or nil."
 (setq org-babel-default-header-args:sh
   '((:prologue . "exec 2>&1") (:epilogue . ":")))
 
+(add-hook 'scss-mode-hook (lambda () (setq css-indent-offset 2)))
+
 (desktop-save-mode -1)
 (setq desktop-restore-eager 10)
 
