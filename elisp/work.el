@@ -10,6 +10,7 @@
 (set-register ?g '(file . "/Users/lyn_headley/Workspace/glossary/g"))
 (set-register ?a '(file . "/Users/lyn_headley/Workspace/asset-registry/a"))
 (set-register ?f '(file . "/Users/lyn_headley/Workspace/docs/org/non-agenda/frontend.org"))
+(set-register ?b '(file . "/Users/lyn_headley/Workspace/bb-scripts"))
 
 (defun l-show-make-var ()
   (interactive)
