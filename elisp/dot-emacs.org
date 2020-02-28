@@ -22,6 +22,10 @@
 ;;;
 (add-to-list 'load-path (expand-file-name "~/extern/org-mode/lisp"))
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+
+;; broken notifications -- workaround [2020-02-14 Fri]
+(setq org-show-notification-handler (lambda (msg) (message "%s" msg)))
+
 (require 'org)
 #+END_SRC
 * Package Management
@@ -458,6 +462,17 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 
 
 #+end_src
+** utility functions
+
+*** om library
+I deleted the .git directory and pulled in the source code.
+
+#+begin_src emacs-lisp
+
+(add-to-list 'load-path (concat l-elisp-home "lib/om.el"))
+(require 'om)
+
+#+end_src
 * home
 :PROPERTIES:
 :header-args: :tangle home.el
@@ -844,6 +859,18 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 (bind-key "r" 'josh/org-refile-hydra/body 'my-map)
 
 #+end_src
+*** common work chores
+**** delete old directories
+
+#+begin_src emacs-lisp
+
+(defun l-work-goto-next-project-to-clean ()
+  (interactive)
+  (om-parse-this-headline)
+
+  ;; todo: look at the output, find the type symbol of the list elements, call om-match
+  )
+#+end_src
 ** other
 #+BEGIN_SRC emacs-lisp
 (defun l-getenv (var)
@@ -858,6 +885,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 (set-register ?g '(file . "/Users/lyn_headley/Workspace/glossary/g"))
 (set-register ?a '(file . "/Users/lyn_headley/Workspace/asset-registry/a"))
 (set-register ?f '(file . "/Users/lyn_headley/Workspace/docs/org/non-agenda/frontend.org"))
+(set-register ?b '(file . "/Users/lyn_headley/Workspace/bb-scripts"))
 
 (defun l-show-make-var ()
   (interactive)
@@ -1778,7 +1806,9 @@ boundaries of the current start and end tag , or nil."
 #+BEGIN_SRC emacs-lisp
 
 (use-package php-mode
-:bind (("C-." . magit-status)))
+  :bind (
+         :map php-mode-map
+         ("C-." . magit-status)))
 
 #+END_SRC
 ** markdown
@@ -1800,6 +1830,11 @@ boundaries of the current start and end tag , or nil."
 (setq org-babel-default-header-args:sh
   '((:prologue . "exec 2>&1") (:epilogue . ":")))
 #+END_SRC
+** css
+#+begin_src emacs-lisp
+
+(add-hook 'scss-mode-hook (lambda () (setq css-indent-offset 2)))
+#+end_src
 * desktop
 #+BEGIN_SRC emacs-lisp
 (desktop-save-mode -1)

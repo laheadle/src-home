@@ -131,7 +131,8 @@
 (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
 
 ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
-(setq org-refile-targets (quote ((nil :maxlevel . 9)
+(setq org-refile-targets (quote ((nil   ; current buffer
+                                  :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9))))
 
 ; Use full outline paths for refile targets - we file directly with IDO
@@ -780,7 +781,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
           (subtree-end (save-excursion (org-end-of-subtree t))))
       (if (member (org-get-todo-state) org-todo-keywords-1)
           (if (member (org-get-todo-state) org-done-keywords)
-              (let* ((daynr (string-to-int (format-time-string "%d" (current-time))))
+              (let* ((daynr (string-to-number (format-time-string "%d" (current-time))))
                      (a-month-ago (* 60 60 24 (+ daynr 1)))
                      (last-month (format-time-string "%Y-%m-" (time-subtract (current-time) (seconds-to-time a-month-ago))))
                      (this-month (format-time-string "%Y-%m-" (current-time)))
@@ -1757,21 +1758,6 @@ Late deadlines first, then scheduled, then non-late deadlines"
 (setq org-cycle-include-plain-lists t)
 
 (setq org-src-fontify-natively t)
-
-(setq org-structure-template-alist
-      (quote (("s" "#+begin_src ?\n\n#+end_src" "<src lang=\"?\">\n\n</src>")
-              ("e" "#+begin_example\n?\n#+end_example" "<example>\n?\n</example>")
-              ("q" "#+begin_quote\n?\n#+end_quote" "<quote>\n?\n</quote>")
-              ("v" "#+begin_verse\n?\n#+end_verse" "<verse>\n?\n</verse>")
-              ("c" "#+begin_center\n?\n#+end_center" "<center>\n?\n</center>")
-              ("l" "#+begin_latex\n?\n#+end_latex" "<literal style=\"latex\">\n?\n</literal>")
-              ("L" "#+latex: " "<literal style=\"latex\">?</literal>")
-              ("h" "#+begin_html\n?\n#+end_html" "<literal style=\"html\">\n?\n</literal>")
-              ("H" "#+html: " "<literal style=\"html\">?</literal>")
-              ("a" "#+begin_ascii\n?\n#+end_ascii")
-              ("A" "#+ascii: ")
-              ("i" "#+index: ?" "#+index: ?")
-              ("I" "#+include %file ?" "<include file=%file markup=\"?\">"))))
 
 (defun bh/mark-next-parent-tasks-todo ()
   "Visit each parent task and change NEXT states to TODO"

@@ -3,6 +3,10 @@
 ;;;
 (add-to-list 'load-path (expand-file-name "~/extern/org-mode/lisp"))
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+
+;; broken notifications -- workaround [2020-02-14 Fri]
+(setq org-show-notification-handler (lambda (msg) (message "%s" msg)))
+
 (require 'org)
 
 (setq
@@ -320,6 +324,9 @@ With a `C-u` ARG, just jump to the headline."
 
 (bind-key "C-." 'l-org-jump-to-dir org-mode-map)
 (bind-key "M-h" 'ace-jump-mode org-mode-map)
+
+(add-to-list 'load-path (concat l-elisp-home "lib/om.el"))
+(require 'om)
 
 (use-package company)
 
@@ -911,7 +918,9 @@ boundaries of the current start and end tag , or nil."
 (use-package lua-mode)
 
 (use-package php-mode
-:bind (("C-." . magit-status)))
+  :bind (
+         :map php-mode-map
+         ("C-." . magit-status)))
 
 (use-package markdown-mode :defer t)
 
@@ -925,6 +934,8 @@ boundaries of the current start and end tag , or nil."
 
 (setq org-babel-default-header-args:sh
   '((:prologue . "exec 2>&1") (:epilogue . ":")))
+
+(add-hook 'scss-mode-hook (lambda () (setq css-indent-offset 2)))
 
 (desktop-save-mode -1)
 (setq desktop-restore-eager 10)

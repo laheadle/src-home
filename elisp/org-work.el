@@ -105,3 +105,10 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
   ("q" nil "cancel"))
 
 (bind-key "r" 'josh/org-refile-hydra/body 'my-map)
+
+(defun l-work-goto-next-project-to-clean ()
+  (interactive)
+  (om-parse-this-headline)
+
+  ;; todo: look at the output, find the type symbol of the list elements, call om-match
+  )
