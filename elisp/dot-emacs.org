@@ -300,8 +300,8 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
             (:name "HABITS" :habit t)
             (:name "A" :priority "A")
             (:name "B" :priority "B")
-            (:name "DEADLINES" :deadline t :order 250)
-            (:name "C" :priority "C" :order 200)))))
+            (:name "DEADLINES" :deadline t)
+            (:name "C" :priority "C")))))
 #+END_SRC
 
 

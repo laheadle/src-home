@@ -200,8 +200,8 @@ With a `C-u` ARG, just jump to the headline."
             (:name "HABITS" :habit t)
             (:name "A" :priority "A")
             (:name "B" :priority "B")
-            (:name "DEADLINES" :deadline t :order 250)
-            (:name "C" :priority "C" :order 200)))))
+            (:name "DEADLINES" :deadline t)
+            (:name "C" :priority "C")))))
 
 (defvar l-dot-emacs (concat l-elisp-home "dot-emacs.org"))
 
