@@ -15,39 +15,6 @@
 Org-mode is a fabulous organizational tool originally built by Carsten
 Dominik that operates on plain text files.  Org-mode is part of Emacs.
 
-* How To Use This Document
-:PROPERTIES:
-:CUSTOM_ID: HowToUseThisDocument
-:END:
-[2012-11-24 Sat 23:28]
-
-This document assumes you've had some exposure to org-mode already so
-concepts like the agenda, capture mode, etc.  won't be completely
-foreign to you.  More information about org-mode can be found in the
-[[http://orgmode.org/index.html#sec-4.1][Org-Mode Manual]] and on the [[http://orgmode.org/worg/][Worg Site]].
-
-I have been using org-mode as my personal information manager for
-years now.  I started small with just the default =TODO= and =DONE=
-keywords.  I added small changes to my workflow and over time it
-evolved into what is described by this document.
-
-I still change my workflow and try new things regularly.  This
-document describes mature workflows in my current org-mode setup.  I
-tend to document changes to my workflow 30 days after implementing
-them (assuming they are still around at that point) so that the new
-workflow has a chance to mature.
-
-Some of the customized Emacs settings described in this document are
-set at their default values.  This explicitly shows the setting for
-important org-mode variables used in my workflow and to keep my
-workflow behaviour stable in the event that the default value changes
-in the future.
-
-This document is available as an [[http://doc.norang.ca/org-mode.org][org file]] which you can load in Emacs
-and tangle with =C-c C-v C-t= which will create org-mode.el in the
-same directory as the org-mode.org file.  This will extract all of the
-elisp examples in this document into a file you can include in your
-.emacs file.
 * License
 :PROPERTIES:
 :CUSTOM_ID: License
@@ -80,31 +47,6 @@ Documentation License version 1.3 or later
 The code examples and CSS stylesheets are licensed under the GNU
 General Public License v3 or later
 (http://www.gnu.org/licenses/gpl.html).
-* Change History - What's new
-:PROPERTIES:
-:CUSTOM_ID: ChangeHistory
-:END:
-
-#+name: org-mode-doc-version
-#+begin_src sh :exports none
-#!/bin/sh
-git describe --abbrev=4
-#+end_src
-
-#+name: org-mode-version
-#+begin_src sh :exports none
-cd ~/extern/org-mode && git describe HEAD
-#+end_src
-
-This is version call_org-mode-doc-version() of this document.  This
-document is created using the publishing features of =org-mode= git
-version call_org-mode-version().
-
-The source for this document can be found as a [[http://doc.norang.ca/org-mode.org][plain text org file]].  I
-try to update this document about once a month.
-
-The change history for this document can be found at
-[[http://git.norang.ca/?p%3Dorg-mode-doc.git%3Ba%3Dsummary][git://git.norang.ca/org-mode-doc.git]].
 * Getting Started
 :PROPERTIES:
 :CUSTOM_ID: GettingStarted
@@ -145,16 +87,6 @@ The following setup in my .emacs enables =org-mode= for most buffers.
 files.
 
 #+header: :tangle yes
-#+begin_src emacs-lisp
-
-;;
-;; Standard key bindings
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
-#+end_src
-
-#+header: :tangle yes
 #+begin_src emacs-lisp :exports none
 ;; The following setting is different from the document so that you
 ;; can override the document path by setting your path in the variable
@@ -167,8 +99,6 @@ files.
 ;;
 ;; Standard key bindings
 (global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
 #+end_src
 
 That's all you need to get started using headlines and lists in org-mode.
@@ -176,59 +106,6 @@ That's all you need to get started using headlines and lists in org-mode.
 The rest of this document describes customizations I use in my setup,
 how I structure org-mode files, and other changes to fit the way I
 want org-mode to work.
-** Organizing Your Life Into Org Files
-:PROPERTIES:
-:CUSTOM_ID: OrgFiles
-:END:
-
-Tasks are separated into logical groupings or projects.  
-Use separate org files for large task groupings and 
-subdirectories for collections of files for multiple
-projects that belong together.
-
-Here are sample files that I use.
-
-The following org files collect non-work related tasks:
-
-| Filename     | Description                                |
-|--------------+--------------------------------------------|
-| todo.org     | Personal tasks and things to keep track of |
-| gsoc2009.org | Google Summer of Code stuff for 2009       |
-| farm.org     | Farm related tasks                         |
-| mark.org     | Tasks related to my son Mark               |
-| org.org      | Org-mode related tasks                     |
-| git.org      | Git related tasks                          |
-
-The following org-file collects org capture notes and tasks:
-
-| Filename   | Description         |
-|------------+---------------------|
-| refile.org | Capture task bucket |
-
-The following work-related org-files keep my business notes (using
-fictitious client names)
-
-| Filename    | Description                             |
-|-------------+-----------------------------------------|
-| norang.org  | Norang tasks and notes                  |
-| XYZ.org     | XYZ Corp tasks and notes                |
-| ABC.org     | ABC Ltd tasks                           |
-| ABC-DEF.org | ABC Ltd tasks for their client DEF Corp |
-| ABC-KKK.org | ABC Ltd tasks for their client KKK Inc  |
-| YYY.org     | YYY Inc tasks                           |
-
-Org-mode is great for dealing with multiple clients and client
-projects.  An org file becomes the collection of projects, notes,
-etc. for a single client or client-project.
-
-Client ABC Ltd. has multiple customer systems that I work on.
-Separating the tasks for each client-customer into separate org files
-helps keep things logically grouped and since clients come and go this
-allows entire org files to be added or dropped from my agenda to keep
-only what is important visible in agenda views.
-
-Other org files are used for publishing only and do not contribute to the agenda.
-See [[#Publishing][Publishing and Exporting]] for more details.
 ** Org File Structure
 :PROPERTIES:
 :CUSTOM_ID: OrgFileStructure
@@ -292,44 +169,6 @@ are set up like this:
 :CUSTOM_ID: KeyBindings
 :END:
 
-I live in the agenda.  To make getting to the agenda faster I mapped
-=F12= to the sequence =C-c a= since I'm using it hundreds of times a
-day.
-
-I have the following custom key bindings set up for my emacs (sorted by frequency).
-
-| Key     | For                                             | Used       |
-|---------+-------------------------------------------------+------------|
-| F12     | Agenda (1 key less than C-c a)                  | Very Often |
-| C-c b   | Switch to org file                              | Very Often |
-| F11     | Goto currently clocked item                     | Very Often |
-| C-c c   | Capture a task                                  | Very Often |
-| C-F11   | Clock in a task (show menu with prefix)         | Often      |
-| f9 g    | Gnus - I check mail regularly                   | Often      |
-| f5      | Show todo items for this subtree                | Often      |
-| S-f5    | Widen                                           | Often      |
-| f9 b    | Quick access to bbdb data                       | Often      |
-| f9 c    | Calendar access                                 | Often      |
-| C-S-f12 | Save buffers and publish current project        | Often      |
-| C-c l   | Store a link for retrieval with C-c C-l         | Often      |
-| f8      | Go to next org file in org-agenda-files         | Sometimes  |
-| f9 r    | Boxquote selected region                        | Sometimes  |
-| f9 t    | Insert inactive timestamp                       | Sometimes  |
-| f9 v    | Toggle visible mode (for showing/editing links) | Sometimes  |
-| C-f9    | Previous buffer                                 | Sometimes  |
-| C-f10   | Next buffer                                     | Sometimes  |
-| C-x n r | Narrow to region                                | Sometimes  |
-| f9 f    | Boxquote insert a file                          | Sometimes  |
-| f9 i    | Info manual                                     | Sometimes  |
-| f9 I    | Punch Clock In                                  | Sometimes  |
-| f9 O    | Punch Clock Out                                 | Sometimes  |
-| f9 o    | Switch to org scratch buffer                    | Sometimes  |
-| f9 s    | Switch to scratch buffer                        | Sometimes  |
-| f9 h    | Hide other tasks                                | Rare       |
-| f7      | Toggle line truncation/wrap                     | Rare       |
-| f9 T    | Toggle insert inactive timestamp                | Rare       |
-| C-c a   | Enter Agenda (minimal emacs testing)            | Rare       |
-
 Here is the keybinding setup in lisp:
 #+header: :tangle yes
 #+begin_src emacs-lisp
@@ -356,11 +195,6 @@ Here is the keybinding setup in lisp:
 
 #+end_src
 
-The main reason I have special key bindings (like =F11=, and =F12=) is
-so that the keys work in any mode.  If I'm in the Gnus summary buffer
-then =C-u C-c C-x C-i= doesn't work, but the =C-F11= key combination
-does and this saves me time since I don't have to visit an org-mode
-buffer first just to clock in a recent task.
 * Tasks and States
 :PROPERTIES:
 :CUSTOM_ID: TasksAndStates
@@ -441,40 +275,6 @@ WAITING --> DONE
 
 #+results[61c867b8eb4f49bc47e44ec2b534ac3219d82594]:
 [[file:normal_task_states.png]]
-
-*** Project Task States
-:PROPERTIES:
-:CUSTOM_ID: TodoKeywordProjectTaskStates
-:END:
-
-I use a lazy project definition.  I don't like to bother with manually
-stating 'this is a project' and 'that is not a project'.  For me a project
-definition is really simple.  If a task has subtasks with a todo keyword
-then it's a project.  That's it.
-
-Projects can be defined at any level - just create a task with a todo
-state keyword that has at least one subtask also with a todo state
-keyword and you have a project.  Projects use the same todo keywords
-as regular tasks.  One subtask of a project needs to be marked =NEXT=
-so the project is not on the stuck projects list.
-*** Phone Calls
-:PROPERTIES:
-:CUSTOM_ID: TodoKeywordPhoneCalls
-:END:
-
-Telephone calls are special.  They are created in a done state by a capture task.
-The time of the call is recorded for as long as the capture task is active.  If I need 
-to look up other details and want to close the capture task early I can just 
-=C-c C-c= to close the capture task (stopping the clock) and then =f9 SPC= to resume
-the clock in the phone call while I do other things.
-#+begin_src plantuml :file phone_states.png :cache yes
-title Phone Call Task State
-[*] -> PHONE
-PHONE -> [*]
-#+end_src
-
-#+results[9e27f3a56c4fca8f05455e6dfa1282030ae52830]:
-[[file:phone_states.png]]
 
 *** Meetings
 :PROPERTIES:
@@ -3519,4 +3319,9 @@ around arbitrarily in my org files and the link to it still works.
 (require 'org-habit)
 
 (setq org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
+#+end_src
+** stuck projects
+
+#+begin_src emacs-lisp
+(setq org-stuck-projects'("/!TODO" ("NEXT") () "SCHEDULED:\\|DEADLINE:"))
 #+end_src
