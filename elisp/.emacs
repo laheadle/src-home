@@ -199,8 +199,7 @@ With a `C-u` ARG, just jump to the headline."
   (progn
     (org-super-agenda-mode)
     (setq org-super-agenda-groups
-          '((:todo "HOLD" :todo "WAITING" :order 300)
-            (:name "STATUS" :and (:habit t :regexp "status"))
+          '((:name "STATUS" :and (:habit t :regexp "status"))
             (:name "HABITS" :habit t)
             (:name "A" :priority "A")
             (:name "B: This week" :priority "B")
@@ -210,6 +209,7 @@ With a `C-u` ARG, just jump to the headline."
             (:name "E: This half-year" :priority "E")
             (:name "F: During 2020" :priority "F")
             (:name "G: By end of 2021" :priority "G")
+            (:todo "HOLD" :todo "WAITING")
             ))))
 
 (defvar l-dot-emacs (concat l-elisp-home "dot-emacs.org"))

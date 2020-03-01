@@ -124,7 +124,7 @@
                             (org-agenda-todo-ignore-deadlines t)
                             (org-agenda-todo-ignore-with-date t)
                             (org-agenda-todo-ignore-scheduled t)
-                            (org-agenda-skip-function 'lh/keep-projects)))))
+                            ))))
               ("z" "Archivable"
                ((agenda "" nil)
                 (tags "-REFILE/"
