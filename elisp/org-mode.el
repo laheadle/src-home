@@ -112,19 +112,19 @@
 
 ;; Custom agenda command definitions
 (setq org-agenda-custom-commands
-      (quote (("y" agenda*)("g" "Goals"
+      (quote (("g" "Goals"
                ((tags "TODO=\"GOAL\"" nil)
                 (tags "GOALS-TODO=\"GOAL\""
                       ((org-tags-match-list-sublevels nil)))
                 ))
-              ("d" "My Todos 3" 
-               ((agenda "" nil)
-                (tags-todo "-DONE-CANCELLED+LEVEL<=2/!"
-                           ((org-agenda-overriding-header "My Todos 3")
+              ("x" "Not Yet Committed To" 
+               ((tags-todo "-DONE-CANCELLED/!"
+                           ((org-agenda-overriding-header "Not Yet Committed To")
                             (org-agenda-todo-ignore-deadlines t)
                             (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-todo-ignore-scheduled t)))))
-              ("z" "Aarchivable"
+                            (org-agenda-todo-ignore-scheduled t)
+                            (org-agenda-skip-function 'lh/keep-projects)))))
+              ("z" "Archivable"
                ((agenda "" nil)
                 (tags "-REFILE/"
                       ((org-agenda-overriding-header "Tasks to Archive")
@@ -574,3 +574,37 @@ A prefix arg forces clock in of the default task."
 (require 'org-habit)
 
 (setq org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
+
+(setq org-stuck-projects'("/!TODO" ("NEXT") () "SCHEDULED:\\|DEADLINE:"))
+
+(defun bh/find-project-task ()
+  "Move point to the parent (project) task if any"
+  (save-restriction
+    (widen)
+    (let ((parent-task (save-excursion (org-back-to-heading 'invisible-ok) (point))))
+      (while (org-up-heading-safe)
+        (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+          (setq parent-task (point))))
+      (goto-char parent-task)
+      parent-task)))
+
+(defun bh/is-project-subtree-p ()
+  "Any task with a todo keyword that is in a project subtree.
+Callers of this function already widen the buffer view."
+  (let ((task (save-excursion (org-back-to-heading 'invisible-ok)
+                              (point))))
+    (save-excursion
+      (bh/find-project-task)
+      (if (equal (point) task)
+          nil
+        t))))
+
+; need: function returns nil to keep a project
+; for a non-project, return the position of the next headline to search
+
+(defun lh/keep-projects ()
+  (save-restriction
+    (widen)
+    (if (bh/is-project-subtree-p)
+        (save-excursion (or (outline-next-heading) (point-max)))
+      nil)))
