@@ -118,8 +118,9 @@
                       ((org-tags-match-list-sublevels nil)))
                 ))
               ("x" "Not Yet Committed To" 
-               ((tags-todo "-DONE-CANCELLED/!"
-                           ((org-agenda-overriding-header "Not Yet Committed To")
+               ((agenda "" nil)
+                (tags-todo "-DONE-CANCELLED/!"
+                           ((org-agenda-overriding-header "Master Plan")
                             (org-agenda-todo-ignore-deadlines t)
                             (org-agenda-todo-ignore-with-date t)
                             (org-agenda-todo-ignore-scheduled t)
