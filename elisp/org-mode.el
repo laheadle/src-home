@@ -117,7 +117,7 @@
                 (tags "GOALS-TODO=\"GOAL\""
                       ((org-tags-match-list-sublevels nil)))
                 ))
-              ("x" "Not Yet Committed To" 
+              ("x" "Master Plan" 
                ((agenda "" nil)
                 (tags-todo "-DONE-CANCELLED/!"
                            ((org-agenda-overriding-header "Master Plan")
