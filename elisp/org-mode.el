@@ -608,3 +608,7 @@ Callers of this function already widen the buffer view."
     (if (bh/is-project-subtree-p)
         (save-excursion (or (outline-next-heading) (point-max)))
       nil)))
+
+(setq org-default-priority ?B)
+(setq org-lowest-priority ?K)
+(setq org-highest-priority ?A)

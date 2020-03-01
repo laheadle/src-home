@@ -205,7 +205,10 @@ With a `C-u` ARG, just jump to the headline."
             (:name "A" :priority "A")
             (:name "B" :priority "B")
             (:name "DEADLINES" :deadline t)
-            (:name "C" :priority "C")))))
+            (:name "C" :priority "C")
+            (:name "D" :priority "D")
+            (:name "E" :priority "E")
+            (:name "F" :priority "F")))))
 
 (defvar l-dot-emacs (concat l-elisp-home "dot-emacs.org"))
 

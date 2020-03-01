@@ -3241,3 +3241,26 @@ Callers of this function already widen the buffer view."
         (save-excursion (or (outline-next-heading) (point-max)))
       nil)))
 #+end_src
+** New plan
+
+A: today
+B: This week
+C: This month
+D: This quarter
+E: This half-year
+F: This Year
+G: The next two years
+H: The next five years
+I: ten
+J: twenty
+K: life
+
+#+header: :tangle yes
+#+begin_src emacs-lisp
+
+(setq org-default-priority ?B)
+(setq org-lowest-priority ?K)
+(setq org-highest-priority ?A)
+
+#+end_src
+** 
