@@ -3264,4 +3264,10 @@ K: life
 (setq org-highest-priority ?A)
 
 #+end_src
-** 
+** Links
+
+#+begin_src emacs-lisp
+
+(setq org-return-follows-link t)
+
+#+end_src
