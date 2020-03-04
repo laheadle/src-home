@@ -613,3 +613,5 @@ Callers of this function already widen the buffer view."
 (setq org-default-priority ?B)
 (setq org-lowest-priority ?K)
 (setq org-highest-priority ?A)
+
+(setq org-return-follows-link t)
