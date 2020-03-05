@@ -125,7 +125,25 @@
                             (org-agenda-todo-ignore-with-date t)
                             (org-agenda-todo-ignore-scheduled t)
                             ))))
-              ("z" "Archivable"
+              ("zw" "This Week" 
+               ((tags-todo "/!+TODO|+NEXT"
+                           ((org-agenda-overriding-header "Week")
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-super-agenda-groups
+                             '((:name "This week" :priority ("A" "B"))
+                               (:discard (:anything t))))
+                            (org-agenda-todo-ignore-with-date t)
+                            (org-agenda-todo-ignore-scheduled t)))))
+              ("zm" "This Month" 
+               ((tags-todo "/!+TODO|+NEXT"
+                           ((org-agenda-overriding-header "Month")
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-super-agenda-groups
+                             '((:name "This month" :priority ("A" "B" "C"))
+                               (:discard (:anything t))))
+                            (org-agenda-todo-ignore-with-date t)
+                            (org-agenda-todo-ignore-scheduled t)))))
+              ("za" "Archivable"
                ((agenda "" nil)
                 (tags "-REFILE/"
                       ((org-agenda-overriding-header "Tasks to Archive")
