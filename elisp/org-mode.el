@@ -143,6 +143,15 @@
                                (:discard (:anything t))))
                             (org-agenda-todo-ignore-with-date t)
                             (org-agenda-todo-ignore-scheduled t)))))
+              ("zh" "This Half-year" 
+               ((tags-todo "/!+TODO|+NEXT"
+                           ((org-agenda-overriding-header "Half-Year")
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-super-agenda-groups
+                             '((:name "This half-year" :priority ("A" "B" "C" "D"))
+                               (:discard (:anything t))))
+                            (org-agenda-todo-ignore-with-date t)
+                            (org-agenda-todo-ignore-scheduled t)))))
               ("za" "Archivable"
                ((agenda "" nil)
                 (tags "-REFILE/"
