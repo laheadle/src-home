@@ -108,7 +108,8 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
 (defun l-work-goto-next-project-to-clean ()
   (interactive)
-  (om-parse-this-headline)
+  (let* ((headline (om-parse-this-headline))
+         (plain-list (om-match '(plain-list) headline)))
+    (list headline plain-list)))
 
-  ;; todo: look at the output, find the type symbol of the list elements, call om-match
-  )
+;; todo: this fails. maybe because the toplevel structure is ((headline (section .............. )))
