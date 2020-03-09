@@ -119,7 +119,7 @@
                 ))
               ("x" "Master Plan" 
                ((agenda "" nil)
-                (tags-todo "-DONE-CANCELLED/!"
+                (tags-todo "-DONE-CANCELLED-HOLD/!"
                            ((org-agenda-overriding-header "Master Plan")
                             (org-agenda-todo-ignore-deadlines t)
                             (org-agenda-todo-ignore-with-date t)
