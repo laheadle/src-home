@@ -305,11 +305,11 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
             (:name "A" :priority "A")
             (:name "B: This week" :priority "B")
             (:name "DEADLINES" :deadline t)
-            (:name "C: This month" :priority "C")
-            (:name "D: This quarter" :priority "D")
-            (:name "E: This half-year" :priority "E")
-            (:name "F: During 2020" :priority "F")
-            (:name "G: By end of 2021" :priority "G")
+            (:name "C: This month: March" :priority "C")
+            (:name "D: This quarter: Q1" :priority "D")
+            (:name "E: This half-year: Q3 2020" :priority "E")
+            (:name "F: Within a Year (Q1 2021)" :priority "F")
+            (:name "G: Within two Years (Q1 2022)" :priority "G")
             ))))
 #+END_SRC
 
