@@ -683,6 +683,16 @@ don't want to spend time waiting for it to be generated.
                             (org-agenda-todo-ignore-deadlines t)
                             (org-agenda-todo-ignore-with-date t)
                             (org-agenda-todo-ignore-scheduled t)
+                            (org-super-agenda-groups
+                             '((:todo "WAITING" :order 500)
+                               (:name "A" :priority "A" :order 300)
+                               (:name "B: This week" :priority "B" :order 400)
+                               (:name "C: This month: March" :priority "C" :order 700)
+                               (:name "D: This quarter: Q1" :priority "D" :order 800)
+                               (:name "E: This half-year: Q3 2020" :priority "E" :order 900)
+                               (:name "F: Within a Year (Q1 2021)" :priority "F" :order 1000)
+                               (:name "G: Within two Years (Q1 2022)" :priority "G" :order 1100)
+                               (:discard (:anything t))))
                             ))))
               ("zw" "This Week" 
                ((tags-todo "/!+TODO|+NEXT"

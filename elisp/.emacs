@@ -202,15 +202,7 @@ With a `C-u` ARG, just jump to the headline."
           '((:todo "WAITING" :order 500)
             (:name "STATUS" :order 100 :and (:habit t :regexp "status"))
             (:name "HABITS" :order 200 :habit t)
-            (:name "A" :priority "A" :order 300)
-            (:name "B: This week" :priority "B" :order 400)
-            (:name "DEADLINES" :deadline t :order 600)
-            (:name "C: This month: March" :priority "C" :order 700)
-            (:name "D: This quarter: Q1" :priority "D" :order 800)
-            (:name "E: This half-year: Q3 2020" :priority "E" :order 900)
-            (:name "F: Within a Year (Q1 2021)" :priority "F" :order 1000)
-            (:name "G: Within two Years (Q1 2022)" :priority "G" :order 1100)
-            (:discard (:anything t))))))
+            (:order 300 :anything t)))))
 
 (defvar l-dot-emacs (concat l-elisp-home "dot-emacs.org"))
 
