@@ -661,3 +661,11 @@ Callers of this function already widen the buffer view."
 (setq org-highest-priority ?A)
 
 (setq org-return-follows-link t)
+
+(defun l-org-save-all-org-buffers ()
+  "Save all Org buffers without user confirmation."
+  (interactive)
+  (save-some-buffers t (lambda () (derived-mode-p 'org-mode)))
+  (when (featurep 'org-id) (org-id-locations-save)))
+
+(run-with-timer 60 60 #'l-org-save-all-org-buffers)

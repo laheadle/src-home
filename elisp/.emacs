@@ -492,6 +492,7 @@ is already narrowed."
   (shell-command "backups.sh&"))
 
 (defvar one-hour (* 60 60))
+
 (run-with-timer one-hour (* 24 one-hour) 'l-backups)
 
 (ffap-bindings)

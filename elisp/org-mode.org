@@ -3318,3 +3318,16 @@ K: life
 (setq org-return-follows-link t)
 
 #+end_src
+** save buffers
+
+#+header: :tangle yes
+#+begin_src emacs-lisp
+
+(defun l-org-save-all-org-buffers ()
+  "Save all Org buffers without user confirmation."
+  (interactive)
+  (save-some-buffers t (lambda () (derived-mode-p 'org-mode)))
+  (when (featurep 'org-id) (org-id-locations-save)))
+
+(run-with-timer 60 60 #'l-org-save-all-org-buffers)
+#+end_src
