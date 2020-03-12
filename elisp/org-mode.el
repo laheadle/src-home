@@ -323,7 +323,7 @@ A prefix arg forces clock in of the default task."
               :gap-ok-around ("4:00"))))
 
 ; Set default column view headings: Task Effort Clock_Summary
-(setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
+(setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM{:}")
 
 ; global Effort estimate values
 ; global STYLE property values for completion
