@@ -857,17 +857,23 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
 #+end_src
 *** common work chores
-**** delete old directories
+**** delete old branches
 
 #+begin_src emacs-lisp
 
 (defun l-work-goto-next-project-to-clean ()
   (interactive)
   (let* ((headline (om-parse-this-headline))
-         (plain-list (om-match '(plain-list) headline)))
-    (list headline plain-list)))
+         ;; (match (om-match '(headline section plain-list) headline))
+         (match (om-match '(headline section) headline)))
+    match))
 
-;; todo: this fails. maybe because the toplevel structure is ((headline (section .............. )))
+(defun l-work-goto-next-project-to-clean-headline ()
+  (interactive)
+  (let* ((headline (om-parse-this-headline)))
+    headline))
+
+;; todo: keep querying. toplevel structure is (headline (section . . (plain-list ))
 #+end_src
 ** other
 #+BEGIN_SRC emacs-lisp
