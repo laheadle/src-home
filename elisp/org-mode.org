@@ -1378,7 +1378,7 @@ I set up column view globally with the following headlines
 #+header: :tangle yes
 #+begin_src emacs-lisp
 ; Set default column view headings: Task Effort Clock_Summary
-(setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM")
+(setq org-columns-default-format "%80ITEM(Task) %10Effort(Effort){:} %10CLOCKSUM{:}")
 #+end_src
 
 This makes column view show estimated task effort and clocked times
