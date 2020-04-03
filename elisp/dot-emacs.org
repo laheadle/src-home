@@ -1984,15 +1984,59 @@ boundaries of the current start and end tag , or nil."
 
 #+end_src
 
+| A | B | C |   |
+| A | B | C | D |
+
 #+begin_src emacs-lisp
 
 (graph-draw-tree '(("C" ("D"))))
 
+"
++---+
+| C |
++-+-+
+  |
+  +
+  |
++-+-+
+| D |
++---+
+"
+
 (graph-draw-tree '(("C" ("D") ("E"))))
+
+"
+   +---+
+   | C |
+   +-+-+
+     |
+  +--+--+
+  |     |
++-+-+ +-+-+
+| D | | E |
++---+ +---+
+"
 
 (graph-draw-tree '(("B"
                     ("C" ("D") ("E"))
                     ("F"))))
+"
+   +---+
+   | B |
+   +-+-+
+     |
+  +--+--+
+  |     |
++-+-+ +-+-+
+| C | | F |
++-+-+ +---+
+  |
+  +-----+
+  |     |
++-+-+ +-+-+
+| D | | E |
++---+ +---+
+"
 
 (graph-draw-tree '(("B"
                     ("C" ("D") ("E"))
