@@ -1975,6 +1975,74 @@ boundaries of the current start and end tag , or nil."
 (use-package vagrant-tramp)
 (use-package counsel-tramp)
 #+end_src
+* graphs
+
+#+begin_src emacs-lisp
+
+(add-to-list 'load-path (concat l-elisp-home "lib/graph.el"))
+(require 'graph)
+
+#+end_src
+
+#+begin_src emacs-lisp
+
+(graph-draw-tree '(("C" ("D"))))
+
+(graph-draw-tree '(("C" ("D") ("E"))))
+
+(graph-draw-tree '(("B"
+                    ("C" ("D") ("E"))
+                    ("F"))))
+
+(graph-draw-tree '(("B"
+                    ("C" ("D") ("E"))
+                    ("F")
+                    ("H"))))
+"
+      +---+
+      | B |
+      +-+-+
+        |
+  +-----+-----+
+  |     |     |
++-+-+ +-+-+ +-+-+
+| C | | F | | H |
++-+-+ +---+ +---+
+  |
+  +-----+
+  |     |
++-+-+ +-+-+
+| D | | E |
++---+ +---+
+"
+
+
+(graph-draw-tree '(("B"
+                    ("C"
+                     ("D") ("E"))
+                    ("F")
+                    ("G"
+                     ("H")
+                     ("I")))))
+
+"
+         +---+
+         | B |
+         +-+-+
+           |
+     +-----+-----+
+     |     |     |
+   +-+-+ +-+-+ +-+-+
+   | C | | F | | G |
+   +-+-+ +---+ +-+-+
+     |           |
+  +--+--+     +--+--+
+  |     |     |     |
++-+-+ +-+-+ +-+-+ +-+-+
+| D | | E | | H | | I |
++---+ +---+ +---+ +---+
+"
+#+end_src
 * hercules
 
 #+BEGIN_SRC emacs-lisp :tangle no
