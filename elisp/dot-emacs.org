@@ -1977,6 +1977,8 @@ boundaries of the current start and end tag , or nil."
 #+end_src
 * graphs
 
+
+
 #+begin_src emacs-lisp
 
 (add-to-list 'load-path (concat l-elisp-home "lib/graph.el"))
@@ -1984,109 +1986,6 @@ boundaries of the current start and end tag , or nil."
 
 #+end_src
 
-| A | B | C |   |
-| A | B | C | D |
-
-#+begin_src emacs-lisp
-
-(graph-draw-tree '(("C" ("D"))))
-
-"
-+---+
-| C |
-+-+-+
-  |
-  +
-  |
-+-+-+
-| D |
-+---+
-"
-
-(graph-draw-tree '(("C" ("D") ("E"))))
-
-"
-   +---+
-   | C |
-   +-+-+
-     |
-  +--+--+
-  |     |
-+-+-+ +-+-+
-| D | | E |
-+---+ +---+
-"
-
-(graph-draw-tree '(("B"
-                    ("C" ("D") ("E"))
-                    ("F"))))
-"
-   +---+
-   | B |
-   +-+-+
-     |
-  +--+--+
-  |     |
-+-+-+ +-+-+
-| C | | F |
-+-+-+ +---+
-  |
-  +-----+
-  |     |
-+-+-+ +-+-+
-| D | | E |
-+---+ +---+
-"
-
-(graph-draw-tree '(("B"
-                    ("C" ("D") ("E"))
-                    ("F")
-                    ("H"))))
-"
-      +---+
-      | B |
-      +-+-+
-        |
-  +-----+-----+
-  |     |     |
-+-+-+ +-+-+ +-+-+
-| C | | F | | H |
-+-+-+ +---+ +---+
-  |
-  +-----+
-  |     |
-+-+-+ +-+-+
-| D | | E |
-+---+ +---+
-"
-
-
-(graph-draw-tree '(("B"
-                    ("C"
-                     ("D") ("E"))
-                    ("F")
-                    ("G"
-                     ("H")
-                     ("I")))))
-
-"
-         +---+
-         | B |
-         +-+-+
-           |
-     +-----+-----+
-     |     |     |
-   +-+-+ +-+-+ +-+-+
-   | C | | F | | G |
-   +-+-+ +---+ +-+-+
-     |           |
-  +--+--+     +--+--+
-  |     |     |     |
-+-+-+ +-+-+ +-+-+ +-+-+
-| D | | E | | H | | I |
-+---+ +---+ +---+ +---+
-"
-#+end_src
 * hercules
 
 #+BEGIN_SRC emacs-lisp :tangle no
