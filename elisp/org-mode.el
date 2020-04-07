@@ -146,12 +146,9 @@
               ("zm" "This Month" 
                ((tags-todo "/!+TODO|+NEXT"
                            ((org-agenda-overriding-header "Month")
-                            (org-agenda-todo-ignore-deadlines t)
                             (org-super-agenda-groups
                              '((:name "This month" :priority ("A" "B" "C"))
-                               (:discard (:anything t))))
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-todo-ignore-scheduled t)))))
+                               (:discard (:anything t))))))))
               ("zq" "This Quarter" 
                ((tags-todo "/!+TODO|+NEXT"
                            ((org-agenda-overriding-header "Quarter")
