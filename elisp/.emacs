@@ -1043,63 +1043,6 @@ boundaries of the current start and end tag , or nil."
 (add-to-list 'load-path (concat l-elisp-home "lib/graph.el"))
 (require 'graph)
 
-(graph-draw-tree '(("C" ("D"))))
-
-(graph-draw-tree '(("C" ("D") ("E"))))
-
-(graph-draw-tree '(("B"
-                    ("C" ("D") ("E"))
-                    ("F"))))
-
-(graph-draw-tree '(("B"
-                    ("C" ("D") ("E"))
-                    ("F")
-                    ("H"))))
-"
-      +---+
-      | B |
-      +-+-+
-        |
-  +-----+-----+
-  |     |     |
-+-+-+ +-+-+ +-+-+
-| C | | F | | H |
-+-+-+ +---+ +---+
-  |
-  +-----+
-  |     |
-+-+-+ +-+-+
-| D | | E |
-+---+ +---+
-"
-
-
-(graph-draw-tree '(("B"
-                    ("C"
-                     ("D") ("E"))
-                    ("F")
-                    ("G"
-                     ("H")
-                     ("I")))))
-
-"
-         +---+
-         | B |
-         +-+-+
-           |
-     +-----+-----+
-     |     |     |
-   +-+-+ +-+-+ +-+-+
-   | C | | F | | G |
-   +-+-+ +---+ +-+-+
-     |           |
-  +--+--+     +--+--+
-  |     |     |     |
-+-+-+ +-+-+ +-+-+ +-+-+
-| D | | E | | H | | I |
-+---+ +---+ +---+ +---+
-"
-
 (defun l-remove-spaces-dashes ()
   (interactive)
   (query-replace "- " "" nil (point-min) (point-max)))

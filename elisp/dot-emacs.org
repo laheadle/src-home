@@ -832,15 +832,21 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-a
                             "~/Workspace/docs/org/work.org"
-			    (("w" . "Work")
-			     ("a" . "Avalon")
+			    (("a" . "Avalon")
 			     ("u" . "avui")
-			     ("h" . "avach")
+                             ("g" . "Glossary")
+                             ("h" . "avach")
 			     ("c" . "Career")
                              ("m" . "Meetings")
                              ("i" . "Misc-Work")
                              ("e" . "Events")
                              ("s" . "Sketchpad")
+                             ("w" . "Work")
+                             ))
+
+(josh/make-org-refile-hydra josh/org-refile-hydra-file-widgets
+                            "~/Workspace/docs/org/work.org"
+			    (("y" . "Table-Type-Entry")
                              ))
 
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-b
@@ -850,6 +856,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 (defhydra josh/org-refile-hydra (:foreign-keys run) 
   "Refile"
   ("w" josh/org-refile-hydra-file-a/body "Work" :exit t)
+  ("i" josh/org-refile-hydra-file-widgets/body "Widgets" :exit t)
   ("j" org-refile-goto-last-stored "Jump to last refile" :exit t)
   ("q" nil "cancel"))
 
@@ -1977,6 +1984,8 @@ boundaries of the current start and end tag , or nil."
 #+end_src
 * graphs
 
+
+
 #+begin_src emacs-lisp
 
 (add-to-list 'load-path (concat l-elisp-home "lib/graph.el"))
@@ -1984,65 +1993,6 @@ boundaries of the current start and end tag , or nil."
 
 #+end_src
 
-#+begin_src emacs-lisp
-
-(graph-draw-tree '(("C" ("D"))))
-
-(graph-draw-tree '(("C" ("D") ("E"))))
-
-(graph-draw-tree '(("B"
-                    ("C" ("D") ("E"))
-                    ("F"))))
-
-(graph-draw-tree '(("B"
-                    ("C" ("D") ("E"))
-                    ("F")
-                    ("H"))))
-"
-      +---+
-      | B |
-      +-+-+
-        |
-  +-----+-----+
-  |     |     |
-+-+-+ +-+-+ +-+-+
-| C | | F | | H |
-+-+-+ +---+ +---+
-  |
-  +-----+
-  |     |
-+-+-+ +-+-+
-| D | | E |
-+---+ +---+
-"
-
-
-(graph-draw-tree '(("B"
-                    ("C"
-                     ("D") ("E"))
-                    ("F")
-                    ("G"
-                     ("H")
-                     ("I")))))
-
-"
-         +---+
-         | B |
-         +-+-+
-           |
-     +-----+-----+
-     |     |     |
-   +-+-+ +-+-+ +-+-+
-   | C | | F | | G |
-   +-+-+ +---+ +-+-+
-     |           |
-  +--+--+     +--+--+
-  |     |     |     |
-+-+-+ +-+-+ +-+-+ +-+-+
-| D | | E | | H | | I |
-+---+ +---+ +---+ +---+
-"
-#+end_src
 * hercules
 
 #+BEGIN_SRC emacs-lisp :tangle no
