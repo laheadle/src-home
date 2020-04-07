@@ -1467,6 +1467,9 @@ directory to make multiple eshell windows easier."
                  (delete-file path t)))
              files)
           (revert-buffer))))))
+
+(eval-after-load 'vc-dir
+  '(define-key vc-dir-mode-map (kbd "k") 'my-vc-dir-delete-marked-files))
 #+end_src
 ** git
 *** pull requests - home and work

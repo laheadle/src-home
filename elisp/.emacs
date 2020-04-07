@@ -654,6 +654,9 @@ directory to make multiple eshell windows easier."
              files)
           (revert-buffer))))))
 
+(eval-after-load 'vc-dir
+  '(define-key vc-dir-mode-map (kbd "k") 'my-vc-dir-delete-marked-files))
+
 (use-package magit
   :init (setq magit-popup-use-prefix-argument nil
               magit-commit-show-diff nil
