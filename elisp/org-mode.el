@@ -154,7 +154,7 @@
                            ((org-agenda-overriding-header "Quarter")
                             (org-agenda-todo-ignore-deadlines t)
                             (org-super-agenda-groups
-                             '((:name "This half-year" :priority ("A" "B" "C" "D"))
+                             '((:name "This quarter" :priority ("A" "B" "C" "D"))
                                (:discard (:anything t))))
                             (org-agenda-todo-ignore-with-date t)
                             (org-agenda-todo-ignore-scheduled t)))))
