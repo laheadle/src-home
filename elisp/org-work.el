@@ -98,6 +98,8 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-widgets
                             "~/Workspace/docs/org/work.org"
 			    (("y" . "Table-Type-Entry")
+                             ("i" . "Widgets")
+                             ("c" . "Choose-Your-Path")
                              ))
 
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-b
