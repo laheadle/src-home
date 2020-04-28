@@ -93,6 +93,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                              ("e" . "Events")
                              ("s" . "Sketchpad")
                              ("w" . "Work")
+                             ("y" . "Sasysaw-MHE")
                              ))
 
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-widgets
