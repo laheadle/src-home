@@ -5,8 +5,7 @@
     
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
 
-(set-register ?w '(file . "~/Workspace/Sketchpad/Web"))
-(set-register ?t `(file . ,(l-getenv "tk")))
+(set-register ?v '(file . "/Users/lyn_headley/Workspace/acme/DLE-Acme-Vivarium/public/svn/sn_0dce"))
 (set-register ?g '(file . "/Users/lyn_headley/Workspace/glossary/g"))
 (set-register ?a '(file . "/Users/lyn_headley/Workspace/asset-registry/a"))
 (set-register ?f '(file . "/Users/lyn_headley/Workspace/docs/org/non-agenda/frontend.org"))
