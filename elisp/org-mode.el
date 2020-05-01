@@ -167,6 +167,24 @@
                                (:discard (:anything t))))
                             (org-agenda-todo-ignore-with-date t)
                             (org-agenda-todo-ignore-scheduled t)))))
+              ("zy" "This Year" 
+               ((tags-todo "/!+TODO|+NEXT"
+                           ((org-agenda-overriding-header "Year")
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-super-agenda-groups
+                             '((:name "This Year" :priority ("A" "B" "C" "D" "E" "F"))
+                               (:discard (:anything t))))
+                            (org-agenda-todo-ignore-with-date t)
+                            (org-agenda-todo-ignore-scheduled t)))))
+              ("zt" "The Next Two Years" 
+               ((tags-todo "/!+TODO|+NEXT"
+                           ((org-agenda-overriding-header "Two Years")
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-super-agenda-groups
+                             '((:name "The Next Two Years" :priority ("A" "B" "C" "D" "E" "F" "G"))
+                               (:discard (:anything t))))
+                            (org-agenda-todo-ignore-with-date t)
+                            (org-agenda-todo-ignore-scheduled t)))))
               ("za" "Archivable"
                ((agenda "" nil)
                 (tags "-REFILE/"
