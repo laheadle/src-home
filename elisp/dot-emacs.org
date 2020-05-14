@@ -470,6 +470,22 @@ I deleted the .git directory and pulled in the source code.
 (require 'om)
 
 #+end_src
+*** estimating and planning
+
+**** committed efforts
+
+#+begin_src emacs-lisp
+
+(fset 'l-update-efforts-subtree
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("q" 0 "%d")) arg)))
+
+(defun lsc ()
+  (interactive)
+  (l-update-efforts-subtree)
+  (org-entry-put (point) "COMMITTED_EFFORT" (org-entry-get (point) "EFFORT")))
+
+
+#+end_src
 * home
 :PROPERTIES:
 :header-args: :tangle home.el

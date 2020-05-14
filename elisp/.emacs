@@ -325,6 +325,14 @@ With a `C-u` ARG, just jump to the headline."
 (add-to-list 'load-path (concat l-elisp-home "lib/om.el"))
 (require 'om)
 
+(fset 'l-update-efforts-subtree
+   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("q" 0 "%d")) arg)))
+
+(defun lsc ()
+  (interactive)
+  (l-update-efforts-subtree)
+  (org-entry-put (point) "COMMITTED_EFFORT" (org-entry-get (point) "EFFORT")))
+
 (use-package company)
 
 (use-package helm-org-rifle
