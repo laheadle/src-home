@@ -1,0 +1,11 @@
+
+# key: st
+# --
+function $1() {
+  return {
+    id: '$1',
+    states: {
+      $0
+    }
+  };
+}

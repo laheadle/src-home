@@ -986,6 +986,9 @@ boundaries of the current start and end tag , or nil."
 (use-package yasnippet)
 (use-package yankpad)
 
+(setq yas-snippet-dirs (list (concat l-elisp-home "snippets")))
+(yas-global-mode 1)
+
 (use-package multiple-cursors
   :config
   (progn
