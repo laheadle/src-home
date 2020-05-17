@@ -1,0 +1,4 @@
+
+# key: atb
+# --
+      ${1:$(upcase yas-text)}: { target: '#$1' },

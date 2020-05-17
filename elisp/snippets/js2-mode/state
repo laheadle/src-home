@@ -1,7 +1,7 @@
 
 # key: st
 # --
-function $1() {
+export function $1() {
   return {
     id: '$1',
     states: {
