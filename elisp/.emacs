@@ -404,6 +404,13 @@ is already narrowed."
 ;; copy it if that's what you want.
 (define-key ctl-x-map "n" #'narrow-or-widen-dwim)
 
+;; acme css indent with tabs
+
+(defun l-indent-with-tabs ()
+  (interactive)
+  (setq-local css-indent-offset 4)
+  (setq-local indent-tabs-mode t))
+
 (defun l-set-tab-width ()
   (setq tab-width (if (eq major-mode 'emacs-lisp-mode) 8 4)))
 (add-hook 'emacs-lisp-mode-hook 'l-set-tab-width)

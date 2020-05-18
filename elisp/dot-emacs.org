@@ -1135,6 +1135,16 @@ is already narrowed."
 
 * tabs/indentation
 
+#+begin_src emacs-lisp
+
+;; acme css indent with tabs
+
+(defun l-indent-with-tabs ()
+  (interactive)
+  (setq-local css-indent-offset 4)
+  (setq-local indent-tabs-mode t))
+#+end_src
+
 #+BEGIN_SRC emacs-lisp
 (defun l-set-tab-width ()
   (setq tab-width (if (eq major-mode 'emacs-lisp-mode) 8 4)))
