@@ -4,8 +4,7 @@
 export function $1() {
   return {
     id: '$1',
-    states: {
-      $0
+    states: {$0
     }
   };
 }
