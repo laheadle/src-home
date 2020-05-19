@@ -1391,9 +1391,9 @@ I use =properties= and =column view= to do project estimates.
 I set up column view globally with the following headlines
 #+header: :tangle yes
 #+begin_src emacs-lisp
-; Set default column view headings: Task Effort Clock_Summary
+; Set default column view headings
 (setq org-columns-default-format
-      "%80ITEM(Task) %10committed_effort(Commit) %10EFFORT(Effort){:} %10CLOCKSUM{:}")
+      "%65ITEM(Task) %5PRIORITY(PR) %10committed_effort(Commit) %10EFFORT(Effort){:} %10CLOCKSUM{:}")
 #+end_src
 
 This makes column view show estimated task effort and clocked times
