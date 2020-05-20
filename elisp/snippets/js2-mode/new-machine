@@ -21,7 +21,7 @@ export function $1() {
     id: '$1',
     initial: ${1:$(concat "init_" yas-text)},    
     states: {
-     ${1:$(concat "init_" yas-text)}: ${1:$(concat "init_" yas-text)}()
+     ${1:$(concat "init_" yas-text)}: ${1:$(concat "init_" yas-text)}(),
     }
   };
 }
