@@ -134,6 +134,37 @@
                                (:name "F: This Year 2020" :priority "F" :order 1000)
                                (:name "G: These two Years: 2020+2021" :priority "G" :order 1100)
                                (:discard (:anything t))))))))
+              ("zx" "Master Plan 2" 
+               ((agenda "" nil)
+                (tags-todo "/!+TODO|+NEXT"
+                           ((org-agenda-overriding-header "Week")
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-super-agenda-groups
+                             '((:name "This week" :priority ("B"))
+                               (:discard (:anything t))))
+                            (org-agenda-todo-ignore-with-date t)
+                            (org-agenda-todo-ignore-scheduled t)))
+                (tags-todo "/!+TODO|+NEXT"
+                           ((org-agenda-overriding-header "Month")
+                            (org-super-agenda-groups
+                             '((:name "This month" :priority ("C"))
+                               (:discard (:anything t))))))
+                (tags-todo "/!+TODO|+NEXT"
+                           ((org-agenda-overriding-header "Quarter")
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-super-agenda-groups
+                             '((:name "This quarter" :priority ("D"))
+                               (:discard (:anything t))))
+                            (org-agenda-todo-ignore-with-date t)
+                            (org-agenda-todo-ignore-scheduled t)))
+                (tags-todo "/!+TODO|+NEXT"
+                           ((org-agenda-overriding-header "Half-Year")
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-super-agenda-groups
+                             '((:name "This half-year" :priority ("E"))
+                               (:discard (:anything t))))
+                            (org-agenda-todo-ignore-with-date t)
+                            (org-agenda-todo-ignore-scheduled t)))))
               ("zw" "This Week" 
                ((tags-todo "/!+TODO|+NEXT"
                            ((org-agenda-overriding-header "Week")
