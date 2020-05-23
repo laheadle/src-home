@@ -333,6 +333,20 @@ With a `C-u` ARG, just jump to the headline."
   (l-update-efforts-subtree)
   (org-entry-put (point) "COMMITTED_EFFORT" (org-entry-get (point) "EFFORT")))
 
+(use-package org-roam
+      :hook
+      (after-init . org-roam-mode)
+      :custom
+      (org-roam-directory (concat org-directory "/roam"))
+      :bind (:map org-roam-mode-map
+              (("C-c n l" . org-roam)
+               ("C-c n f" . org-roam-find-file)
+               ("C-c n j" . org-roam-jump-to-index)
+               ("C-c n b" . org-roam-switch-to-buffer)
+               ("C-c n g" . org-roam-graph))
+              :map org-mode-map
+              (("C-c n i" . org-roam-insert))))
+
 (use-package company)
 
 (use-package helm-org-rifle
