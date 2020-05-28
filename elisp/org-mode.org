@@ -3262,7 +3262,8 @@ around arbitrarily in my org files and the link to it still works.
 
 #+header: :tangle yes
 #+begin_src emacs-lisp
-(setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+;; (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+(setq org-id-link-to-org-use-id nil)
 #+end_src
 * Added by Lyn
 [2017-06-05 Mon 09:39]

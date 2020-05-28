@@ -646,7 +646,8 @@ A prefix arg forces clock in of the default task."
 (setq org-time-clocksum-format
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t))
 
-(setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+;; (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+(setq org-id-link-to-org-use-id nil)
 
 (add-hook 'org-agenda-finalize-hook 'delete-other-windows)
 
