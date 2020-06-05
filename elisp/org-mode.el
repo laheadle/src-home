@@ -164,6 +164,22 @@
                              '((:name "This half-year" :priority ("E"))
                                (:discard (:anything t))))
                             (org-agenda-todo-ignore-with-date t)
+                            (org-agenda-todo-ignore-scheduled t)))
+                (tags-todo "/!+TODO|+NEXT"
+                           ((org-agenda-overriding-header "Year")
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-super-agenda-groups
+                             '((:name "This year" :priority ("F"))
+                               (:discard (:anything t))))
+                            (org-agenda-todo-ignore-with-date t)
+                            (org-agenda-todo-ignore-scheduled t)))
+                (tags-todo "/!+TODO|+NEXT"
+                           ((org-agenda-overriding-header "Year")
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-super-agenda-groups
+                             '((:name "These two years" :priority ("G"))
+                               (:discard (:anything t))))
+                            (org-agenda-todo-ignore-with-date t)
                             (org-agenda-todo-ignore-scheduled t)))))
               ("zw" "This Week" 
                ((tags-todo "/!+TODO|+NEXT"
