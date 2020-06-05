@@ -687,7 +687,7 @@ don't want to spend time waiting for it to be generated.
                              '((:todo "WAITING" :order 500)
                                (:name "A" :priority "A" :order 300)
                                (:name "B: This week" :priority "B" :order 400)
-                               (:name "C: This month: April" :priority "C" :order 700)
+                               (:name "C: This month: June" :priority "C" :order 700)
                                (:name "D: This quarter: Q2 2020" :priority "D" :order 800)
                                (:name "E: This half-year: Q1+Q2 2020" :priority "E" :order 900)
                                (:name "F: This Year 2020" :priority "F" :order 1000)
