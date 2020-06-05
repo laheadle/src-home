@@ -369,7 +369,7 @@ A prefix arg forces clock in of the default task."
 
 ; Set default column view headings
 (setq org-columns-default-format
-      "%65ITEM(Task) %5PRIORITY(PR) %10committed_effort(Commit) %10EFFORT(Effort){:} %10CLOCKSUM{:}")
+      "%65ITEM(Task) %5PRIORITY(PR) %10committed_effort(Commit){:} %10EFFORT(Effort){:} %10CLOCKSUM{:}")
 
 ; global Effort estimate values
 ; global STYLE property values for completion
