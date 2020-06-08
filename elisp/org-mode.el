@@ -128,7 +128,7 @@
                              '((:todo "WAITING" :order 500)
                                (:name "A" :priority "A" :order 300)
                                (:name "B: This week" :priority "B" :order 400)
-                               (:name "C: This month: April" :priority "C" :order 700)
+                               (:name "C: This month: June" :priority "C" :order 700)
                                (:name "D: This quarter: Q2 2020" :priority "D" :order 800)
                                (:name "E: This half-year: Q1+Q2 2020" :priority "E" :order 900)
                                (:name "F: This Year 2020" :priority "F" :order 1000)
@@ -162,6 +162,22 @@
                             (org-agenda-todo-ignore-deadlines t)
                             (org-super-agenda-groups
                              '((:name "This half-year" :priority ("E"))
+                               (:discard (:anything t))))
+                            (org-agenda-todo-ignore-with-date t)
+                            (org-agenda-todo-ignore-scheduled t)))
+                (tags-todo "/!+TODO|+NEXT"
+                           ((org-agenda-overriding-header "Year")
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-super-agenda-groups
+                             '((:name "This year" :priority ("F"))
+                               (:discard (:anything t))))
+                            (org-agenda-todo-ignore-with-date t)
+                            (org-agenda-todo-ignore-scheduled t)))
+                (tags-todo "/!+TODO|+NEXT"
+                           ((org-agenda-overriding-header "Year")
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-super-agenda-groups
+                             '((:name "These two years" :priority ("G"))
                                (:discard (:anything t))))
                             (org-agenda-todo-ignore-with-date t)
                             (org-agenda-todo-ignore-scheduled t)))))
@@ -646,7 +662,8 @@ A prefix arg forces clock in of the default task."
 (setq org-time-clocksum-format
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t))
 
-(setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+;; (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+(setq org-id-link-to-org-use-id nil)
 
 (add-hook 'org-agenda-finalize-hook 'delete-other-windows)
 
