@@ -1624,6 +1624,11 @@ directory to make multiple eshell windows easier."
   :config (global-git-gutter-mode +1))
 
 #+end_src
+*** jump-to-repo-and-show-branches
+#+begin_src emacs-lisp
+(fset 'l-jump-to-repo-and-show-branches
+   [?\C-e ?\C-a ?\C-  ?\C-e ?\M-w ?\C-u ?\C-c ?\C-w ?  ?\C-y return ?\C-. ?f ?a ?y])
+#+end_src
 * TODO languages
 ** HTML
 #+BEGIN_SRC emacs-lisp
@@ -2084,6 +2089,10 @@ boundaries of the current start and end tag , or nil."
 
 (require 'dired+)
 
+#+end_src
+* docker
+#+begin_src emacs-lisp
+(use-package docker-tramp)
 #+end_src
 * bookmarks
 
