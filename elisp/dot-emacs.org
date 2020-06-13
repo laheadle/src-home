@@ -543,7 +543,7 @@ I deleted the .git directory and pulled in the source code.
 (defun +org-notes-buffer-p ()
   "Return non-nil if the currently visited buffer is a note."
   (and buffer-file-name
-       (string-equal (file-name-as-directory org-roam-directory)
+       (string-equal (expand-file-name (file-name-as-directory org-roam-directory))
                      (file-name-directory buffer-file-name))))
 
 (defun +seq-flatten (list-of-lists)

@@ -387,7 +387,7 @@ With a `C-u` ARG, just jump to the headline."
 (defun +org-notes-buffer-p ()
   "Return non-nil if the currently visited buffer is a note."
   (and buffer-file-name
-       (string-equal (file-name-as-directory org-roam-directory)
+       (string-equal (expand-file-name (file-name-as-directory org-roam-directory))
                      (file-name-directory buffer-file-name))))
 
 (defun +seq-flatten (list-of-lists)
