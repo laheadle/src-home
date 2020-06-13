@@ -804,6 +804,9 @@ directory to make multiple eshell windows easier."
 (use-package git-gutter
   :config (global-git-gutter-mode +1))
 
+(fset 'l-jump-to-repo-and-show-branches
+   [?\C-e ?\C-a ?\C-  ?\C-e ?\M-w ?\C-u ?\C-c ?\C-w ?  ?\C-y return ?\C-. ?f ?a ?y])
+
 (use-package emmet-mode
   :init
   (progn
@@ -1189,6 +1192,8 @@ boundaries of the current start and end tag , or nil."
   (setq org-src-fontify-natively t))
 
 (require 'dired+)
+
+(use-package docker-tramp)
 
 (add-to-list 'load-path (concat l-elisp-home "lib/bookmark+"))
 (require 'bookmark+)
