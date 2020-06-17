@@ -466,12 +466,20 @@ it can be passed in POS."
 (add-hook 'before-save-hook #'zp/org-set-last-modified)
 
 (setq org-roam-capture-templates
-        '(("d" "default" plain
+        '(("l" "lit" plain
            (function org-roam-capture--get-point)
            "%?"
-           :file-name "%<%Y%m%d%H%M%S>-${slug}"
+           :file-name "lit/%<%Y%m%d%H%M%S>-${slug}"
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n\n"
+           :unnarrowed t)
+          ("p" "perm" plain
+           (function org-roam-capture--get-point)
+           "%?"
+           :file-name "perm/%<%Y%m%d%H%M%S>-${slug}"
            :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n\n"
            :unnarrowed t)))
+
+(setq org-roam-tag-sources '(prop all-directories))
 
 (use-package company)
 
