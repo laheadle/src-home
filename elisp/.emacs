@@ -1148,6 +1148,7 @@ boundaries of the current start and end tag , or nil."
   (interactive)
   (org-publish-project (quote (#("darwin" 0 1 (idx 2)) :components ("darwin-docs" "darwin-imgs"))) nil))
 
+(defalias 'tf 'tide-fix)
 (defalias 'jpp 'json-pretty-print)
 (defalias 'lcka 'lh-copy-to-kill-ring--avalon-proj1)
 (defalias 'lckg 'lh-copy-to-kill-ring--graphiql)
