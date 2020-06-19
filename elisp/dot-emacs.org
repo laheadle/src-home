@@ -503,6 +503,140 @@ I deleted the .git directory and pulled in the source code.
               :map org-mode-map
               (("C-c n i" . org-roam-insert))))
 
+(defun +org-notes-tags-read ()
+  "Return list of tags as set in the buffer."
+  (org-roam--extract-tags-prop (buffer-file-name (buffer-base-buffer))))
+
+(defun +org-notes-tags-delete ()
+  "Delete a tag from current note."
+  (interactive)
+  (unless (+org-notes-buffer-p)
+    (user-error "Current buffer is not a note"))
+  (let* ((tags (+org-notes-tags-read))
+         (tag (completing-read "Tag: " tags nil 'require-match)))
+    (+org-buffer-prop-set
+     "ROAM_TAGS"
+     (combine-and-quote-strings (delete tag tags)))
+    (org-roam-db--update-tags)))
+
+(defalias 'otd '+org-notes-tags-delete)
+
+(defun +org-notes-tags-add ()
+  "Add a tag to current note."
+  (interactive)
+  (unless (+org-notes-buffer-p)
+    (user-error "Current buffer is not a note"))
+  (let* ((tags (seq-uniq
+                (+seq-flatten
+                 (+seq-flatten
+                  (org-roam-db-query [:select tags :from tags])))))
+         (tag (completing-read "Tag: " tags)))
+    (when (string-empty-p tag)
+      (user-error "Tag can't be empty"))
+    (+org-buffer-prop-set
+     "ROAM_TAGS"
+     (combine-and-quote-strings (seq-uniq (cons tag (+org-notes-tags-read)))))
+    (org-roam-db--update-tags)))
+
+(defalias 'ota '+org-notes-tags-add)
+
+(defun +org-notes-buffer-p ()
+  "Return non-nil if the currently visited buffer is a note."
+  (and buffer-file-name
+       (string-equal (expand-file-name (file-name-as-directory org-roam-directory))
+                     (file-name-directory buffer-file-name))))
+
+(defun +seq-flatten (list-of-lists)
+  "Flatten LIST-OF-LISTS."
+  (apply #'append list-of-lists))
+
+(defun +org-buffer-prop-set (name value)
+  "Set a buffer property called NAME to VALUE."
+  (save-excursion
+    (widen)
+    (goto-char (point-min))
+    (if (re-search-forward (concat "^#\\+" name ": \\(.*\\)") (point-max) t)
+        (replace-match (concat "#+" name ": " value))
+      ;; find the first line that doesn't begin with ':' or '#'
+      (let ((found))
+        (while (not (or found (eobp)))
+          (beginning-of-line)
+          (if (or (looking-at "^#")
+                  (looking-at "^:"))
+              (line-move 1 t)
+            (setq found t)))
+        (insert "#+" name ": " value "\n")))))
+
+
+  ;;--------------------------
+  ;; Handling file properties for ‘CREATED’ & ‘LAST_MODIFIED’
+  ;;--------------------------
+
+  (defun zp/org-find-time-file-property (property &optional anywhere)
+    "Return the position of the time file PROPERTY if it exists.
+When ANYWHERE is non-nil, search beyond the preamble."
+    (save-excursion
+      (goto-char (point-min))
+      (let ((first-heading
+             (save-excursion
+               (re-search-forward org-outline-regexp-bol nil t))))
+        (when (re-search-forward (format "^#\\+%s:" property)
+                                 (if anywhere nil first-heading)
+                                 t)
+          (point)))))
+
+  (defun zp/org-has-time-file-property-p (property &optional anywhere)
+    "Return the position of time file PROPERTY if it is defined.
+As a special case, return -1 if the time file PROPERTY exists but
+is not defined."
+    (when-let ((pos (zp/org-find-time-file-property property anywhere)))
+      (save-excursion
+        (goto-char pos)
+        (if (and (looking-at-p " ")
+                 (progn (forward-char)
+                        (org-at-timestamp-p 'lax)))
+            pos
+          -1))))
+
+  (defun zp/org-set-time-file-property (property &optional anywhere pos)
+    "Set the time file PROPERTY in the preamble.
+When ANYWHERE is non-nil, search beyond the preamble.
+If the position of the file PROPERTY has already been computed,
+it can be passed in POS."
+    (when-let ((pos (or pos
+                        (zp/org-find-time-file-property property))))
+      (save-excursion
+        (goto-char pos)
+        (if (looking-at-p " ")
+            (forward-char)
+          (insert " "))
+        (delete-region (point) (line-end-position))
+        (let* ((now (format-time-string "[%Y-%m-%d %a %H:%M]")))
+          (insert now)))))
+
+  (defun zp/org-set-last-modified ()
+    "Update the LAST_MODIFIED file property in the preamble."
+    (when (derived-mode-p 'org-mode)
+      (zp/org-set-time-file-property "LAST_MODIFIED")))
+
+(add-hook 'before-save-hook #'zp/org-set-last-modified)
+
+(setq org-roam-capture-templates
+        '(("l" "lit" plain
+           (function org-roam-capture--get-point)
+           "%?"
+           :file-name "lit/%<%Y%m%d%H%M%S>-${slug}"
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n\n"
+           :unnarrowed t)
+          ("p" "perm" plain
+           (function org-roam-capture--get-point)
+           "%?"
+           :file-name "perm/%<%Y%m%d%H%M%S>-${slug}"
+           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n\n"
+           :unnarrowed t)))
+
+(setq org-roam-tag-sources '(prop all-directories))
+
 #+end_src
 * home
 :PROPERTIES:
