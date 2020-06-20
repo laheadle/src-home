@@ -1333,69 +1333,11 @@ report to exactly the tags that people are interested in.
 
 * Tags
 :PROPERTIES:
-:CUSTOM_ID: Tags
-:END:
-
-Tasks can have any number of arbitrary tags.  Tags are used for:
-
-- filtering todo lists and agenda views
-- providing context for tasks
-- tagging notes
-- tagging phone calls
-- tagging meetings
-- tagging tasks to be refiled
-- tagging tasks in a WAITING state because a parent task is WAITING
-- tagging cancelled tasks because a parent task is CANCELLED
-- preventing export of some subtrees when publishing
-
-I use tags mostly for filtering in the agenda.  This means you can
-find tasks with a specific tag easily across your large number of
-org-mode files.
-
-Some tags are mutually exclusive.  These are defined in a group so
-that only one of the tags can be applied to a task at a time
-(disregarding tag inheritance).  I use these types for tags for
-applying context to a task.  (Work tasks have an =@office= tag, and
-are done at the office, Farm tasks have an =@farm= tag and are done at
-the farm -- I can't change the oil on the tractor if I'm not at the
-farm... so I hide these and other tasks by filtering my agenda view to
-only =@office= tasks when I'm at the office.)
-
-Tasks are grouped together in org-files and a =#+FILETAGS:= entry
-applies a tag to all tasks in the file.  I use this to apply a tag to
-all tasks in the file.  My norang.org file creates a NORANG file tag
-so I can filter tasks in the agenda in the norang.org file easily.
-** Tags
-:PROPERTIES:
 :CUSTOM_ID: OrgTagAlist
 :END:
 
-Here are my tag definitions with associated keys for filtering in the
-agenda views.
-
-The startgroup - endgroup (=@XXX=) tags are mutually exclusive -
-selecting one removes a similar tag already on the task.  These are
-the context tags - you can't be in two places at once so if a task is
-marked with @farm and you add @office then the @farm tag is removed
-automagically.
-
-The other tags =WAITING= .. =FLAGGED= are not mutually exclusive and
-multiple tags can appear on a single task.  Some of those tags are
-created by todo state change triggers.  The shortcut key is used to
-add or remove the tag using =C-c C-q= or to apply the task for
-filtering on the agenda.
-
-I have both =FARM= and =@farm= tags.  =FARM= is set by a =FILETAGS=
-entry and just gives me a way to filter anything farm related.  The
-=@farm= tag signifies that the task as to be done /at the farm/.  If I
-have to call someone about something that would have a =FARM= tag but
-I can do that at home on my lunch break.  I don't physically have to
-be at the farm to make the call.
-
 #+header: :tangle yes
 #+begin_src emacs-lisp
-; Tags with fast selection keys
-; Tags with fast selection keys
 
 ; Not an expert
 (setq org-fast-tag-selection-single-key nil);(quote expert))
@@ -1403,66 +1345,6 @@ be at the farm to make the call.
 ; For tag searches ignore tasks with scheduled and deadline dates
 (setq org-agenda-tags-todo-honor-ignore-options t)
 #+end_src
-** Filetags
-:PROPERTIES:
-:CUSTOM_ID: FileTags
-:END:
-
-Filetags are a convenient way to apply one or more tags to all of the
-headings in a file.
-
-Filetags look like this:
-
-#+begin_src org :exports src
-,#+FILETAGS: NORANG @office
-#+end_src
-
-I have the following =#+FILETAGS:= entries in my org-mode files:
-*** Non-work related org-mode files
-:PROPERTIES:
-:CUSTOM_ID: TaggingNonWorkFiles
-:END:
-
-| File         | Tags                  |
-|--------------+-----------------------|
-| todo.org     | PERSONAL              |
-| gsoc2009.org | GSOC PERSONAL         |
-| git.org      | GIT WORK              |
-| org.org      | ORG WORK              |
-| mark.org     | MARK PERSONAL         |
-| farm.org     | FARM PERSONAL         |
-*** Work related org-mode files
-:PROPERTIES:
-:CUSTOM_ID: TaggingWorkFiles
-:END:
-
-| File        | Tags            |
-|-------------+-----------------|
-| norang.org  | NORANG @office  |
-| ABC.org     | ABC @office     |
-| XYZ.org     | XYZ @office     |
-| ABC-DEF.org | ABC DEF @office |
-| ABC-KKK.org | ABC KKK @office |
-| YYY.org     | YYY @office     |
-*** Refile tasks
-:PROPERTIES:
-:CUSTOM_ID: RefileTasks
-:END:
-
-| File       | Tags         |
-|------------+--------------|
-| refile.org | REFILE       |
-|------------+--------------|
-** State Trigger Tags
-:PROPERTIES:
-:CUSTOM_ID: StateTriggerTags
-:END:
-
-The following tags are automatically added or removed by todo state
-triggers described previously in [[#ToDoStateTriggers][ToDo state triggers]]
-
-- =WAITING=
-- =CANCELLED=
 * Handling Notes
 :PROPERTIES:
 :CUSTOM_ID: HandlingNotes
