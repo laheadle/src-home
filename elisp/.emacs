@@ -465,19 +465,25 @@ it can be passed in POS."
 
 (add-hook 'before-save-hook #'zp/org-set-last-modified)
 
+(defun l-turn-on-visual-line-mode ()
+  (when (org-roam--org-roam-file-p)
+    (visual-line-mode 1)))
+
+(add-hook 'find-file-hook #'l-turn-on-visual-line-mode)
+
 (setq org-roam-capture-templates
-        '(("l" "lit" plain
-           (function org-roam-capture--get-point)
-           "%?"
-           :file-name "lit/%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n\n"
-           :unnarrowed t)
-          ("p" "perm" plain
-           (function org-roam-capture--get-point)
-           "%?"
-           :file-name "perm/%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n\n"
-           :unnarrowed t)))
+      '(("l" "lit" plain
+         (function org-roam-capture--get-point)
+         "%?"
+         :file-name "lit/%<%Y%m%d%H%M%S>-${slug}"
+         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n\n"
+         :unnarrowed t)
+        ("p" "perm" plain
+         (function org-roam-capture--get-point)
+         "%?"
+         :file-name "perm/%<%Y%m%d%H%M%S>-${slug}"
+         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n\n"
+         :unnarrowed t)))
 
 (setq org-roam-tag-sources '(prop all-directories))
 
@@ -1282,6 +1288,7 @@ boundaries of the current start and end tag , or nil."
   (interactive)
   (org-publish-project (quote (#("darwin" 0 1 (idx 2)) :components ("darwin-docs" "darwin-imgs"))) nil))
 
+(defalias 'hw 'hydra-windows-nav/body)
 (defalias 'tf 'tide-fix)
 (defalias 'jpp 'json-pretty-print)
 (defalias 'lcka 'lh-copy-to-kill-ring--avalon-proj1)
