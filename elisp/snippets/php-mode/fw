@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: fw
+# key: fw
+# --
+\fwrite(STDERR, \sprintf('$1:%s\n', print_r($1, true)));
