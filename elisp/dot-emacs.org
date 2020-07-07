@@ -954,7 +954,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                       (:endgrouptag)))
 
 
-(setq org-directory "~/Workspace/docs/org")
+(setq org-directory (expand-file-name "~/Workspace/docs/org"))
 (setq org-default-notes-file "~/Workspace/docs/org/refile.org")
 #+END_SRC
 *** capture

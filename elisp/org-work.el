@@ -38,7 +38,7 @@
                       (:endgrouptag)))
 
 
-(setq org-directory "~/Workspace/docs/org")
+(setq org-directory (expand-file-name "~/Workspace/docs/org"))
 (setq org-default-notes-file "~/Workspace/docs/org/refile.org")
 
 ;; Capture templates

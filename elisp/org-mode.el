@@ -128,9 +128,9 @@
                              '((:todo "WAITING" :order 500)
                                (:name "A" :priority "A" :order 300)
                                (:name "B: This week" :priority "B" :order 400)
-                               (:name "C: This month: June" :priority "C" :order 700)
-                               (:name "D: This quarter: Q2 2020" :priority "D" :order 800)
-                               (:name "E: This half-year: Q1+Q2 2020" :priority "E" :order 900)
+                               (:name "C: This month: July" :priority "C" :order 700)
+                               (:name "D: This quarter: Q3 2020" :priority "D" :order 800)
+                               (:name "E: This half-year: Q3+Q4 2020" :priority "E" :order 900)
                                (:name "F: This Year 2020" :priority "F" :order 1000)
                                (:name "G: These two Years: 2020+2021" :priority "G" :order 1100)
                                (:discard (:anything t))))))))
@@ -394,9 +394,6 @@ A prefix arg forces clock in of the default task."
 
 ;; Agenda log mode items to display (closed and state changes by default)
 (setq org-agenda-log-mode-items (quote (closed)))
-
-; Tags with fast selection keys
-; Tags with fast selection keys
 
 ; Not an expert
 (setq org-fast-tag-selection-single-key nil);(quote expert))
