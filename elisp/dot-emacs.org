@@ -2028,7 +2028,7 @@ boundaries of the current start and end tag , or nil."
                         nsuffix)))
     (find-file nfile)))
 
-(bind-key "C-x x" 'l-switch-to-partner-file global-map)
+(bind-key "C-x d" 'l-switch-to-partner-file global-map)
 
 (use-package tide
   :init (progn
