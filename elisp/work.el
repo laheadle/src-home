@@ -70,6 +70,8 @@ jj-Title
 
 ;; run saved macro: narrow, replace
 
+(use-package transient)
+
 (set-register ?d '(file . "/lheadley@dn.kcptech.com:/home/lheadley"))
 
 (defun endless/visit-pull-request-url ()

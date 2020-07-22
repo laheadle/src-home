@@ -1148,6 +1148,10 @@ jj-Title
 ;; run saved macro: narrow, replace
 
 #+end_src
+** transient
+#+begin_src emacs-lisp
+(use-package transient)
+#+end_src
 * completion
 ** company
 #+BEGIN_SRC emacs-lisp
