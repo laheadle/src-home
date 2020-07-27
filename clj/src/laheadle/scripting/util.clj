@@ -58,3 +58,5 @@
 
 (defn as-lines [long-str]
   (str/split long-str #"\r?\n"))
+
+(defn sleep [n] (Thread/sleep n))
