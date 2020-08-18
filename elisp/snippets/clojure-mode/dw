@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: dw
+# key: dw
+# --
+(defwrapped $1 [$2]
+  {:pre [($3)]}
+  $0)

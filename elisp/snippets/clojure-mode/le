@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: le
+# key: le
+# --
+(let [$1]
+ $0)
