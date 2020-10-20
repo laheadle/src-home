@@ -1059,6 +1059,27 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
 ;; todo: keep querying. toplevel structure is (headline (section . . (plain-list ))
 #+end_src
+**** insert new link to note based on jira task
+#+begin_src emacs-lisp
+
+(eval-when-compile (require 'cl-lib))
+
+(defun l-om-link-text (link)
+  (cl-assert (listp link))
+  (car (om-get-children link)))
+
+(defun l-get-jira-title ()
+  (-as-> (om-parse-this-headline) $
+                       (om-get-property :title $)
+                       (list (l-om-link-text (car $))
+                             (cadr $))))
+
+(defun l-insert-jira-title ()
+  (interactive)
+  (pcase-let ((`(,jira-item ,title) (l-get-jira-title)))
+    (insert (concat jira-item " " title "\nnotes"))))
+
+#+end_src
 ** other
 #+BEGIN_SRC emacs-lisp
 (defun l-getenv (var)
