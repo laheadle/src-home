@@ -2,4 +2,4 @@
 # name: fw
 # key: fw
 # --
-\fwrite(STDERR, \sprintf('$1:%s\n', print_r($1, true)));
+\fwrite(\fopen('php://stderr', 'wb'), \sprintf('$1:%s' . "\n", \print_r($1, true)));

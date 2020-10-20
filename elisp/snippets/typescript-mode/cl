@@ -1,4 +1,4 @@
 # -*- mode: snippet -*-
 # key: cl
 # --
-console.log('$1',$1);
+(console as any).log('$1',$1);

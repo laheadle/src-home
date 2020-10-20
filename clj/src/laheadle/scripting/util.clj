@@ -18,7 +18,7 @@
   (not (str/blank? s)))
 
 (defn run-and-then [command and-then]
-  (pray "run-and-then" command (vec command))
+  (pray "run-and-then" (vec command) (vec command))
   (let [{:keys [:exit :err :out]} (apply shell/sh command)]
     (if (zero? exit)
       (do (when (and err (str-exists? err)) (println err))
