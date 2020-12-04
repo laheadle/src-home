@@ -1179,7 +1179,21 @@ jj-Title
 (use-package company)
 #+END_SRC
 
-* Helm
+* Finding and Searching
+
+** Deft
+
+#+begin_src emacs-lisp
+(use-package deft
+  :bind
+  ("C-c r d" . deft)
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory org-roam-directory))
+#+end_src
+** Helm
 
 #+BEGIN_SRC emacs-lisp :tangle no
 
@@ -1234,13 +1248,11 @@ jj-Title
   :init (helm-descbinds-mode))
 
 #+END_SRC
-** byte compiling packages
+*** byte compiling packages
 
 #+BEGIN_SRC emacs-lisp :tangle no
 (setq async-bytecomp-allowed-packages '(all))
 #+END_SRC
-
-
 * toggling
 
 #+begin_src emacs-lisp

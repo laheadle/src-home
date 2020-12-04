@@ -489,6 +489,15 @@ it can be passed in POS."
 
 (use-package company)
 
+(use-package deft
+  :bind
+  ("C-c r d" . deft)
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory org-roam-directory))
+
 (use-package helm-org-rifle
   :bind ("C-c g" . helm-org-rifle-agenda-files))
 
