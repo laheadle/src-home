@@ -55,7 +55,6 @@
 
 ;(setq debug-on-quit t)
 #+END_SRC
-
 * ~src/home/elisp directory
 
 #+BEGIN_SRC emacs-lisp
@@ -134,6 +133,10 @@ With a `C-u` ARG, just jump to the headline."
 
 #+end_src
 
+* Elisp programming
+#+begin_src emacs-lisp
+(use-package dash)
+#+end_src
 * Keybindings
 
 #+begin_src emacs-lisp

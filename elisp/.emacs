@@ -92,6 +92,8 @@ With a `C-u` ARG, just jump to the headline."
 ;; refile in reverse-chron
 (setq org-reverse-note-order t)
 
+(use-package dash)
+
 (use-package free-keys :defer t)
 (use-package bind-key  :defer t)
 (define-prefix-command 'my-map)
