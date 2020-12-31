@@ -83,7 +83,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-a
                             "~/Workspace/docs/org/work.org"
-			    (("a" . "Avalon")
+			    (("a" . "Myteam")
 			     ("u" . "avui")
                              ("g" . "Glossary")
                              ("h" . "avach")
@@ -93,8 +93,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                              ("e" . "Events")
                              ("s" . "Sketchpad")
                              ("w" . "Work")
-                             ("y" . "Sasysaw-MHE")
-                             ))
+                             ("y" . "Sasysaw-MHE")))
 
 (josh/make-org-refile-hydra josh/org-refile-hydra-file-widgets
                             "~/Workspace/docs/org/work.org"
