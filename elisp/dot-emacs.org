@@ -622,7 +622,8 @@ it can be passed in POS."
 (add-hook 'before-save-hook #'zp/org-set-last-modified)
 
 (defun l-turn-on-visual-line-mode ()
-  (when (org-roam--org-roam-file-p)
+  (when (and (fboundp 'org-roam--org-roam-file-p)
+	     (org-roam--org-roam-file-p))
     (visual-line-mode 1)))
 
 (add-hook 'find-file-hook #'l-turn-on-visual-line-mode)
