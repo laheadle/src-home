@@ -2,6 +2,6 @@
 # name: fu
 # key: fu
 # --
-function ($1) {
+function $1($2) {
          $0
 }
