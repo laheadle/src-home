@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ob
+# key: ob
+# --
+(object) [ '$1' => $0 ]
