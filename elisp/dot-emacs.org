@@ -307,8 +307,11 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
             (:name "HABITS" :order 200 :habit t)
             (:order 300 :anything t)))))
 #+END_SRC
+** other miscellaneous settings
 
-
+#+begin_src emacs-lisp
+(setq org-startup-folded 'content)
+#+end_src
 ** Babel
 *** tangle .emacs on save
 
@@ -1639,7 +1642,7 @@ directory to make multiple eshell windows easier."
 #+END_SRC
 * programming by voice
 #+begin_src emacs-lisp
-(load-file (concat l-elisp-home "lib/my-voice.el"))
+
 #+end_src
 * Miscellaneous
 #+BEGIN_SRC emacs-lisp
