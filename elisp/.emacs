@@ -607,7 +607,7 @@ is already narrowed."
   (lambda () (interactive)
     (kill-ring-save (point) (line-end-position))))
 
-
+(set-face-attribute 'region nil :background "#bbb")
 ;; Shift the selected region right if distance is positive, left if
 ;; negative
 
