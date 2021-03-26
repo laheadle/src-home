@@ -1,5 +1,6 @@
 (set-register ?d '(file . "/laheadle@drive.stinkless.org:/home/laheadle"))
 (set-register ?r '(file . "/root@drive.stinkless.org:/etc"))
+(set-register ?c '(file . "/sudo::/etc"))
 (defun remote-flash-shell ()
   (interactive)
   (let ((od default-directory))
