@@ -206,6 +206,8 @@ With a `C-u` ARG, just jump to the headline."
             (:name "HABITS" :order 200 :habit t)
             (:order 300 :anything t)))))
 
+(setq org-startup-folded 'content)
+
 (defvar l-dot-emacs (concat l-elisp-home "dot-emacs.org"))
 
 (defun my/tangle-on-save-emacs-config-org-file ()
@@ -798,7 +800,7 @@ directory to make multiple eshell windows easier."
   (delete-window)
   (eshell/exit))
 
-(load-file (concat l-elisp-home "lib/my-voice.el"))
+
 
 (global-eldoc-mode -1)
  
