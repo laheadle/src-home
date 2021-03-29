@@ -478,7 +478,13 @@ it can be passed in POS."
 (add-hook 'find-file-hook #'l-turn-on-visual-line-mode)
 
 (setq org-roam-capture-templates
-      '(("l" "lit" plain
+      '(("c" "current" plain
+         (function org-roam-capture--get-point)
+         "%?"
+         :file-name "current/%<%Y%m%d%H%M%S>-${slug}"
+         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n\n"
+         :unnarrowed t)
+        ("l" "lit" plain
          (function org-roam-capture--get-point)
          "%?"
          :file-name "lit/%<%Y%m%d%H%M%S>-${slug}"

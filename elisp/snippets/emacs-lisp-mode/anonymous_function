@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: anonymous_function
+# key: anonymous_function
+# --
+(lambda ($1)
+ $0)

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: lexical_let
+# key: lexical_let
+# --
+(lexical-let* ((${1:x} ${2:nil})))

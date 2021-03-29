@@ -3,4 +3,5 @@
 # key: define_function
 # --
 (defun $1 ($2)
+  "$3"
 $0)
