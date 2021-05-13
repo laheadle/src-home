@@ -1365,6 +1365,10 @@ is already narrowed."
 
 
 #+END_SRC
+** highlight-indentation-mode
+#+begin_src emacs-lisp
+(require 'highlight-indentation)
+#+end_src
 * Text manipulation and Motion
 
 ** grep
@@ -1666,6 +1670,7 @@ directory to make multiple eshell windows easier."
 (server-start)
 
 (use-package yaml-mode
+  :hook ((yaml-mode . highlight-indentation-mode))
   :init (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
 
 (column-number-mode)
@@ -1824,6 +1829,17 @@ directory to make multiple eshell windows easier."
    [?\C-e ?\C-a ?\C-  ?\C-e ?\M-w ?\C-u ?\C-c ?\C-w ?  ?\C-y return ?\C-. ?f ?a ?y])
 #+end_src
 * TODO languages
+** flycheck
+#+begin_src emacs-lisp
+(use-package flycheck)
+#+end_src
+** lsp-mode
+#+begin_src emacs-lisp
+(use-package lsp-mode :hook ((lsp-mode . lsp-enable-which-key-integration))
+  :config (setq lsp-completion-enable-additional-text-edit nil))
+
+(use-package lsp-ui)
+#+end_src
 ** HTML
 #+BEGIN_SRC emacs-lisp
 
@@ -2030,6 +2046,7 @@ boundaries of the current start and end tag , or nil."
           (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))))
 
 
+(use-package indium)
 #+END_SRC
 *** nvm
 #+BEGIN_SRC emacs-lisp
@@ -2123,12 +2140,6 @@ boundaries of the current start and end tag , or nil."
                    (which-key-mode)
                    (company-mode))))
 #+END_SRC
-** lua
-#+BEGIN_SRC emacs-lisp
-
-(use-package lua-mode)
-
-#+END_SRC
 ** php
 #+BEGIN_SRC emacs-lisp
 
@@ -2161,6 +2172,13 @@ boundaries of the current start and end tag , or nil."
 #+begin_src emacs-lisp
 
 (add-hook 'scss-mode-hook (lambda () (setq css-indent-offset 2)))
+#+end_src
+** java
+#+begin_src emacs-lisp
+
+(use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
+(use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
+(use-package dap-java :ensure nil)
 #+end_src
 * desktop
 #+BEGIN_SRC emacs-lisp

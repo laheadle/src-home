@@ -595,6 +595,8 @@ is already narrowed."
              (setq c-basic-indent 4)
              (l-set-tab-width)))
 
+(require 'highlight-indentation)
+
 (use-package wgrep
 :config (setq wgrep-auto-save-buffer t))
 
@@ -820,6 +822,7 @@ directory to make multiple eshell windows easier."
 (server-start)
 
 (use-package yaml-mode
+  :hook ((yaml-mode . highlight-indentation-mode))
   :init (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
 
 (column-number-mode)
@@ -906,6 +909,13 @@ directory to make multiple eshell windows easier."
 
 (fset 'l-jump-to-repo-and-show-branches
    [?\C-e ?\C-a ?\C-  ?\C-e ?\M-w ?\C-u ?\C-c ?\C-w ?  ?\C-y return ?\C-. ?f ?a ?y])
+
+(use-package flycheck)
+
+(use-package lsp-mode :hook ((lsp-mode . lsp-enable-which-key-integration))
+  :config (setq lsp-completion-enable-additional-text-edit nil))
+
+(use-package lsp-ui)
 
 (use-package emmet-mode
   :init
@@ -1093,6 +1103,9 @@ boundaries of the current start and end tag , or nil."
 
           (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))))
 
+
+(use-package indium)
+
 (use-package nvm)
 
 (defun do-nvm-use (version)
@@ -1169,8 +1182,6 @@ boundaries of the current start and end tag , or nil."
                    (which-key-mode)
                    (company-mode))))
 
-(use-package lua-mode)
-
 (use-package php-mode
   :bind (
          :map php-mode-map
@@ -1190,6 +1201,10 @@ boundaries of the current start and end tag , or nil."
   '((:prologue . "exec 2>&1") (:epilogue . ":")))
 
 (add-hook 'scss-mode-hook (lambda () (setq css-indent-offset 2)))
+
+(use-package lsp-java :config (add-hook 'java-mode-hook 'lsp))
+(use-package dap-mode :after lsp-mode :config (dap-auto-configure-mode))
+(use-package dap-java :ensure nil)
 
 (desktop-save-mode -1)
 (setq desktop-restore-eager 10)
