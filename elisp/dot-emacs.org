@@ -1369,6 +1369,19 @@ is already narrowed."
 #+begin_src emacs-lisp
 (require 'highlight-indentation)
 #+end_src
+** fold lines beyond current line
+#+begin_src emacs-lisp
+(defun aj-toggle-fold ()
+  "Toggle fold all lines larger than indentation on current line"
+  (interactive)
+  (let ((col 1))
+    (save-excursion
+      (back-to-indentation)
+      (setq col (+ 1 (current-column)))
+      (set-selective-display
+       (if selective-display nil (or col 1))))))
+(global-set-key [(M C i)] 'aj-toggle-fold)
+#+end_src
 * Text manipulation and Motion
 
 ** grep
