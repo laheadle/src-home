@@ -823,7 +823,8 @@ directory to make multiple eshell windows easier."
 
 (use-package yaml-mode
   :hook ((yaml-mode . highlight-indentation-mode))
-  :init (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
+  :init (progn (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+               (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))))
 
 (column-number-mode)
 
