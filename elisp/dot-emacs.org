@@ -1266,6 +1266,11 @@ jj-Title
 #+BEGIN_SRC emacs-lisp :tangle no
 (setq async-bytecomp-allowed-packages '(all))
 #+END_SRC
+** ISearch
+#+begin_src emacs-lisp
+(bind-key "s" 'isearch-forward 'my-map)
+(bind-key "b" 'isearch-backward 'my-map)
+#+end_src
 * toggling
 
 #+begin_src emacs-lisp
@@ -1381,6 +1386,11 @@ is already narrowed."
       (set-selective-display
        (if selective-display nil (or col 1))))))
 (global-set-key [(M C i)] 'aj-toggle-fold)
+#+end_src
+** Smart Shift is a minor mode for conveniently shift the line/region to the left/right by the current major mode indentation width or shift line/region backwardly/forwardly by lines.
+#+begin_src emacs-lisp
+(use-package smart-shift
+  :config (global-smart-shift-mode 1))
 #+end_src
 * Text manipulation and Motion
 

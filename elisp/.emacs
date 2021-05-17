@@ -520,6 +520,9 @@ it can be passed in POS."
 (use-package helm-descbinds
   :init (helm-descbinds-mode))
 
+(bind-key "s" 'isearch-forward 'my-map)
+(bind-key "b" 'isearch-backward 'my-map)
+
 (define-prefix-command 'endless/toggle-map)
 ;; The manual recommends C-c for user keys, but C-x t is
 ;; always free, whereas C-c t is used by some modes.
@@ -607,6 +610,9 @@ is already narrowed."
       (set-selective-display
        (if selective-display nil (or col 1))))))
 (global-set-key [(M C i)] 'aj-toggle-fold)
+
+(use-package smart-shift
+  :config (global-smart-shift-mode 1))
 
 (use-package wgrep
 :config (setq wgrep-auto-save-buffer t))
