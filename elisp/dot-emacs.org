@@ -496,11 +496,13 @@ I deleted the .git directory and pulled in the source code.
 #+begin_src emacs-lisp
 
 (use-package org-roam
-      :hook
-      (after-init . org-roam-mode)
-      :custom
-      (org-roam-directory (concat org-directory "/roam"))
-      :bind (:map org-roam-mode-map
+  :hook
+  (after-init . org-roam-mode)
+  :custom
+  (org-roam-directory (concat org-directory "/roam"))
+  :custom
+  (org-roam-rename-file-on-title-change nil)
+  :bind (:map org-roam-mode-map
               (("C-c n l" . org-roam)
                ("C-c n f" . org-roam-find-file)
                ("C-c n j" . org-roam-jump-to-index)
