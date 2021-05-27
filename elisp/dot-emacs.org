@@ -977,7 +977,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 ;; a - link
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "~/Workspace/docs/org/refile.org")
-               "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
+               "* NEXT [#B] %?\n%U\n%a\n" :clock-in t :clock-resume t)
               ("r" "review" entry (file "~/Workspace/docs/org/refile.org")
                "* NEXT [#A] Review: %? :REVIEW: \nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t)
               ("b" "bio" entry (file+olp "~/Workspace/docs/org/work.org" "Bio")
@@ -1708,7 +1708,10 @@ directory to make multiple eshell windows easier."
 * csv mode
 #+begin_src emacs-lisp
 
-(use-package csv-mode)
+(use-package csv-mode
+  :defer 60)
+
+(add-hook 'csv-mode-hook #'csv-align-mode)
 
 #+end_src
 * dictionary, lookups, drilling

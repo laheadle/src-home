@@ -848,7 +848,10 @@ directory to make multiple eshell windows easier."
 
 (use-package ob-http)
 
-(use-package csv-mode)
+(use-package csv-mode
+  :defer 60)
+
+(add-hook 'csv-mode-hook #'csv-align-mode)
 
 (defun start-org-drill ()
   (interactive)
