@@ -496,11 +496,10 @@ I deleted the .git directory and pulled in the source code.
 #+begin_src emacs-lisp
 
 (use-package org-roam
-      :hook
-      (after-init . org-roam-mode)
-      :custom
-      (org-roam-directory (concat org-directory "/roam"))
-      :bind (:map org-roam-mode-map
+  :hook (after-init . org-roam-mode)
+  :custom (org-roam-directory (concat org-directory "/roam"))
+  :custom (org-roam-rename-file-on-title-change nil)
+  :bind (:map org-roam-mode-map
               (("C-c n l" . org-roam)
                ("C-c n f" . org-roam-find-file)
                ("C-c n j" . org-roam-jump-to-index)
@@ -978,7 +977,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 ;; a - link
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "~/Workspace/docs/org/refile.org")
-               "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
+               "* NEXT [#B] %?\n%U\n%a\n" :clock-in t :clock-resume t)
               ("r" "review" entry (file "~/Workspace/docs/org/refile.org")
                "* NEXT [#A] Review: %? :REVIEW: \nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t)
               ("b" "bio" entry (file+olp "~/Workspace/docs/org/work.org" "Bio")
@@ -1709,7 +1708,10 @@ directory to make multiple eshell windows easier."
 * csv mode
 #+begin_src emacs-lisp
 
-(use-package csv-mode)
+(use-package csv-mode
+  :defer 60)
+
+(add-hook 'csv-mode-hook #'csv-align-mode)
 
 #+end_src
 * dictionary, lookups, drilling

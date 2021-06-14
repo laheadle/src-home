@@ -339,11 +339,10 @@ With a `C-u` ARG, just jump to the headline."
   (org-entry-put (point) "COMMITTED_EFFORT" (org-entry-get (point) "EFFORT")))
 
 (use-package org-roam
-      :hook
-      (after-init . org-roam-mode)
-      :custom
-      (org-roam-directory (concat org-directory "/roam"))
-      :bind (:map org-roam-mode-map
+  :hook (after-init . org-roam-mode)
+  :custom (org-roam-directory (concat org-directory "/roam"))
+  :custom (org-roam-rename-file-on-title-change nil)
+  :bind (:map org-roam-mode-map
               (("C-c n l" . org-roam)
                ("C-c n f" . org-roam-find-file)
                ("C-c n j" . org-roam-jump-to-index)
@@ -849,7 +848,10 @@ directory to make multiple eshell windows easier."
 
 (use-package ob-http)
 
-(use-package csv-mode)
+(use-package csv-mode
+  :defer 60)
+
+(add-hook 'csv-mode-hook #'csv-align-mode)
 
 (defun start-org-drill ()
   (interactive)
