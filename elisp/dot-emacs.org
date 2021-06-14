@@ -638,19 +638,19 @@ it can be passed in POS."
          (function org-roam-capture--get-point)
          "%?"
          :file-name "current/%<%Y%m%d%H%M%S>-${slug}"
-         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n\n"
+         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U"
          :unnarrowed t)
         ("l" "lit" plain
          (function org-roam-capture--get-point)
          "%?"
          :file-name "lit/%<%Y%m%d%H%M%S>-${slug}"
-         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n\n"
+         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U"
          :unnarrowed t)
         ("p" "perm" plain
          (function org-roam-capture--get-point)
          "%?"
          :file-name "perm/%<%Y%m%d%H%M%S>-${slug}"
-         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U\n\n"
+         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+LAST_MODIFIED: %U"
          :unnarrowed t)))
 
 (setq org-roam-tag-sources '(prop all-directories))

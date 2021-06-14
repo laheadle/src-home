@@ -146,6 +146,9 @@
                             (org-agenda-todo-ignore-scheduled t)))
                 (tags-todo "/!+TODO|+NEXT"
                            ((org-agenda-overriding-header "Month")
+                            (org-agenda-todo-ignore-with-date t)
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-agenda-todo-ignore-scheduled t)
                             (org-super-agenda-groups
                              '((:name "This month" :priority ("C"))
                                (:discard (:anything t))))))
@@ -193,6 +196,9 @@
               ("zm" "This Month" 
                ((tags-todo "/!+TODO|+NEXT"
                            ((org-agenda-overriding-header "Month")
+                            (org-agenda-todo-ignore-with-date t)
+                            (org-agenda-todo-ignore-deadlines t)
+                            (org-agenda-todo-ignore-scheduled t)
                             (org-super-agenda-groups
                              '((:name "This month" :priority ("A" "B" "C"))
                                (:discard (:anything t))))))))
