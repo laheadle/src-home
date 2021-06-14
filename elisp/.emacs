@@ -930,12 +930,20 @@ directory to make multiple eshell windows easier."
 (fset 'l-jump-to-repo-and-show-branches
    [?\C-e ?\C-a ?\C-  ?\C-e ?\M-w ?\C-u ?\C-c ?\C-w ?  ?\C-y return ?\C-. ?f ?a ?y])
 
-(use-package flycheck)
+;(use-package flycheck)
+
+(use-package go-mode :mode ("\\.go$" . go-mode)
+    :bind (("C-c r" . lsp-find-references)
+           :map go-mode-map)
+    :config (progn 
+              (add-hook 'go-mode-hook #'lsp-deferred)
+              (add-hook 'go-mode-hook #'yas-minor-mode)))
 
 (use-package lsp-mode :hook ((lsp-mode . lsp-enable-which-key-integration))
-  :config (setq lsp-completion-enable-additional-text-edit nil))
+  :config (progn (setq lsp-diagnostics-provider :none) ; flycheck is broken under go mode TODO
+                 (setq lsp-completion-enable-additional-text-edit nil)))
 
-(use-package lsp-ui)
+;(use-package lsp-ui)
 
 (use-package emmet-mode
   :init
