@@ -1862,11 +1862,14 @@ directory to make multiple eshell windows easier."
 ** glowing
 #+begin_src emacs-lisp
 (use-package go-mode :mode ("\\.go$" . go-mode)
-    :bind (("C-c r" . lsp-find-references)
-           :map go-mode-map)
-    :config (progn 
-              (add-hook 'go-mode-hook #'lsp-deferred)
-              (add-hook 'go-mode-hook #'yas-minor-mode)))
+  :bind (("C-c r" . lsp-find-references)
+         ("C-c e" . lsp-treemacs-errors-list)
+         :map go-mode-map)
+  
+    
+  :config (progn 
+            (add-hook 'go-mode-hook #'lsp-deferred)
+            (add-hook 'go-mode-hook #'yas-minor-mode)))
 #+end_src
 ** lsp-mode
 #+begin_src emacs-lisp

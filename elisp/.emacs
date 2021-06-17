@@ -933,11 +933,14 @@ directory to make multiple eshell windows easier."
 ;(use-package flycheck)
 
 (use-package go-mode :mode ("\\.go$" . go-mode)
-    :bind (("C-c r" . lsp-find-references)
-           :map go-mode-map)
-    :config (progn 
-              (add-hook 'go-mode-hook #'lsp-deferred)
-              (add-hook 'go-mode-hook #'yas-minor-mode)))
+  :bind (("C-c r" . lsp-find-references)
+         ("C-c e" . lsp-treemacs-errors-list)
+         :map go-mode-map)
+  
+    
+  :config (progn 
+            (add-hook 'go-mode-hook #'lsp-deferred)
+            (add-hook 'go-mode-hook #'yas-minor-mode)))
 
 (use-package lsp-mode :hook ((lsp-mode . lsp-enable-which-key-integration))
   :config (progn (setq lsp-diagnostics-provider :none) ; flycheck is broken under go mode TODO
