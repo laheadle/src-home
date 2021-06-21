@@ -81,6 +81,15 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 (defun set-mywork-refiles ()
   (bind-key "r" 'josh/org-refile-mywork-hydra/body 'my-map))
 
+(defun my-find-all-links ()
+  ""
+  (interactive)
+  (require 'org-archive)
+  (let ((organ-files (rx (seq ".org" eol))))
+    (setq org-id-extra-files (append (directory-files-recursively "/home/laheadle/doc/org" organ-files)
+                                     (directory-files-recursively  "/home/laheadle/src/home" organ-files)))
+(org-id-update-id-locations)))
+
 (defun set-family-misc ()
   (setq org-directory "~/doc/org")
 

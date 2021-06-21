@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: define-function
+# key: dn
+# --
+(defn ${1:function-name} [${arguments}]
+  $0)

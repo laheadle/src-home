@@ -712,7 +712,7 @@ it can be passed in POS."
 
 #+END_SRC
 
-*** context
+*** context: family or my work
 
 #+begin_src emacs-lisp
 (defvar l-org-context :family)
@@ -812,6 +812,20 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
   (bind-key "r" 'josh/org-refile-mywork-hydra/body 'my-map))
 
 
+#+end_src
+*** scanning for links. Run this only when needed.
+**** mywork
+***** Scan a bunch of files for link locations
+#+begin_src emacs-lisp
+
+(defun my-find-all-links ()
+  ""
+  (interactive)
+  (require 'org-archive)
+  (let ((organ-files (rx (seq ".org" eol))))
+    (setq org-id-extra-files (append (directory-files-recursively "/home/laheadle/doc/org" organ-files)
+                                     (directory-files-recursively  "/home/laheadle/src/home" organ-files)))
+(org-id-update-id-locations)))
 #+end_src
 *** misc
 **** family
