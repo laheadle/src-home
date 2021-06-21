@@ -616,11 +616,18 @@ is already narrowed."
 (use-package wgrep
 :config (setq wgrep-auto-save-buffer t))
 
-(use-package ace-jump-mode
-  :bind ("M-h" . ace-jump-mode)
-  ("M-z" . ace-jump-char-mode))
+(use-package avy)
+(global-set-key (kbd "M-z") 'avy-goto-char)
+(global-set-key (kbd "M-h") 'avy-goto-word-1)
+(global-set-key (kbd "M-'") 'avy-goto-line)
+(bind-key "M-z" 'avy-goto-char org-mode-map)
+(bind-key "M-h" 'avy-goto-word-1 org-mode-map)
+(bind-key "M-'" 'avy-goto-line org-mode-map)
+;; (use-package ace-jump-mode
+;;   :bind ("M-h" . ace-jump-mode)
+;;   ("M-z" . ace-jump-char-mode))
 
-(bind-key "M-h" 'ace-jump-mode org-mode-map)
+;; (bind-key "M-h" 'ace-jump-mode org-mode-map)
 
 (put 'upcase-region 'disabled nil)
 
@@ -933,11 +940,14 @@ directory to make multiple eshell windows easier."
 ;(use-package flycheck)
 
 (use-package go-mode :mode ("\\.go$" . go-mode)
-    :bind (("C-c r" . lsp-find-references)
-           :map go-mode-map)
-    :config (progn 
-              (add-hook 'go-mode-hook #'lsp-deferred)
-              (add-hook 'go-mode-hook #'yas-minor-mode)))
+  :bind (("C-c r" . lsp-find-references)
+         ("C-c e" . lsp-treemacs-errors-list)
+         :map go-mode-map)
+  
+    
+  :config (progn 
+            (add-hook 'go-mode-hook #'lsp-deferred)
+            (add-hook 'go-mode-hook #'yas-minor-mode)))
 
 (use-package lsp-mode :hook ((lsp-mode . lsp-enable-which-key-integration))
   :config (progn (setq lsp-diagnostics-provider :none) ; flycheck is broken under go mode TODO
