@@ -137,6 +137,19 @@ With a `C-u` ARG, just jump to the headline."
 #+begin_src emacs-lisp
 (use-package dash)
 #+end_src
+** my save excursion
+   #+begin_src emacs-lisp
+(defmacro my-save-excursion (&rest forms)
+  (let ((old-point (gensym "old-point"))
+        (old-buff (gensym "old-buff")))
+    `(let ((,old-point (point))
+           (,old-buff (current-buffer)))
+       (prog1
+           (progn ,@forms)
+         (unless (eq (current-buffer) ,old-buff)
+           (switch-to-buffer ,old-buff))
+         (goto-char ,old-point)))))
+   #+end_src
 * Keybindings
 
 #+begin_src emacs-lisp
@@ -1092,6 +1105,22 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
     (insert (concat jira-item " " title "\nnotes"))))
 
 #+end_src
+**** vj: view jira web page
+#+begin_src emacs-lisp
+
+(defun vj ()
+    (interactive)
+    (my-save-excursion
+      (org-clock-goto)
+      (search-forward-regexp (rx (seq bol "[" (* any) "notes")))
+      (beginning-of-line)
+      (org-return)
+      (beginning-of-buffer)
+      (lexical-let* ((rx (rx (seq bol "#+ROAM_KEY:" (* space) (group (+ any)) eol))))
+        (search-forward-regexp rx)
+        (browse-url (match-string 1)))))
+#+end_src
+[[file:roam/perm/20210607135800-eopsm_5076_eat_api_update_class_export_endpoint_to_support_exporterrole_and_exporterxid_parameters.org][notes]]
 ** other
 #+BEGIN_SRC emacs-lisp
 (defun l-getenv (var)

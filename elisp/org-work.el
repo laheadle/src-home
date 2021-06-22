@@ -145,3 +145,15 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
   (interactive)
   (pcase-let ((`(,jira-item ,title) (l-get-jira-title)))
     (insert (concat jira-item " " title "\nnotes"))))
+
+(defun vj ()
+    (interactive)
+    (my-save-excursion
+      (org-clock-goto)
+      (search-forward-regexp (rx (seq bol "[" (* any) "notes")))
+      (beginning-of-line)
+      (org-return)
+      (beginning-of-buffer)
+      (lexical-let* ((rx (rx (seq bol "#+ROAM_KEY:" (* space) (group (+ any)) eol))))
+        (search-forward-regexp rx)
+        (browse-url (match-string 1)))))

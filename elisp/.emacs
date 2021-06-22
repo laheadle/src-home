@@ -94,6 +94,17 @@ With a `C-u` ARG, just jump to the headline."
 
 (use-package dash)
 
+(defmacro my-save-excursion (&rest forms)
+  (let ((old-point (gensym "old-point"))
+        (old-buff (gensym "old-buff")))
+    `(let ((,old-point (point))
+           (,old-buff (current-buffer)))
+       (prog1
+           (progn ,@forms)
+         (unless (eq (current-buffer) ,old-buff)
+           (switch-to-buffer ,old-buff))
+         (goto-char ,old-point)))))
+
 (use-package free-keys :defer t)
 (use-package bind-key  :defer t)
 (define-prefix-command 'my-map)
