@@ -1135,6 +1135,12 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
         (browse-url (match-string 1)))))
 #+end_src
 [[file:roam/perm/20210607135800-eopsm_5076_eat_api_update_class_export_endpoint_to_support_exporterrole_and_exporterxid_parameters.org][notes]]
+**** Insert a link to a jira ticket
+#+begin_src emacs-lisp
+(defun insert-jira-ticket (n)
+    (interactive "nTicket number: ")
+    (insert (format "[[https://jira.mheducation.com/browse/EOPSM-%d][EOPSM-%d]]" n n)))
+#+end_src
 ** other
 #+BEGIN_SRC emacs-lisp
 (defun l-getenv (var)
