@@ -195,6 +195,9 @@ With a `C-u` ARG, just jump to the headline."
   '(define-key org-src-mode-map
      "\C-x\C-s" #'org-edit-src-exit))
 
+(eval-after-load "org"
+  '(add-to-list 'org-src-lang-modes '("javascript" . js2)))
+
 (defun l-beginning-of-block ()
   (interactive)
   (org-babel-mark-block)

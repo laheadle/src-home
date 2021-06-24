@@ -284,14 +284,19 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 
 #+END_SRC
 
-*** source code 
+** source code
+*** Use the key for save file to save the buffer
 #+BEGIN_SRC emacs-lisp
 (eval-after-load 'org-src
   '(define-key org-src-mode-map
      "\C-x\C-s" #'org-edit-src-exit))
 
 #+END_SRC
-
+*** Use the proper modes for source code
+#+begin_src emacs-lisp
+(eval-after-load "org"
+  '(add-to-list 'org-src-lang-modes '("javascript" . js2)))
+#+end_src
 ** beginning of block FIXME
 #+BEGIN_SRC emacs-lisp
 
@@ -1140,6 +1145,11 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 (defun insert-jira-ticket (n)
     (interactive "nTicket number: ")
     (insert (format "[[https://jira.mheducation.com/browse/EOPSM-%d][EOPSM-%d]]" n n)))
+
+
+(defun insert-jira-ticket-roman (n)
+    (interactive "nTicket number: ")
+    (insert (format "#+ROAM_KEY: https://jira.mheducation.com/browse/EOPSM-%d" n)))
 #+end_src
 ** other
 #+BEGIN_SRC emacs-lisp
