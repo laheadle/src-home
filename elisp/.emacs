@@ -512,6 +512,10 @@ it can be passed in POS."
 
 (setq org-roam-tag-sources '(prop all-directories))
 
+(fset 'my-save-link-to-note
+      [?\C-c ?l ?\C-c ?n ?b return ?\M-< ?\C-1 ?s ?* ?  ?c ?u ?r ?r ?e ?n ?t ?  ?n ?o ?t ?e ?s return ?\C-1 ?e ?\C-c ?\C-l return return ?\C-x ?\C-s ?\C-<])
+(global-set-key (kbd "C-x C-k 1") 'my-save-link-to-note)
+
 (use-package company)
 
 (use-package deft
