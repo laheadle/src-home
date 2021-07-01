@@ -1,20 +1,9 @@
-;;;
-;;; Org Mode
-;;;
-(add-to-list 'load-path (expand-file-name "~/extern/org-mode/lisp"))
-(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
-
-;; broken notifications -- workaround [2020-02-14 Fri]
-(setq org-show-notification-handler (lambda (msg) (message "%s" msg)))
-
-(require 'org)
-
 (setq
  package-enable-at-startup nil
  package-archives
  '(("melpa-stable" . "https://stable.melpa.org/packages/")
    ("melpa" . "https://melpa.org/packages/")
-   ("org" . "http://orgmode.org/elpa/")
+   ("org" . "https://orgmode.org/elpa/")
    ("gnu" . "https://elpa.gnu.org/packages/")))
 
 (setq package-archive-priorities '(("melpa-stable" . 100)))
@@ -31,6 +20,13 @@
       use-package-verbose t)
 
 ;(setq debug-on-quit t)
+
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+
+;; broken notifications -- workaround [2020-02-14 Fri]
+(setq org-show-notification-handler (lambda (msg) (message "%s" msg)))
+
+(use-package org :ensure org-plus-contrib :pin "org")
 
 (defvar l-src-home (file-truename "~/src/home/"))
 (defvar l-elisp-home (file-truename "~/src/home/elisp/"))

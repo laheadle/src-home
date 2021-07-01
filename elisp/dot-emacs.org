@@ -15,19 +15,6 @@
     - sets org tags, capture templates, etc
     - defines org hydra refiling funcs
 ** the only thing in .emacs.d is melpa packages and some state files
-* Immediately set org-mode path
-#+BEGIN_SRC emacs-lisp
-;;;
-;;; Org Mode
-;;;
-(add-to-list 'load-path (expand-file-name "~/extern/org-mode/lisp"))
-(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
-
-;; broken notifications -- workaround [2020-02-14 Fri]
-(setq org-show-notification-handler (lambda (msg) (message "%s" msg)))
-
-(require 'org)
-#+END_SRC
 * Package Management
 
 #+BEGIN_SRC emacs-lisp
@@ -37,7 +24,7 @@
  package-archives
  '(("melpa-stable" . "https://stable.melpa.org/packages/")
    ("melpa" . "https://melpa.org/packages/")
-   ("org" . "http://orgmode.org/elpa/")
+   ("org" . "https://orgmode.org/elpa/")
    ("gnu" . "https://elpa.gnu.org/packages/")))
 
 (setq package-archive-priorities '(("melpa-stable" . 100)))
@@ -55,6 +42,29 @@
 
 ;(setq debug-on-quit t)
 #+END_SRC
+* Fundamental installation of org-mode
+org-plus-contrib is not a real package with a feature, but we need it loaded anyway
+see [[https://github.com/jwiegley/use-package/issues/597][here]], But I am still confused about why this works.
+the archive org is being deprecated.
+#+begin_example
+
+Org 9.5 will be the last release to be distributed on Org ELPA.  After
+9.5, we won't use Org ELPA for new releases.  Past releases will still
+be available, though maybe not indefinitely.
+
+The Org package will continue to be available through GNU ELPA (from
+https://elpa.gnu.org/packages/) and a new Org-Contrib package will be
+available from https://elpa.nongnu.org/nongnu/.
+
+#+end_example
+#+begin_src emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+
+;; broken notifications -- workaround [2020-02-14 Fri]
+(setq org-show-notification-handler (lambda (msg) (message "%s" msg)))
+
+(use-package org :ensure org-plus-contrib :pin "org")
+#+end_src
 * ~src/home/elisp directory
 
 #+BEGIN_SRC emacs-lisp
@@ -65,8 +75,6 @@
 
 #+results:
 : l-elisp-home
-
-
 * refiling
 
 #+BEGIN_SRC emacs-lisp
