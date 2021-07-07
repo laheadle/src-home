@@ -1,20 +1,9 @@
-;;;
-;;; Org Mode
-;;;
-(add-to-list 'load-path (expand-file-name "~/extern/org-mode/lisp"))
-(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
-
-;; broken notifications -- workaround [2020-02-14 Fri]
-(setq org-show-notification-handler (lambda (msg) (message "%s" msg)))
-
-(require 'org)
-
 (setq
  package-enable-at-startup nil
  package-archives
  '(("melpa-stable" . "https://stable.melpa.org/packages/")
    ("melpa" . "https://melpa.org/packages/")
-   ("org" . "http://orgmode.org/elpa/")
+   ("org" . "https://orgmode.org/elpa/")
    ("gnu" . "https://elpa.gnu.org/packages/")))
 
 (setq package-archive-priorities '(("melpa-stable" . 100)))
@@ -31,6 +20,13 @@
       use-package-verbose t)
 
 ;(setq debug-on-quit t)
+
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+
+;; broken notifications -- workaround [2020-02-14 Fri]
+(setq org-show-notification-handler (lambda (msg) (message "%s" msg)))
+
+(use-package org :ensure org-plus-contrib :pin "org")
 
 (defvar l-src-home (file-truename "~/src/home/"))
 (defvar l-elisp-home (file-truename "~/src/home/elisp/"))
@@ -194,6 +190,9 @@ With a `C-u` ARG, just jump to the headline."
 (eval-after-load 'org-src
   '(define-key org-src-mode-map
      "\C-x\C-s" #'org-edit-src-exit))
+
+(eval-after-load "org"
+  '(add-to-list 'org-src-lang-modes '("javascript" . js2)))
 
 (defun l-beginning-of-block ()
   (interactive)
@@ -508,6 +507,10 @@ it can be passed in POS."
          :unnarrowed t)))
 
 (setq org-roam-tag-sources '(prop all-directories))
+
+(fset 'my-save-link-to-note
+      [?\C-c ?l ?\C-c ?n ?b return ?\M-< ?\C-1 ?s ?* ?  ?c ?u ?r ?r ?e ?n ?t ?  ?n ?o ?t ?e ?s return ?\C-1 ?e ?\C-c ?\C-l return return ?\C-x ?\C-s ?\C-<])
+(global-set-key (kbd "C-x C-k 1") 'my-save-link-to-note)
 
 (use-package company)
 
@@ -948,7 +951,7 @@ directory to make multiple eshell windows easier."
 (fset 'l-jump-to-repo-and-show-branches
    [?\C-e ?\C-a ?\C-  ?\C-e ?\M-w ?\C-u ?\C-c ?\C-w ?  ?\C-y return ?\C-. ?f ?a ?y])
 
-;(use-package flycheck)
+(use-package flycheck :pin "melpa")
 
 (use-package go-mode :mode ("\\.go$" . go-mode)
   :bind (("C-c r" . lsp-find-references)
@@ -961,8 +964,7 @@ directory to make multiple eshell windows easier."
             (add-hook 'go-mode-hook #'yas-minor-mode)))
 
 (use-package lsp-mode :hook ((lsp-mode . lsp-enable-which-key-integration))
-  :config (progn (setq lsp-diagnostics-provider :none) ; flycheck is broken under go mode TODO
-                 (setq lsp-completion-enable-additional-text-edit nil)))
+  :config (setq lsp-completion-enable-additional-text-edit nil))
 
 ;(use-package lsp-ui)
 

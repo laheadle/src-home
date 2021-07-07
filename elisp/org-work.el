@@ -157,3 +157,12 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
       (lexical-let* ((rx (rx (seq bol "#+ROAM_KEY:" (* space) (group (+ any)) eol))))
         (search-forward-regexp rx)
         (browse-url (match-string 1)))))
+
+(defun insert-jira-ticket (n)
+    (interactive "nTicket number: ")
+    (insert (format "[[https://jira.mheducation.com/browse/EOPSM-%d][EOPSM-%d]]" n n)))
+
+
+(defun insert-jira-ticket-roman (n)
+    (interactive "nTicket number: ")
+    (insert (format "#+ROAM_KEY: https://jira.mheducation.com/browse/EOPSM-%d" n)))
