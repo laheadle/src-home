@@ -485,10 +485,6 @@ I start from [[file:org-mode.org::#HowToUseThisDocument][Bernt's org-mode.org]]
 #+begin_src emacs-lisp
 
 (bind-key "C-." 'l-org-jump-to-dir org-mode-map)
-(bind-key "M-h" 'ace-jump-mode org-mode-map)
-(bind-key "M-z" 'ace-jump-char-mode org-mode-map)
-
-
 
 #+end_src
 ** utility functions
@@ -712,6 +708,7 @@ it can be passed in POS."
 ** remotes
 #+BEGIN_SRC emacs-lisp
 (set-register ?d '(file . "/laheadle@drive.stinkless.org:/home/laheadle"))
+(set-register ?d '(file . "/ssh:laheadle@drive.stinkless.org:/home/laheadle"))
 (set-register ?r '(file . "/root@drive.stinkless.org:/etc"))
 (set-register ?a '(file . "/ssh:anybody@192.168.86.22#2222:/data"))
 (set-register ?a '(file . "/ssh:anybody@192.168.86.22#2222:/data/data/org.galexander.sshd/files"))
@@ -2250,7 +2247,9 @@ boundaries of the current start and end tag , or nil."
          :map lispy-mode-map
          ("C-1" . 'my-map)
          ("M-k" . 'lispy-new-copy)
-         ("M-h" . 'ace-jump-mode)))
+         ( "M-z" . 'avy-goto-char)
+( "M-h" . 'avy-goto-word-1 )
+("M-'" . 'avy-goto-line )))
 
   ;; :init
 (dolist (hook '(emacs-lisp-mode-hook
