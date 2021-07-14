@@ -1222,7 +1222,9 @@ boundaries of the current start and end tag , or nil."
          :map lispy-mode-map
          ("C-1" . 'my-map)
          ("M-k" . 'lispy-new-copy)
-         ("M-h" . 'avy-goto-word-1)))
+         ( "M-z" . 'avy-goto-char)
+( "M-h" . 'avy-goto-word-1 )
+("M-'" . 'avy-goto-line )))
 
   ;; :init
 (dolist (hook '(emacs-lisp-mode-hook

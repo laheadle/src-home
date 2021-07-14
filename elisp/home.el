@@ -1,4 +1,5 @@
 (set-register ?d '(file . "/laheadle@drive.stinkless.org:/home/laheadle"))
+(set-register ?d '(file . "/ssh:laheadle@drive.stinkless.org:/home/laheadle"))
 (set-register ?r '(file . "/root@drive.stinkless.org:/etc"))
 (set-register ?a '(file . "/ssh:anybody@192.168.86.22#2222:/data"))
 (set-register ?a '(file . "/ssh:anybody@192.168.86.22#2222:/data/data/org.galexander.sshd/files"))
