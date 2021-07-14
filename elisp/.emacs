@@ -334,7 +334,7 @@ With a `C-u` ARG, just jump to the headline."
              :store #'org+-counselrg-store)
 
 (bind-key "C-." 'l-org-jump-to-dir org-mode-map)
-(bind-key "M-h" 'ace-jump-mode org-mode-map)
+(bind-key "M-h" 'avy-goto-word-1 org-mode-map)
 (bind-key "M-z" 'ace-jump-char-mode org-mode-map)
 
 (add-to-list 'load-path (concat l-elisp-home "lib/om.el"))
@@ -1222,7 +1222,7 @@ boundaries of the current start and end tag , or nil."
          :map lispy-mode-map
          ("C-1" . 'my-map)
          ("M-k" . 'lispy-new-copy)
-         ("M-h" . 'ace-jump-mode)))
+         ("M-h" . 'avy-goto-word-1)))
 
   ;; :init
 (dolist (hook '(emacs-lisp-mode-hook
