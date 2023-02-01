@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: assert
+# key: assert
+# --
+(assert ${1:nil} ${2:nil} ${3:nil} ${4:nil})

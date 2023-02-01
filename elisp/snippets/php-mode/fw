@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: fw
+# key: fw
+# --
+\fwrite(\fopen('php://stderr', 'wb'), \sprintf('$1:%s' . "\n", \print_r($1, true)));

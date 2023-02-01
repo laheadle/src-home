@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: debug-print
+# key: dp
+# --
+fmt.Printf("-----------------------------------$1: ${2:%s} \n", ${1:expression})

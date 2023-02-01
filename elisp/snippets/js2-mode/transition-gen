@@ -1,0 +1,8 @@
+
+# key: tg
+# --
+    on: {
+      ${1:$$(upcase yas-text)}: {
+      target: '#$2',
+      },
+    },

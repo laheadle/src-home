@@ -1,0 +1,1 @@
+(load-file (expand-file-name "~/.emacs.d/org-work.el"))

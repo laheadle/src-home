@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: define_interactive_function
+# key: define_interactive_function
+# --
+(defun ($1)
+(interactive)
+$0)

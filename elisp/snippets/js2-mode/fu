@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: 
+# key: fu
+# --
+function ($1) {
+$0
+}

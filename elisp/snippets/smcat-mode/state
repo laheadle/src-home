@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: state
+# key: s
+# --
+$1 [label="${0:$1}"],

@@ -1,0 +1,30 @@
+# -*- mode: snippet -*-
+# key: newm
+# --
+//-----------------------------------------------------------------------------
+// Machine $1: $2
+//-----------------------------------------------------------------------------
+// to generate a visualization, run
+// node -r esm $1.js | xclip -selection clipboard
+// and visit: https://xstate.js.org/viz/
+
+export function ${1:$(concat "init_" yas-text)}() {
+  return {
+    id: '${1:$(concat "init_" yas-text)}',
+    states: {$0
+    }
+  };
+}
+
+export function $1() {
+  return {
+    id: '$1',
+    initial: ${1:$(concat "init_" yas-text)},    
+    states: {
+     ${1:$(concat "init_" yas-text)}: ${1:$(concat "init_" yas-text)}(),
+    }
+  };
+}
+
+const m = JSON.stringify ($1(), 0, 4);
+console.log(\`const m = Machine(\${m})\`);

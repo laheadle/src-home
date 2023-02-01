@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: loop
+# key: lp
+# --
+(loop [$1]
+      (recur $0))

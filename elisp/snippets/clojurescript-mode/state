@@ -1,0 +1,9 @@
+
+# key: st
+# --
+
+(defn $1 []
+  #js {:id "$1"
+   :states #js {
+  $0
+  }})

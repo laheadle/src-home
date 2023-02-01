@@ -1,0 +1,6 @@
+# key: na
+# name: new-action
+# --
+def $2($3):
+    """$1"""
+    $0

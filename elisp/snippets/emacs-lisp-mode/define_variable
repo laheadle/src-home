@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: define_variable
+# key: define_variable
+# --
+(defvar $1 ${2:nil} "$3")
