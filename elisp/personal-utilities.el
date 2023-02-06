@@ -3,7 +3,7 @@
       (kmacro-lambda-form [?\C-c ?n ?f ?z ?o ?o ?m return ?\C-1 ?s ?h ?t ?t ?p return ?\M-b ?\M-k] 0 "%d"))
 (defalias 'a 'copy-zoom-to-clipboard)
 ;; org: copy headline and body
-(fset 'my-copy-headline-and-body
+(fset 'my-org-copy-headline-and-body
       (kmacro-lambda-form [?\C-e ?\C-a ?\C-a ?\C-c ?\C-x ?\M-w ?\C-c ?\C-x ?\C-y ?\C-a] 0 "%d"))
 (defalias 'ocp 'my-org-copy-headline-and-body)
 

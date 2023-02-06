@@ -1,4 +1,10 @@
+(defun my-test (file)
+  (interactive (list (read-file-name "file: ")))
+  (message "%s" file))
 
+(ido-everywhere -1)
+
+(org-roam-db-sync t)
 load-path
 
 (defun lsp-install-server (update? &optional server-id)

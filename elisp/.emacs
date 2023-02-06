@@ -142,7 +142,9 @@ With a `C-u` ARG, just jump to the headline."
 ;; attach org attachment using move method
 (defun l-c-o () (interactive)
        (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-       (setq read-file-name-function 'read-file-name-default))
+       (ido-everywhere -1)
+       ;; (setq read-file-name-function 'read-file-name-default)
+       )
 
 (use-package swiper)
 (use-package counsel
@@ -152,6 +154,7 @@ With a `C-u` ARG, just jump to the headline."
   :init
   (progn
     (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
+    (ido-everywhere -1)
     (setq ivy-wrap t)
     (setq ivy-use-virtual-buffers t
           ivy-height 20)
@@ -1319,3 +1322,4 @@ boundaries of the current start and end tag , or nil."
   ("w" my-work-tasks/body "work tasks" :exit t))
 
 (bind-key "C-1" 'my-main-hydra/body)
+
