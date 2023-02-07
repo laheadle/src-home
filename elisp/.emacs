@@ -1071,23 +1071,6 @@ boundaries of the current start and end tag , or nil."
 
 (use-package docker-tramp)
 
-(let ((bookmarkplus-dir "~/.emacs.d/custom/bookmark-plus/")
-      (emacswiki-base "https://www.emacswiki.org/emacs/download/")
-      (bookmark-files '("bookmark+.el" "bookmark+-mac.el" "bookmark+-bmu.el" "bookmark+-key.el" "bookmark+-lit.el" "bookmark+-1.el")))
-  (require 'url)
-  (add-to-list 'load-path bookmarkplus-dir)
-  (make-directory bookmarkplus-dir t)
-  (mapcar (lambda (arg)
-            (let ((local-file (concat bookmarkplus-dir arg)))
-              (unless (file-exists-p local-file)
-                (url-copy-file (concat emacswiki-base arg) local-file t))))
-          bookmark-files)
-  (byte-recompile-directory bookmarkplus-dir 0)
-  (require 'bookmark+))
-
-;; (add-to-list 'load-path (concat l-elisp-home "lib/bookmark+"))
-;; (require 'bookmark+)
-
 ;; (use-package vagrant-tramp)
 (use-package counsel-tramp)
 
@@ -1323,3 +1306,29 @@ boundaries of the current start and end tag , or nil."
 
 (bind-key "C-1" 'my-main-hydra/body)
 
+;; uncomment this to upgrade bookmark+
+(when nil
+  ;; If you don’t want to use MELPA recipes at all (e.g. if you’re using
+  ;; Quelpa mainly to install packages not in MELPA) you can disable all
+  ;; fetching of the MELPA repo by setting quelpa-checkout-melpa-p to
+  ;; nil.
+  (setq quelpa-checkout-melpa-p nil)
+  (unless (package-installed-p 'quelpa)
+    (with-temp-buffer
+      (url-insert-file-contents "https://github.com/quelpa/quelpa/raw/master/quelpa.el")
+      (eval-buffer)
+      (quelpa-self-upgrade)))
+
+  (quelpa '(bookmark+
+            :fetcher wiki
+            :files
+            ("bookmark+.el"
+             "bookmark+-mac.el"
+             "bookmark+-bmu.el"
+             "bookmark+-1.el"
+             "bookmark+-key.el"
+             "bookmark+-lit.el"
+             "bookmark+-doc.el"
+             "bookmark+-chg.el"))))
+(let ((use-package-always-ensure nil))
+  (use-package bookmark+))
