@@ -19,6 +19,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(diff-context ((t (:inherit ##))))
+ '(highlight ((t (:background "gray59" :inverse-video nil))))
  '(lsp-ui-peek-highlight ((t (:background "gray100" :distant-foreground "black" :foreground "white"))))
  '(org-agenda-clocking ((t (:foreground "light green"))) nil "secondary selection was not working for me")
  '(org-mode-line-clock ((t (:foreground "red" :box (:line-width -1 :style released-button)))))
