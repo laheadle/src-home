@@ -1306,19 +1306,19 @@ boundaries of the current start and end tag , or nil."
 
 (bind-key "C-1" 'my-main-hydra/body)
 
-;; uncomment this to upgrade bookmark+
-(when nil
-  ;; If you don’t want to use MELPA recipes at all (e.g. if you’re using
-  ;; Quelpa mainly to install packages not in MELPA) you can disable all
-  ;; fetching of the MELPA repo by setting quelpa-checkout-melpa-p to
-  ;; nil.
-  (setq quelpa-checkout-melpa-p nil)
-  (unless (package-installed-p 'quelpa)
-    (with-temp-buffer
-      (url-insert-file-contents "https://github.com/quelpa/quelpa/raw/master/quelpa.el")
-      (eval-buffer)
-      (quelpa-self-upgrade)))
+;; If you don’t want to use MELPA recipes at all (e.g. if you’re using
+;; Quelpa mainly to install packages not in MELPA)
+;; you can disable all fetching of the MELPA repo by setting
+;; quelpa-checkout-melpa-p to nil.
+(setq quelpa-checkout-melpa-p nil)
 
+(unless (package-installed-p 'quelpa)
+  (with-temp-buffer
+    (url-insert-file-contents "https://github.com/quelpa/quelpa/raw/master/quelpa.el")
+    (eval-buffer)
+    (quelpa-self-upgrade)))
+
+(unless (package-installed-p 'bookmark+)
   (quelpa '(bookmark+
             :fetcher wiki
             :files
@@ -1330,5 +1330,13 @@ boundaries of the current start and end tag , or nil."
              "bookmark+-lit.el"
              "bookmark+-doc.el"
              "bookmark+-chg.el"))))
+
+(unless (package-installed-p 'org-transclusion)
+  (quelpa '(org-transclusion
+            :url "git@github.com:nobiot/org-transclusion.git"
+            :branch "dev/detach"
+            :fetcher git)))
+
 (let ((use-package-always-ensure nil))
+  (use-package org-transclusion)
   (use-package bookmark+))
