@@ -1,5 +1,46 @@
+(require 'ox-json)
+(use-package ox-json :pin "melpa")
 
-load-path
+  
+
+(let ((jstr (with-current-buffer (get-buffer "20210522182900-we_thinkers.org")
+              (org-export-as 'json))))
+  (with-temp-file "~/tmp/note.json"
+    (insert jstr))
+  ;; (with-current-buffer (get-buffer-create "*demo*")
+  ;;   (erase-buffer)
+  ;;   (insert jstr)
+  ;;   (pop-to-buffer (current-buffer)))
+  )
+
+(--map (seq-length it) ["\"" "\\\"" "\\\\\""])
+
+(defun my-text-bounded-by (regx)
+  (buffer-substring
+   (save-excursion
+     (or (and (re-search-backward
+               regx nil t)
+              (progn
+                (forward-char)
+                (point)))
+         (progn (beginning-of-buffer) (point))))
+   (save-excursion
+     (or (and (re-search-forward
+               regx nil t)
+              (progn
+                (backward-char)
+                (point)))
+         (progn (end-of-buffer) (point))))))
+
+(defconst my-regx-special-word
+  (rx (not (any alphanumeric
+                "-_.:/"))))
+
+(defun my-copy-special-word ()
+  (interactive)
+  (let* ((tx (my-text-bounded-by my-regx-special-word)))
+    (message "copied: %s" tx)
+    (kill-new tx)))
 
 (defun lsp-install-server (update? &optional server-id)
   "Interactively install or re-install server.
