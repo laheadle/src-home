@@ -1069,10 +1069,10 @@ boundaries of the current start and end tag , or nil."
 
 ;; (require 'dired+)
 
-(use-package docker-tramp)
+;; (use-package docker-tramp)
 
 ;; (use-package vagrant-tramp)
-(use-package counsel-tramp)
+;; (use-package counsel-tramp)
 
 (add-to-list 'load-path (concat l-elisp-home "lib/graph.el"))
 (require 'graph)

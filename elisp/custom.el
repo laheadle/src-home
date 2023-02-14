@@ -12,7 +12,8 @@
  '(magit-list-refs-sortby "-creatordate")
  '(magit-reset-arguments nil)
  '(package-selected-packages
-   '(org-transclusion bookmark+ quelpa-use-package quelpa org-jira hydra counsel swiper transient exec-path-from-shell which-key free-keys ht dash org-contrib use-package)))
+   '(org-transclusion bookmark+ quelpa-use-package quelpa org-jira hydra counsel swiper transient exec-path-from-shell which-key free-keys ht dash org-contrib use-package))
+ '(undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
