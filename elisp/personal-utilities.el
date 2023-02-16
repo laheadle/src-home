@@ -3,7 +3,7 @@
       (kmacro-lambda-form [?\C-c ?n ?f ?z ?o ?o ?m return ?\C-1 ?s ?h ?t ?t ?p return ?\M-b ?\M-k] 0 "%d"))
 (defalias 'a 'copy-zoom-to-clipboard)
 ;; org: copy headline and body
-(fset 'my-copy-headline-and-body
+(fset 'my-org-copy-headline-and-body
       (kmacro-lambda-form [?\C-e ?\C-a ?\C-a ?\C-c ?\C-x ?\M-w ?\C-c ?\C-x ?\C-y ?\C-a] 0 "%d"))
 (defalias 'ocp 'my-org-copy-headline-and-body)
 
@@ -16,7 +16,7 @@
 ;; indent block forward
 (fset 'my-indent-block-forward
       (kmacro-lambda-form [?\C-e left ?\C-a ?\C-  ?\C-e left ?\C-\M-f ?\C-e ?\C-\M-\\] 0 "%d"))
-(defalias 'e 'my-indent-block-forward)
+(defalias 'ib 'my-indent-block-forward)
 
 (fset 'do-go-vendor
       (kmacro-lambda-form [?\C-x ?\C-f return ?^ ?\M-< down down ?0 ?w ?\C-b ?* ?s ?h ?e ?l ?l ?* ?$ backspace return ?c ?d ?  ?\C-y return ?g ?o ?  ?g ?e ?t ?  ?. ?/ ?. ?. ?. ?  ?& ?& ?  ?g ?o ?  ?m ?o ?d ?  ?v ?e ?n ?d ?o ?r return] 0 "%d"))
@@ -43,6 +43,11 @@
 (fset 'my-org-copy-text-content
    (kmacro-lambda-form [?\C-c ?\C-b ?\C-e right ?\C-  ?\C-c ?\C-f left ?\M-w] 0 "%d"))
 (defalias 'ct 'my-org-copy-text-content)
+
+(fset 'jppb
+   (kmacro-lambda-form [?\M-< ?\C-  ?\M-> ?\M-x ?j ?p ?p return] 0 "%d"))
+(defalias 'my-pretty-print-buffer-json 'jppb)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; insert the next one right above this
 ;; C-x C-k n

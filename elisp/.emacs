@@ -142,7 +142,9 @@ With a `C-u` ARG, just jump to the headline."
 ;; attach org attachment using move method
 (defun l-c-o () (interactive)
        (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-       (setq read-file-name-function 'read-file-name-default))
+       (ido-everywhere -1)
+       ;; (setq read-file-name-function 'read-file-name-default)
+       )
 
 (use-package swiper)
 (use-package counsel
@@ -152,6 +154,7 @@ With a `C-u` ARG, just jump to the headline."
   :init
   (progn
     (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally
+    (ido-everywhere -1)
     (setq ivy-wrap t)
     (setq ivy-use-virtual-buffers t
           ivy-height 20)
@@ -1066,27 +1069,10 @@ boundaries of the current start and end tag , or nil."
 
 ;; (require 'dired+)
 
-(use-package docker-tramp)
-
-(let ((bookmarkplus-dir "~/.emacs.d/custom/bookmark-plus/")
-      (emacswiki-base "https://www.emacswiki.org/emacs/download/")
-      (bookmark-files '("bookmark+.el" "bookmark+-mac.el" "bookmark+-bmu.el" "bookmark+-key.el" "bookmark+-lit.el" "bookmark+-1.el")))
-  (require 'url)
-  (add-to-list 'load-path bookmarkplus-dir)
-  (make-directory bookmarkplus-dir t)
-  (mapcar (lambda (arg)
-            (let ((local-file (concat bookmarkplus-dir arg)))
-              (unless (file-exists-p local-file)
-                (url-copy-file (concat emacswiki-base arg) local-file t))))
-          bookmark-files)
-  (byte-recompile-directory bookmarkplus-dir 0)
-  (require 'bookmark+))
-
-;; (add-to-list 'load-path (concat l-elisp-home "lib/bookmark+"))
-;; (require 'bookmark+)
+;; (use-package docker-tramp)
 
 ;; (use-package vagrant-tramp)
-(use-package counsel-tramp)
+;; (use-package counsel-tramp)
 
 (add-to-list 'load-path (concat l-elisp-home "lib/graph.el"))
 (require 'graph)
@@ -1319,3 +1305,38 @@ boundaries of the current start and end tag , or nil."
   ("w" my-work-tasks/body "work tasks" :exit t))
 
 (bind-key "C-1" 'my-main-hydra/body)
+
+;; If you don’t want to use MELPA recipes at all (e.g. if you’re using
+;; Quelpa mainly to install packages not in MELPA)
+;; you can disable all fetching of the MELPA repo by setting
+;; quelpa-checkout-melpa-p to nil.
+(setq quelpa-checkout-melpa-p nil)
+
+(unless (package-installed-p 'quelpa)
+  (with-temp-buffer
+    (url-insert-file-contents "https://github.com/quelpa/quelpa/raw/master/quelpa.el")
+    (eval-buffer)
+    (quelpa-self-upgrade)))
+
+(unless (package-installed-p 'bookmark+)
+  (quelpa '(bookmark+
+            :fetcher wiki
+            :files
+            ("bookmark+.el"
+             "bookmark+-mac.el"
+             "bookmark+-bmu.el"
+             "bookmark+-1.el"
+             "bookmark+-key.el"
+             "bookmark+-lit.el"
+             "bookmark+-doc.el"
+             "bookmark+-chg.el"))))
+
+(unless (package-installed-p 'org-transclusion)
+  (quelpa '(org-transclusion
+            :url "git@github.com:nobiot/org-transclusion.git"
+            :branch "dev/detach"
+            :fetcher git)))
+
+(let ((use-package-always-ensure nil))
+  (use-package org-transclusion)
+  (use-package bookmark+))
