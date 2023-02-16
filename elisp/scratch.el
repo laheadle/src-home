@@ -1,3 +1,28 @@
+(defun cider-situated-eval (form-str)
+  "evaluate a form in the context of the current package"
+  (interactive)
+  (let* ((form form-str)
+         (override cider-interactive-eval-override)
+         (ns-form (if (cider-ns-form-p form) "" (format "(ns %s)" (cider-current-ns)))))
+    (with-current-buffer (get-buffer-create cider-read-eval-buffer)
+      (erase-buffer)
+      (clojure-mode)
+      (unless (string= "" ns-form)
+        (insert ns-form "\n\n"))
+      (insert form)
+      (let ((cider-interactive-eval-override override))
+        (cider-interactive-eval form
+                                nil
+                                nil
+                                (cider--nrepl-pr-request-map))))))
+
+(defun my-rich-reload-code ()
+  (interactive)
+  (cider-situated-eval "(clojure.tools.namespace.repl/refresh)"))
+
+(define-key cider-mode-map (kbd "C-c #") 'my-rich-reload-code)
+
+
 (require 'ox-json)
 (use-package ox-json :pin "melpa")
 

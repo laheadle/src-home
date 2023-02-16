@@ -3,6 +3,7 @@
 (set-register ?r '(file . "/ssh:root@drive.stinkless.org:/etc"))
 ;; new stinkless. password is on the website.
 (set-register ?s '(file . "/ssh:root@45.14.114.21:/etc"))
+;;  this works with regular old ssh
 (set-register ?t '(file . "/ssh:laheadle@45.14.114.21:/home/laheadle"))
 (set-register ?a '(file . "/ssh:root@192.168.86.22#2222:/data/data/org.galexander.sshd/files"))
 (set-register ?c '(file . "/sudo::/etc"))
