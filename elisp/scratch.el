@@ -1,3 +1,14 @@
+
+(progn
+  (when (and (file-exists-p bookmark-old-default-file)  (not (file-exists-p bookmark-default-file)))
+    (rename-file bookmark-old-default-file bookmark-default-file))
+  (let ((file-to-load  (bmkp-default-bookmark-file)))
+    (and (not bookmarks-already-loaded)
+         (null bookmark-alist)
+         (file-readable-p file-to-load)
+         (bookmark-load file-to-load t 'nosave)
+         (setq bookmarks-already-loaded  t))))
+
 (defun cider-situated-eval (form-str)
   "evaluate a form in the context of the current package"
   (interactive)

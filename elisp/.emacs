@@ -1340,3 +1340,7 @@ boundaries of the current start and end tag , or nil."
 (let ((use-package-always-ensure nil))
   (use-package org-transclusion)
   (use-package bookmark+))
+
+;; The face must be defined: hl-line, because other highlight faces inherit it
+(require 'hl-line)
+

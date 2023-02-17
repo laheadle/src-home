@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
- '(bmkp-last-as-first-bookmark-file "/Users/lyn.headley@mheducation.com/.emacs.d/bookmarks")
+ '(bmkp-last-as-first-bookmark-file nil)
  '(debug-on-error t)
  '(js-indent-level 2)
  '(js2-bounce-indent-p nil)
