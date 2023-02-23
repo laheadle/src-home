@@ -10,6 +10,84 @@ command-history
 (setq lsp-log-io t)
 (setq lsp-log-io nil)
 
+(progn
+  (when (and (file-exists-p bookmark-old-default-file)  (not (file-exists-p bookmark-default-file)))
+    (rename-file bookmark-old-default-file bookmark-default-file))
+  (let ((file-to-load  (bmkp-default-bookmark-file)))
+    (and (not bookmarks-already-loaded)
+         (null bookmark-alist)
+         (file-readable-p file-to-load)
+         (bookmark-load file-to-load t 'nosave)
+         (setq bookmarks-already-loaded  t))))
+
+(defun cider-situated-eval (form-str)
+  "evaluate a form in the context of the current package"
+  (interactive)
+  (let* ((form form-str)
+         (override cider-interactive-eval-override)
+         (ns-form (if (cider-ns-form-p form) "" (format "(ns %s)" (cider-current-ns)))))
+    (with-current-buffer (get-buffer-create cider-read-eval-buffer)
+      (erase-buffer)
+      (clojure-mode)
+      (unless (string= "" ns-form)
+        (insert ns-form "\n\n"))
+      (insert form)
+      (let ((cider-interactive-eval-override override))
+        (cider-interactive-eval form
+                                nil
+                                nil
+                                (cider--nrepl-pr-request-map))))))
+
+(defun my-rich-reload-code ()
+  (interactive)
+  (cider-situated-eval "(clojure.tools.namespace.repl/refresh)"))
+
+(define-key cider-mode-map (kbd "C-c #") 'my-rich-reload-code)
+
+
+(require 'ox-json)
+(use-package ox-json :pin "melpa")
+
+  
+
+(let ((jstr (with-current-buffer (get-buffer "20210522182900-we_thinkers.org")
+              (org-export-as 'json))))
+  (with-temp-file "~/tmp/note.json"
+    (insert jstr))
+  ;; (with-current-buffer (get-buffer-create "*demo*")
+  ;;   (erase-buffer)
+  ;;   (insert jstr)
+  ;;   (pop-to-buffer (current-buffer)))
+  )
+
+(--map (seq-length it) ["\"" "\\\"" "\\\\\""])
+
+(defun my-text-bounded-by (regx)
+  (buffer-substring
+   (save-excursion
+     (or (and (re-search-backward
+               regx nil t)
+              (progn
+                (forward-char)
+                (point)))
+         (progn (beginning-of-buffer) (point))))
+   (save-excursion
+     (or (and (re-search-forward
+               regx nil t)
+              (progn
+                (backward-char)
+                (point)))
+         (progn (end-of-buffer) (point))))))
+
+(defconst my-regx-special-word
+  (rx (not (any alphanumeric
+                "-_.:/"))))
+
+(defun my-copy-special-word ()
+  (interactive)
+  (let* ((tx (my-text-bounded-by my-regx-special-word)))
+    (message "copied: %s" tx)
+    (kill-new tx)))
 (--filter (string-match-p "use-package" it)
           load-path)
 

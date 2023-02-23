@@ -20,9 +20,9 @@
 (add-to-list 'display-buffer-alist
              '("\\*org-roam\\*"
                (display-buffer-in-direction)
-               (direction . right)
-               (window-width . 0.33)
-               (window-height . fit-window-to-buffer)))
+               (direction . below)
+               (window-width . fit-window-to-buffer)
+               (window-height . 0.33)))
 
 (defun l-turn-on-visual-line-mode ()
   (when (and (fboundp 'org-roam-file-p)

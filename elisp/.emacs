@@ -785,7 +785,7 @@ boundaries of the current start and end tag , or nil."
                                         ; for adding require/use/import statements
   ;; This choice of keybinding leaves cider-macroexpand-1 unbound
   (cljr-add-keybindings-with-prefix "C-c C-m")
-  ;; (lsp)
+  (lsp)
   (which-key-mode)
   (company-mode)
   (lispy-mode)
@@ -1340,3 +1340,8 @@ boundaries of the current start and end tag , or nil."
 (let ((use-package-always-ensure nil))
   (use-package org-transclusion)
   (use-package bookmark+))
+
+;; The face must be defined: hl-line, because other highlight faces inherit it
+(require 'hl-line)
+
+(l-c-o)
