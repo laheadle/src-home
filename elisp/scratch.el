@@ -1,3 +1,15 @@
+command-history
+
+(setq eval-expression-print-level 8)
+(setq eval-expression-print-length 5000)
+
+(setq lsp-diagnostic-clean-after-change t)
+(add-hook 'lsp-diagnostics-updated-hook (lambda () (message "diagnostics updated")))
+(remove-hook 'lsp-diagnostics-updated-hook (lambda () (message "diagnostics updated")))
+;; see buffer lsp-log, and there is one specific to the server with the same name prefix
+(setq lsp-log-io t)
+(setq lsp-log-io nil)
+
 (--filter (string-match-p "use-package" it)
           load-path)
 
