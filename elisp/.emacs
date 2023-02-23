@@ -1344,3 +1344,4 @@ boundaries of the current start and end tag , or nil."
 ;; The face must be defined: hl-line, because other highlight faces inherit it
 (require 'hl-line)
 
+(l-c-o)
