@@ -2,15 +2,21 @@
 
 (use-package org-roam
   :custom (org-roam-directory (concat org-directory "/roam"))
+  :config (progn (setq org-roam-dailies-directory "daily/")
+                 (setq org-roam-dailies-capture-templates
+                       '(("d" "default" entry
+                          "* %?"
+                          :target (file+head "%<%Y-%m-%d>.org"
+                                             "#+title: %<%Y-%m-%d>\n")))))
   :bind (:map global-map
               (("C-c n f" . org-roam-node-find))
               :map org-mode-map
               (("C-c n l" . org-roam-buffer-toggle)
                ("C-c n f" . org-roam-node-find)
-               ("C-c n d" . org-id-get-create) ; make the current heading a node
-               ("C-c n b" . org-roam-switch-to-buffer)
-               ("C-c n g" . org-roam-graph)
-               ("C-c n i" . org-roam-node-insert))))
+               ("C-c n d" . org-id-get-create)
+               ("C-c n i" . org-roam-node-insert)
+               ("C-c n t" . org-roam-dailies-capture-today)
+               ("C-c n g" . org-roam-dailies-goto-date))))
 
 (org-roam-db-autosync-mode)
 
