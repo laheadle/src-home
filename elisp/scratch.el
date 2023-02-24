@@ -1,4 +1,4 @@
-
+(combine-and-quote-strings ["a" 'b])
 (progn
   (when (and (file-exists-p bookmark-old-default-file)  (not (file-exists-p bookmark-default-file)))
     (rename-file bookmark-old-default-file bookmark-default-file))
