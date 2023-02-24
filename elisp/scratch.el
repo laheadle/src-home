@@ -1,4 +1,14 @@
 (combine-and-quote-strings ["a" 'b])
+'(#(1 2))
+command-history
+
+(setq lsp-diagnostic-clean-after-change t)
+(add-hook 'lsp-diagnostics-updated-hook (lambda () (message "diagnostics updated")))
+(remove-hook 'lsp-diagnostics-updated-hook (lambda () (message "diagnostics updated")))
+;; see buffer lsp-log, and there is one specific to the server with the same name prefix
+(setq lsp-log-io t)
+(setq lsp-log-io nil)
+
 (progn
   (when (and (file-exists-p bookmark-old-default-file)  (not (file-exists-p bookmark-default-file)))
     (rename-file bookmark-old-default-file bookmark-default-file))

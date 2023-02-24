@@ -5,14 +5,14 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
- '(bmkp-last-as-first-bookmark-file nil)
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(debug-on-error t)
  '(js-indent-level 2)
  '(js2-bounce-indent-p nil)
  '(magit-list-refs-sortby "-creatordate")
  '(magit-reset-arguments nil)
  '(package-selected-packages
-   '(ox-reveal org-roam org-mind-map org-super-agenda htmlize metaweblog xml-rpc yankpad org-transclusion bookmark+ quelpa-use-package quelpa org-jira hydra counsel swiper transient exec-path-from-shell which-key free-keys ht dash org-contrib use-package))
+   '(typescript-mode org-transclusion bookmark+ quelpa-use-package quelpa org-jira hydra counsel swiper transient exec-path-from-shell which-key free-keys ht dash org-contrib use-package))
  '(undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

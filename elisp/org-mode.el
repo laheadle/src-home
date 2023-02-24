@@ -743,4 +743,4 @@ Callers of this function already widen the buffer view."
     (add-hook 'focus-out-hook 'l-org-save-all-code-buffers)
   (setq after-focus-change-function 'l-org-save-all-code-buffers))
 
-(run-with-timer 10 10 #'l-org-save-all-code-buffers)
+(run-with-timer 6 6 #'l-org-save-all-code-buffers)
