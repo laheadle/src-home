@@ -838,6 +838,8 @@ boundaries of the current start and end tag , or nil."
 
           (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))))
 
+(use-package typescript-mode :pin "melpa")
+
 
 ;; (use-package indium)
 
@@ -1344,4 +1346,8 @@ boundaries of the current start and end tag , or nil."
 ;; The face must be defined: hl-line, because other highlight faces inherit it
 (require 'hl-line)
 
-(l-c-o)
+;; does this work? trying to set up completion.20
+(run-with-timer 3 nil #'l-c-o)
+
+(setq eval-expression-print-level 8)
+(setq eval-expression-print-length 5000)

@@ -1,7 +1,5 @@
+'(#(1 2))
 command-history
-
-(setq eval-expression-print-level 8)
-(setq eval-expression-print-length 5000)
 
 (setq lsp-diagnostic-clean-after-change t)
 (add-hook 'lsp-diagnostics-updated-hook (lambda () (message "diagnostics updated")))
