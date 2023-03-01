@@ -15,6 +15,7 @@
                ("C-c n f" . org-roam-node-find)
                ("C-c n d" . org-id-get-create)
                ("C-c n i" . org-roam-node-insert)
+               ("C-c n r" . org-roam-refile)
                ("C-c n t" . org-roam-dailies-capture-today)
                ("C-c n g" . org-roam-dailies-goto-date))))
 
@@ -23,12 +24,15 @@
 (setq org-roam-mode-section-functions
       (list #'org-roam-backlinks-section))
 
+;; (add-to-list 'display-buffer-alist
+;;              '("\\*org-roam\\*"
+;;                (display-buffer-in-direction)
+;;                (direction . below)
+;;                (window-width . fit-window-to-buffer)
+;;                (window-height . 0.33)))
 (add-to-list 'display-buffer-alist
              '("\\*org-roam\\*"
-               (display-buffer-in-direction)
-               (direction . below)
-               (window-width . fit-window-to-buffer)
-               (window-height . 0.33)))
+               (display-buffer-same-window)))
 
 (defun l-turn-on-visual-line-mode ()
   (when (and (fboundp 'org-roam-file-p)

@@ -1,3 +1,11 @@
+(setq display-buffer-alist nil)
+(switch-to-buffer-other-window (get-buffer "scratch.org"))
+display-buffer-alist
+(define-key org-mode-map (kbd "C-c n r") #'org-roam-refile)
+(let ((h1-count 0))
+  (incf h1-count))
+
+#'incf
 (combine-and-quote-strings ["a" 'b])
 '(#(1 2))
 command-history
