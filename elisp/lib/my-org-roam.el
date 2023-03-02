@@ -1,4 +1,33 @@
+;; remove?
 (setq org-roam-v2-ack t)
+
+(defun my-org-roam-buffer-title (buffer)
+  (with-current-buffer buffer
+   (org-with-point-at 1
+     (let ((n (org-roam-node-at-point)))
+       (if n
+           (org-roam-node-title n)
+         "*No title detected*")))))
+
+(defun my-read-org-roam-buffer ()
+  (let* ((candidates (--map
+                      (cons (my-org-roam-buffer-title it) it)
+                      (org-roam-buffer-list)))
+         (chosen (completing-read "Buffer: " candidates)))
+    (cdr (assoc chosen candidates))))
+
+;; I am not really using this. 
+(defun my-switch-to-org-roam-buffer (buffer)
+  (interactive (list (my-read-org-roam-buffer)))
+  (if (buffer-live-p buffer)
+      (switch-to-buffer buffer)))
+
+;; I am using this
+(defun my-rename-org-roam-file-buffer ()
+  (when (org-roam-file-p)
+    (rename-buffer (my-org-roam-buffer-title (current-buffer)))))
+
+(add-hook 'find-file-hook 'my-rename-org-roam-file-buffer)
 
 (use-package org-roam
   :custom (org-roam-directory (concat org-directory "/roam"))
@@ -9,15 +38,19 @@
                           :target (file+head "%<%Y-%m-%d>.org"
                                              "#+title: %<%Y-%m-%d>\n")))))
   :bind (:map global-map
-              (("C-c n f" . org-roam-node-find))
+              (("C-c n f" . org-roam-node-find)
+               ("C-c n b" . my-switch-to-org-roam-buffer)
+               ("C-c n c" . company-complete))
               :map org-mode-map
               (("C-c n l" . org-roam-buffer-toggle)
                ("C-c n f" . org-roam-node-find)
                ("C-c n d" . org-id-get-create)
                ("C-c n i" . org-roam-node-insert)
                ("C-c n r" . org-roam-refile)
+               ("C-c n b" . my-switch-to-org-roam-buffer)
                ("C-c n t" . org-roam-dailies-capture-today)
-               ("C-c n g" . org-roam-dailies-goto-date))))
+               ("C-c n g" . org-roam-dailies-goto-date)
+               ("C-c n w" . my-org-copy-text-under-heading))))
 
 (org-roam-db-autosync-mode)
 

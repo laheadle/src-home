@@ -744,3 +744,16 @@ Callers of this function already widen the buffer view."
   (setq after-focus-change-function 'l-org-save-all-code-buffers))
 
 (run-with-timer 6 6 #'l-org-save-all-code-buffers)
+
+(defun my-org-copy-text-under-heading ()
+  (interactive)
+;; Select the current Org subtree
+  (org-mark-subtree)
+;; Deselect the heading line
+  (next-line 1)
+;; Copy the current region
+  (kill-ring-save
+   (region-beginning)
+   (region-end))
+;; Deselect the region after copying
+  (deactivate-mark))
