@@ -1336,3 +1336,5 @@ boundaries of the current start and end tag , or nil."
 (setq eval-expression-print-level 8)
 (setq eval-expression-print-length 5000)
 
+;; prefer the original, not the ffap version
+(define-key global-map [remap find-alternate-file] nil)
