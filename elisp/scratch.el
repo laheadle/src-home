@@ -9,9 +9,30 @@ bookmark-alist
 
 (defvar my-databases `(,org-roam-directory "~/doc/data/a-media-system"))
 ()
+
+(define-key global-map (kbd "C-c n c") 'company-complete)
+(define-key global-map (kbd "C-c n b") #'my-switch-to-org-roam-buffer)
+
+(-map
+ #'buffer-name
+ (org-roam-buffer-list))
+
+(org-roam-db-query [:select [dest] :from links :where (= type "https")])
+(org-roam-db-query [:select :distinct [type] :from links])
+
+(setq display-buffer-alist nil)
+(switch-to-buffer-other-window (get-buffer "scratch.org"))
+display-buffer-alist
+(define-key org-mode-map (kbd "C-c n r") #'org-roam-refile)
+(let ((h1-count 0))
+  (incf h1-count))
+
+#'incf
+
 (combine-and-quote-strings ["a" 'b])
 '(#(1 2))
 command-history
+
 
 (setq lsp-diagnostic-clean-after-change t)
 (add-hook 'lsp-diagnostics-updated-hook (lambda () (message "diagnostics updated")))
