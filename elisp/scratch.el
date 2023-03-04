@@ -1,3 +1,14 @@
+(equal (vector 12 3)
+       (vector 12 3))
+(equal (vector 12 3)
+       [12 3])
+bookmark-alist
+
+(with-current-buffer (car (org-roam-buffer-list))
+  (org-roam-node-at-point))
+
+(defvar my-databases `(,org-roam-directory "~/doc/data/a-media-system"))
+()
 (combine-and-quote-strings ["a" 'b])
 '(#(1 2))
 command-history
