@@ -7,7 +7,8 @@
      (let ((n (org-roam-node-at-point)))
        (if n
            (org-roam-node-title n)
-         "*No title detected*")))))
+         (or (buffer-file-name buffer)
+             "*No title detected*"))))))
 
 (defun my-read-org-roam-buffer ()
   (let* ((candidates (--map
@@ -103,3 +104,6 @@
 
 ;; (setq org-roam-tag-sources '(prop all-directories))
 
+(setq org-roam-node-display-template
+      (concat "${title:*} "
+              (propertize "${tags:30}" 'face 'org-tag)))

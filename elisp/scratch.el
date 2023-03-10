@@ -1,10 +1,11 @@
+
 (defun my-element-context-property-names ()
   (interactive)
   (if-let* ((node (org-element-context))
             (type (car node))
             (properties (cadr node))
             (keys (-slice properties 0 nil 2)))
-    (message "%s: %s" type keys)
+      (message "%s: %s" type keys)
     node))
 
 (define-key global-map (kbd "C-c n c") 'company-complete)
