@@ -359,6 +359,7 @@ is already narrowed."
    (if mark-active (list (region-beginning) (region-end))
      (list (line-beginning-position) (line-beginning-position 2)))))
 
+(setq undo-tree-auto-save-history nil)
 (use-package undo-tree
   :init (global-undo-tree-mode 1)
   :bind (("C-z" . undo-tree-undo)
