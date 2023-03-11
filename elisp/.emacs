@@ -146,6 +146,15 @@ With a `C-u` ARG, just jump to the headline."
        ;; (setq read-file-name-function 'read-file-name-default)
        )
 
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
+(setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
+(add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
+
 (use-package swiper)
 (use-package counsel
   :bind (("C-b" . ivy-switch-buffer)
@@ -786,7 +795,7 @@ boundaries of the current start and end tag , or nil."
                                         ; for adding require/use/import statements
   ;; This choice of keybinding leaves cider-macroexpand-1 unbound
   (cljr-add-keybindings-with-prefix "C-c C-m")
-  (lsp)
+  ;; (lsp)
   (which-key-mode)
   (company-mode)
   (lispy-mode)
@@ -1336,4 +1345,19 @@ boundaries of the current start and end tag , or nil."
 
 (setq eval-expression-print-level 8)
 (setq eval-expression-print-length 5000)
+
+;; prefer the original, not the ffap version
+(define-key global-map [remap find-alternate-file] nil)
+
+(defun my-horizontal-recenter ()
+  "make the point horizontally centered in the window"
+  (interactive)
+  (let ((mid (/ (window-width) 2))
+        (line-len (save-excursion (end-of-line) (current-column)))
+        (cur (current-column)))
+    (if (< mid cur)
+        (set-window-hscroll (selected-window)
+                            (- cur mid)))))
+
+(global-set-key (kbd "C-S-l") 'my-horizontal-recenter)
 

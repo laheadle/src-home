@@ -12,22 +12,7 @@
  '(magit-list-refs-sortby "-creatordate")
  '(magit-reset-arguments nil)
  '(package-selected-packages
-   '(typescript-mode org-transclusion bookmark+ quelpa-use-package quelpa org-jira hydra counsel swiper transient exec-path-from-shell which-key free-keys ht dash org-contrib use-package))
- '(safe-local-variable-values
-   '((elisp-lint-indent-specs
-      (describe . 1)
-      (it . 1)
-      (thread-first . 0)
-      (cl-flet . 1)
-      (cl-flet* . 1)
-      (org-element-map . defun)
-      (org-roam-dolist-with-progress . 2)
-      (org-roam-with-temp-buffer . 1)
-      (org-with-point-at . 1)
-      (magit-insert-section . defun)
-      (magit-section-case . 0)
-      (org-roam-with-file . 2))
-     (elisp-lint-ignored-validators "byte-compile" "package-lint")))
+   '(orderless typescript-mode org-transclusion bookmark+ quelpa-use-package quelpa org-jira hydra counsel swiper transient exec-path-from-shell which-key free-keys ht dash org-contrib use-package))
  '(undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

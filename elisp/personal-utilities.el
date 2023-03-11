@@ -14,9 +14,9 @@
 
 
 ;; indent block forward
-(fset 'my-indent-block-forward
+(fset 'ib
       (kmacro-lambda-form [?\C-e left ?\C-a ?\C-  ?\C-e left ?\C-\M-f ?\C-e ?\C-\M-\\] 0 "%d"))
-(defalias 'ib 'my-indent-block-forward)
+(defalias 'my-indent-block-forward 'ib)
 
 (fset 'do-go-vendor
       (kmacro-lambda-form [?\C-x ?\C-f return ?^ ?\M-< down down ?0 ?w ?\C-b ?* ?s ?h ?e ?l ?l ?* ?$ backspace return ?c ?d ?  ?\C-y return ?g ?o ?  ?g ?e ?t ?  ?. ?/ ?. ?. ?. ?  ?& ?& ?  ?g ?o ?  ?m ?o ?d ?  ?v ?e ?n ?d ?o ?r return] 0 "%d"))
@@ -45,7 +45,8 @@
 (defalias 'ct 'my-org-copy-text-content)
 
 (fset 'jppb
-   (kmacro-lambda-form [?\M-< ?\C-  ?\M-> ?\M-x ?j ?p ?p return] 0 "%d"))
+   (kmacro-lambda-form [?\M-< ?\C-  ?\M-> ?\M-x ?j ?p ?p ?$ return] 0 "%d"))
+
 (defalias 'my-pretty-print-buffer-json 'jppb)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -60,6 +60,14 @@ bookmark-alist
 
 (defvar my-databases `(,org-roam-directory "~/doc/data/a-media-system"))
 ()
+(defun my-element-context-property-names ()
+  (interactive)
+  (if-let* ((node (org-element-context))
+            (type (car node))
+            (properties (cadr node))
+            (keys (-slice properties 0 nil 2)))
+    (message "%s: %s" type keys)
+    node))
 
 (define-key global-map (kbd "C-c n c") 'company-complete)
 (define-key global-map (kbd "C-c n b") #'my-switch-to-org-roam-buffer)
@@ -144,34 +152,7 @@ command-history
 
 (--map (seq-length it) ["\"" "\\\"" "\\\\\""])
 
-(defun my-text-bounded-by (regx)
-  (buffer-substring
-   (save-excursion
-     (or (and (re-search-backward
-               regx nil t)
-              (progn
-                (forward-char)
-                (point)))
-         (progn (beginning-of-buffer) (point))))
-   (save-excursion
-     (or (and (re-search-forward
-               regx nil t)
-              (progn
-                (backward-char)
-                (point)))
-         (progn (end-of-buffer) (point))))))
 
-(defconst my-regx-special-word
-  (rx (not (any alphanumeric
-                "-_.:/"))))
-
-(defun my-copy-special-word ()
-  (interactive)
-  (let* ((tx (my-text-bounded-by my-regx-special-word)))
-    (message "copied: %s" tx)
-    (kill-new tx)))
-(--filter (string-match-p "use-package" it)
-          load-path)
 
 
 
