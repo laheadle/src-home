@@ -1,4 +1,69 @@
+<<<<<<< HEAD
 
+=======
+(buffer-file-name (get-buffer "Never be hungry again"))
+(defun my-indirect-buffer-on-node (node)
+  (let* ((marker (org-roam-node-marker node))
+         (buf (marker-buffer marker)))
+    (with-current-buffer buf
+      (goto-char marker)
+      (with-current-buffer (clone-indirect-buffer (org-roam-node-title node)
+                                                  nil)
+        (org-narrow-to-subtree)))))
+(my-indirect-buffer-on-node (org-roam-node-from-title-or-alias "You do not poop enough"))
+(defun my-indirect-buffer-on-node-at-point ()
+  (my-indirect-buffer-on-node (org-roam-node-at-point)))
+
+(org-roam-db-map-nodes)
+
+(setq org-indirect-buffer-display 'new-frame)
+(defun my-indirect-buffer-on-all-nodes-in-buffer (&optional buf)
+  (with-current-buffer (or buf (current-buffer))
+    (org-roam-db-map-nodes 
+     (list 'my-indirect-buffer-on-node-at-point))))
+
+(let ((buf (-> (org-roam-node-from-title-or-alias "My Diet")
+               (org-roam-node-marker)
+               (marker-buffer))))
+  (my-indirect-buffer-on-all-nodes-in-buffer buf))
+
+
+(let ((buf (-> (org-roam-node-from-title-or-alias "My Diet")
+               (org-roam-node-marker)
+               (marker-buffer))))
+  buf)
+
+(let ((buf (-> (org-roam-node-from-title-or-alias "My Diet")
+               (org-roam-node-marker)
+               (marker-buffer))))
+  (with-current-buffer buf
+    (cl-flet ((my-collect () (message "n %s" (org-roam-node-at-point))))
+      (org-roam-db-map-nodes 
+       (list #'my-collect)))))
+
+(lexical-let* ((my-collect (lambda ()
+                             (message "n %s" (org-roam-node-at-point)))))
+  (funcall #'my-collect))
+(cl-flet ((my-collect () (message "n %s" (org-roam-node-at-point))))
+  (funcall #'my-collect))
+
+(lexical-let* ((my-collect (lambda ()
+                             (message "n %s" (org-roam-node-at-point)))))
+  (org-roam-db-map-nodes 
+   (list #'my-collect)))
+
+(equal (vector 12 3)
+       (vector 12 3))
+(equal (vector 12 3)
+       [12 3])
+bookmark-alist
+
+(with-current-buffer (car (org-roam-buffer-list))
+  (org-roam-node-at-point))
+
+(defvar my-databases `(,org-roam-directory "~/doc/data/a-media-system"))
+()
+>>>>>>> origin/main
 (defun my-element-context-property-names ()
   (interactive)
   (if-let* ((node (org-element-context))
@@ -26,6 +91,7 @@ display-buffer-alist
   (incf h1-count))
 
 #'incf
+
 (combine-and-quote-strings ["a" 'b])
 '(#(1 2))
 command-history
