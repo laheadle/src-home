@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 
-=======
 (buffer-file-name (get-buffer "Never be hungry again"))
 (defun my-indirect-buffer-on-node (node)
   (let* ((marker (org-roam-node-marker node))
@@ -63,7 +61,6 @@ bookmark-alist
 
 (defvar my-databases `(,org-roam-directory "~/doc/data/a-media-system"))
 ()
->>>>>>> origin/main
 (defun my-element-context-property-names ()
   (interactive)
   (if-let* ((node (org-element-context))
