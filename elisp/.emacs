@@ -152,10 +152,8 @@ With a `C-u` ARG, just jump to the headline."
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
-(setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
-(add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
-
 (use-package swiper)
+
 (use-package counsel
   :bind (("C-b" . ivy-switch-buffer)
          ("C-s" . swiper))
@@ -184,6 +182,8 @@ With a `C-u` ARG, just jump to the headline."
     (global-set-key (kbd "C-c k") 'counsel-ag)
                                         ;    (global-set-key (kbd "C-x l") 'counsel-locate)
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
+(setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
+(add-to-list 'ivy-highlight-functions-alist '(orderless-ivy-re-builder . orderless-ivy-highlight))
 
 (use-package hydra)
 
