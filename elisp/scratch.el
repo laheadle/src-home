@@ -1,5 +1,70 @@
 (with-current-buffer (car (org-roam-buffer-list))
-  (org-element-parse-buffer))
+  (org-get-tags))
+
+(defun my-debugger (&rest debugger-args)
+  (message "BACKTRACE: %s"
+           (with-temp-buffer
+             (let ((standard-output (current-buffer)))
+               (backtrace)
+               (buffer-string)))))
+(let ((debugger #'my-debugger))
+  (org-roam-db-sync t))
+
+(setq debug-on-error t)
+
+(defun my-org-roam-db-update-file (&optional file-path no-require)
+  "Update Org-roam cache for FILE-PATH.
+
+If the file does not exist anymore, remove it from the cache.
+
+If the file exists, update the cache with information.
+
+If NO-REQUIRE, don't require optional libraries. Set NO-REQUIRE
+when the libraries are already required at some toplevel, e.g.
+in `org-roam-db-sync'."
+  (setq file-path (or file-path (buffer-file-name (buffer-base-buffer))))
+  (let ((content-hash (org-roam-db--file-hash file-path))
+        (db-hash (caar (org-roam-db-query [:select hash :from files
+                                                   :where (= file $s1)] file-path)))
+        info)
+    (org-roam-with-file file-path nil
+      (emacsql-with-transaction (org-roam-db)
+        (org-with-wide-buffer
+         (org-set-regexps-and-options 'tags-only)
+         (org-refresh-category-properties)
+         (org-roam-db-clear-file)
+         (org-roam-db-insert-file)
+         (org-roam-db-insert-file-node)
+         (setq org-outline-path-cache nil)
+         (org-roam-db-map-nodes
+          (list #'org-roam-db-insert-node-data
+                #'org-roam-db-insert-aliases
+                #'org-roam-db-insert-tags
+                #'org-roam-db-insert-refs))
+         (setq org-outline-path-cache nil)
+         (setq info (org-element-parse-buffer))
+         (org-roam-db-map-links
+          (list #'org-roam-db-insert-link))
+         (when (fboundp 'org-cite-insert)
+           (require 'oc)                ;ensure feature is loaded
+           (org-roam-db-map-citations
+            info
+            (list #'org-roam-db-insert-citation))))))))
+
+(with-current-buffer (car (org-roam-buffer-list))
+  (my-org-roam-db-update-file))
+
+(with-current-buffer (car (org-roam-buffer-list))
+  (my-this-headline-has-attachment))
+
+(defun my-element-context-property-names ()
+  (interactive)
+  (if-let* ((node (org-element-context))
+            (type (car node))
+            (properties (cadr node))
+            (keys (-slice properties 0 nil 2)))
+      (message "%s: %s" type keys)
+    node))
 
 (with-current-buffer (car (org-roam-buffer-list))
   (org-roam-node-at-point))
@@ -67,14 +132,7 @@ bookmark-alist
 
 (defvar my-databases `(,org-roam-directory "~/doc/data/a-media-system"))
 ()
-(defun my-element-context-property-names ()
-  (interactive)
-  (if-let* ((node (org-element-context))
-            (type (car node))
-            (properties (cadr node))
-            (keys (-slice properties 0 nil 2)))
-      (message "%s: %s" type keys)
-    node))
+
 
 (define-key global-map (kbd "C-c n c") 'company-complete)
 (define-key global-map (kbd "C-c n b") #'my-switch-to-org-roam-buffer)

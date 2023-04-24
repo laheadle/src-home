@@ -1,14 +1,22 @@
+;; If a headline has tags, and all of them belonged to this set, then it is not a node
+(defvar my-roam-node-disqualifying-tags '("ATTACH" "CANCELLED"))
+
+(defun my-node-is-good-node ()
+  (let* ((tags (org-get-tags)))
+    (or (not tags)
+        (--filter (not (member it my-roam-node-disqualifying-tags))
+                  tags))))
+
+(setq org-roam-db-node-include-function 'my-node-is-good-node)
+
 ;; remove?
 (setq org-roam-v2-ack t)
 
 (defun my-org-roam-buffer-title (buffer)
   (with-current-buffer buffer
    (org-with-point-at 1
-     (let ((n (org-roam-node-at-point)))
-       (if n
-           (org-roam-node-title n)
-         (or (buffer-file-name buffer)
-             "*No title detected*"))))))
+     (when-let ((n (org-roam-node-at-point)))
+       (org-roam-node-title n)))))
 
 (defun my-read-org-roam-buffer ()
   (let* ((candidates (--map
@@ -26,11 +34,13 @@
 ;; I am using this
 (defun my-rename-org-roam-file-buffer ()
   (when (org-roam-file-p)
-    (rename-buffer (my-org-roam-buffer-title (current-buffer)))))
+    (when-let ((title (my-org-roam-buffer-title (current-buffer))))
+      (rename-buffer title))))
 
 (add-hook 'find-file-hook 'my-rename-org-roam-file-buffer)
 
 (use-package org-roam
+  :demand t
   :custom (org-roam-directory (concat org-directory "/roam"))
   :config (progn (setq org-roam-dailies-directory "daily/")
                  (setq org-roam-dailies-capture-templates
@@ -39,11 +49,8 @@
                           :target (file+head "%<%Y-%m-%d>.org"
                                              "#+title: %<%Y-%m-%d>\n")))))
   :bind (:map global-map
-              (("C-c n f" . org-roam-node-find)
-               ("C-c n b" . my-switch-to-org-roam-buffer)
-               ("C-c n c" . company-complete))
-              :map org-mode-map
-              (("C-c n l" . org-roam-buffer-toggle)
+              (("C-c n c" . company-complete)
+               ("C-c n l" . org-roam-buffer-toggle)
                ("C-c n f" . org-roam-node-find)
                ("C-c n d" . org-id-get-create)
                ("C-c n i" . org-roam-node-insert)
