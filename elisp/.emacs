@@ -396,7 +396,7 @@ is already narrowed."
   (interactive)
   (kill-new default-directory))
 
-(global-auto-revert-mode nil)
+(global-auto-revert-mode 1)
 
 (setq dired-guess-shell-alist-user
       (list
@@ -1270,8 +1270,7 @@ boundaries of the current start and end tag , or nil."
 (bind-key "M-h" 'avy-goto-word-1 org-mode-map)
 (bind-key "M-z" 'ace-jump-char-mode org-mode-map)
 
-(add-to-list 'load-path (concat l-elisp-home "lib/org-ml"))
-(require 'org-ml)
+(use-package org-ml :pin "melpa")
 
 (fset 'l-update-efforts-subtree
    (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("q" 0 "%d")) arg)))
