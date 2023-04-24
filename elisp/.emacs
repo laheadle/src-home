@@ -153,11 +153,14 @@ With a `C-u` ARG, just jump to the headline."
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package swiper)
+(defun my-ivy-mode ()
+  (message "my ivy mode")
+  (ivy-mode 1))
 
 (use-package counsel
   :bind (("C-b" . ivy-switch-buffer)
          ("C-s" . swiper))
-  :config (ivy-mode 1)
+  :config (my-ivy-mode)
   :init
   (progn
     (ido-mode -1) ;; Turn off ido mode in case I enabled it accidentally

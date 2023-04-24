@@ -1,4 +1,11 @@
+(with-current-buffer (car (org-roam-buffer-list))
+  (org-element-parse-buffer))
 
+(with-current-buffer (car (org-roam-buffer-list))
+  (org-roam-node-at-point))
+
+
+(remove-hook 'find-file-hook #'l-turn-on-visual-line-mode)
 (buffer-file-name (get-buffer "Never be hungry again"))
 (defun my-indirect-buffer-on-node (node)
   (let* ((marker (org-roam-node-marker node))
@@ -56,8 +63,7 @@
        [12 3])
 bookmark-alist
 
-(with-current-buffer (car (org-roam-buffer-list))
-  (org-roam-node-at-point))
+
 
 (defvar my-databases `(,org-roam-directory "~/doc/data/a-media-system"))
 ()
@@ -245,6 +251,10 @@ Check `*lsp-install*' and `*lsp-log*' buffer."
        (done nil (error-message-string err))))))
 (pcase '(1 2)
   (`(,one ,two) 12))
+(pcase '(1 . 2)
+  (`(,one . ,two) 12))
+(pcase '(1 . 2)
+  (`(,one . ,two) one))
 (pcase 2
   ('2 4))
 (pcase 2
@@ -258,6 +268,9 @@ Check `*lsp-install*' and `*lsp-log*' buffer."
 (pcase 2
   (1 2)
   ((pred (equal 2)) 4))
+(pcase 2
+  ((pred (> 1)) 3)
+  ((pred (< 1)) 4))
 
 
 (insert (s-join "\n" (my-buffer-lines)))

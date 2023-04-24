@@ -79,28 +79,7 @@
       `(("p" "Permanent Note" plain "%?"
          :if-new (file+head "${slug}.org"
                             "#+title: ${title}\n")
-         :unnarrowed t)
-
-        ("f" "Fleeting Note" plain "%?"
-         :if-new (file+head "fleeting/%<%Y%m%d-%H%M%S>.org"
-                            "#+TITLE: %<%Y%m%d-%H%M%S>--${title}\n")
-         :unnarrowed t)
-
-        ("t" "Time Note" plain "%?"
-         :if-new (file+head "fleeting/%(my/initiate-org-roam-time-note).org"
-                            "#+TITLE: %(eval my/*time-note-last-time*)--${title}
-
-[[tsl:%(eval my/*time-note-last-time*)]]
-
-")
-         :unnarrowed t)
-
-        ("l" "Literature Note" plain "%?"
-         :if-new (file+head "literature/${slug}.org"
-                            "#+TITLE: ${title}
-#+ROAM_KEY: ${ref}")
-         :unnarrowed t)
-        ))
+         :unnarrowed t)))
 
 ;; (setq org-roam-tag-sources '(prop all-directories))
 
