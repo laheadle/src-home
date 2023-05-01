@@ -48,17 +48,8 @@
                           "* %?"
                           :target (file+head "%<%Y-%m-%d>.org"
                                              "#+title: %<%Y-%m-%d>\n")))))
-  :bind (:map global-map
-              (("C-c n c" . company-complete)
-               ("C-c n l" . org-roam-buffer-toggle)
-               ("C-c n f" . org-roam-node-find)
-               ("C-c n d" . org-id-get-create)
-               ("C-c n i" . org-roam-node-insert)
-               ("C-c n r" . org-roam-refile)
-               ("C-c n b" . my-switch-to-org-roam-buffer)
-               ("C-c n t" . org-roam-dailies-capture-today)
-               ("C-c n g" . org-roam-dailies-goto-date)
-               ("C-c n w" . my-org-copy-text-under-heading))))
+  :bind (:map org-mode-map
+              (("C-c n a" . org-roam-tag-add))))
 
 (org-roam-db-autosync-mode)
 

@@ -498,10 +498,6 @@ directory to make multiple eshell windows easier."
 
 (bind-key "C-!" 'eshell-here)
 
-(defun eshell/x ()
-  (delete-window)
-  (eshell/exit))
-
 (use-package smartparens :pin "melpa")
 (require 'smartparens-config)
 
@@ -1363,3 +1359,15 @@ boundaries of the current start and end tag , or nil."
 
 (global-set-key (kbd "C-S-l") 'my-horizontal-recenter)
 
+
+
+(bind-key "C-c n b" 'my-switch-to-org-roam-buffer global-map)
+(bind-key "C-c n c" 'company-complete global-map)
+(bind-key "C-c n d" 'org-id-get-create global-map)
+(bind-key "C-c n g" 'org-roam-dailies-goto-date global-map)
+(bind-key "C-c n i" 'org-roam-node-insert global-map)
+(bind-key "C-c n l" 'org-roam-buffer-toggle global-map)
+(bind-key "C-c n r" 'org-roam-refile global-map)
+(bind-key "C-c n t" 'org-roam-dailies-capture-today global-map)
+(bind-key "C-c n f" 'org-roam-node-find global-map)
+(bind-key "C-c n w" 'my-org-copy-text-under-heading global-map)
