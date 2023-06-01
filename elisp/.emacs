@@ -171,18 +171,6 @@ With a `C-u` ARG, just jump to the headline."
     (setq enable-recursive-minibuffers t)
     (setq counsel-rg-base-command
           "rg -M 180 --no-heading --line-number --color never %s .")
-    (global-set-key (kbd "C-c C-r") 'ivy-resume)
-    (global-set-key (kbd "<f6>") 'ivy-resume)
-    (global-set-key (kbd "M-x") 'counsel-M-x)
-    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-    (global-set-key (kbd "<f1> l") 'counsel-find-library)
-    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-    (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-    (global-set-key (kbd "C-r") 'counsel-git)
-    (global-set-key (kbd "C-c j") 'counsel-git-grep)
-    (global-set-key (kbd "C-c k") 'counsel-ag)
                                         ;    (global-set-key (kbd "C-x l") 'counsel-locate)
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
 (setq ivy-re-builders-alist '((t . orderless-ivy-re-builder)))
@@ -476,7 +464,6 @@ is already narrowed."
   (interactive)
   (kill-buffer (current-buffer)))
 
-(bind-key "C-x k" 'l-kill-this-buffer global-map)
 
 (defun eshell-here ()
   "Opens up a new shell in the directory associated with the
@@ -896,7 +883,6 @@ boundaries of the current start and end tag , or nil."
                         nsuffix)))
     (find-file nfile)))
 
-(bind-key "C-x d" 'l-switch-to-partner-file global-map)
 
 (use-package tide :pin "melpa"
   :init (progn
@@ -1287,18 +1273,25 @@ boundaries of the current start and end tag , or nil."
 
 (use-package ox-reveal :pin "melpa")
 
-(bind-key "C-M-z" 'comment-or-uncomment-region)
+(defun my-go-and-clock-in ()
+  (interactive)
+  (progn (org-clock-goto) (org-clock-in)))
+
+(defun my-go-and-clock-out ()
+  (interactive)
+  (progn (org-clock-goto) (org-clock-out)))
 
 (defhydra my-main-hydra (:color red)
   ("e" l-org-new-line-at-end "new line at end" :column "Org")
+  ("n" my-go-and-clock-in "clock in" :column "Org")
+  ("u" my-go-and-clock-out "clock out" :column "Org")
   ("q" counsel-rg "rip grep" :column "MISC")
   ("s" isearch-forward "isearch-forward")
   ("b" isearch-backward "isearch-backward")
   ("i" l-copy-current-directory "l-copy-current-directory")
   ("r" josh/org-refile-hydra/body "josh/refile")
-  ("w" my-work-tasks/body "work tasks" :exit t))
+  ("w" my-work-tasks/body "work tasks" :color blue))
 
-(bind-key "C-1" 'my-main-hydra/body)
 
 ;; If you don’t want to use MELPA recipes at all (e.g. if you’re using
 ;; Quelpa mainly to install packages not in MELPA)
@@ -1371,3 +1364,19 @@ boundaries of the current start and end tag , or nil."
 (bind-key "C-c n t" 'org-roam-dailies-capture-today global-map)
 (bind-key "C-c n f" 'org-roam-node-find global-map)
 (bind-key "C-c n w" 'my-org-copy-text-under-heading global-map)
+(bind-key "C-1" 'my-main-hydra/body)
+(bind-key "C-M-z" 'comment-or-uncomment-region)
+(bind-key "C-x k" 'l-kill-this-buffer global-map)
+(bind-key "C-x d" 'l-switch-to-partner-file global-map)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "<f6>") 'ivy-resume)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(define-key global-map [remap execute-extended-command] 'counsel-M-x)
+(global-set-key (kbd "C-c k") 'counsel-ag)
+(global-set-key (kbd "C-c j") 'counsel-git-grep)
+(global-set-key (kbd "C-r") 'counsel-git)
+(global-set-key (kbd "<f1> l") 'counsel-find-library)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
