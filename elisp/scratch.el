@@ -1,3 +1,15 @@
+
+(defun my-directory-status (dir)
+  (interactive)
+  (find-file dir) (magit-status))
+
+("y" (lambda () (interactive) (my-directory-status (get-register ?a))))
+
+(get-register ?a)
+(set-register ?a default-directory)
+
+(lambda (interactive) (switch-to-first-matching-buffer "agenda"))
+
 (with-current-buffer (car (org-roam-buffer-list))
   (org-get-tags))
 

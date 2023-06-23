@@ -1275,22 +1275,51 @@ boundaries of the current start and end tag , or nil."
 
 (defun my-go-and-clock-in ()
   (interactive)
-  (progn (org-clock-goto) (org-clock-in)))
+  (progn (org-clock-goto) (org-clock-in) (previous-buffer)))
 
 (defun my-go-and-clock-out ()
   (interactive)
   (progn (org-clock-goto) (org-clock-out)))
 
-(defhydra my-main-hydra (:color red)
+(defun switch-to-first-matching-buffer (str)
+  (when-let ((lst (--filter (s-matches? str (buffer-name it))
+                            (buffer-list))))
+    (switch-to-buffer (car lst))))
+
+;; next: 3
+(defhydra my-main-hydra (:color red :foreign-keys run)
+  ("h" avy-goto-word-1 "jump to word" :column "Move")
+  ("a" avy-goto-char "jump to char" :column "Move")
+  ("d" backward-word "backward word " :column "Move")
+  ("f" forward-word "forward word" :column "Move")
+  ("l" outline-up-heading "up heading" :column "Move")
+  ("z" (lambda () (interactive) (set-mark-command 2)) "back to previous mark" :column "Move")
+  ("v" scroll-up-command "scroll up")
+  ("c" scroll-down-command "scroll down")
+  ("t" recenter-top-bottom "recenter-top-bottom")
+  ("j" counsel-recentf "find recent files" :column "File/Buffer")
+  ("<" previous-buffer "previous buffer")
+  ("p" ivy-switch-buffer "switch buffer")
+  (">" next-buffer "next buffer")
+  ("j" counsel-recentf "find recent files")
+  ("g" org-forward-heading-same-level "forward heading" :column "Org")
+  ("x" (lambda () (interactive) (switch-to-first-matching-buffer "org agenda")) "agenda" :column "Org")
+  ("k" org-backward-heading-same-level "backward heading" :column "Org")
+  ("m" org-roam-buffer-toggle "roam buffer toggle" :column "Org")
+  ("o" org-roam-node-find "roam node find" :column "Org")
   ("e" l-org-new-line-at-end "new line at end" :column "Org")
   ("n" my-go-and-clock-in "clock in" :column "Org")
   ("u" my-go-and-clock-out "clock out" :column "Org")
   ("q" counsel-rg "rip grep" :column "MISC")
+  ("3" kill-ring-save "copy" :column "MISC")
   ("s" isearch-forward "isearch-forward")
+  ("2" (lambda () (interactive) (message "exit")) "exit" :exit t)
   ("b" isearch-backward "isearch-backward")
   ("i" l-copy-current-directory "l-copy-current-directory")
+  ("y" magit-status "git status")
   ("r" josh/org-refile-hydra/body "josh/refile")
   ("w" my-work-tasks/body "work tasks" :color blue))
+
 
 
 ;; If you don’t want to use MELPA recipes at all (e.g. if you’re using
