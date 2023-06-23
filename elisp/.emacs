@@ -1286,13 +1286,14 @@ boundaries of the current start and end tag , or nil."
                             (buffer-list))))
     (switch-to-buffer (car lst))))
 
-;; next: 3
+;; next: 6
 (defhydra my-main-hydra (:color red :foreign-keys run)
   ("h" avy-goto-word-1 "jump to word" :column "Move")
   ("a" avy-goto-char "jump to char" :column "Move")
   ("d" backward-word "backward word " :column "Move")
   ("f" forward-word "forward word" :column "Move")
   ("l" outline-up-heading "up heading" :column "Move")
+  ("4" move-end-of-line "end of line" :column "Move")
   ("z" (lambda () (interactive) (set-mark-command 2)) "back to previous mark" :column "Move")
   ("v" scroll-up-command "scroll up")
   ("c" scroll-down-command "scroll down")
@@ -1312,6 +1313,7 @@ boundaries of the current start and end tag , or nil."
   ("u" my-go-and-clock-out "clock out" :column "Org")
   ("q" counsel-rg "rip grep" :column "MISC")
   ("3" kill-ring-save "copy" :column "MISC")
+  ("5" set-mark-command "set mark" :column "MISC")
   ("s" isearch-forward "isearch-forward")
   ("2" (lambda () (interactive) (message "exit")) "exit" :exit t)
   ("b" isearch-backward "isearch-backward")
