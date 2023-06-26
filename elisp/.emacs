@@ -1286,7 +1286,7 @@ boundaries of the current start and end tag , or nil."
                             (buffer-list))))
     (switch-to-buffer (car lst))))
 
-;; next: 6
+;; next: 7
 (defhydra my-main-hydra (:color red :foreign-keys run)
   ("h" avy-goto-word-1 "jump to word" :column "Move")
   ("a" avy-goto-char "jump to char" :column "Move")
@@ -1298,7 +1298,8 @@ boundaries of the current start and end tag , or nil."
   ("v" scroll-up-command "scroll up")
   ("c" scroll-down-command "scroll down")
   ("t" recenter-top-bottom "recenter-top-bottom")
-  ("j" counsel-recentf "find recent files" :column "File/Buffer")
+  ("j" counsel-recentf "find recent files" :column "File/Buffer/Window")
+  ("6" other-window "other-window" :column "File/Buffer/Window")
   ("<" previous-buffer "previous buffer")
   ("p" ivy-switch-buffer "switch buffer")
   (">" next-buffer "next buffer")
@@ -1319,7 +1320,7 @@ boundaries of the current start and end tag , or nil."
   ("b" isearch-backward "isearch-backward")
   ("i" l-copy-current-directory "l-copy-current-directory")
   ("y" magit-status "git status")
-  ("r" josh/org-refile-hydra/body "josh/refile")
+  ("r" (lambda () (interactive) (message "unused!") "unused!"))
   ("w" my-work-tasks/body "work tasks" :color blue))
 
 
