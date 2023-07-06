@@ -1272,6 +1272,8 @@ boundaries of the current start and end tag , or nil."
 (global-set-key (kbd "C-x C-k 1") 'my-save-link-to-note)
 
 (use-package ox-reveal :pin "melpa")
+(use-package json-mode :pin "melpa")
+(use-package restclient :pin "melpa")
 
 (defun my-go-and-clock-in ()
   (interactive)
@@ -1286,42 +1288,41 @@ boundaries of the current start and end tag , or nil."
                             (buffer-list))))
     (switch-to-buffer (car lst))))
 
-;; next: 7
+;; next: r, then 7
 (defhydra my-main-hydra (:color red :foreign-keys run)
-  ("h" avy-goto-word-1 "jump to word" :column "Move")
-  ("a" avy-goto-char "jump to char" :column "Move")
-  ("d" backward-word "backward word " :column "Move")
-  ("f" forward-word "forward word" :column "Move")
-  ("l" outline-up-heading "up heading" :column "Move")
-  ("4" move-end-of-line "end of line" :column "Move")
-  ("z" (lambda () (interactive) (set-mark-command 2)) "back to previous mark" :column "Move")
-  ("v" scroll-up-command "scroll up")
-  ("c" scroll-down-command "scroll down")
-  ("t" recenter-top-bottom "recenter-top-bottom")
-  ("j" counsel-recentf "find recent files" :column "File/Buffer/Window")
-  ("6" other-window "other-window" :column "File/Buffer/Window")
-  ("<" previous-buffer "previous buffer")
-  ("p" ivy-switch-buffer "switch buffer")
-  (">" next-buffer "next buffer")
-  ("j" counsel-recentf "find recent files")
-  ("g" org-forward-heading-same-level "forward heading" :column "Org")
-  ("x" (lambda () (interactive) (switch-to-first-matching-buffer "org agenda")) "agenda" :column "Org")
-  ("k" org-backward-heading-same-level "backward heading" :column "Org")
-  ("m" org-roam-buffer-toggle "roam buffer toggle" :column "Org")
-  ("o" org-roam-node-find "roam node find" :column "Org")
-  ("e" l-org-new-line-at-end "new line at end" :column "Org")
-  ("n" my-go-and-clock-in "clock in" :column "Org")
-  ("u" my-go-and-clock-out "clock out" :column "Org")
-  ("q" counsel-rg "rip grep" :column "MISC")
-  ("3" kill-ring-save "copy" :column "MISC")
-  ("5" set-mark-command "set mark" :column "MISC")
-  ("s" isearch-forward "isearch-forward")
+  ("j" counsel-recentf "counsel-recentf" :column "File/Buffer/Window")
+  ("6" other-window "other-window")
+  ("<" previous-buffer "previous-buffer")
+  ("p" ivy-switch-buffer "ivy-switch-buffer")
+  (">" next-buffer nil)
+  ("h" avy-goto-word-1 "avy-goto-word-1" :column "Move")
+  ("a" avy-goto-char "avy-goto-char")
+  ("d" backward-word "backward-word")
+  ("f" forward-word nil)
+  ("4" move-end-of-line "move-end-of-line")
+  ("z" (lambda () (interactive) (set-mark-command 2)) "back to previous mark")
+  ("v" scroll-up-command nil)
+  ("c" scroll-down-command nil)
+  ("t" recenter-top-bottom nil)
+  ("q" counsel-rg nil :column "MISC")
+  ("3" kill-ring-save "kill-ring-save")
+  ("5" set-mark-command "set-mark-command")
+  ("s" swiper nil)
   ("2" (lambda () (interactive) (message "exit")) "exit" :exit t)
   ("b" isearch-backward "isearch-backward")
   ("i" l-copy-current-directory "l-copy-current-directory")
-  ("y" magit-status "git status")
-  ("r" (lambda () (interactive) (message "unused!") "unused!"))
-  ("w" my-work-tasks/body "work tasks" :color blue))
+  ("y" magit-status "magit-status")
+  ("r" (lambda () (interactive) (message "unused!")) nil)
+  ("w" my-work-tasks/body nil :color blue)
+  ("g" org-forward-heading-same-level "org-forward-heading-same-level" :column "Org-Move")
+  ("l" outline-up-heading "outline-up-heading")
+  ("k" org-backward-heading-same-level "org-backward-heading-same-level")
+  ("m" org-roam-buffer-toggle "org-roam-buffer-toggle" :column "Org-Misc")
+  ("x" (lambda () (interactive) (switch-to-first-matching-buffer "org agenda")) nil)
+  ("o" org-roam-node-find "org-roam-node-find")
+  ("e" l-org-new-line-at-end nil)
+  ("n" my-go-and-clock-in "my-go-and-clock-in")
+  ("u" my-go-and-clock-out "my-go-and-clock-out"))
 
 
 
@@ -1350,15 +1351,18 @@ boundaries of the current start and end tag , or nil."
              "bookmark+-doc.el"
              "bookmark+-chg.el"))))
 
-(unless (package-installed-p 'org-transclusion)
-  (quelpa '(org-transclusion
-            :url "git@github.com:nobiot/org-transclusion.git"
-            :branch "dev/detach"
-            :fetcher git)))
+;; Leaving this here in case I want to remember how to use quelpa
+
+;; (unless (package-installed-p 'org-transclusion)
+;;   (quelpa '(org-transclusion
+;;             :url "git@github.com:nobiot/org-transclusion.git"
+;;             :branch "dev/detach"
+;;             :fetcher git)))
 
 (let ((use-package-always-ensure nil))
-  (use-package org-transclusion)
   (use-package bookmark+))
+
+(use-package org-transclusion)
 
 ;; The face must be defined: hl-line, because other highlight faces inherit it
 (require 'hl-line)
@@ -1382,6 +1386,7 @@ boundaries of the current start and end tag , or nil."
         (set-window-hscroll (selected-window)
                             (- cur mid)))))
 
+(use-package jq-mode)
 (global-set-key (kbd "C-S-l") 'my-horizontal-recenter)
 
 
