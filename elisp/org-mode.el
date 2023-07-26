@@ -299,7 +299,7 @@
 selected task.  If no task is selected set the Organization task
 as the default task."
   (interactive "p")
-  (setq bh/keep-clock-running t)
+  (setq bh/keep-clock-running nil)
   (if (equal major-mode 'org-agenda-mode)
       ;;
       ;; We're in the agenda
