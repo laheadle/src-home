@@ -116,8 +116,8 @@
                             (org-super-agenda-groups
                              '((:name "A" :priority "A" :order 300)
                                (:discard (:anything t))))))
-                (agenda "" ((org-super-agenda-groups
-                             '((:discard (:priority "A"))))))
+                (agenda ""
+                        ())
                 (tags-todo "-DONE-CANCELLED-HOLD/!"
                            ((org-agenda-overriding-header "Master Plan")
                             (org-agenda-todo-ignore-deadlines t)
@@ -132,13 +132,9 @@
                                (:name "F: This Year 2021" :priority "F" :order 1000)
                                (:name "G: These two Years: 2021-2" :priority "G" :order 1100)
                                (:discard (:anything t))))))
-                (tags-todo "-DONE-CANCELLED-HOLD/!"
-                           ((org-agenda-overriding-header "Far Deadliness")
-                            (org-agenda-todo-ignore-deadlines 'near)
-                            (org-agenda-todo-ignore-scheduled t)
-                            (org-super-agenda-groups
-                             '((:deadline t)
-                               (:discard (:anything t))))))))
+                (agenda ""
+                           ((org-agenda-overriding-header "later deadlines")
+                            (org-deadline-warning-days 120)))))
               ("zx" "Master Plan 2" 
                ((agenda "" nil)
                 (tags-todo "/!+TODO|+NEXT"
