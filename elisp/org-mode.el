@@ -105,10 +105,9 @@
 ;; Custom agenda command definitions
 (setq org-agenda-custom-commands
       (quote (("g" "Goals"
-               ((tags "TODO=\"GOAL\"" nil)
-                (tags "GOALS-TODO=\"GOAL\""
-                      ((org-tags-match-list-sublevels nil)))
-                ))
+               ((agenda ""
+                        ((org-agenda-overriding-header "later deadlines")
+                         (org-deadline-warning-days (* 2 365))))))
               ("x" "Master Plan" 
                ((tags-todo "-DONE-CANCELLED-HOLD/!"
                            ((org-agenda-overriding-header "Priorities")
