@@ -747,6 +747,8 @@ boundaries of the current start and end tag , or nil."
 
 (use-package rainbow-delimiters)
 
+(add-to-list 'load-path (concat l-elisp-home "lib/cider-storm"))
+(require 'cider-storm)
 
 (use-package cider :pin "melpa-stable"
   :defer t
@@ -1405,6 +1407,7 @@ boundaries of the current start and end tag , or nil."
 (bind-key "C-M-z" 'comment-or-uncomment-region)
 (bind-key "C-x k" 'l-kill-this-buffer global-map)
 (bind-key "C-x d" 'l-switch-to-partner-file global-map)
+(bind-key "C-x C-s" 'l-org-save-all-code-buffers)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "<f6>") 'ivy-resume)
 (global-set-key (kbd "<f2> u") 'counsel-unicode-char)

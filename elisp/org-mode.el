@@ -731,14 +731,15 @@ Callers of this function already widen the buffer view."
 (defun l-org-save-all-code-buffers ()
   "Save all code buffers without user confirmation."
   (interactive)
+  (save-buffer)
   (save-some-buffers t)
   (when (featurep 'org-id) (org-id-locations-save)))
 
-(if (version< emacs-version "27")
-    (add-hook 'focus-out-hook 'l-org-save-all-code-buffers)
-  (setq after-focus-change-function 'l-org-save-all-code-buffers))
+;; (if (version< emacs-version "27")
+;;     (add-hook 'focus-out-hook 'l-org-save-all-code-buffers)
+;;   (setq after-focus-change-function 'l-org-save-all-code-buffers))
 
-(run-with-timer 6 6 #'l-org-save-all-code-buffers)
+;; (run-with-timer 6 6 #'l-org-save-all-code-buffers)
 
 (defun my-org-copy-text-under-heading ()
   (interactive)

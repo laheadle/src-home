@@ -14,6 +14,7 @@
  '(package-selected-packages
    '(json-mode restclient jq-mode org-ml orderless typescript-mode org-transclusion bookmark+ quelpa-use-package quelpa org-jira hydra counsel swiper transient exec-path-from-shell which-key free-keys ht dash org-contrib use-package))
  '(undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+ '(use-file-dialog nil)
  '(visible-bell t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

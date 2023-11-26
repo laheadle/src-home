@@ -100,7 +100,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
   ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
   (setq org-capture-templates
         (quote (("t" "todo" entry (file+olp "~/doc/org/1/family.org" "Misc-Family")
-                 "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
+                 "* NEXT [#B] %?\n%U\n%a\n" :clock-in t :clock-resume t)
                 ("v" "Event" entry (file+olp "~/doc/org/1/family.org" "Events")
                  "* %? :EVENT:\n%U\n")
                  ("p" "Protocol" entry (file "~/doc/org/1/non-agenda/web-notes.org")
@@ -160,6 +160,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
   (set-family-misc))
 
 (defun set-mywork-context ()
+  (interactive)
   (set-mywork-refiles)
   (set-mywork-agenda-files)
   (set-mywork-misc))
@@ -172,5 +173,6 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
     (set-mywork-context))
   (message "%s" l-org-context))
 
+(set-mywork-context)
 (set-family-context)
 ;; (bind-key "o" #'l-switch-org-context my-map)
