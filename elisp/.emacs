@@ -1259,14 +1259,6 @@ boundaries of the current start and end tag , or nil."
 
 (use-package org-ml :pin "melpa")
 
-(fset 'l-update-efforts-subtree
-   (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("q" 0 "%d")) arg)))
-
-(defun lsc ()
-  (interactive)
-  (l-update-efforts-subtree)
-  (org-entry-put (point) "COMMITTED_EFFORT" (org-entry-get (point) "EFFORT")))
-
 (load (concat l-elisp-home "lib/my-org-roam.el"))
 
 (fset 'my-save-link-to-note

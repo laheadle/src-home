@@ -104,140 +104,24 @@
 
 ;; Custom agenda command definitions
 (setq org-agenda-custom-commands
-      (quote (("g" "Goals"
+      (quote (("za" "agenda 1"
+               ((agenda ""
+                        ((org-deadline-warning-days 1)))))
+              ("zb" "agenda 7"
+               ((agenda ""
+                        ((org-deadline-warning-days 7)))))
+              ("zx" "Effort - manually adjust endpoint. Schedule starting points" 
+               ((tags-todo "+LEVEL>=2+DEADLINE>=\"<today>\"+DEADLINE<=\"<+28d>\""
+                           ((org-agenda-files '("~/doc/org/1/family.org"))
+                            (org-agenda-overriding-header "estimation")
+                            (org-agenda-sorting-strategy '((tags deadline-up)))))))
+              ("g" "Goals"
                ((agenda ""
                         ((org-agenda-overriding-header "later deadlines")
                          (org-deadline-warning-days (* 2 365))))))
-              ("x" "Master Plan" 
-               ((tags-todo "-DONE-CANCELLED-HOLD/!"
-                           ((org-agenda-overriding-header "Priorities")
-                            (org-agenda-todo-ignore-deadlines 'far)
-                            (org-super-agenda-groups
-                             '((:name "A" :priority "A" :order 300)
-                               (:discard (:anything t))))))
-                (agenda ""
-                        ())
-                (tags-todo "-DONE-CANCELLED-HOLD/!"
-                           ((org-agenda-overriding-header "Master Plan")
-                            (org-agenda-todo-ignore-deadlines t)
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-todo-ignore-scheduled t)
-                            (org-super-agenda-groups
-                             '((:todo "WAITING" :order 500)
-                               (:name "B: This week" :priority "B" :order 400)
-                               (:name "C: This month: Jan" :priority "C" :order 700)
-                               (:name "D: This quarter: Q1" :priority "D" :order 800)
-                               (:name "E: This half-year: Q1+Q2" :priority "E" :order 900)
-                               (:name "F: This Year 2021" :priority "F" :order 1000)
-                               (:name "G: These two Years: 2021-2" :priority "G" :order 1100)
-                               (:discard (:anything t))))))
-                (agenda ""
-                           ((org-agenda-overriding-header "later deadlines")
-                            (org-deadline-warning-days 120)))))
-              ("zx" "Master Plan 2" 
-               ((agenda "" nil)
-                (tags-todo "/!+TODO|+NEXT"
-                           ((org-agenda-overriding-header "Week")
-                            (org-agenda-todo-ignore-deadlines t)
-                            (org-super-agenda-groups
-                             '((:name "This week" :priority ("B"))
-                               (:discard (:anything t))))
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-todo-ignore-scheduled t)))
-                (tags-todo "/!+TODO|+NEXT"
-                           ((org-agenda-overriding-header "Month")
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-todo-ignore-deadlines t)
-                            (org-agenda-todo-ignore-scheduled t)
-                            (org-super-agenda-groups
-                             '((:name "This month" :priority ("C"))
-                               (:discard (:anything t))))))
-                (tags-todo "/!+TODO|+NEXT"
-                           ((org-agenda-overriding-header "Quarter")
-                            (org-agenda-todo-ignore-deadlines t)
-                            (org-super-agenda-groups
-                             '((:name "This quarter" :priority ("D"))
-                               (:discard (:anything t))))
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-todo-ignore-scheduled t)))
-                (tags-todo "/!+TODO|+NEXT"
-                           ((org-agenda-overriding-header "Half-Year")
-                            (org-agenda-todo-ignore-deadlines t)
-                            (org-super-agenda-groups
-                             '((:name "This half-year" :priority ("E"))
-                               (:discard (:anything t))))
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-todo-ignore-scheduled t)))
-                (tags-todo "/!+TODO|+NEXT"
-                           ((org-agenda-overriding-header "Year")
-                            (org-agenda-todo-ignore-deadlines t)
-                            (org-super-agenda-groups
-                             '((:name "This year" :priority ("F"))
-                               (:discard (:anything t))))
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-todo-ignore-scheduled t)))
-                (tags-todo "/!+TODO|+NEXT"
-                           ((org-agenda-overriding-header "Year")
-                            (org-agenda-todo-ignore-deadlines t)
-                            (org-super-agenda-groups
-                             '((:name "These two years" :priority ("G"))
-                               (:discard (:anything t))))
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-todo-ignore-scheduled t)))))
-              ("zw" "This Week" 
-               ((tags-todo "/!+TODO|+NEXT"
-                           ((org-agenda-overriding-header "Week")
-                            (org-agenda-todo-ignore-deadlines t)
-                            (org-super-agenda-groups
-                             '((:name "This week" :priority ("A" "B"))
-                               (:discard (:anything t))))
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-todo-ignore-scheduled t)))))
-              ("zm" "This Month" 
-               ((tags-todo "/!+TODO|+NEXT"
-                           ((org-agenda-overriding-header "Month")
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-todo-ignore-deadlines t)
-                            (org-agenda-todo-ignore-scheduled t)
-                            (org-super-agenda-groups
-                             '((:name "This month" :priority ("A" "B" "C"))
-                               (:discard (:anything t))))))))
-              ("zq" "This Quarter" 
-               ((tags-todo "/!+TODO|+NEXT"
-                           ((org-agenda-overriding-header "Quarter")
-                            (org-agenda-todo-ignore-deadlines t)
-                            (org-super-agenda-groups
-                             '((:name "This quarter" :priority ("A" "B" "C" "D"))
-                               (:discard (:anything t))))
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-todo-ignore-scheduled t)))))
-              ("zh" "This Half-year" 
-               ((tags-todo "/!+TODO|+NEXT"
-                           ((org-agenda-overriding-header "Half-Year")
-                            (org-agenda-todo-ignore-deadlines t)
-                            (org-super-agenda-groups
-                             '((:name "This half-year" :priority ("A" "B" "C" "D" "E"))
-                               (:discard (:anything t))))
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-todo-ignore-scheduled t)))))
-              ("zy" "This Year" 
-               ((tags-todo "/!+TODO|+NEXT"
-                           ((org-agenda-overriding-header "Year")
-                            (org-agenda-todo-ignore-deadlines t)
-                            (org-super-agenda-groups
-                             '((:name "This Year" :priority ("A" "B" "C" "D" "E" "F"))
-                               (:discard (:anything t))))
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-todo-ignore-scheduled t)))))
-              ("zt" "The Next Two Years" 
-               ((tags-todo "/!+TODO|+NEXT"
-                           ((org-agenda-overriding-header "Two Years")
-                            (org-agenda-todo-ignore-deadlines t)
-                            (org-super-agenda-groups
-                             '((:name "The Next Two Years" :priority ("A" "B" "C" "D" "E" "F" "G"))
-                               (:discard (:anything t))))
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-todo-ignore-scheduled t)))))
+              ("b" "agenda 31"
+               ((agenda ""
+                        ((org-deadline-warning-days 31)))))
               ("za" "Archivable"
                ((agenda "" nil)
                 (tags "-REFILE/"
@@ -391,11 +275,11 @@ A prefix arg forces clock in of the default task."
 
 ; Set default column view headings
 (setq org-columns-default-format
-      "%65ITEM(Task) %5PRIORITY(PR) %10committed_effort(Commit){:} %10EFFORT(Effort){:} %10CLOCKSUM{:}")
+      "%70ITEM(Task) %15EFFORT(Effort){:} %15CLOCKSUM{:}")
 
 ; global Effort estimate values
 ; global STYLE property values for completion
-(setq org-global-properties (quote (("Effort_ALL" . "0:07 0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 0:00")
+(setq org-global-properties (quote (("Effort_ALL" . "0:07 0:15 0:30 0:45 1:00 2:00 3:00 4:00 5:00 6:00")
                                     ("STYLE_ALL" . "habit"))))
 
 ;; Agenda log mode items to display (closed and state changes by default)
@@ -739,17 +623,17 @@ Callers of this function already widen the buffer view."
 ;;     (add-hook 'focus-out-hook 'l-org-save-all-code-buffers)
 ;;   (setq after-focus-change-function 'l-org-save-all-code-buffers))
 
-;; (run-with-timer 6 6 #'l-org-save-all-code-buffers)
+(run-with-timer 600 600 #'l-org-save-all-code-buffers)
 
 (defun my-org-copy-text-under-heading ()
   (interactive)
-;; Select the current Org subtree
+  ;; Select the current Org subtree
   (org-mark-subtree)
-;; Deselect the heading line
+  ;; Deselect the heading line
   (next-line 1)
-;; Copy the current region
+  ;; Copy the current region
   (kill-ring-save
    (region-beginning)
    (region-end))
-;; Deselect the region after copying
+  ;; Deselect the region after copying
   (deactivate-mark))
