@@ -110,24 +110,41 @@
               ("zb" "agenda 7"
                ((agenda ""
                         ((org-deadline-warning-days 7)))))
-              ("zx" "Effort - manually adjust endpoint. Schedule starting points" 
-               ((tags-todo "+LEVEL>=2+DEADLINE>=\"<today>\"+DEADLINE<=\"<+28d>\""
+              ("zc" "agenda 7 (week span)"
+               ((agenda ""
+                        ((org-agenda-span 'week)
+                         (org-deadline-warning-days 7)))))
+              ("zd" "prioritize and plan, look at the future" 
+               ((tags "LEVEL=2-DEADLINE={.}-SCHEDULED={.}"
+                      ((org-agenda-files '("~/doc/org/1/family.org"))
+                       (org-agenda-overriding-header "no deadline yet")))))
+              ("ze" "Effort - manually adjust endpoint. Schedule starting points" 
+               ((tags-todo "+LEVEL>=2+DEADLINE>=\"<2023-12-01>\"+DEADLINE<=\"<2023-12-31>\""
+                 ((org-agenda-files '("~/doc/org/1/family.org"))
+                  (org-agenda-overriding-header "estimation")
+                  (org-agenda-sorting-strategy '((tags deadline-up)))))))
+              ("zf" "Effort - done and remaining" 
+               ((tags "TODO={.}+LEVEL>=2+DEADLINE>=\"<2023-12-01>\"+DEADLINE<=\"<2023-12-31>\""
                            ((org-agenda-files '("~/doc/org/1/family.org"))
-                            (org-agenda-overriding-header "estimation")
+                            (org-agenda-overriding-header "Effort - done and remaining")
                             (org-agenda-sorting-strategy '((tags deadline-up)))))))
+              ("zg" "Archivable"
+               ((tags "-REFILE/+LEVEL=2"
+                      ((org-agenda-overriding-header "Tasks to Archive")
+                       (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
+                       (org-tags-match-list-sublevels nil)))))
+              ("zh" "Next Month: Effort - manually adjust endpoint. Schedule starting points" 
+               ((tags-todo "+LEVEL>=2+DEADLINE>=\"<2024-01-01>\"+DEADLINE<=\"<2024-01-31>\""
+                 ((org-agenda-files '("~/doc/org/1/family.org"))
+                  (org-agenda-overriding-header "estimation")
+                  (org-agenda-sorting-strategy '((tags deadline-up)))))))
               ("g" "Goals"
                ((agenda ""
                         ((org-agenda-overriding-header "later deadlines")
                          (org-deadline-warning-days (* 2 365))))))
               ("b" "agenda 31"
                ((agenda ""
-                        ((org-deadline-warning-days 31)))))
-              ("za" "Archivable"
-               ((agenda "" nil)
-                (tags "-REFILE/"
-                      ((org-agenda-overriding-header "Tasks to Archive")
-                       (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
-                       (org-tags-match-list-sublevels nil))))))))
+                        ((org-deadline-warning-days 31))))))))
 
 (defun org-current-is-todo ()
   (or (string= "TODO" (org-get-todo-state))
@@ -275,7 +292,7 @@ A prefix arg forces clock in of the default task."
 
 ; Set default column view headings
 (setq org-columns-default-format
-      "%70ITEM(Task) %15EFFORT(Effort){:} %15CLOCKSUM{:}")
+      "%60ITEM(Task) %15EFFORT(Effort){:} %15CLOCKSUM{:} %10TODO(Status)")
 
 ; global Effort estimate values
 ; global STYLE property values for completion
@@ -615,7 +632,7 @@ Callers of this function already widen the buffer view."
 (defun l-org-save-all-code-buffers ()
   "Save all code buffers without user confirmation."
   (interactive)
-  (save-buffer)
+  (message "saving....")
   (save-some-buffers t)
   (when (featurep 'org-id) (org-id-locations-save)))
 
@@ -623,7 +640,10 @@ Callers of this function already widen the buffer view."
 ;;     (add-hook 'focus-out-hook 'l-org-save-all-code-buffers)
 ;;   (setq after-focus-change-function 'l-org-save-all-code-buffers))
 
-(run-with-timer 600 600 #'l-org-save-all-code-buffers)
+(defvar l-save-files-timer
+  (run-with-timer 200 200 'l-org-save-all-code-buffers))
+
+;; (cancel-timer l-save-files-timer)
 
 (defun my-org-copy-text-under-heading ()
   (interactive)
