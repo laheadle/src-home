@@ -102,49 +102,56 @@
 ;; Compact the block agenda view
 (setq org-agenda-compact-blocks t)
 
+(defvar work-files '("~/doc/org/1/family.org" "~/doc/org/1/quasi-job.org"))
+
 ;; Custom agenda command definitions
 (setq org-agenda-custom-commands
-      (quote (("za" "agenda 1"
-               ((agenda ""
-                        ((org-deadline-warning-days 1)))))
-              ("zb" "agenda 7"
-               ((agenda ""
-                        ((org-deadline-warning-days 7)))))
-              ("zc" "agenda 7 (week span)"
-               ((agenda ""
-                        ((org-agenda-span 'week)
-                         (org-deadline-warning-days 7)))))
-              ("zd" "prioritize and plan, look at the future" 
-               ((tags "LEVEL=2-DEADLINE={.}-SCHEDULED={.}"
-                      ((org-agenda-files '("~/doc/org/1/family.org"))
-                       (org-agenda-overriding-header "no deadline yet")))))
-              ("ze" "Effort - manually adjust endpoint. Schedule starting points" 
-               ((tags-todo "+LEVEL>=2+DEADLINE>=\"<2023-12-01>\"+DEADLINE<=\"<2023-12-31>\""
-                 ((org-agenda-files '("~/doc/org/1/family.org"))
-                  (org-agenda-overriding-header "estimation")
-                  (org-agenda-sorting-strategy '((tags deadline-up)))))))
-              ("zf" "Effort - done and remaining" 
-               ((tags "TODO={.}+LEVEL>=2+DEADLINE>=\"<2023-12-01>\"+DEADLINE<=\"<2023-12-31>\""
-                           ((org-agenda-files '("~/doc/org/1/family.org"))
-                            (org-agenda-overriding-header "Effort - done and remaining")
-                            (org-agenda-sorting-strategy '((tags deadline-up)))))))
-              ("zg" "Archivable"
-               ((tags "-REFILE/+LEVEL=2"
-                      ((org-agenda-overriding-header "Tasks to Archive")
-                       (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
-                       (org-tags-match-list-sublevels nil)))))
-              ("zh" "Next Month: Effort - manually adjust endpoint. Schedule starting points" 
-               ((tags-todo "+LEVEL>=2+DEADLINE>=\"<2024-01-01>\"+DEADLINE<=\"<2024-01-31>\""
-                 ((org-agenda-files '("~/doc/org/1/family.org"))
-                  (org-agenda-overriding-header "estimation")
-                  (org-agenda-sorting-strategy '((tags deadline-up)))))))
-              ("g" "Goals"
-               ((agenda ""
-                        ((org-agenda-overriding-header "later deadlines")
-                         (org-deadline-warning-days (* 2 365))))))
-              ("b" "agenda 31"
-               ((agenda ""
-                        ((org-deadline-warning-days 31))))))))
+      `(("za" "agenda 1"
+        ((agenda ""
+                 ((org-deadline-warning-days 1)))))
+       ("zb" "agenda 7"
+        ((agenda ""
+                 ((org-deadline-warning-days 7)))))
+       ("zc" "agenda 7 (week span)"
+        ((agenda ""
+                 ((org-agenda-span 'week)
+                  (org-deadline-warning-days 7)))))
+       ("zd" "prioritize and plan, look at the future" 
+        ((tags "LEVEL=2-DEADLINE={.}-SCHEDULED={.}"
+               ((org-agenda-files ',work-files)
+                (org-agenda-overriding-header "no deadline yet")))))
+       ("ze" "Remaining Effort - manually adjust endpoint. Schedule starting points" 
+        ((tags-todo "+LEVEL>=2+DEADLINE>=\"<2024-01-01>\"+DEADLINE<=\"<2024-01-31>\""
+                    ((org-agenda-files ',work-files)
+                     (org-agenda-overriding-header "Remaining Effort")
+                     (org-agenda-sorting-strategy '((tags deadline-up)))))))
+       ("zf" "Effort - done and remaining" 
+        ((tags "TODO={.}+LEVEL>=2+DEADLINE>=\"<2024-01-01>\"+DEADLINE<=\"<2024-01-31>\""
+               ((org-agenda-files ',work-files)
+                (org-agenda-overriding-header "Effort - done and remaining")
+                (org-agenda-sorting-strategy '((scheduled-down)))))))
+       ("zg" "Archivable"
+        ((tags "-REFILE/+LEVEL=2"
+               ((org-agenda-overriding-header "Tasks to Archive")
+                (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
+                (org-tags-match-list-sublevels nil)))))
+       ("zh" "Next Month: Effort - manually adjust endpoint. Schedule starting points" 
+        ((tags-todo "+LEVEL>=2+DEADLINE>=\"<2024-02-01>\"+DEADLINE<=\"<2024-02-29>\""
+                    ((org-agenda-files ',work-files)
+                     (org-agenda-overriding-header "estimation")
+                     (org-agenda-sorting-strategy '((tags deadline-up)))))))
+       ("zi" "last Month" 
+        ((tags "TODO={.}+LEVEL>=2+DEADLINE>=\"<2023-12-01>\"+DEADLINE<=\"<2023-12-31>\""
+               ((org-agenda-files ',work-files)
+                (org-agenda-overriding-header "estimation")
+                (org-agenda-sorting-strategy '((tags deadline-up)))))))
+       ("g" "Goals"
+        ((agenda ""
+                 ((org-agenda-overriding-header "later deadlines")
+                  (org-deadline-warning-days (* 2 365))))))
+       ("b" "agenda 31"
+        ((agenda ""
+                 ((org-deadline-warning-days 31)))))))
 
 (defun org-current-is-todo ()
   (or (string= "TODO" (org-get-todo-state))
@@ -292,7 +299,7 @@ A prefix arg forces clock in of the default task."
 
 ; Set default column view headings
 (setq org-columns-default-format
-      "%60ITEM(Task) %15EFFORT(Effort){:} %15CLOCKSUM{:} %10TODO(Status)")
+      "%60ITEM(Task) %7EFFORT(Effort){:} %7CLKSUM{:} %10TODO(Status) %16SCHEDULED")
 
 ; global Effort estimate values
 ; global STYLE property values for completion

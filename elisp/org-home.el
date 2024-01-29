@@ -99,12 +99,12 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
   ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
   (setq org-capture-templates
-        (quote (("t" "todo" entry (file+olp "~/doc/org/1/family.org" "Misc-Family")
-                 "* NEXT [#B] %?\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("v" "todo. add deadline." entry (file+olp "~/doc/org/1/family.org" "Misc-Family")
+        (quote (("t" "scheduled todo" entry (file+olp "~/doc/org/1/family.org" "Misc-Family")
+                 "* NEXT %?\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t)
+                ("u" "todo" entry (file+olp "~/doc/org/1/family.org" "Misc-Family")
                  "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
-                 ("p" "Protocol" entry (file "~/doc/org/1/non-agenda/web-notes.org")
-                  "* %u %:annotation\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+                ("b" "#b todo" entry (file+olp "~/doc/org/1/family.org" "Misc-Family")
+                 "* NEXT [#B] %?\n%U\n%a\n" :clock-in t :clock-resume t)
                 ("m" "Meeting" entry (file "~/doc/org/1/refile.org")
                  "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-keep t))))
 
