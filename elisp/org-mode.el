@@ -116,7 +116,7 @@
         ((agenda ""
                  ((org-agenda-span 'week)
                   (org-deadline-warning-days 7)))))
-       ("zd" "prioritize and plan, look at the future" 
+       ("zd" "prioritize and plan, look at the future (these have no schedule or deadline)" 
         ((tags "LEVEL=2-DEADLINE={.}-SCHEDULED={.}"
                ((org-agenda-files ',work-files)
                 (org-agenda-overriding-header "no deadline yet")))))
@@ -594,7 +594,7 @@ A prefix arg forces clock in of the default task."
 
 (require 'org-habit)
 
-(setq org-agenda-clockreport-parameter-plist '(:link t :maxlevel 3))
+(setq org-agenda-clockreport-parameter-plist '(:link t :maxlevel 4 :narrow 60))
 
 (setq org-stuck-projects'("/!TODO" ("NEXT") () "SCHEDULED:\\|DEADLINE:"))
 

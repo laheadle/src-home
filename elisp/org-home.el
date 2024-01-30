@@ -105,7 +105,7 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
                  "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
                 ("b" "#b todo" entry (file+olp "~/doc/org/1/family.org" "Misc-Family")
                  "* NEXT [#B] %?\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("m" "Meeting" entry (file "~/doc/org/1/refile.org")
+                ("m" "Meeting" entry (file "~/doc/org/1/family.org")
                  "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-keep t))))
 
   (setq org-global-properties (quote (("Effort_ALL" . "0:07 0:15 0:30 1:00 2:00 4:00 6:00 10:00 16:00 0:00")
