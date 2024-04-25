@@ -116,32 +116,32 @@
         ((agenda ""
                  ((org-agenda-span 'week)
                   (org-deadline-warning-days 7)))))
-       ("zd" "prioritize and plan, look at the future (these have no schedule or deadline)" 
-        ((tags "LEVEL=2-DEADLINE={.}-SCHEDULED={.}"
+       ("zd" "prioritize and plan, look at the future (these have no schedule or deadline, are not done)" 
+        ((tags "LEVEL=2-TODO={MEETING}-TODO={DONE}-DEADLINE={.}-SCHEDULED={.}"
                ((org-agenda-files ',work-files)
                 (org-agenda-overriding-header "no deadline yet")))))
        ("ze" "Remaining Effort - manually adjust endpoint. Schedule starting points" 
-        ((tags-todo "+LEVEL>=2+DEADLINE>=\"<2024-01-01>\"+DEADLINE<=\"<2024-01-31>\""
+        ((tags-todo "+LEVEL>=2+DEADLINE>=\"<2024-03-01>\"+DEADLINE<=\"<2024-03-31>\""
                     ((org-agenda-files ',work-files)
                      (org-agenda-overriding-header "Remaining Effort")
                      (org-agenda-sorting-strategy '((tags deadline-up)))))))
        ("zf" "Effort - done and remaining" 
-        ((tags "TODO={.}+LEVEL>=2+DEADLINE>=\"<2024-01-01>\"+DEADLINE<=\"<2024-01-31>\""
+        ((tags "TODO={.}+LEVEL>=2+DEADLINE>=\"<2024-03-01>\"+DEADLINE<=\"<2024-03-31>\""
                ((org-agenda-files ',work-files)
                 (org-agenda-overriding-header "Effort - done and remaining")
                 (org-agenda-sorting-strategy '((scheduled-down)))))))
        ("zg" "Archivable"
-        ((tags "-REFILE/+LEVEL=2"
+        ((tags "+LEVEL=2"
                ((org-agenda-overriding-header "Tasks to Archive")
                 (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
                 (org-tags-match-list-sublevels nil)))))
        ("zh" "Next Month: Effort - manually adjust endpoint. Schedule starting points" 
-        ((tags-todo "+LEVEL>=2+DEADLINE>=\"<2024-02-01>\"+DEADLINE<=\"<2024-02-29>\""
+        ((tags-todo "+LEVEL>=2+DEADLINE>=\"<2024-04-01>\"+DEADLINE<=\"<2024-04-30>\""
                     ((org-agenda-files ',work-files)
                      (org-agenda-overriding-header "estimation")
                      (org-agenda-sorting-strategy '((tags deadline-up)))))))
        ("zi" "last Month" 
-        ((tags "TODO={.}+LEVEL>=2+DEADLINE>=\"<2023-12-01>\"+DEADLINE<=\"<2023-12-31>\""
+        ((tags "TODO={.}+LEVEL>=2+DEADLINE>=\"<2023-02-01>\"+DEADLINE<=\"<2023-02-29>\""
                ((org-agenda-files ',work-files)
                 (org-agenda-overriding-header "estimation")
                 (org-agenda-sorting-strategy '((tags deadline-up)))))))

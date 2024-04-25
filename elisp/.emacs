@@ -372,11 +372,12 @@ is already narrowed."
 (setq make-backup-files nil)
 
 (defun l-backups ()
-  (shell-command "backups.sh&"))
+  (shell-command "s3-backups.sh&"))
 
-(defvar one-hour (* 60 60))
 
-(run-with-timer one-hour (* 24 one-hour) 'l-backups)
+;; (defvar one-hour (* 60 60))
+
+;; (run-with-timer one-hour (* 24 one-hour) 'l-backups)
 
 (ffap-bindings)
 (setq ffap-require-prefix t)
@@ -747,10 +748,7 @@ boundaries of the current start and end tag , or nil."
 
 (use-package rainbow-delimiters)
 
-(add-to-list 'load-path (concat l-elisp-home "lib/cider-storm"))
-(require 'cider-storm)
-
-(use-package cider :pin "melpa-stable"
+(use-package cider :pin "melpa"
   :defer t
   :config
   (setq cider-repl-history-file (expand-file-name "~/.emacs.d/cider-history"))
@@ -766,7 +764,11 @@ boundaries of the current start and end tag , or nil."
   (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
   ;; (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
   )
-(use-package clj-refactor)
+
+(add-to-list 'load-path (concat l-elisp-home "lib/cider-storm"))
+
+(require 'cider-storm)
+(use-package clj-refactor :pin "melpa")
 
 (defun my-cider-history-hook ()
   (lispy-mode -1))
@@ -775,7 +777,7 @@ boundaries of the current start and end tag , or nil."
 (use-package zprint-mode :pin "melpa")
 
 (defun my-clojure-mode-hook ()
-  ;; (clj-refactor-mode 1)
+  (clj-refactor-mode 1)
   ;; (zprint-mode 1)
   (hs-minor-mode 1)
   (rainbow-delimiters-mode)
@@ -783,6 +785,7 @@ boundaries of the current start and end tag , or nil."
                                         ; for adding require/use/import statements
   ;; This choice of keybinding leaves cider-macroexpand-1 unbound
   (cljr-add-keybindings-with-prefix "C-c C-m")
+  (setq cljr-warn-on-eval nil)
   (lsp)
   (which-key-mode)
   (company-mode)
@@ -976,47 +979,7 @@ boundaries of the current start and end tag , or nil."
 (setq yas-snippet-dirs (list (concat l-elisp-home "snippets")))
 (yas-global-mode 1)
 
-(use-package multiple-cursors
-  :config
-  (progn
-    ;; This is globally useful, so it goes under `C-x', and `m'
-    ;; for "multiple-cursors" is easy to remember.
-    (define-key ctl-x-map "\C-m" #'mc/mark-all-dwim)
-
-    ;; Remember `er/expand-region' is bound to M-2!
-    (global-set-key (kbd "M-3") #'mc/mark-next-like-this)
-    (global-set-key (kbd "M-4") #'mc/mark-previous-like-this)
-
-    ;; These vary between keyboards. They're supposed to be
-    ;; Shifted versions of the two above.
-    (global-set-key (kbd "M-#") #'mc/unmark-next-like-this)
-    (global-set-key (kbd "M-$") #'mc/unmark-previous-like-this)
-
-    (define-prefix-command 'endless/mc-map)
-    ;; C-x m is usually `compose-mail'. Bind it to something
-    ;; else if you use this command.
-    (define-key ctl-x-map "m" 'endless/mc-map)
-
-    ;; Really really nice!
-    (define-key endless/mc-map "i" #'mc/insert-numbers)
-    (define-key endless/mc-map "h" #'mc-hide-unmatched-lines-mode)
-    (define-key endless/mc-map "a" #'mc/mark-all-like-this)
-
-    ;; Occasionally useful
-    (define-key endless/mc-map "d"
-      #'mc/mark-all-symbols-like-this-in-defun)
-    (define-key endless/mc-map "r" #'mc/reverse-regions)
-    (define-key endless/mc-map "s" #'mc/sort-regions)
-    (define-key endless/mc-map "l" #'mc/edit-lines)
-    (define-key endless/mc-map "\C-a"
-      #'mc/edit-beginnings-of-lines)
-    (define-key endless/mc-map "\C-e"
-      #'mc/edit-ends-of-lines)
-
-    ;; Usually, both `C-x C-m' and `C-x RET' invoke the
-    ;; `mule-keymap', but that's a waste of keys. Here we put it
-    ;; _just_ under `C-x RET'.
-    (define-key ctl-x-map (kbd "<return>") mule-keymap)))
+(use-package multiple-cursors)
 
 (defun remove-dos-eol ()
   "Do not show ^M in files containing mixed UNIX and DOS line endings."
@@ -1383,7 +1346,9 @@ boundaries of the current start and end tag , or nil."
 (use-package jq-mode)
 (global-set-key (kbd "C-S-l") 'my-horizontal-recenter)
 
-
+(midnight-mode)
+(midnight-delay-set 'midnight-delay 10800) ; 3am
+(add-hook 'midnight-hook 'l-backups)
 
 (bind-key "C-c n b" 'my-switch-to-org-roam-buffer global-map)
 (bind-key "C-c n c" 'company-complete global-map)
