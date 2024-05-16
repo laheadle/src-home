@@ -568,8 +568,8 @@ directory to make multiple eshell windows easier."
 
 
 
-(use-package git-gutter
-  :config (global-git-gutter-mode +1))
+;(use-package git-gutter
+;  :config (global-git-gutter-mode +1))
 
 (fset 'l-jump-to-repo-and-show-branches
    [?\C-e ?\C-a ?\C-  ?\C-e ?\M-w ?\C-u ?\C-c ?\C-w ?  ?\C-y return ?\C-. ?f ?a ?y])

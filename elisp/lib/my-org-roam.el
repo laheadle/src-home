@@ -39,6 +39,9 @@
 
 (add-hook 'find-file-hook 'my-rename-org-roam-file-buffer)
 
+(use-package emacsql-sqlite-builtin)
+
+(setq org-roam-database-connector 'sqlite-builtin)
 (use-package org-roam
   :demand t
   :custom (org-roam-directory (concat org-directory "/roam"))
