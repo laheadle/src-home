@@ -99,12 +99,12 @@ KEYANDHEADLINE should be a list of cons cells of the form (\"key\" . \"headline\
 
   ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
   (setq org-capture-templates
-        (quote (("t" "scheduled todo" entry (file+olp "~/doc/org/1/family.org" "Misc-Family")
+        (quote (("a" "work scheduled todo" entry (file+olp "~/doc/org/1/quasi-job.org" "Quasi-Job")
                  "* NEXT %?\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("u" "todo" entry (file+olp "~/doc/org/1/family.org" "Misc-Family")
+                ("b" "work todo" entry (file+olp "~/doc/org/1/quasi-job.org" "Quasi-Job")
                  "* NEXT %?\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("b" "#b todo" entry (file+olp "~/doc/org/1/family.org" "Misc-Family")
-                 "* NEXT [#B] %?\n%U\n%a\n" :clock-in t :clock-resume t)
+                ("t" "scheduled todo" entry (file+olp "~/doc/org/1/family.org" "Misc-Family")
+                 "* NEXT %?\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t)
                 ("m" "Meeting" entry (file "~/doc/org/1/family.org")
                  "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-keep t))))
 

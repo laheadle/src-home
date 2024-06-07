@@ -103,9 +103,58 @@
 (setq org-agenda-compact-blocks t)
 
 (defvar work-files '("~/doc/org/1/family.org" "~/doc/org/1/quasi-job.org"))
+(defvar qjob-files '("~/doc/org/1/quasi-job.org"))
+(defvar family-files '("~/doc/org/1/family.org"
+                       "~/doc/org/1/tickler.org"))
 
 ;; Custom agenda command definitions
 (setq org-agenda-custom-commands
+      `(("xa" "corporate goals this week" 
+         ((tags "TODO={.}+LEVEL>=2+DEADLINE=\"<2024-06-08>\""
+                ((org-agenda-files ',qjob-files)
+                 (org-agenda-overriding-header "goals this week")
+                 (org-agenda-sorting-strategy '((scheduled-down)))))))
+        ("xb" "corporate - prioritize and plan, look at the future (these have no schedule or deadline, are not done)" 
+         ((tags "LEVEL=2-TODO={MEETING}-TODO={DONE}-DEADLINE={.}-SCHEDULED={.}"
+                ((org-agenda-files ',qjob-files)
+                 (org-agenda-overriding-header "no deadline yet")))))
+        ("xc" "all corporate Goals"
+         ((agenda ""
+                  ((org-agenda-files ',qjob-files)
+                   (org-agenda-overriding-header "later deadlines")
+                   (org-deadline-warning-days (* 2 365))))))
+        ("xd" "corporate schedule"
+         ((agenda ""
+                  ((org-agenda-files ',qjob-files)
+                   (org-deadline-warning-days 31)))))
+        ("xe" "corporate goals last week" 
+         ((tags "TODO={.}+LEVEL>=2+DEADLINE=\"<2024-05-27>\""
+                ((org-agenda-files ',qjob-files)
+                 (org-agenda-overriding-header "goals this week")
+                 (org-agenda-sorting-strategy '((scheduled-down)))))))
+
+        
+        ("zd" "prioritize and plan, look at the future (these have no schedule or deadline, are not done)" 
+         ((tags "LEVEL=2-TODO={MEETING}-TODO={DONE}-DEADLINE={.}-SCHEDULED={.}"
+                ((org-agenda-files ',family-files)
+                 (org-agenda-overriding-header "no deadline yet")))))
+        ("zg" "Archivable"
+         ((tags "LEVEL=2"
+                ((org-agenda-overriding-header "Tasks to Archive")
+                 (org-agenda-files ',family-files)
+                 (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
+                 (org-tags-match-list-sublevels nil)))))
+        ("g" "Goals"
+         ((agenda ""
+                  ((org-agenda-files ',family-files)
+                   (org-agenda-overriding-header "later deadlines")
+                   (org-deadline-warning-days (* 2 365))))))
+        ("b" "agenda 31"
+         ((agenda ""
+                  ((org-agenda-files ',family-files)
+                   (org-deadline-warning-days 31)))))))
+
+(setq old-org-agenda-custom-commands
       `(("za" "agenda 1"
         ((agenda ""
                  ((org-deadline-warning-days 1)))))
@@ -116,6 +165,11 @@
         ((agenda ""
                  ((org-agenda-span 'week)
                   (org-deadline-warning-days 7)))))
+       ("xa" "corporate goals this week" 
+        ((tags "TODO={.}+LEVEL>=2+DEADLINE>=\"<2024-03-01>\"+DEADLINE<=\"<2024-03-31>\""
+               ((org-agenda-files ',work-files)
+                (org-agenda-overriding-header "Effort - done and remaining")
+                (org-agenda-sorting-strategy '((scheduled-down)))))))
        ("zd" "prioritize and plan, look at the future (these have no schedule or deadline, are not done)" 
         ((tags "LEVEL=2-TODO={MEETING}-TODO={DONE}-DEADLINE={.}-SCHEDULED={.}"
                ((org-agenda-files ',work-files)
