@@ -110,7 +110,7 @@
 ;; Custom agenda command definitions
 (setq org-agenda-custom-commands
       `(("xa" "corporate goals this week" 
-         ((tags "TODO={.}+LEVEL>=2+DEADLINE=\"<2024-06-08>\""
+         ((tags "TODO={.}+LEVEL>=2+DEADLINE=\"<2024-06-16>\""
                 ((org-agenda-files ',qjob-files)
                  (org-agenda-overriding-header "goals this week")
                  (org-agenda-sorting-strategy '((scheduled-down)))))))
@@ -128,7 +128,7 @@
                   ((org-agenda-files ',qjob-files)
                    (org-deadline-warning-days 31)))))
         ("xe" "corporate goals last week" 
-         ((tags "TODO={.}+LEVEL>=2+DEADLINE=\"<2024-05-27>\""
+         ((tags "TODO={.}+LEVEL>=2+DEADLINE=\"<2024-06-09>\""
                 ((org-agenda-files ',qjob-files)
                  (org-agenda-overriding-header "goals this week")
                  (org-agenda-sorting-strategy '((scheduled-down)))))))
