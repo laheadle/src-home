@@ -109,50 +109,43 @@
 
 ;; Custom agenda command definitions
 (setq org-agenda-custom-commands
-      `(("xa" "corporate goals this week" 
-         ((tags "TODO={.}+LEVEL>=2+DEADLINE=\"<2024-06-16>\""
-                ((org-agenda-files ',qjob-files)
-                 (org-agenda-overriding-header "goals this week")
-                 (org-agenda-sorting-strategy '((scheduled-down)))))))
-        ("xb" "corporate - prioritize and plan, look at the future (these have no schedule or deadline, are not done)" 
-         ((tags "LEVEL=2-TODO={MEETING}-TODO={DONE}-DEADLINE={.}-SCHEDULED={.}"
-                ((org-agenda-files ',qjob-files)
-                 (org-agenda-overriding-header "no deadline yet")))))
-        ("xc" "all corporate Goals"
+      `(("xa" "agenda 31"
          ((agenda ""
-                  ((org-agenda-files ',qjob-files)
+                  ((org-agenda-files ',family-files)
+                   (org-deadline-warning-days 31)))))
+        ("xb" "Goals"
+         ((agenda ""
+                  ((org-agenda-files ',family-files)
                    (org-agenda-overriding-header "later deadlines")
                    (org-deadline-warning-days (* 2 365))))))
-        ("xd" "corporate schedule"
-         ((agenda ""
-                  ((org-agenda-files ',qjob-files)
-                   (org-deadline-warning-days 31)))))
-        ("xe" "corporate goals last week" 
-         ((tags "TODO={.}+LEVEL>=2+DEADLINE=\"<2024-06-09>\""
-                ((org-agenda-files ',qjob-files)
-                 (org-agenda-overriding-header "goals this week")
-                 (org-agenda-sorting-strategy '((scheduled-down)))))))
-
-        
-        ("zd" "prioritize and plan, look at the future (these have no schedule or deadline, are not done)" 
-         ((tags "LEVEL=2-TODO={MEETING}-TODO={DONE}-DEADLINE={.}-SCHEDULED={.}"
+        ("xc" "prioritize and plan, look at the future (these have no schedule or deadline, are not done)" 
+         ((tags "LEVEL=2-TODO={MEETING}-TODO={CANCELLED}-TODO={DONE}-DEADLINE={.}-SCHEDULED={.}"
                 ((org-agenda-files ',family-files)
+                 (org-agenda-sorting-strategy '((priority-down)))
                  (org-agenda-overriding-header "no deadline yet")))))
-        ("zg" "Archivable"
+        ("xg" "Archivable"
          ((tags "LEVEL=2"
                 ((org-agenda-overriding-header "Tasks to Archive")
                  (org-agenda-files ',family-files)
                  (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
                  (org-tags-match-list-sublevels nil)))))
-        ("g" "Goals"
+        ("za" "corporate schedule 1w"
          ((agenda ""
-                  ((org-agenda-files ',family-files)
+                  ((org-agenda-files ',qjob-files)
+                   (org-deadline-warning-days 7)))))
+        ("zb" "corporate schedule 1mo"
+         ((agenda ""
+                  ((org-agenda-files ',qjob-files)
+                   (org-deadline-warning-days 31)))))
+        ("zc" "Main Timeline"
+         ((agenda ""
+                  ((org-agenda-files ',qjob-files)
                    (org-agenda-overriding-header "later deadlines")
                    (org-deadline-warning-days (* 2 365))))))
-        ("b" "agenda 31"
-         ((agenda ""
-                  ((org-agenda-files ',family-files)
-                   (org-deadline-warning-days 31)))))))
+        ("zd" "Backlog" 
+         ((tags "LEVEL=2-TODO={MEETING}-TODO={DONE}-DEADLINE={.}-SCHEDULED={.}"
+                ((org-agenda-files ',qjob-files)
+                 (org-agenda-overriding-header "no deadline yet")))))))
 
 (setq old-org-agenda-custom-commands
       `(("za" "agenda 1"
@@ -353,7 +346,7 @@ A prefix arg forces clock in of the default task."
 
 ; Set default column view headings
 (setq org-columns-default-format
-      "%60ITEM(Task) %7EFFORT(Effort){:} %7CLKSUM{:} %10TODO(Status) %16SCHEDULED")
+      "%60ITEM(Task) %7EFFORT(Effort){:} %7CLKSUM{:} %10TODO(Status) %20DEADLINE(Due)")
 
 ; global Effort estimate values
 ; global STYLE property values for completion
@@ -581,13 +574,7 @@ A prefix arg forces clock in of the default task."
 
 (setq org-tags-match-list-sublevels t)
 
-(setq org-agenda-persistent-filter t)
-
-(setq org-link-mailto-program (quote (compose-mail "%a" "%s")))
-
 (setq org-agenda-skip-additional-timestamps-same-entry t)
-
-(setq org-table-use-standard-references (quote from))
 
 (setq org-file-apps (quote ((auto-mode . emacs)
                             ("\\.mm\\'" . system)
@@ -695,6 +682,7 @@ Callers of this function already widen the buffer view."
   (interactive)
   (message "saving....")
   (save-some-buffers t)
+  (message "saving....done")
   (when (featurep 'org-id) (org-id-locations-save)))
 
 ;; (if (version< emacs-version "27")
@@ -702,9 +690,11 @@ Callers of this function already widen the buffer view."
 ;;   (setq after-focus-change-function 'l-org-save-all-code-buffers))
 
 (defvar l-save-files-timer
-  (run-with-timer 200 200 'l-org-save-all-code-buffers))
+  (run-with-timer 30 30 'l-org-save-all-code-buffers)) 
 
-;; (cancel-timer l-save-files-timer)
+(defun l-cancel-save-files-timer ()
+  (interactive)
+  (cancel-timer l-save-files-timer))
 
 (defun my-org-copy-text-under-heading ()
   (interactive)

@@ -372,7 +372,7 @@ is already narrowed."
 (setq make-backup-files nil)
 
 (defun l-backups ()
-  (shell-command "s3-backups.sh&"))
+  (shell-command "s3-backup.sh&"))
 
 
 ;; (defvar one-hour (* 60 60))
@@ -772,6 +772,7 @@ boundaries of the current start and end tag , or nil."
 
 (defun my-cider-history-hook ()
   (lispy-mode -1))
+
 (add-hook 'cider-repl-history-mode-hook #'my-cider-history-hook)
 
 (use-package zprint-mode :pin "melpa")
@@ -1343,6 +1344,10 @@ boundaries of the current start and end tag , or nil."
         (set-window-hscroll (selected-window)
                             (- cur mid)))))
 
+;; this is a global effect to solve an org-mode keybinding conflict. I hope I don't need semantic!
+(when (fboundp 'semantic-mode)
+  (semantic-mode -1))
+
 (use-package jq-mode)
 (global-set-key (kbd "C-S-l") 'my-horizontal-recenter)
 
@@ -1377,3 +1382,4 @@ boundaries of the current start and end tag , or nil."
 (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 (global-set-key (kbd "<f1> f") 'counsel-describe-function)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(bind-key "C-t" 'backward-char)
